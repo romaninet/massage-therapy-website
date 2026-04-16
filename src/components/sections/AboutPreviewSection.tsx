@@ -1,5 +1,6 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { BotanicalCornerTL, BotanicalDivider } from '@/components/BotanicalDecor';
 
 export default function AboutPreviewSection() {
@@ -37,18 +38,15 @@ export default function AboutPreviewSection() {
 
             {/* Decorative botanical pattern */}
             <div className="relative z-10 text-center px-8">
-              <div className="mb-6 text-white/20">
-                <svg viewBox="0 0 200 200" className="w-48 h-48 mx-auto" fill="none">
-                  {/* Lotus large */}
-                  <path d="M100 170 Q100 100 100 30 Q100 100 100 170Z" stroke="white" strokeWidth="2" fill="none" />
-                  <path d="M100 170 Q60 130 40 70 Q75 120 100 170Z" stroke="white" strokeWidth="2" fill="none" />
-                  <path d="M100 170 Q30 140 15 80 Q60 125 100 170Z" stroke="white" strokeWidth="1.5" fill="none" opacity="0.7" />
-                  <path d="M100 170 Q140 130 160 70 Q125 120 100 170Z" stroke="white" strokeWidth="2" fill="none" />
-                  <path d="M100 170 Q170 140 185 80 Q140 125 100 170Z" stroke="white" strokeWidth="1.5" fill="none" opacity="0.7" />
-                  {/* Swirl base */}
-                  <path d="M70 178 Q85 170 100 175 Q115 170 130 178" stroke="white" strokeWidth="1.5" fill="none" opacity="0.6" />
-                  <path d="M55 184 Q75 175 100 180 Q125 175 145 184" stroke="white" strokeWidth="1" fill="none" opacity="0.4" />
-                </svg>
+              <div className="mb-6">
+                <Image
+                  src="/images/logo.png"
+                  alt="Olha Shelest logo"
+                  width={400}
+                  height={400}
+                  className="mx-auto opacity-60 mix-blend-screen"
+                  style={{ filter: 'invert(1) brightness(3)' }}
+                />
               </div>
               <p className="font-heading text-white/50 italic text-base tracking-wide">
                 {locale === 'en'
