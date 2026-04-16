@@ -52,7 +52,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       </p>
                       <a
                         href="tel:+15064266818"
-                        className="font-heading text-forest text-xl hover:text-sage transition-colors"
+                        className="font-medium text-forest text-lg hover:text-sage transition-colors"
                       >
                         (506) 426-6818
                       </a>
@@ -69,7 +69,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       </p>
                       <a
                         href="mailto:olyashelest22@gmail.com"
-                        className="font-heading text-forest text-xl hover:text-sage transition-colors break-all"
+                        className="font-medium text-forest text-lg hover:text-sage transition-colors break-all"
                       >
                         olyashelest22@gmail.com
                       </a>
@@ -84,7 +84,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       <p className="text-xs font-medium tracking-widest uppercase text-forest/40 mb-1">
                         {t('address')}
                       </p>
-                      <p className="font-heading text-forest text-xl leading-snug">
+                      <p className="font-medium text-forest text-lg leading-snug">
                         514 Rue Jacques-Poulin<br />
                         Gatineau, QC J8P 5Z9
                       </p>
