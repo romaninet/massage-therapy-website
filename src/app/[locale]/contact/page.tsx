@@ -102,7 +102,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   style={{ border: 0 }}
                   loading="lazy"
                   allowFullScreen
-                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=514+Rue+Jacques-Poulin,+Gatineau,+QC"
+                  src="https://maps.google.com/maps?q=514+Rue+Jacques-Poulin,+Gatineau,+QC+J8P+5Z9&output=embed"
                 />
               </div>
             </div>
