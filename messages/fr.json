@@ -1,0 +1,161 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "fees": "Tarifs",
+    "contact": "Contact",
+    "bookNow": "Réserver"
+  },
+  "hero": {
+    "tagline": "Guérir. Restaurer. Renouveler.",
+    "subtitle": "Massothérapie professionnelle adaptée à votre corps et votre esprit, au cœur de Gatineau.",
+    "cta": "Réserver une séance",
+    "credential": "Massothérapeute agréée · Membre AMQ"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Des soins thérapeutiques soigneusement adaptés à votre bien-être",
+    "swedish": {
+      "title": "Massage suédois",
+      "description": "Un massage corps entier doux et fluide qui favorise la circulation, soulage les tensions musculaires et induit une relaxation profonde et réparatrice."
+    },
+    "deepTissue": {
+      "title": "Massage en profondeur",
+      "description": "Ciblant les couches profondes des muscles et des tissus conjonctifs pour libérer les tensions chroniques, traiter les douleurs et restaurer la mobilité."
+    },
+    "relaxation": {
+      "title": "Massage de relaxation",
+      "description": "Un soin apaisant et bienveillant conçu pour calmer le système nerveux, apaiser l'esprit et faire fondre le stress du quotidien."
+    },
+    "prenatal": {
+      "title": "Massage prénatal",
+      "description": "Des techniques spécialement adaptées pour accompagner les futures mamans tout au long de leur grossesse, soulageant l'inconfort et favorisant le bien-être."
+    }
+  },
+  "about": {
+    "preview": {
+      "title": "Rencontrez Olha Shelest",
+      "subtitle": "Massothérapeute agréée",
+      "bio": "Avec une profonde passion pour la guérison holistique et un engagement envers l'excellence, Olha apporte à la fois expertise et véritable attention à chaque soin — vous aidant à mieux bouger, vous sentir et vivre.",
+      "cta": "En savoir plus sur Olha"
+    },
+    "page": {
+      "title": "À propos d'Olha Shelest",
+      "subtitle": "Massothérapeute agréée · Gatineau, QC",
+      "bio1": "Olha Shelest est massothérapeute agréée basée à Gatineau, Québec. Avec une profonde passion pour la guérison holistique et un engagement indéfectible envers l'excellence, Olha apporte à la fois expertise et véritable attention à chaque traitement.",
+      "bio2": "Formée dans un large éventail de techniques thérapeutiques, Olha se spécialise dans l'aide aux clients pour surmonter la douleur, récupérer après une blessure, gérer le stress et atteindre une relaxation durable. Son approche est toujours personnalisée — chaque séance est soigneusement adaptée à vos besoins uniques et à vos objectifs de santé.",
+      "bio3": "Olha croit que la massothérapie est bien plus qu'un luxe. C'est une composante essentielle d'un mode de vie sain et équilibré. Que vous soyez un athlète cherchant une récupération plus rapide, une personne gérant une douleur chronique, ou simplement en besoin de relaxation profonde, Olha est là pour vous guider sur votre chemin vers le bien-être.",
+      "bio4": "Elle accueille des clients de tous horizons et adapte ses techniques au niveau de confort et aux objectifs thérapeutiques de chaque individu. Chaque visite est un pas vers un vous plus sain et plus équilibré.",
+      "amqTitle": "Membre inscrite à l'AMQ",
+      "amqText": "Olha est membre vérifiée de l'Association de Massothérapie du Québec (AMQ), inscription M-24-4471, assurant que sa pratique répond aux plus hauts standards professionnels et éthiques au Québec.",
+      "amqLink": "Vérifier l'adhésion",
+      "valuesTitle": "Mon approche",
+      "values": [
+        {
+          "title": "Soins personnalisés",
+          "description": "Chaque séance commence par une consultation approfondie pour comprendre vos objectifs, vos antécédents de santé et vos préférences."
+        },
+        {
+          "title": "Pratique fondée sur les données probantes",
+          "description": "Des techniques ancrées dans l'anatomie et la recherche actuelle, continuellement perfectionnées par le développement professionnel."
+        },
+        {
+          "title": "Sécuritaire et professionnel",
+          "description": "Un environnement confortable et respectueux où votre bien-être et votre confort sont toujours la priorité absolue."
+        }
+      ]
+    }
+  },
+  "fees": {
+    "title": "Tarifs et services",
+    "subtitle": "Des prix transparents pour des soins thérapeutiques de qualité",
+    "note": "Les prix sont en dollars canadiens (CAD). La facturation directe peut être disponible auprès de certains assureurs — veuillez nous contacter pour confirmer votre couverture avant votre rendez-vous.",
+    "services": [
+      { "duration": "30 min", "name": "Massage de relaxation", "price": "65 $" },
+      { "duration": "60 min", "name": "Massage suédois", "price": "100 $" },
+      { "duration": "60 min", "name": "Massage en profondeur", "price": "110 $" },
+      { "duration": "90 min", "name": "Massage suédois", "price": "140 $" },
+      { "duration": "90 min", "name": "Massage en profondeur", "price": "150 $" },
+      { "duration": "60 min", "name": "Massage prénatal", "price": "100 $" },
+      { "duration": "90 min", "name": "Massage prénatal", "price": "140 $" }
+    ],
+    "ctaTitle": "Prêt(e) à réserver?",
+    "ctaText": "Contactez Olha pour planifier votre rendez-vous.",
+    "ctaButton": "Nous contacter"
+  },
+  "contact": {
+    "title": "Nous contacter",
+    "subtitle": "Réservez votre séance ou posez vos questions — Olha sera ravie de vous entendre.",
+    "phone": "Téléphone",
+    "email": "Courriel",
+    "address": "Adresse",
+    "addressValue": "514 Rue Jacques-Poulin, Gatineau, QC J8P 5Z9",
+    "form": {
+      "title": "Envoyer un message",
+      "name": "Nom complet",
+      "namePlaceholder": "Votre nom complet",
+      "email": "Adresse courriel",
+      "emailPlaceholder": "votre@courriel.com",
+      "phone": "Numéro de téléphone",
+      "phonePlaceholder": "(facultatif)",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-nous de ce que vous recherchez, de vos préoccupations de santé ou de vos questions...",
+      "submit": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "success": "Merci! Votre message a été envoyé. Olha vous contactera sous peu.",
+      "error": "Quelque chose a mal tourné. Veuillez réessayer ou nous contacter directement par téléphone ou courriel."
+    }
+  },
+  "footer": {
+    "tagline": "Massothérapeute agréée",
+    "location": "Gatineau, QC",
+    "rights": "Tous droits réservés.",
+    "privacy": "Politique de confidentialité",
+    "nav": "Navigation",
+    "amqMember": "Membre AMQ"
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "subtitle": "Comment nous collectons, utilisons et protégeons vos renseignements personnels",
+    "lastUpdated": "Dernière mise à jour : avril 2025",
+    "sections": [
+      {
+        "title": "1. Informations que nous collectons",
+        "content": "Nous collectons les renseignements personnels que vous fournissez volontairement lorsque vous nous contactez via notre site web, incluant votre nom, adresse courriel, numéro de téléphone et le contenu de votre message. Nous pouvons également collecter automatiquement certaines informations techniques, telles que votre adresse IP et le type de navigateur, à des fins de sécurité et d'analyse."
+      },
+      {
+        "title": "2. Comment nous utilisons vos informations",
+        "content": "Nous utilisons les informations que vous fournissez uniquement pour répondre à vos demandes, planifier des rendez-vous et communiquer avec vous au sujet de nos services. Nous ne vendons pas, n'échangeons pas et ne transférons pas vos renseignements personnels à des tiers sans votre consentement, sauf si la loi l'exige."
+      },
+      {
+        "title": "3. Informations sur la santé",
+        "content": "Dans le cadre de la prestation de services de massothérapie, nous pouvons collecter des informations liées à la santé pour assurer votre sécurité et fournir des soins appropriés. Ces informations sont traitées avec la plus grande confidentialité et sont protégées conformément à la législation québécoise applicable en matière de protection de la vie privée."
+      },
+      {
+        "title": "4. Conservation des données",
+        "content": "Nous conservons vos renseignements personnels uniquement aussi longtemps que nécessaire pour atteindre les objectifs pour lesquels ils ont été collectés, ou comme l'exigent les lois applicables et les réglementations professionnelles. Les dossiers de santé des clients sont conservés conformément aux normes de l'AMQ."
+      },
+      {
+        "title": "5. Vos droits",
+        "content": "En vertu de la Loi sur la protection des renseignements personnels dans le secteur privé du Québec (Loi 25) et de la LPRPDE du Canada, vous avez le droit d'accéder, de corriger ou de demander la suppression de vos renseignements personnels. Pour exercer ces droits, veuillez nous contacter à olyashelest22@gmail.com."
+      },
+      {
+        "title": "6. Sécurité",
+        "content": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos renseignements personnels contre l'accès non autorisé, la divulgation, la modification ou la destruction. Notre formulaire de contact utilise le cryptage HTTPS pour protéger les données en transit."
+      },
+      {
+        "title": "7. Témoins (cookies)",
+        "content": "Notre site web peut utiliser des témoins essentiels pour assurer un bon fonctionnement. Nous n'utilisons pas de témoins de suivi ou de publicité. Vous pouvez contrôler les paramètres des témoins via les préférences de votre navigateur."
+      },
+      {
+        "title": "8. Nous contacter",
+        "content": "Si vous avez des questions ou des préoccupations concernant cette Politique de confidentialité ou nos pratiques en matière de données, veuillez nous contacter à olyashelest22@gmail.com ou par téléphone au (506) 426-6818."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Prêt(e) à vous sentir au mieux?",
+    "subtitle": "Faites le premier pas vers un bien-être durable. Réservez une séance avec Olha aujourd'hui.",
+    "button": "Réserver votre séance"
+  }
+}

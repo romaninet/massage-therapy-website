@@ -1,0 +1,161 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "fees": "Fees",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "hero": {
+    "tagline": "Heal. Restore. Renew.",
+    "subtitle": "Professional massage therapy tailored to your body and mind, in the heart of Gatineau.",
+    "cta": "Book Your Session",
+    "credential": "Registered Massage Therapist · AMQ Member"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Therapeutic treatments thoughtfully tailored to your wellbeing",
+    "swedish": {
+      "title": "Swedish Massage",
+      "description": "A gentle, flowing full-body massage that promotes circulation, eases muscle tension, and induces deep, restorative relaxation."
+    },
+    "deepTissue": {
+      "title": "Deep Tissue Massage",
+      "description": "Targeting deeper layers of muscle and connective tissue to release chronic tension, address pain patterns, and restore mobility."
+    },
+    "relaxation": {
+      "title": "Relaxation Massage",
+      "description": "A calming, nurturing treatment designed to soothe the nervous system, quiet the mind, and melt away the stress of everyday life."
+    },
+    "prenatal": {
+      "title": "Prenatal Massage",
+      "description": "Specially adapted techniques to support expectant mothers through each trimester, easing discomfort and promoting restful wellbeing."
+    }
+  },
+  "about": {
+    "preview": {
+      "title": "Meet Olha Shelest",
+      "subtitle": "Registered Massage Therapist",
+      "bio": "With a deep passion for holistic healing and a commitment to excellence, Olha brings both expertise and genuine care to every treatment — helping you move, feel, and live better.",
+      "cta": "Learn More About Olha"
+    },
+    "page": {
+      "title": "About Olha Shelest",
+      "subtitle": "Registered Massage Therapist · Gatineau, QC",
+      "bio1": "Olha Shelest is a Registered Massage Therapist (RMT) based in Gatineau, Quebec. With a deep passion for holistic healing and an unwavering commitment to excellence, Olha brings both expertise and genuine care to every treatment.",
+      "bio2": "Trained in a comprehensive range of therapeutic techniques, Olha specializes in helping clients overcome pain, recover from injury, manage stress, and achieve lasting relaxation. Her approach is always personalized — every session is thoughtfully tailored to your unique needs and health goals.",
+      "bio3": "Olha believes that massage therapy is far more than a luxury. It is an essential component of a balanced, healthy lifestyle. Whether you are an athlete seeking faster recovery, someone managing chronic pain, or simply in need of deep relaxation, Olha is here to guide you on your path to wellness.",
+      "bio4": "She welcomes clients of all backgrounds and adapts her techniques to suit each individual's comfort level and therapeutic objectives. Every visit is a step toward a healthier, more balanced you.",
+      "amqTitle": "AMQ Registered Member",
+      "amqText": "Olha is a verified member of the Association de Massothérapie du Québec (AMQ), registration M-24-4471, ensuring her practice meets the highest professional and ethical standards in Quebec.",
+      "amqLink": "Verify Membership",
+      "valuesTitle": "My Approach",
+      "values": [
+        {
+          "title": "Personalized Care",
+          "description": "Every session begins with a thorough consultation to understand your goals, health history, and preferences."
+        },
+        {
+          "title": "Evidence-Based Practice",
+          "description": "Techniques grounded in anatomy and current research, continuously refined through professional development."
+        },
+        {
+          "title": "Safe & Professional",
+          "description": "A comfortable, respectful environment where your wellbeing and comfort are always the top priority."
+        }
+      ]
+    }
+  },
+  "fees": {
+    "title": "Fees & Services",
+    "subtitle": "Transparent pricing for quality therapeutic care",
+    "note": "Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment.",
+    "services": [
+      { "duration": "30 min", "name": "Relaxation Massage", "price": "$65" },
+      { "duration": "60 min", "name": "Swedish Massage", "price": "$100" },
+      { "duration": "60 min", "name": "Deep Tissue Massage", "price": "$110" },
+      { "duration": "90 min", "name": "Swedish Massage", "price": "$140" },
+      { "duration": "90 min", "name": "Deep Tissue Massage", "price": "$150" },
+      { "duration": "60 min", "name": "Prenatal Massage", "price": "$100" },
+      { "duration": "90 min", "name": "Prenatal Massage", "price": "$140" }
+    ],
+    "ctaTitle": "Ready to Book?",
+    "ctaText": "Contact Olha to schedule your appointment.",
+    "ctaButton": "Get in Touch"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Book your session or ask any questions — Olha will be happy to hear from you.",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "addressValue": "514 Rue Jacques-Poulin, Gatineau, QC J8P 5Z9",
+    "form": {
+      "title": "Send a Message",
+      "name": "Full Name",
+      "namePlaceholder": "Your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "(optional)",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about what you're looking for, any health concerns, or questions you may have...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you! Your message has been sent. Olha will be in touch with you shortly.",
+      "error": "Something went wrong. Please try again or contact us directly by phone or email."
+    }
+  },
+  "footer": {
+    "tagline": "Registered Massage Therapist",
+    "location": "Gatineau, QC",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "nav": "Navigation",
+    "amqMember": "AMQ Member"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "How we collect, use, and protect your personal information",
+    "lastUpdated": "Last updated: April 2025",
+    "sections": [
+      {
+        "title": "1. Information We Collect",
+        "content": "We collect personal information that you voluntarily provide when you contact us through our website, including your name, email address, phone number, and the content of your message. We may also collect certain technical information automatically, such as your IP address and browser type, for security and analytics purposes."
+      },
+      {
+        "title": "2. How We Use Your Information",
+        "content": "We use the information you provide solely to respond to your inquiries, schedule appointments, and communicate with you about our services. We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as required by law."
+      },
+      {
+        "title": "3. Health Information",
+        "content": "As part of providing massage therapy services, we may collect health-related information to ensure your safety and provide appropriate care. This information is treated with the utmost confidentiality and is protected in accordance with applicable Quebec privacy legislation."
+      },
+      {
+        "title": "4. Data Retention",
+        "content": "We retain your personal information only for as long as necessary to fulfill the purposes for which it was collected, or as required by applicable laws and professional regulations. Client health records are retained in accordance with AMQ standards."
+      },
+      {
+        "title": "5. Your Rights",
+        "content": "Under Quebec's Act Respecting the Protection of Personal Information in the Private Sector (Law 25) and Canada's PIPEDA, you have the right to access, correct, or request deletion of your personal information. To exercise these rights, please contact us at olyashelest22@gmail.com."
+      },
+      {
+        "title": "6. Security",
+        "content": "We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, disclosure, alteration, or destruction. Our contact form uses HTTPS encryption to protect data in transit."
+      },
+      {
+        "title": "7. Cookies",
+        "content": "Our website may use essential cookies to ensure proper functionality. We do not use tracking or advertising cookies. You can control cookie settings through your browser preferences."
+      },
+      {
+        "title": "8. Contact Us",
+        "content": "If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at olyashelest22@gmail.com or by phone at (506) 426-6818."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to Feel Your Best?",
+    "subtitle": "Take the first step toward lasting wellness. Book a session with Olha today.",
+    "button": "Book Your Session"
+  }
+}
