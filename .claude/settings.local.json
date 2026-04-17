@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Bash(git log:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(echo:*)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(docker run:*)",
+      "Write(**)",
+      "Edit(**)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/secrets/**)",
+      "Read(**/credentials/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/.ssh/**)",
+      
+      "Bash(rm -rf:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "WebFetch"
+    ],
+    "defaultMode": "default"
+  }
+}
