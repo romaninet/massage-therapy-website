@@ -50,7 +50,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-3 group">
-            <div className="w-20 h-20 relative flex-shrink-0">
+            <div className="w-28 h-28 relative flex-shrink-0">
               <Image
                 src="/images/logo.png"
                 alt="Massage Therapy Logo"
