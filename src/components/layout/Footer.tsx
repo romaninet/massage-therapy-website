@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
+import { BUSINESS } from '@/lib/config';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -47,7 +48,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              {t('location')} · {t('amqMember')} M-24-4471
+              {t('location')} · {t('amqMember')} {BUSINESS.amqNumber}
             </p>
           </div>
 
@@ -78,26 +79,26 @@ export default function Footer() {
             <ul className="flex flex-col gap-4">
               <li>
                 <a
-                  href="tel:+15064266818"
+                  href={`tel:${BUSINESS.phoneTel}`}
                   className="flex items-start gap-3 text-white/70 hover:text-sage-light text-sm transition-colors group"
                 >
                   <Phone size={15} className="mt-0.5 flex-shrink-0 group-hover:text-sage" />
-                  (506) 426-6818
+                  {BUSINESS.phone}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:olyashelest22@gmail.com"
+                  href={`mailto:${BUSINESS.email}`}
                   className="flex items-start gap-3 text-white/70 hover:text-sage-light text-sm transition-colors group"
                 >
                   <Mail size={15} className="mt-0.5 flex-shrink-0 group-hover:text-sage" />
-                  olyashelest22@gmail.com
+                  {BUSINESS.email}
                 </a>
               </li>
               <li>
                 <div className="flex items-start gap-3 text-white/70 text-sm">
                   <MapPin size={15} className="mt-0.5 flex-shrink-0" />
-                  <span>514 Rue Jacques-Poulin,<br />Gatineau, QC J8P 5Z9</span>
+                  <span>{BUSINESS.address},<br />{BUSINESS.city}</span>
                 </div>
               </li>
             </ul>

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-
-const TO_EMAIL = 'olyashelest22@gmail.com';
+import { BUSINESS } from '@/lib/config';
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY ?? '');
@@ -59,7 +58,7 @@ export async function POST(request: Request) {
 
     await resend.emails.send({
       from: 'Website Contact <onboarding@resend.dev>',
-      to: TO_EMAIL,
+      to: BUSINESS.email,
       replyTo: email,
       subject: `New inquiry from ${name}`,
       html,

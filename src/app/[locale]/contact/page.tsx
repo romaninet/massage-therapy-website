@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
+import { BUSINESS } from '@/lib/config';
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -51,10 +52,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                         {t('phone')}
                       </p>
                       <a
-                        href="tel:+15064266818"
+                        href={`tel:${BUSINESS.phoneTel}`}
                         className="font-medium text-forest text-lg hover:text-sage transition-colors"
                       >
-                        (506) 426-6818
+                        {BUSINESS.phone}
                       </a>
                     </div>
                   </div>
@@ -68,10 +69,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                         {t('email')}
                       </p>
                       <a
-                        href="mailto:olyashelest22@gmail.com"
+                        href={`mailto:${BUSINESS.email}`}
                         className="font-medium text-forest text-lg hover:text-sage transition-colors break-all"
                       >
-                        olyashelest22@gmail.com
+                        {BUSINESS.email}
                       </a>
                     </div>
                   </div>
@@ -85,8 +86,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                         {t('address')}
                       </p>
                       <p className="font-medium text-forest text-lg leading-snug">
-                        514 Rue Jacques-Poulin<br />
-                        Gatineau, QC J8P 5Z9
+                        {BUSINESS.address}<br />
+                        {BUSINESS.city}
                       </p>
                     </div>
                   </div>
@@ -102,7 +103,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   style={{ border: 0 }}
                   loading="lazy"
                   allowFullScreen
-                  src="https://maps.google.com/maps?q=514+Rue+Jacques-Poulin,+Gatineau,+QC+J8P+5Z9&output=embed"
+                  src={BUSINESS.mapsUrl}
                 />
               </div>
             </div>

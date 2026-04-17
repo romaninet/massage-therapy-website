@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
+import { BUSINESS } from '@/lib/config';
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -48,7 +49,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </div>
               <div className="absolute -bottom-6 -right-4 bg-white rounded-lg shadow-xl shadow-forest/15 px-6 py-4 border border-pale-sage">
                 <p className="text-forest font-heading font-semibold text-sm">AMQ Registered</p>
-                <p className="text-forest/50 text-xs mt-0.5">M-24-4471</p>
+                <p className="text-forest/50 text-xs mt-0.5">{BUSINESS.amqNumber}</p>
               </div>
               <BotanicalCornerTL className="absolute -top-4 -left-4 w-24 h-24 text-sage/40" />
             </div>
@@ -72,7 +73,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     </h3>
                     <p className="text-forest/65 text-sm leading-relaxed mb-4">{t('amqText')}</p>
                     <Link
-                      href="https://membres.rmqmasso.ca/en/find-member/details/M-24-4471"
+                      href={BUSINESS.amqUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sage hover:text-forest text-sm font-medium tracking-wide transition-colors"
