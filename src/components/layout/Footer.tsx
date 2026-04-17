@@ -48,7 +48,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              {t('location')} · {t('amqMember')} {BUSINESS.amqNumber}
+              {t('location')} · {t('amqMember')}
             </p>
           </div>
 

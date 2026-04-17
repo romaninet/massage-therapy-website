@@ -47,7 +47,7 @@
       "bio3": "Olha croit que la massothérapie est bien plus qu'un luxe. C'est une composante essentielle d'un mode de vie sain et équilibré. Que vous soyez un athlète cherchant une récupération plus rapide, une personne gérant une douleur chronique, ou simplement en besoin de relaxation profonde, Olha est là pour vous guider sur votre chemin vers le bien-être.",
       "bio4": "Elle accueille des clients de tous horizons et adapte ses techniques au niveau de confort et aux objectifs thérapeutiques de chaque individu. Chaque visite est un pas vers un vous plus sain et plus équilibré.",
       "amqTitle": "Membre inscrite à l'AMQ",
-      "amqText": "Olha est membre vérifiée de l'Association de Massothérapie du Québec (AMQ), inscription M-24-4471, assurant que sa pratique répond aux plus hauts standards professionnels et éthiques au Québec.",
+      "amqText": "Olha est membre vérifiée de l'Association de Massothérapie du Québec (AMQ), assurant que sa pratique répond aux plus hauts standards professionnels et éthiques au Québec.",
       "amqLink": "Vérifier l'adhésion",
       "valuesTitle": "Mon approche",
       "values": [
@@ -89,7 +89,6 @@
     "phone": "Téléphone",
     "email": "Courriel",
     "address": "Adresse",
-    "addressValue": "514 Rue Jacques-Poulin, Gatineau, QC J8P 5Z9",
     "form": {
       "title": "Envoyer un message",
       "name": "Nom complet",
@@ -137,7 +136,7 @@
       },
       {
         "title": "5. Vos droits",
-        "content": "En vertu de la Loi sur la protection des renseignements personnels dans le secteur privé du Québec (Loi 25) et de la LPRPDE du Canada, vous avez le droit d'accéder, de corriger ou de demander la suppression de vos renseignements personnels. Pour exercer ces droits, veuillez nous contacter à olyashelest22@gmail.com."
+        "content": "En vertu de la Loi sur la protection des renseignements personnels dans le secteur privé du Québec (Loi 25) et de la LPRPDE du Canada, vous avez le droit d'accéder, de corriger ou de demander la suppression de vos renseignements personnels. Pour exercer ces droits, veuillez nous contacter."
       },
       {
         "title": "6. Sécurité",
