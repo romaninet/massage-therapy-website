@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
-import { BotanicalCornerTL, BotanicalCornerBR, LotusIcon } from '@/components/BotanicalDecor';
+import Image from 'next/image';
+import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
 
 export default function HeroSection() {
   const t = useTranslations('hero');
@@ -55,40 +56,37 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Right: forest green decorative panel */}
-        <div className="relative lg:flex hidden items-center justify-center min-h-screen bg-forest">
-          {/* Corner botanical accents in sage */}
-          <BotanicalCornerBR className="absolute bottom-0 right-0 w-48 h-48 text-sage/30 pointer-events-none" />
-          <BotanicalCornerTL className="absolute top-0 left-0 w-48 h-48 text-white/10 pointer-events-none" />
+        {/* Right: hero image panel */}
+        <div className="relative lg:block hidden min-h-[calc(100vh-8px)] mt-2 overflow-hidden rounded-3xl">
+          {/* Photo */}
+          <Image
+            src="/images/image1.jpg"
+            alt="Spa atmosphere — soft towels and candlelight"
+            fill
+            priority
+            sizes="50vw"
+            className="object-cover object-center"
+          />
 
-          {/* Large lotus illustration */}
-          <div className="relative z-10 flex flex-col items-center gap-8">
-            <LotusIcon className="w-72 h-56 text-white/20 animate-float" />
-            <div className="text-center">
-              <p className="font-heading text-white/40 text-lg italic tracking-wide">
-                Olha Shelest
-              </p>
-              <p className="text-white/25 text-xs tracking-[0.3em] uppercase mt-1">
-                {locale === 'en' ? 'Massage Therapy' : 'Massothérapie'}
-              </p>
-            </div>
+          {/* Left edge: dissolves into off-white background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-off-white/60 via-transparent to-transparent" />
+          {/* Top edge: subtle fade */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(250,249,245,0.62) 0%, transparent 22%)' }} />
+          {/* Bottom: forest tint anchors the credential tag */}
+          <div className="absolute inset-0 bg-gradient-to-t from-forest/55 via-transparent to-transparent" />
+
+          {/* Bottom-left credential tag */}
+          <div className="absolute bottom-10 left-8 z-10">
+            <p className="font-heading text-white text-base italic tracking-wide drop-shadow-md">
+              Olha Shelest
+            </p>
+            <p className="text-white/70 text-xs tracking-[0.25em] uppercase mt-0.5 drop-shadow-sm">
+              {locale === 'en' ? 'Massage Therapy' : 'Massothérapie'}
+            </p>
           </div>
 
-          {/* Decorative botanical lines on the panel */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <svg
-              viewBox="0 0 500 800"
-              className="absolute inset-0 w-full h-full opacity-5"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M50 750 Q100 600 200 500 Q280 420 350 300 Q420 180 450 50" stroke="white" strokeWidth="1.5" fill="none" />
-              <path d="M150 750 Q180 620 250 520 Q330 420 380 300 Q440 160 460 20" stroke="white" strokeWidth="1" fill="none" opacity="0.5" />
-              <path d="M200 750 Q200 550 180 400 Q160 250 200 100" stroke="white" strokeWidth="0.8" fill="none" opacity="0.4" />
-              <ellipse cx="200" cy="500" rx="120" ry="80" stroke="white" strokeWidth="0.5" fill="none" opacity="0.3" />
-              <ellipse cx="300" cy="300" rx="90" ry="60" stroke="white" strokeWidth="0.5" fill="none" opacity="0.2" />
-            </svg>
-          </div>
+          {/* Subtle botanical corner accent */}
+          <BotanicalCornerBR className="absolute bottom-0 right-0 w-40 h-40 text-white/15 pointer-events-none z-10" />
         </div>
       </div>
 
