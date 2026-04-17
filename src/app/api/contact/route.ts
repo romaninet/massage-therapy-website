@@ -56,13 +56,18 @@ export async function POST(request: Request) {
       </div>
     `;
 
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'Website Contact <onboarding@resend.dev>',
       to: BUSINESS.email,
       replyTo: email,
       subject: `New inquiry from ${name}`,
       html,
     });
+
+    if (error) {
+      console.error('Resend error:', error);
+      return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

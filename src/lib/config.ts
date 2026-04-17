@@ -1,5 +1,5 @@
 export const BUSINESS = {
-  email: 'olyashelest22@gmail.com',
+  email: 'roman.inet@gmail.com',
   phone: '(506) 426-6818',
   phoneTel: '+15064266818',
   address: '514 Rue Jacques-Poulin',
