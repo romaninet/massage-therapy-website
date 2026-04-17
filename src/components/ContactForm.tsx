@@ -105,6 +105,7 @@ export default function ContactForm() {
             onChange={handleChange}
             placeholder={t('namePlaceholder')}
             autoComplete="name"
+            maxLength={30}
             className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.name ? 'border-red-400' : ''}`}
           />
           {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
@@ -120,6 +121,7 @@ export default function ContactForm() {
             onChange={handleChange}
             placeholder={t('emailPlaceholder')}
             autoComplete="email"
+            maxLength={30}
             className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.email ? 'border-red-400' : ''}`}
           />
           {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
@@ -137,21 +139,28 @@ export default function ContactForm() {
           onChange={handleChange}
           placeholder={t('phonePlaceholder')}
           autoComplete="tel"
+          maxLength={15}
           className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.phone ? 'border-red-400' : ''}`}
         />
         {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
-          {t('message')}
-        </label>
+        <div className="flex items-center justify-between">
+          <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
+            {t('message')}
+          </label>
+          <span className={`text-xs tabular-nums ${form.message.length >= 300 ? 'text-red-500' : 'text-forest/40'}`}>
+            {form.message.length}/300
+          </span>
+        </div>
         <Textarea
           name="message"
           value={form.message}
           onChange={handleChange}
           placeholder={t('messagePlaceholder')}
           rows={6}
+          maxLength={300}
           className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage resize-none ${errors.message ? 'border-red-400' : ''}`}
         />
         {errors.message && <p className="text-red-500 text-xs">{errors.message}</p>}
