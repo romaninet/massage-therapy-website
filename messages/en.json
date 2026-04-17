@@ -102,7 +102,16 @@
       "submit": "Send Message",
       "sending": "Sending...",
       "success": "Thank you! Your message has been sent. Olha will be in touch with you shortly.",
-      "error": "Something went wrong. Please try again or contact us directly by phone or email."
+      "error": "Something went wrong. Please try again or contact us directly by phone or email.",
+      "validation": {
+        "nameRequired": "Full name is required",
+        "nameInvalid": "Please enter a valid name (letters only)",
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Please enter a valid email address",
+        "phoneInvalid": "Please enter a valid phone number",
+        "messageRequired": "Message is required",
+        "messageTooShort": "Message must be at least 10 characters"
+      }
     }
   },
   "footer": {

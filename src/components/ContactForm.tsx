@@ -8,31 +8,57 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 type FormState = 'idle' | 'sending' | 'success' | 'error';
+type FormFields = { name: string; email: string; phone: string; message: string };
+
+// Strip disallowed characters on input (handles both typing and paste)
+const FILTERS: Record<keyof FormFields, (v: string) => string> = {
+  // Letters (Latin + French accented À-ÿ), spaces, hyphens, apostrophes
+  name: (v) => v.replace(/[^a-zA-ZÀ-ÿ\s'\u2019\-]/g, ''),
+  // Standard email characters only
+  email: (v) => v.replace(/[^a-zA-Z0-9@._+\-]/g, ''),
+  // Digits, spaces, and phone punctuation only
+  phone: (v) => v.replace(/[^0-9\s+\-().]/g, ''),
+  // Strip control characters only (allow all printable + Unicode + newlines)
+  message: (v) => v.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, ''),
+};
+
+const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 
 export default function ContactForm() {
   const t = useTranslations('contact.form');
+  const v = useTranslations('contact.form.validation');
   const [state, setState] = useState<FormState>('idle');
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
-  const [errors, setErrors] = useState<Partial<typeof form>>({});
+  const [form, setForm] = useState<FormFields>({ name: '', email: '', phone: '', message: '' });
+  const [errors, setErrors] = useState<Partial<FormFields>>({});
 
-  const validate = () => {
-    const errs: Partial<typeof form> = {};
-    if (!form.name.trim()) errs.name = 'Required';
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      errs.email = 'Valid email required';
-    if (!form.message.trim()) errs.message = 'Required';
+  const validate = (): boolean => {
+    const errs: Partial<FormFields> = {};
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const phone = form.phone.trim();
+    const message = form.message.trim();
+
+    if (!name) errs.name = v('nameRequired');
+    else if (name.length < 2 || !/[a-zA-ZÀ-ÿ]/.test(name)) errs.name = v('nameInvalid');
+
+    if (!email) errs.email = v('emailRequired');
+    else if (!EMAIL_RE.test(email)) errs.email = v('emailInvalid');
+
+    if (phone && phone.replace(/\D/g, '').length < 7) errs.phone = v('phoneInvalid');
+
+    if (!message) errs.message = v('messageRequired');
+    else if (message.length < 10) errs.message = v('messageTooShort');
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
+    const key = name as keyof FormFields;
+    const filtered = FILTERS[key](value);
+    setForm((prev) => ({ ...prev, [key]: filtered }));
+    if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -78,6 +104,7 @@ export default function ContactForm() {
             value={form.name}
             onChange={handleChange}
             placeholder={t('namePlaceholder')}
+            autoComplete="name"
             className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.name ? 'border-red-400' : ''}`}
           />
           {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
@@ -92,6 +119,7 @@ export default function ContactForm() {
             value={form.email}
             onChange={handleChange}
             placeholder={t('emailPlaceholder')}
+            autoComplete="email"
             className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.email ? 'border-red-400' : ''}`}
           />
           {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
@@ -108,8 +136,10 @@ export default function ContactForm() {
           value={form.phone}
           onChange={handleChange}
           placeholder={t('phonePlaceholder')}
-          className="bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage"
+          autoComplete="tel"
+          className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.phone ? 'border-red-400' : ''}`}
         />
+        {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
       </div>
 
       <div className="flex flex-col gap-1.5">

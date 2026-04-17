@@ -102,7 +102,16 @@
       "submit": "Envoyer le message",
       "sending": "Envoi en cours...",
       "success": "Merci! Votre message a été envoyé. Olha vous contactera sous peu.",
-      "error": "Quelque chose a mal tourné. Veuillez réessayer ou nous contacter directement par téléphone ou courriel."
+      "error": "Quelque chose a mal tourné. Veuillez réessayer ou nous contacter directement par téléphone ou courriel.",
+      "validation": {
+        "nameRequired": "Le nom complet est requis",
+        "nameInvalid": "Veuillez entrer un nom valide (lettres uniquement)",
+        "emailRequired": "L'adresse courriel est requise",
+        "emailInvalid": "Veuillez entrer une adresse courriel valide",
+        "phoneInvalid": "Veuillez entrer un numéro de téléphone valide",
+        "messageRequired": "Le message est requis",
+        "messageTooShort": "Le message doit contenir au moins 10 caractères"
+      }
     }
   },
   "footer": {
