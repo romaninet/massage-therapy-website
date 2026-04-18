@@ -105,80 +105,114 @@ A free shelestrmt@gmail.com account works perfectly for Google Business Profile 
 One useful middle ground: Porkbun includes free basic email forwarding with domain purchases. You can set up info@shelestrmt.ca to forward to shelestrmt@gmail.com. Clients see a professional address, mail lands in your Gmail. Free. Add this to Phase 1.
 ----------------
 
-The Full Plan — In Correct Order
+SEO & Online Presence Setup Plan
+Olha Shelest — Massothérapeute, Gatineau QC
+shelestrmt.ca · shelestrmt@gmail.com
 
-✅ Phase 0 — Prep (Do this first, same day)
-Step 0.1 — Get a local phone number (if you choose Option 1 above)
 
-Download Fongo, create account, select an 819 Gatineau number
-Write it down — this becomes your public business phone number everywhere, forever
-Time: ~15 minutes
+Name to use everywhere: Olha Shelest on all legal and Google documents.
+Display name on website and marketing: Olha Shelest, massothérapeute
+Why this matters: Operating under your legal name as a Quebec sole proprietor requires no REQ registration. Adding any trade name (e.g., "Olha Shelest Massage Therapy") technically requires registration with the Registraire des entreprises du Québec (~$38 one-time). Stick with your name + title credential to stay fully compliant at zero cost.
+
+
+🚩 Two Problems to Fix Before Starting
+Problem 1 — The 506 area code is a local SEO liability
+Google uses NAP (Name + Address + Phone) signals to determine geographic relevance. A 506 prefix (New Brunswick) on a Gatineau business creates a geographic mismatch that weakens local rankings and may confuse clients.
+Fix: Get a free 819 local number via Fongo
+
+Download the Fongo app (iOS or Android)
+Create an account and select an 819 (Gatineau/Ottawa) or 873 area code number
+Calls from this number forward to your real phone
+Cost: free
+This number becomes your permanent public business phone — used everywhere: website, GBP, AMQ listing
+Your 506 number is never shown publicly
+
+Problem 2 — Do not use Google Workspace
+Google Workspace (~$8–10 USD/month) gives you a @shelestrmt.ca email address, but it's cosmetic and not worth the cost for a solo practice. A free Gmail account works perfectly for Google Business Profile and Google Search Console.
+Middle-ground option (recommended): Porkbun includes free email forwarding. You can set up info@shelestrmt.ca to forward to shelestrmt@gmail.com. Clients see a professional address; mail lands in Gmail. Free.
+
+Phase 0 — Preparation (Same day, do first)
+Estimated time: ~25 minutes
+Step 0.1 — Get a local 819 phone number
+
+Download Fongo
+Create account, choose an 819 Gatineau number
+Write it down — this is your public business phone number forever
+Time: ~15 min
 
 Step 0.2 — Create shelestrmt@gmail.com
 
-Go to accounts.google.com → Create account → "For personal use" (not business — that leads to Workspace)
-Use Olha's real name in the profile
-Enable 2-factor authentication immediately
-This Gmail account becomes the master account for: GBP, Search Console, and Google Analytics if needed
-Time: ~10 minutes
+Go to accounts.google.com → Create account
+Choose "For personal use" — not "For work or business" (that leads to paid Workspace)
+Use Olha's real name in the profile fields
+Enable 2-factor authentication immediately (use your phone number or an authenticator app)
+This Gmail account becomes the master account for: Google Business Profile, Google Search Console, and optionally Google Analytics
+Time: ~10 min
 
 
-✅ Phase 1 — Purchase Domain on Porkbun
+Phase 1 — Purchase Domain on Porkbun
+Estimated time: ~20 minutes
 Step 1.1 — Buy shelestrmt.ca
 
-Go to porkbun.com, search the domain, purchase it
-Cost: ~$15–17 CAD/year for .ca
-At checkout, use shelestrmt@gmail.com as the account email
-Enable auto-renew — losing a domain by forgetting to renew is a real risk for small businesses
-Enable domain privacy (Porkbun includes it free) — this hides Olha's personal info from WHOIS
+Go to porkbun.com
+Search for shelestrmt.ca — confirm it is available
+Purchase it (~$15–17 CAD/year for .ca)
+At checkout, use shelestrmt@gmail.com as the Porkbun account email
+Enable auto-renew — losing a domain by forgetting to renew is a common and costly mistake
+Enable domain privacy (Porkbun includes it free) — this hides personal info from public WHOIS records
 
 Step 1.2 — Set up free email forwarding on Porkbun
 
-In Porkbun dashboard → Email Routing → create a forward: info@shelestrmt.ca → shelestrmt@gmail.com
+In Porkbun dashboard → Email Routing
+Create a forward: info@shelestrmt.ca → shelestrmt@gmail.com
 You can add more aliases later (e.g., contact@, bonjour@)
-Do not set this up as a mailbox — just forwarding. Free.
+This is email forwarding, not a mailbox — it's free and requires no email app setup
 
 
-✅ Phase 2 — Connect Domain to Vercel
-This is a two-sided process: you configure Vercel first, then update DNS on Porkbun.
+Phase 2 — Connect Domain to Vercel
+Estimated time: ~20 minutes + up to 48 hours DNS propagation
+This is a two-sided process: configure Vercel first, then update DNS records on Porkbun.
 Step 2.1 — Add domain in Vercel
 
 Go to your Vercel project dashboard → Settings → Domains
-Add shelestrmt.ca (apex/root domain)
+Add shelestrmt.ca (the root/apex domain)
 Also add www.shelestrmt.ca
-Vercel will display the DNS records you need — keep this page open
+Vercel will display the exact DNS records you need — keep this tab open
 
 Step 2.2 — Configure DNS on Porkbun
 
-Go to Porkbun → DNS → manage records for shelestrmt.ca
+Go to Porkbun → DNS → Manage records for shelestrmt.ca
 Add the records Vercel specifies. Typically:
 
-An A record for @ (root) pointing to Vercel's IP
+An A record for @ (root) pointing to Vercel's IP address
 A CNAME record for www pointing to cname.vercel-dns.com
 
 
-Delete any default Porkbun placeholder records that conflict
+Delete any default Porkbun placeholder records that conflict with these
 
 Step 2.3 — Set canonical domain in Vercel
 
 In Vercel → Settings → Domains, set shelestrmt.ca (without www) as the primary domain
 Vercel will automatically redirect www.shelestrmt.ca → shelestrmt.ca
-This is important: Google must only index one version
+This is critical: Google must only index one version of the URL
 
-Step 2.4 — Wait for DNS propagation
+Step 2.4 — Wait for DNS propagation and verify
 
-Typically 30 minutes to 2 hours; worst case 48 hours
-Test at dnschecker.org — check that shelestrmt.ca resolves worldwide
-Also check that https:// works (Vercel provisions SSL automatically)
-Do not proceed to Phase 3 until the domain fully resolves with HTTPS
+Propagation typically takes 30 minutes to 2 hours; worst case 48 hours
+Test worldwide propagation at dnschecker.org — search shelestrmt.ca
+Also verify that https://shelestrmt.ca loads with a valid SSL certificate (Vercel provisions this automatically)
+Do not proceed to Phase 3 until the domain resolves with HTTPS everywhere
 
 
-✅ Phase 3 — Technical SEO on the Website
-Do this before asking Google to index anything. Indexing a broken or incomplete site is worse than not being indexed at all.
+Phase 3 — Technical SEO on the Website
+Estimated time: 2–4 hours
+
+Do this before asking Google to index anything. Indexing an incomplete or misconfigured site creates cleanup work later that is slow to fix.
+
 Step 3.1 — Verify robots.txt
 
 Visit https://shelestrmt.ca/robots.txt — it must exist and must NOT block Googlebot
-For a Next.js App Router site, add this to your project if not present:
+For a Next.js App Router project, add this file if not already present:
 
 js// app/robots.ts
 export default function robots() {
@@ -188,10 +222,7 @@ export default function robots() {
   };
 }
 Step 3.2 — Generate a sitemap
-
-The sitemap must include all pages in both languages
-Example for next-intl with /en and /fr routes:
-
+The sitemap must include all pages in both languages. Example for next-intl with /en and /fr routes:
 js// app/sitemap.ts
 export default function sitemap() {
   const baseUrl = 'https://shelestrmt.ca';
@@ -202,24 +233,21 @@ export default function sitemap() {
     routes.map(route => ({
       url: `${baseUrl}/${locale}${route}`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: route === '' ? 1 : 0.8,
     }))
   );
 }
 
-Verify it at https://shelestrmt.ca/sitemap.xml — you should see a list of URLs
+Verify it works at https://shelestrmt.ca/sitemap.xml — you should see a list of URLs
 
 Step 3.3 — Hreflang tags (critical for bilingual sites — often missed)
-
-Google needs to know that the French and English pages are translations of each other, not duplicate content
-With next-intl and App Router, add this to your root layout or middleware
-Each page needs to declare its alternates:
-
+Google needs to know that the French and English pages are translations of each other, not duplicate content. Without this, Google may penalize both language versions.
+With Next.js App Router and next-intl, add this to your page metadata:
 js// In your page metadata (app/[locale]/page.tsx or layout.tsx)
 export const metadata = {
   alternates: {
-    canonical: 'https://shelestrmt.ca/en',
+    canonical: 'https://shelestrmt.ca/en', // change per page/locale
     languages: {
       'en': 'https://shelestrmt.ca/en',
       'fr': 'https://shelestrmt.ca/fr',
@@ -227,20 +255,23 @@ export const metadata = {
   },
 };
 
-Verify this worked by viewing page source and searching for hreflang
-Without this, Google may penalize both language versions as duplicate content
+Verify by viewing page source (Ctrl+U) and searching for hreflang — it must appear in the <head>
 
 Step 3.4 — Meta titles and descriptions (both languages)
-Every page needs a unique, keyword-rich title and description in the correct language. Examples:
-PageEnglishFrenchHome titleMassage Therapy in Gatineau | Olha Shelest RMTMassothérapie à Gatineau | Olha Shelest RMTHome descriptionRegistered massage therapist in Gatineau, QC. Member of AMQ. Therapeutic, relaxation, and deep tissue massage. Book your appointment today.Massothérapeute agréée à Gatineau, QC. Membre de l'AMQ. Massage thérapeutique, relaxation et tissus profonds. Prenez rendez-vous aujourd'hui.
-Keywords to include in French pages: massothérapie Gatineau, massothérapeute Gatineau, membre AMQ
-Keywords to include in English pages: massage therapy Gatineau, registered massage therapist Gatineau, AMQ member
+Every page needs a unique, keyword-rich title and description in the correct language.
+PageEnglishFrenchHome titleMassage Therapy in Gatineau · Olha ShelestMassothérapie à Gatineau · Olha ShelestHome descriptionRegistered massage therapist in Gatineau, QC. Member of AMQ. Therapeutic, relaxation, and deep tissue massage. Book your appointment today.Massothérapeute agréée à Gatineau, QC. Membre de l'AMQ. Massage thérapeutique, relaxation et tissus profonds. Prenez rendez-vous aujourd'hui.
+Keywords to target:
+
+French pages: massothérapie Gatineau, massothérapeute Gatineau, massage Gatineau, membre AMQ
+English pages: massage therapy Gatineau, registered massage therapist Gatineau, AMQ member
+
 Step 3.5 — LocalBusiness structured data (JSON-LD)
-This is a machine-readable block that tells Google exactly what kind of business this is, where it is, and how to contact it. Add this to your root layout or home page:
+This is a machine-readable block that tells Google exactly what kind of business this is, where it is, and how to contact it. Add this to your root layout or home page component:
 json{
   "@context": "https://schema.org",
   "@type": "MassageTherapist",
-  "name": "Olha Shelest Massage Therapy",
+  "name": "Olha Shelest",
+  "jobTitle": "Massothérapeute / Registered Massage Therapist",
   "image": "https://shelestrmt.ca/og-image.jpg",
   "url": "https://shelestrmt.ca",
   "telephone": "+1-819-XXX-XXXX",
@@ -259,109 +290,154 @@ json{
   },
   "openingHours": ["Mo-Fr 09:00-18:00"],
   "priceRange": "$$",
-  "description": "Registered massage therapist in Gatineau, QC. Member of AMQ.",
+  "description": "Massothérapeute agréée à Gatineau, QC. Membre de l'AMQ. Registered massage therapist in Gatineau, QC. AMQ member.",
   "memberOf": {
     "@type": "Organization",
     "name": "Association des massothérapeutes du Québec (AMQ)"
   }
 }
 
-Use MassageTherapist (not just LocalBusiness) — it's a more specific schema type and Google uses it for health service filtering
-Validate this at schema.org/docs/gs.html
+Use MassageTherapist as the schema type (not just LocalBusiness) — it is a more specific type and Google uses it for health service filtering.
+
+
+Validate at validator.schema.org
 
 Step 3.6 — Open Graph tags
+These control how the site looks when shared on social media or messaging apps.
+Add to your layout metadata:
+jsexport const metadata = {
+  openGraph: {
+    title: 'Olha Shelest — Massothérapeute à Gatineau',
+    description: 'Massothérapeute agréée à Gatineau, QC. Membre de l\'AMQ.',
+    url: 'https://shelestrmt.ca',
+    images: [{ url: 'https://shelestrmt.ca/og-image.jpg', width: 1200, height: 630 }],
+  },
+};
 
-These control how the site looks when shared on social media (even if you're not active yet, people may share it)
-Add og:title, og:description, og:image, og:url to your layout
-The og:image should be at least 1200×630px — ideally a professional photo of Olha or the practice space
+The og:image should be at least 1200×630px — ideally a professional photo of Olha or the treatment room
 
-Step 3.7 — Final checks before indexing
+Step 3.7 — Final checks before requesting indexing
 
 Test mobile layout at search.google.com/test/mobile-friendly
-Check page speed at pagespeed.web.dev — Vercel + Next.js should score well out of the box
+Check page speed at pagespeed.web.dev — Vercel + Next.js should score well
 Manually visit every page in both languages and confirm they load correctly on the new domain
-Confirm that https://shelestrmt.ca redirects properly (not landing on the old Vercel domain)
+Confirm that the old Vercel deployment domain (e.g., your-project.vercel.app) no longer resolves as the primary URL, or if it does, that Vercel is redirecting it to shelestrmt.ca
 
 
-✅ Phase 4 — Google Search Console
+Phase 4 — Google Search Console
+Estimated time: ~30 minutes
 Step 4.1 — Create Search Console property
 
-Go to search.google.com/search-console — log in with shelestrmt@gmail.com
-Choose "Domain" property type (not URL prefix) → enter shelestrmt.ca
-Google will give you a TXT record to add to Porkbun DNS
+Go to search.google.com/search-console
+Log in with shelestrmt@gmail.com
+Click Add property → choose Domain property type (not "URL prefix")
+Enter: shelestrmt.ca
+Google will give you a TXT record value to verify ownership
 
-Step 4.2 — Verify via DNS in Porkbun
+Step 4.2 — Verify via DNS on Porkbun
 
 In Porkbun → DNS → add a TXT record for @ with the value Google provides
-Go back to Search Console → click Verify
-This can take a few minutes
+Return to Search Console → click Verify
+Verification usually confirms within a few minutes
 
 Step 4.3 — Submit sitemap
 
-In Search Console → Sitemaps → enter sitemap.xml → Submit
-Google will begin crawling — this does not guarantee immediate indexing but it tells Google where to start
+In Search Console → Sitemaps
+Enter sitemap.xml in the field and click Submit
+Google begins crawling — this does not guarantee immediate indexing but tells Google where to start
 
 Step 4.4 — Request indexing of key pages
 
-In Search Console → URL Inspection → enter your homepage URL → click "Request Indexing"
+In Search Console → URL Inspection
+Enter each important URL → click "Request Indexing"
 Do this for: homepage (EN), homepage (FR), services page (EN), services page (FR)
-Google does not guarantee timing — typically 1–2 weeks to appear in results, sometimes faster
+Google does not guarantee timing — typically 1–2 weeks to appear in search results, sometimes faster for new sites with clean setup
 
 
-✅ Phase 5 — Google Business Profile
-Do this after the website is live and indexed — GBP links to your website, and having a live, indexed site strengthens the profile's credibility from day one.
-Step 5.1 — Create GBP
+Phase 5 — Google Business Profile
+Estimated time: ~30 minutes setup + 5–14 days for postcard verification
 
-Go to business.google.com — log in with shelestrmt@gmail.com
-Business name: Olha Shelest Massage Therapy (or Massothérapie Olha Shelest — pick one, use it everywhere)
-Category: Massage therapist (primary) — you can add secondary categories later
-Add the current Gatineau address
+Do this after the website is live and indexed. GBP links to your website, and having a live indexed site strengthens the profile's credibility from day one.
 
-Step 5.2 — Important settings for your address situation
+Step 5.1 — Create the profile
+
+Go to business.google.com
+Log in with shelestrmt@gmail.com
+Business name: Olha Shelest (legal name only — no trade name descriptor)
+Primary category: Massage therapist
+Enter the current Gatineau address
+
+
+Why the name is just "Olha Shelest": Google Business Profile terms require the business name to reflect your real-world legal name. Since there is no registered trade name, using "Olha Shelest Massage Therapy" on GBP could trigger a competitor flag or Google's own review process. The category field handles the service descriptor. This is correct and intentional.
+
+Step 5.2 — Address configuration for your situation
 Because she is renting a room in a multi-office building, and the address may change:
 
-✅ Do enter the full street address — clients need it to find her
-✅ Check the box that says clients can visit at this address
-⚠️ Do not list the building/clinic name in her business name — Google may merge or confuse her profile with the building's profile
-⚠️ When the address changes: update GBP immediately, expect to re-verify (usually by postcard or video call)
+✅ Enter the full street address — clients need it to find her
+✅ Check the box confirming clients can visit at this address
+⚠️ Do not include the building name or clinic name in the business name field — Google may merge or confuse her profile with the building's own profile
+⚠️ When the address changes in the future: update GBP immediately, then update the website structured data and AMQ listing the same day. Expect Google to require re-verification (usually by postcard or video call). NAP mismatch during an address transition is a temporary ranking hit — minimise the window by doing all updates on the same day.
 
-Step 5.3 — Fill out the profile completely — this directly affects ranking
+Step 5.3 — Fill out the profile completely (this directly affects ranking)
+FieldWhat to enterPhoneThe 819 Fongo number only — never the 506 numberWebsitehttps://shelestrmt.caHoursComplete and accurateDescriptionUp to 750 characters. Write in both French and English. Include: city name, key services, AMQ membership number, and that she is a registered massage therapist. Example: "Massothérapeute agréée à Gatineau, QC. Membre de l'AMQ (no. XXXXX). Spécialisée en massage thérapeutique, relaxation et tissus profonds. / Registered massage therapist in Gatineau, QC. AMQ member. Specializing in therapeutic, relaxation, and deep tissue massage."ServicesAdd individual services with prices if possiblePhotosMinimum: professional headshot, photo of treatment room, logo
+Step 5.4 — Verify the profile
 
-Phone: the 819 Fongo number (not 506)
-Website: https://shelestrmt.ca
-Hours: complete and accurate
-Description (up to 750 characters): write it in both English and French, include the city name and key services
-Services: add individual services with prices if possible (therapeutic massage, relaxation massage, deep tissue, etc.)
-Photos: upload at minimum — a professional headshot, a photo of the treatment room, and your logo
-AMQ membership number: mention it in the description
-
-Step 5.4 — Verify GBP
-
-Google typically offers: postcard by mail (5–14 days), video call, or instant verification for some accounts
-Postcard is the most common — the card goes to the Gatineau address, you enter the code online
-Do not make any major changes to the profile while waiting for verification — it can reset the process
+Google typically offers: postcard by mail (5–14 days to Gatineau address), video call, or instant verification
+Postcard is the most common method for new profiles
+Do not make major changes to the profile while waiting for the postcard — it can reset the verification process
+Enter the code from the postcard once it arrives
 
 
-✅ Phase 6 — NAP Consistency (Name, Address, Phone)
-Once GBP is live, these three pieces of information must be identical everywhere online:
-FieldValueNameOlha Shelest Massage Therapy (pick one form, never deviate)AddressExact GBP address, same formatPhone819-XXX-XXXX (the Fongo number)
-Apply this to:
+Phase 6 — NAP Consistency Audit
+Estimated time: ~30 minutes
+NAP = Name, Address, Phone. These three pieces of information must be exactly identical everywhere online. Even minor differences (e.g., "Rue Principale" vs "Principal Street", or "819-555-0100" vs "(819) 555-0100") create inconsistency signals that weaken local SEO.
+Your canonical NAP:
+FieldValueNameOlha ShelestAddressExact address as entered in GBP, same formatPhone819-XXX-XXXX (the Fongo number, formatted consistently)Websitehttps://shelestrmt.ca
+Apply consistently to:
 
 Website footer and contact page
-AMQ member directory (update your listing to match GBP exactly)
-Any future directories (YellowPages, Yelp, RMT-specific directories)
-
-About AMQ specifically: Check whether your AMQ listing is publicly indexed by Google. If yes, make sure the name, address, phone, and website URL on that listing matches GBP exactly. A link from AMQ to your website is also a valuable backlink for SEO.
-
-✅ Phase 7 — Ongoing (First 3 Months)
-
-Google Reviews: Once GBP is verified, ask your first few clients to leave a Google review. Even 3–5 genuine reviews in the first month significantly boosts local ranking. Google provides a shareable review link in your GBP dashboard.
-Search Console monitoring: Check every 2 weeks — look at which queries bring people to the site, and whether there are crawl errors
-Social media: Not urgent, but when ready, Instagram is the highest-ROI platform for massage therapy. Facebook is useful for local discovery. Create profiles using shelestrmt@gmail.com when the time comes.
-Address change: When it happens — update GBP, website structured data, AMQ listing, and every directory listing on the same day. NAP mismatch during a transition is a temporary ranking hit.
+AMQ member directory — log in and update your listing to match GBP exactly. This is important: AMQ is a trusted, authoritative domain in Quebec. A link from AMQ to your website is a valuable backlink, and inconsistent NAP between AMQ and GBP creates a real SEO problem.
+Any future directories you join (RMT directories, YellowPages, Yelp, etc.)
 
 
-Summary Order of Operations
-OrderActionTime estimate1Get 819 Fongo number15 min2Create shelestrmt@gmail.com10 min3Buy shelestrmt.ca on Porkbun + set up email forwarding20 min4Add domain in Vercel + configure DNS on Porkbun20 min5Wait for DNS propagationup to 48h6Technical SEO on website (robots, sitemap, hreflang, schema, meta)2–4 hours7Google Search Console: verify domain + submit sitemap + request indexing30 min8Google Business Profile: create + fill out + verify30 min + 5–14 days for postcard9NAP audit: AMQ listing + website footer30 min10First review requestsongoing
+Phase 7 — Ongoing (First 3 Months)
+Google Reviews — highest ROI action after GBP is verified
 
-Let me know when you hit a specific step and I can go deeper on any of them — especially the Next.js/next-intl implementation for hreflang and sitemap, which is where most bilingual sites get it wrong.
+Once GBP is verified, Google provides a shareable review link in your dashboard
+Ask your first clients personally to leave a review using that link
+Even 3–5 genuine reviews in the first month significantly boosts local map ranking
+Never offer incentives for reviews — Google's policy prohibits this and it can get your profile suspended
+
+Search Console monitoring
+
+Check every 2 weeks in the first few months
+Watch for: which search queries bring people to the site, crawl errors, indexing coverage
+If a page is "Discovered but not indexed," use URL Inspection to request indexing again
+
+Social media (not urgent, plan ahead)
+For massage therapy in Gatineau, in order of ROI:
+
+Instagram — visual platform, strong for wellness businesses. Show the treatment space, share brief educational content about massage benefits. Start when Olha has time to post consistently (even once a week is enough to start).
+Facebook — useful for local discovery and allows a separate business page linked to GBP
+Create both profiles using shelestrmt@gmail.com when ready
+Username on both platforms: shelestrmt if available, otherwise olhashelest
+
+Address change checklist (for when it happens)
+On the day of the address change, in this order:
+
+Update GBP address → expect re-verification to follow
+Update structured data (JSON-LD) on the website → redeploy
+Update AMQ member listing
+Update every other directory listing
+Update Search Console if you added a new property
+Do all of the above on the same day to minimize the NAP mismatch window
+
+
+Summary: Order of Operations
+StepActionTime0.1Get 819 Fongo number15 min0.2Create shelestrmt@gmail.com10 min1.1Buy shelestrmt.ca on Porkbun + enable auto-renew15 min1.2Set up email forwarding (info@shelestrmt.ca → Gmail)5 min2.1–2.3Add domain in Vercel + configure DNS on Porkbun20 min2.4Wait for DNS propagation + verify HTTPSup to 48h3.1–3.7Technical SEO on website (robots, sitemap, hreflang, schema, OG, meta)2–4 hours4.1–4.4Google Search Console: verify + submit sitemap + request indexing30 min5.1–5.4Google Business Profile: create + fill + verify30 min + 5–14 days6NAP audit: AMQ listing + website footer consistency check30 min7First review requests from clientsOngoing
+
+Costs Summary
+ItemCostshelestrmt.ca domain~$15–17 CAD/yearVercel hostingFree (Hobby plan)GmailFreePorkbun email forwardingFreeFongo 819 numberFreeGoogle Business ProfileFreeGoogle Search ConsoleFreeREQ trade name registrationNot needed (using legal name only)Total first year~$15–17 CAD
+
+Document prepared for Olha Shelest, sole proprietor, Gatineau QC.
+Last updated: April 2026
