@@ -1,5 +1,35 @@
 # Project Notes
+## Initial Promt
+Build a high-end, fully responsive website for “Olha Shelest - Professional Massage Therapist".
+Use the following technologies: Next.js, Tailwind CSS, and shadcn/ui. 
 
+Use https://www.promassotherapie.com/ and https://alignyourbody.com/home as design inspiration, emulating its modern aesthetic, elegant serif headings, with clean sans-serif body text, and open layout with generous whitespaces.
+Colour palette: deep forest green #2D6A4F as the primary brand color (navbars, buttons, headings, fills), sage green #52B788 for links and hover states, pale sage #F0F7F4 for light section backgrounds, and warm off-white #FAF9F5 as the base page background.
+If design permits, use some elements from business card for general vibe reference when building the website (Business-card-front.jpg is a screenshot of the front of the business card)
+
+Below are some mandatory requirements:
+Website must support two languages for all pages and sections: English and French
+Use logo from provided logo.png file
+Must have a privacy policy page that is not part of the main menu (probably a half transparent link in the footer) (example is in following link  https://www.promassotherapie.com/general-5 and https://www.promassotherapie.com/fr/general-5 )
+Website should have the following sections (pages):
+Home - do not use Olha picture on the main page (maybe something simple like https://alignyourbody.com/home )
+About Olha - picture of Olha (Olya-pic.jpg), with some background information (for beginning just come up with some random text)
+Fees
+Contact - should have both text with phone, email and address, as well as a contact form with input fields that will be send an email
+
+About the massage therapist this website is for (can be used on about Olha page):
+Name of the massage therapist: Olha Shelest
+Olha is registered with AMQ https://membres.rmqmasso.ca/en/find-member/details/M-24-4471
+Olha is professional massage therapist
+
+For contact page, use the following:
+Phone: (506) 426-6818
+Email: olyashelest22@gmail.com
+Address: 514 Rue Jacques-Poulin, Gatineau, QC J8P 5Z9
+
+Keep the code clean and well structured
+
+## General prompt
 ## TODO
 
  - create new email address (similar to domain)
