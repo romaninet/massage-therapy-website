@@ -74,3 +74,16 @@ Google uses phone area code as a local signal. A 819 (Gatineau/Outaouais) number
 
 10. Google Analytics — free, recommended.
 It's a free Google service. You add a small tracking code to the website, and Google shows you a dashboard: how many people visit, which pages they read, where they found the site (Google search, direct, social), what city they're from. Completely free. We can add it in Phase 4 — it's useful once the site is live and indexed.
+
+
+---------------
+How to verify — open the site and right-click → View Page Source. You should see:
+
+<html lang="en"> (or lang="fr" on the French version)
+<title>Massage Therapy in Gatineau | Olha Shelest</title>
+<meta name="description" content="..."> unique per page
+<link rel="canonical" href="..."> pointing to the right URL
+<link rel="alternate" hreflang="en" href="..."> and hreflang="fr" on every page
+When you buy a domain, open src/lib/config.ts and change just the SITE.url value — everything updates automatically.
+
+Ready to move to Phase 2 (robots.txt + sitemap) whenever you are.

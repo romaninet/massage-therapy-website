@@ -1,8 +1,33 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { Clock, Info } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn
+      ? 'Massage Therapy Fees & Services | Gatineau'
+      : 'Tarifs et services de massothérapie | Gatineau',
+    description: isEn
+      ? 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & prenatal massage from $65 CAD. Direct insurance billing available.'
+      : 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et prénatal à partir de 65 $ CAD. Facturation directe disponible.',
+    alternates: {
+      canonical: `/${locale}/fees`,
+      languages: { en: '/en/fees', fr: '/fr/fees', 'x-default': '/en/fees' },
+    },
+    openGraph: {
+      url: `/${locale}/fees`,
+    },
+  };
+}
 
 export default async function FeesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -1,3 +1,7 @@
+export const SITE = {
+  url: 'https://massage-therapy-website-ecru.vercel.app',
+} as const;
+
 export const BUSINESS = {
   email: 'roman.inet@gmail.com',
   phone: '(506) 426-6818',

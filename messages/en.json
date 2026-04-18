@@ -10,7 +10,7 @@
     "tagline": "Heal. Restore. Renew.",
     "subtitle": "Professional massage therapy tailored to your body and mind, in the heart of Gatineau.",
     "cta": "Book Your Session",
-    "credential": "Registered Massage Therapist · AMQ Member"
+    "credential": "Professional Massage Therapist · AMQ Member"
   },
   "services": {
     "title": "Services",
@@ -35,14 +35,14 @@
   "about": {
     "preview": {
       "title": "Meet Olha Shelest",
-      "subtitle": "Registered Massage Therapist",
+      "subtitle": "Professional Massage Therapist",
       "bio": "With a deep passion for holistic healing and a commitment to excellence, Olha brings both expertise and genuine care to every treatment — helping you move, feel, and live better.",
       "cta": "Learn More About Olha"
     },
     "page": {
       "title": "About Olha Shelest",
-      "subtitle": "Registered Massage Therapist · Gatineau, QC",
-      "bio1": "Olha Shelest is a Registered Massage Therapist (RMT) based in Gatineau, Quebec. With a deep passion for holistic healing and an unwavering commitment to excellence, Olha brings both expertise and genuine care to every treatment.",
+      "subtitle": "Professional Massage Therapist · Gatineau, QC",
+      "bio1": "Olha Shelest is a Professional Massage Therapist based in Gatineau, Quebec. With a deep passion for holistic healing and an unwavering commitment to excellence, Olha brings both expertise and genuine care to every treatment.",
       "bio2": "Trained in a comprehensive range of therapeutic techniques, Olha specializes in helping clients overcome pain, recover from injury, manage stress, and achieve lasting relaxation. Her approach is always personalized — every session is thoughtfully tailored to your unique needs and health goals.",
       "bio3": "Olha believes that massage therapy is far more than a luxury. It is an essential component of a balanced, healthy lifestyle. Whether you are an athlete seeking faster recovery, someone managing chronic pain, or simply in need of deep relaxation, Olha is here to guide you on your path to wellness.",
       "bio4": "She welcomes clients of all backgrounds and adapts her techniques to suit each individual's comfort level and therapeutic objectives. Every visit is a step toward a healthier, more balanced you.",
@@ -115,7 +115,7 @@
     }
   },
   "footer": {
-    "tagline": "Registered Massage Therapist",
+    "tagline": "Professional Massage Therapist",
     "location": "Gatineau, QC",
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",

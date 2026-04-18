@@ -1,8 +1,33 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
 import { BUSINESS } from '@/lib/config';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn
+      ? 'Contact Olha Shelest | Book a Massage in Gatineau'
+      : 'Contacter Olha Shelest | Réserver un massage à Gatineau',
+    description: isEn
+      ? `Book a massage therapy appointment with Olha Shelest in Gatineau, QC. Call ${BUSINESS.phone} or send a message online. Located at ${BUSINESS.address}.`
+      : `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne. ${BUSINESS.address}.`,
+    alternates: {
+      canonical: `/${locale}/contact`,
+      languages: { en: '/en/contact', fr: '/fr/contact', 'x-default': '/en/contact' },
+    },
+    openGraph: {
+      url: `/${locale}/contact`,
+    },
+  };
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

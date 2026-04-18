@@ -1,10 +1,35 @@
-import { getTranslations, getLocale, setRequestLocale } from 'next-intl/server';
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
 import { BUSINESS } from '@/lib/config';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn
+      ? 'About Olha Shelest | Professional Massage Therapist, Gatineau'
+      : 'À propos d\'Olha Shelest | Massothérapeute professionnelle, Gatineau',
+    description: isEn
+      ? 'Meet Olha Shelest, Professional Massage Therapist and AMQ member based in Gatineau, QC. Personalized therapeutic massage tailored to your needs.'
+      : 'Découvrez Olha Shelest, massothérapeute professionnelle et membre AMQ à Gatineau, QC. Des soins thérapeutiques personnalisés adaptés à vos besoins.',
+    alternates: {
+      canonical: `/${locale}/about`,
+      languages: { en: '/en/about', fr: '/fr/about', 'x-default': '/en/about' },
+    },
+    openGraph: {
+      url: `/${locale}/about`,
+    },
+  };
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -40,7 +65,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-2xl shadow-forest/15">
                 <Image
                   src="/images/olya-pic.jpg"
-                  alt="Olha Shelest — Registered Massage Therapist"
+                  alt="Olha Shelest — Professional Massage Therapist"
                   fill
                   className="object-cover object-center"
                   priority

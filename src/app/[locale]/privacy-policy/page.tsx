@@ -1,5 +1,34 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn
+      ? 'Privacy Policy | Olha Shelest Massage Therapy'
+      : 'Politique de confidentialité | Massothérapie Olha Shelest',
+    description: isEn
+      ? 'Privacy policy for Olha Shelest massage therapy practice in Gatineau, QC. Compliant with Quebec Law 25 and PIPEDA.'
+      : 'Politique de confidentialité de la pratique de massothérapie d\'Olha Shelest à Gatineau, QC. Conforme à la Loi 25 du Québec et à la LPRPDE.',
+    alternates: {
+      canonical: `/${locale}/privacy-policy`,
+      languages: {
+        en: '/en/privacy-policy',
+        fr: '/fr/privacy-policy',
+        'x-default': '/en/privacy-policy',
+      },
+    },
+    openGraph: {
+      url: `/${locale}/privacy-policy`,
+    },
+  };
+}
 
 export default async function PrivacyPolicyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
