@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { servicesJsonLd } from '@/lib/jsonld';
 import Link from 'next/link';
 import { Clock, Info } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
@@ -38,6 +39,10 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd(services, locale)) }}
+      />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-20 relative overflow-hidden">
         <BotanicalCornerTL className="absolute top-0 left-0 w-48 h-48 text-white/10 pointer-events-none" />

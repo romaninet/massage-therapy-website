@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
+import { localBusinessJsonLd } from '@/lib/jsonld';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import AboutPreviewSection from '@/components/sections/AboutPreviewSection';
@@ -35,6 +36,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale)) }}
+      />
       <HeroSection />
       <ServicesSection />
       <AboutPreviewSection />
