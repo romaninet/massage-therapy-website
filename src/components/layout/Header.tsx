@@ -53,19 +53,19 @@ export default function Header() {
             <div className="w-28 h-28 relative flex-shrink-0">
               <Image
                 src="/images/logo.png"
-                alt="Massage Therapy Logo"
+                alt={locale === 'fr' ? 'Olha Shelest, Massothérapeute Professionnelle' : 'Olha Shelest, Professional Massage Therapist'}
                 fill
                 sizes="112px"
                 className="object-contain brightness-0 invert"
                 priority
               />
             </div>
-            <div className="hidden sm:flex flex-col leading-tight">
-              <span className="font-heading text-white font-semibold tracking-wide text-base">
+            <div className="hidden sm:flex flex-col leading-tight items-center">
+              <span className="font-heading text-white font-semibold tracking-wide text-lg">
                 {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
               </span>
-              <span className="text-white/60 text-xs tracking-widest uppercase font-light">
-                {locale === 'en' ? 'Massage Therapy' : 'Massothérapie'}
+              <span className="text-white/60 text-[10px] tracking-widest uppercase font-light">
+                {locale === 'en' ? 'Massage Therapist' : 'Massothérapeute'}
               </span>
             </div>
           </Link>

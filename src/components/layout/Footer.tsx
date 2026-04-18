@@ -1,6 +1,5 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
 import { BUSINESS } from '@/lib/config';
@@ -30,20 +29,11 @@ export default function Footer() {
           {/* Brand column */}
           <div className="flex flex-col gap-4">
             <Link href={`${prefix}`} className="flex items-center gap-3">
-              <div className="w-12 h-12 relative flex-shrink-0">
-                <Image
-                  src="/images/logo.png"
-                  alt="Massage Therapy Logo"
-                  fill
-                  sizes="48px"
-                  className="object-contain brightness-0 invert"
-                />
-              </div>
               <div className="flex flex-col leading-tight">
-                <span className="font-heading text-white font-semibold tracking-wide">
+                <span className="font-heading text-white font-semibold tracking-wide text-lg">
                   {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
                 </span>
-                <span className="text-white/50 text-xs tracking-widest uppercase">
+                <span className="text-white/50 text-[10px] tracking-widest uppercase">
                   {t('tagline')}
                 </span>
               </div>
