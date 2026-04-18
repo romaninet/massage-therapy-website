@@ -35,6 +35,7 @@ export default function Footer() {
                   src="/images/logo.png"
                   alt="Massage Therapy Logo"
                   fill
+                  sizes="48px"
                   className="object-contain brightness-0 invert"
                 />
               </div>

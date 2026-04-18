@@ -55,6 +55,7 @@ export default function Header() {
                 src="/images/logo.png"
                 alt="Massage Therapy Logo"
                 fill
+                sizes="112px"
                 className="object-contain brightness-0 invert"
                 priority
               />
