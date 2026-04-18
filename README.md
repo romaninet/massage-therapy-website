@@ -92,3 +92,27 @@ Ready to move to Phase 2 (robots.txt + sitemap) whenever you are.
 to verify — share any page URL in WhatsApp or on Facebook. You should see a preview card with the image, title, and description instead of a plain link. You can also test it without actually sharing by using opengraph.xyz — just paste any page URL and it shows you exactly what the card will look like.
 
 Ready for Phase 5 (favicon) when you are.
+
+
+# phase 6
+
+Phase 6 — Google Search Console
+This is the last phase and it's not code — it's registering the site with Google so it gets indexed and you can monitor its performance.
+
+What you'll do:
+
+Go to Google Search Console
+Sign in with a Google account
+Add the site URL (https://massage-therapy-website-ecru.vercel.app)
+Google gives you a verification file or meta tag — I add it to the website (1 minute of code)
+Submit the sitemap (/sitemap.xml) so Google crawls all pages immediately
+Done — Google starts indexing within a few days
+What you get:
+
+Google knows the site exists
+You can see which search terms people use to find it
+You can monitor indexing errors
+Free, no ongoing maintenance needed
+One thing to do first: The site should ideally be on a real domain before submitting to Search Console. With the Vercel URL, Google will index it but when you switch domains later, you'd need to re-verify.
+
+Have you purchased the domain yet? If yes, let's connect it to Vercel first, then do Search Console. If not, we can proceed with the Vercel URL for now.
