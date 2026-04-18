@@ -6,12 +6,15 @@ export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY ?? '');
   try {
     const body = await request.json();
-    const { name, email, phone, message } = body as {
+    const { name, email, phone, message, website } = body as {
       name?: string;
       email?: string;
       phone?: string;
       message?: string;
+      website?: string;
     };
+
+    if (website) return NextResponse.json({ success: true });
 
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });

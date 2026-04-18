@@ -30,6 +30,7 @@ export default function ContactForm() {
   const [state, setState] = useState<FormState>('idle');
   const [form, setForm] = useState<FormFields>({ name: '', email: '', phone: '', message: '' });
   const [errors, setErrors] = useState<Partial<FormFields>>({});
+  const [honeypot, setHoneypot] = useState('');
 
   const validate = (): boolean => {
     const errs: Partial<FormFields> = {};
@@ -61,15 +62,16 @@ export default function ContactForm() {
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (honeypot) { setState('success'); return; }
     if (!validate()) return;
     setState('sending');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website: honeypot }),
       });
       if (!res.ok) throw new Error('Server error');
       setState('success');
@@ -92,6 +94,17 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+      {/* Honeypot — hidden from real users, bots fill it */}
+      <input
+        type="text"
+        name="website"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        aria-hidden="true"
+        tabIndex={-1}
+        autoComplete="off"
+        style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+      />
       <h3 className="font-heading text-forest text-2xl font-semibold mb-2">{t('title')}</h3>
 
       <div className="grid sm:grid-cols-2 gap-5">
