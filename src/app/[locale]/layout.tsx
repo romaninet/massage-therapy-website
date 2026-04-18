@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale, getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { SITE } from '@/lib/config';
 import { playfair, dmSans, geistMono } from '@/lib/fonts';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -31,6 +32,17 @@ export async function generateMetadata({
         ? 'Olha Shelest — Massage Therapy Gatineau'
         : 'Olha Shelest — Massothérapie Gatineau',
       locale: isEn ? 'en_CA' : 'fr_CA',
+      images: [
+        {
+          url: SITE.ogImage,
+          alt: isEn
+            ? 'Professional massage therapy in Gatineau, QC'
+            : 'Massothérapie professionnelle à Gatineau, QC',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
     },
   };
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
+import { SITE } from '@/lib/config';
 import { localBusinessJsonLd } from '@/lib/jsonld';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -26,6 +27,18 @@ export async function generateMetadata({
     },
     openGraph: {
       url: `/${locale}`,
+      images: [
+        {
+          url: SITE.ogImage,
+          alt: isEn
+            ? 'Professional massage therapy in Gatineau, QC'
+            : 'Massothérapie professionnelle à Gatineau, QC',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [SITE.ogImage],
     },
   };
 }

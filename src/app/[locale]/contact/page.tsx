@@ -4,7 +4,7 @@ import { localBusinessJsonLd } from '@/lib/jsonld';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
-import { BUSINESS } from '@/lib/config';
+import { BUSINESS, SITE } from '@/lib/config';
 
 export async function generateMetadata({
   params,
@@ -26,6 +26,18 @@ export async function generateMetadata({
     },
     openGraph: {
       url: `/${locale}/contact`,
+      images: [
+        {
+          url: SITE.ogImage,
+          alt: isEn
+            ? 'Contact Olha Shelest — massage therapy in Gatineau, QC'
+            : 'Contacter Olha Shelest — massothérapie à Gatineau, QC',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [SITE.ogImage],
     },
   };
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { SITE } from '@/lib/config';
 import { servicesJsonLd } from '@/lib/jsonld';
 import Link from 'next/link';
 import { Clock, Info } from 'lucide-react';
@@ -26,6 +27,18 @@ export async function generateMetadata({
     },
     openGraph: {
       url: `/${locale}/fees`,
+      images: [
+        {
+          url: SITE.ogImage,
+          alt: isEn
+            ? 'Massage therapy fees and services in Gatineau, QC'
+            : 'Tarifs et services de massothérapie à Gatineau, QC',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [SITE.ogImage],
     },
   };
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { SITE } from '@/lib/config';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 
 export async function generateMetadata({
@@ -26,6 +27,18 @@ export async function generateMetadata({
     },
     openGraph: {
       url: `/${locale}/privacy-policy`,
+      images: [
+        {
+          url: SITE.ogImage,
+          alt: isEn
+            ? 'Olha Shelest Massage Therapy — Gatineau, QC'
+            : 'Massothérapie Olha Shelest — Gatineau, QC',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [SITE.ogImage],
     },
   };
 }

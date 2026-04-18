@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
-import { BUSINESS } from '@/lib/config';
+import { BUSINESS, SITE } from '@/lib/config';
 
 export async function generateMetadata({
   params,
@@ -28,6 +28,18 @@ export async function generateMetadata({
     },
     openGraph: {
       url: `/${locale}/about`,
+      images: [
+        {
+          url: SITE.portraitImage,
+          alt: isEn
+            ? 'Olha Shelest — Professional Massage Therapist'
+            : 'Olha Shelest — Massothérapeute professionnelle',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [SITE.portraitImage],
     },
   };
 }
@@ -69,7 +81,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <div className="relative">
               <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-2xl shadow-forest/15">
                 <Image
-                  src="/images/olya-pic.jpg"
+                  src={SITE.portraitImage}
                   alt="Olha Shelest — Professional Massage Therapist"
                   fill
                   className="object-cover object-center"

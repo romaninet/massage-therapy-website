@@ -1,5 +1,7 @@
 export const SITE = {
   url: 'https://massage-therapy-website-ecru.vercel.app',
+  ogImage: '/images/image1.jpg',
+  portraitImage: '/images/olya-pic.jpg',
 } as const;
 
 export const BUSINESS = {

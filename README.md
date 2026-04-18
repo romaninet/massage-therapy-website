@@ -87,3 +87,8 @@ How to verify — open the site and right-click → View Page Source. You should
 When you buy a domain, open src/lib/config.ts and change just the SITE.url value — everything updates automatically.
 
 Ready to move to Phase 2 (robots.txt + sitemap) whenever you are.
+
+------
+to verify — share any page URL in WhatsApp or on Facebook. You should see a preview card with the image, title, and description instead of a plain link. You can also test it without actually sharing by using opengraph.xyz — just paste any page URL and it shows you exactly what the card will look like.
+
+Ready for Phase 5 (favicon) when you are.

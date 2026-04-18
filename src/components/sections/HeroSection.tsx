@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SITE } from '@/lib/config';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
 
 export default function HeroSection() {
@@ -60,7 +61,7 @@ export default function HeroSection() {
         <div className="relative lg:block hidden min-h-[calc(100vh-8px)] mt-2 overflow-hidden rounded-3xl">
           {/* Photo */}
           <Image
-            src="/images/image1.jpg"
+            src={SITE.ogImage}
             alt="Spa atmosphere — soft towels and candlelight"
             fill
             priority

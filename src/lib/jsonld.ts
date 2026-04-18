@@ -16,7 +16,7 @@ const businessEntity = {
   telephone: BUSINESS.phoneTel,
   email: BUSINESS.email,
   address: postalAddress,
-  image: `${SITE.url}/images/olya-pic.jpg`,
+  image: `${SITE.url}${SITE.portraitImage}`,
   priceRange: '$$',
   currenciesAccepted: 'CAD',
   sameAs: [BUSINESS.amqUrl],
@@ -37,7 +37,7 @@ export function personJsonLd(locale: string) {
     name: BUSINESS.name,
     jobTitle: locale === 'fr' ? 'Massothérapeute professionnelle' : 'Professional Massage Therapist',
     url: `${SITE.url}/${locale}/about`,
-    image: `${SITE.url}/images/olya-pic.jpg`,
+    image: `${SITE.url}${SITE.portraitImage}`,
     worksFor: {
       '@type': 'HealthAndBeautyBusiness',
       name: BUSINESS.name,
