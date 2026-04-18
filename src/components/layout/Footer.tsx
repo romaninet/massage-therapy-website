@@ -41,7 +41,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="font-heading text-white font-semibold tracking-wide">
-                  Olha Shelest
+                  {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
                 </span>
                 <span className="text-white/50 text-xs tracking-widest uppercase">
                   {t('tagline')}

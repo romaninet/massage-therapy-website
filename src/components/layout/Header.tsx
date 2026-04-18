@@ -62,10 +62,10 @@ export default function Header() {
             </div>
             <div className="hidden sm:flex flex-col leading-tight">
               <span className="font-heading text-white font-semibold tracking-wide text-base">
-                Olha Shelest
+                {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
               </span>
               <span className="text-white/60 text-xs tracking-widest uppercase font-light">
-                Massage Therapy
+                {locale === 'en' ? 'Massage Therapy' : 'Massothérapie'}
               </span>
             </div>
           </Link>

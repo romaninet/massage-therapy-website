@@ -35,7 +35,7 @@ export function personJsonLd(locale: string) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: BUSINESS.name,
-    jobTitle: locale === 'fr' ? 'Massothérapeute professionnelle' : 'Professional Massage Therapist',
+    jobTitle: locale === 'fr' ? 'Massothérapeute Professionnelle' : 'Professional Massage Therapist',
     url: `${SITE.url}/${locale}/about`,
     image: `${SITE.url}${SITE.portraitImage}`,
     worksFor: {

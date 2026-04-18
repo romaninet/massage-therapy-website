@@ -24,7 +24,7 @@ export async function generateMetadata({
       template: '%s | Olha Shelest',
       default: isEn
         ? 'Massage Therapy in Gatineau | Olha Shelest, Professional Massage Therapist, Gatineau'
-        : 'Massothérapie à Gatineau | Olha Shelest, Massothérapeute professionnelle, membre de l\'AMQ',
+        : 'Massothérapie à Gatineau | Olha Shelest, Massothérapeute Professionnelle, membre de l\'AMQ',
     },
     openGraph: {
       type: 'website',
