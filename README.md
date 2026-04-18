@@ -42,3 +42,35 @@ Update that single file to change any business details site-wide.
 ## Languages
 
 Translation strings are in `messages/en.json` and `messages/fr.json`.
+
+
+## General TODO list:
+- fix email for contact form (maybe a new gmail account)
+- fix prices
+- fix business address
+
+## SEO TODO list
+- buy new domain
+- create googe business profile for SEO ((Google Maps listing with address, hours, phone) — this is one of the highest-impact local SEO actions and costs nothing.)
+- phone number is not gatineau (can confuse google)
+- Do you want Google Analytics tracking?
+
+## SEO notes from CLaude code ( TODO in near future)
+1.	lang attribute + per-page metadata (EN+FR)	Google needs unique titles/descriptions per page & language
+2.	robots.ts + sitemap.ts	Tell search engines how to crawl the site
+3.	JSON-LD structured data	Unlock rich results (map pin, business info, therapist credentials)
+4.	Open Graph + hreflang	Social sharing previews + bilingual canonicalization
+5.	Favicon + manifest	Small but checked by Google
+6.	Google Search Console setup	Submit the site, monitor indexing
+-----------------
+7. Domain — we can start now.
+Use the Vercel URL for now. When you buy a domain, we update one constant in the code and everything propagates. I'd recommend buying a domain soon though — Google builds trust in a domain over time, so earlier is better. Something like massotherapiegatiineau.ca or olyashelest.ca would be ideal for local search.
+
+8. Google Business Profile — yes, one small update needed later.
+Once Olha creates it, Google gives a "Place ID". We add it to the structured data in the website so Google links the website to the verified business listing. One line of code change. Not urgent.
+
+9. Phone number (506) — not blocking, but worth knowing.
+Google uses phone area code as a local signal. A 819 (Gatineau/Outaouais) number would slightly strengthen local search ranking. A 506 number won't hurt badly — Google has many other signals. Not worth changing if it's her real number.
+
+10. Google Analytics — free, recommended.
+It's a free Google service. You add a small tracking code to the website, and Google shows you a dashboard: how many people visit, which pages they read, where they found the site (Google search, direct, social), what city they're from. Completely free. We can add it in Phase 4 — it's useful once the site is live and indexed.
