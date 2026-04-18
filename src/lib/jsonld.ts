@@ -11,6 +11,7 @@ const postalAddress = {
 
 const businessEntity = {
   '@type': 'HealthAndBeautyBusiness',
+  '@id': SITE.url,
   name: BUSINESS.name,
   url: SITE.url,
   telephone: BUSINESS.phoneTel,

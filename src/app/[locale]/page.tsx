@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-import { SITE } from '@/lib/config';
+import { SITE, absoluteUrl } from '@/lib/config';
 import { localBusinessJsonLd } from '@/lib/jsonld';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -22,14 +22,14 @@ export async function generateMetadata({
       ? 'Professional Massage Therapist in Gatineau, QC. Swedish, deep tissue, relaxation & prenatal massage. Book your session with Olha Shelest — AMQ member.'
       : 'Massothérapeute Professionnelle à Gatineau, QC. Massages suédois, en profondeur, de relaxation et prénatal. Réservez votre séance avec Olha Shelest — membre AMQ.',
     alternates: {
-      canonical: `/${locale}`,
-      languages: { en: '/en', fr: '/fr', 'x-default': '/en' },
+      canonical: absoluteUrl(`/${locale}`),
+      languages: { en: absoluteUrl('/en'), fr: absoluteUrl('/fr'), 'x-default': absoluteUrl('/en') },
     },
     openGraph: {
-      url: `/${locale}`,
+      url: absoluteUrl(`/${locale}`),
       images: [
         {
-          url: SITE.ogImage,
+          url: absoluteUrl(SITE.ogImage),
           alt: isEn
             ? 'Professional massage therapy in Gatineau, QC'
             : 'Massothérapie professionnelle à Gatineau, QC',
@@ -38,7 +38,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      images: [SITE.ogImage],
+      images: [absoluteUrl(SITE.ogImage)],
     },
   };
 }

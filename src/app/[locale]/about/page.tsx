@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
-import { BUSINESS, SITE } from '@/lib/config';
+import { BUSINESS, SITE, absoluteUrl } from '@/lib/config';
 
 export async function generateMetadata({
   params,
@@ -23,14 +23,14 @@ export async function generateMetadata({
       ? 'Meet Olha Shelest, Professional Massage Therapist and AMQ member based in Gatineau, QC. Personalized therapeutic massage tailored to your needs.'
       : 'Découvrez Olha Shelest, massothérapeute professionnelle et membre AMQ à Gatineau, QC. Des soins thérapeutiques personnalisés adaptés à vos besoins.',
     alternates: {
-      canonical: `/${locale}/about`,
-      languages: { en: '/en/about', fr: '/fr/about', 'x-default': '/en/about' },
+      canonical: absoluteUrl(`/${locale}/about`),
+      languages: { en: absoluteUrl('/en/about'), fr: absoluteUrl('/fr/about'), 'x-default': absoluteUrl('/en/about') },
     },
     openGraph: {
-      url: `/${locale}/about`,
+      url: absoluteUrl(`/${locale}/about`),
       images: [
         {
-          url: SITE.portraitImage,
+          url: absoluteUrl(SITE.portraitImage),
           alt: isEn
             ? 'Olha Shelest — Professional Massage Therapist'
             : 'Olha Shelest — Massothérapeute Professionnelle',
@@ -39,7 +39,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      images: [SITE.portraitImage],
+      images: [absoluteUrl(SITE.portraitImage)],
     },
   };
 }

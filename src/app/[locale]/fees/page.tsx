@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SITE } from '@/lib/config';
+import { SITE, absoluteUrl } from '@/lib/config';
 import { servicesJsonLd } from '@/lib/jsonld';
 import Link from 'next/link';
 import { Clock, Info } from 'lucide-react';
@@ -22,14 +22,14 @@ export async function generateMetadata({
       ? 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & prenatal massage from $65 CAD. Direct insurance billing available.'
       : 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et prénatal à partir de 65 $ CAD. Facturation directe disponible.',
     alternates: {
-      canonical: `/${locale}/fees`,
-      languages: { en: '/en/fees', fr: '/fr/fees', 'x-default': '/en/fees' },
+      canonical: absoluteUrl(`/${locale}/fees`),
+      languages: { en: absoluteUrl('/en/fees'), fr: absoluteUrl('/fr/fees'), 'x-default': absoluteUrl('/en/fees') },
     },
     openGraph: {
-      url: `/${locale}/fees`,
+      url: absoluteUrl(`/${locale}/fees`),
       images: [
         {
-          url: SITE.ogImage,
+          url: absoluteUrl(SITE.ogImage),
           alt: isEn
             ? 'Massage therapy fees and services in Gatineau, QC'
             : 'Tarifs et services de massothérapie à Gatineau, QC',
@@ -38,7 +38,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      images: [SITE.ogImage],
+      images: [absoluteUrl(SITE.ogImage)],
     },
   };
 }

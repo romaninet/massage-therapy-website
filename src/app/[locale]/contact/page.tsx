@@ -4,7 +4,7 @@ import { localBusinessJsonLd } from '@/lib/jsonld';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
-import { BUSINESS, SITE } from '@/lib/config';
+import { BUSINESS, SITE, absoluteUrl } from '@/lib/config';
 
 export async function generateMetadata({
   params,
@@ -21,14 +21,14 @@ export async function generateMetadata({
       ? `Book a massage therapy appointment with Olha Shelest in Gatineau, QC. Call ${BUSINESS.phone} or send a message online. Located at ${BUSINESS.address}.`
       : `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne. ${BUSINESS.address}.`,
     alternates: {
-      canonical: `/${locale}/contact`,
-      languages: { en: '/en/contact', fr: '/fr/contact', 'x-default': '/en/contact' },
+      canonical: absoluteUrl(`/${locale}/contact`),
+      languages: { en: absoluteUrl('/en/contact'), fr: absoluteUrl('/fr/contact'), 'x-default': absoluteUrl('/en/contact') },
     },
     openGraph: {
-      url: `/${locale}/contact`,
+      url: absoluteUrl(`/${locale}/contact`),
       images: [
         {
-          url: SITE.ogImage,
+          url: absoluteUrl(SITE.ogImage),
           alt: isEn
             ? 'Contact Olha Shelest — massage therapy in Gatineau, QC'
             : 'Contacter Olha Shelest — massothérapie à Gatineau, QC',
@@ -37,7 +37,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      images: [SITE.ogImage],
+      images: [absoluteUrl(SITE.ogImage)],
     },
   };
 }

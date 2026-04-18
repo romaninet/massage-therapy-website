@@ -506,3 +506,33 @@ ItemCostshelestrmt.ca domain~$15–17 CAD/yearVercel hostingFree (Hobby plan)Gma
 
 Document prepared for Olha Shelest, sole proprietor, Gatineau QC.
 Last updated: April 2026
+
+
+================================
+# SEO
+
+High impact
+
+SITE.url is a Vercel preview URL — config.ts:2 has massage-therapy-website-ecru.vercel.app. Once the real domain exists, this must be updated — it affects canonical URLs, JSON-LD, and OG tags sitewide.
+
+Canonical URLs are relative, not absolute — All alternates.canonical values (e.g. /${locale}/about) should be full URLs like https://domain.com/en/about. Google requires absolute URLs for canonicals to work.
+
+JSON-LD missing openingHours and geo — jsonld.ts:12-23 HealthAndBeautyBusiness supports these and they directly improve local search ranking in Gatineau. Adding lat/long and hours would help.
+
+JSON-LD missing @id — Without a stable @id (e.g. the site URL), Google can't reliably de-duplicate the business entity across pages.
+
+Medium impact
+
+Footer address is plain text, not marked up — Footer.tsx:92 renders address as a <span>. Wrapping it in an <address> element gives a semantic signal for local SEO.
+
+AMQ link in footer missing rel="noopener noreferrer" — Not currently linked at all in the footer, but if added it should follow best practice.
+
+ogImage uses a relative path — config.ts:3 '/images/image1.jpg' — OG images need to be absolute URLs to work with social sharing crawlers.
+
+No robots.txt or sitemap.xml — Next.js can auto-generate both via app/robots.ts and app/sitemap.ts. A sitemap with hreflang entries is important for bilingual sites.
+
+Lower impact
+
+fees page — Likely missing JSON-LD (servicesJsonLd exists in jsonld.ts but may not be used there — worth checking).
+
+<html> tag missing hreflang link elements — The alternates.languages in page metadata handles this via Next.js, but worth verifying it renders correctly in the <head>.

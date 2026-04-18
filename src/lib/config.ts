@@ -4,6 +4,10 @@ export const SITE = {
   portraitImage: '/images/olya-pic.jpg',
 } as const;
 
+export function absoluteUrl(path: string): string {
+  return `${SITE.url}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 export const BUSINESS = {
   name: 'Olha Shelest',
   email: 'roman.inet@gmail.com',

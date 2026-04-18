@@ -3,7 +3,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale, getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { SITE } from '@/lib/config';
+import { SITE, absoluteUrl } from '@/lib/config';
 import { playfair, dmSans, geistMono } from '@/lib/fonts';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -34,7 +34,7 @@ export async function generateMetadata({
       locale: isEn ? 'en_CA' : 'fr_CA',
       images: [
         {
-          url: SITE.ogImage,
+          url: absoluteUrl(SITE.ogImage),
           alt: isEn
             ? 'Professional massage therapy in Gatineau, QC'
             : 'Massothérapie professionnelle à Gatineau, QC',
