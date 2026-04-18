@@ -138,8 +138,7 @@ One thing to do first: The site should ideally be on a real domain before submit
 
 Have you purchased the domain yet? If yes, let's connect it to Vercel first, then do Search Console. If not, we can proceed with the Vercel URL for now.
 
-###
-- should we mention that she is working in Nordic??
+# should we mention that she is working in Nordic??
 
 
 # Thoughts about domain:
