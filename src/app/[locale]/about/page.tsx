@@ -90,8 +90,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <div className="absolute inset-x-0 bottom-0 h-1 bg-sage" />
               </div>
               <div className="absolute -bottom-6 -right-4 bg-white rounded-lg shadow-xl shadow-forest/15 px-6 py-4 border border-pale-sage">
-                <p className="text-forest font-heading font-semibold text-sm">AMQ Registered</p>
-                <p className="text-forest/50 text-xs mt-0.5">{BUSINESS.amqNumber}</p>
+                <a href={BUSINESS.amqUrl} target="_blank" rel="noopener noreferrer" className="text-forest font-heading font-semibold text-sm hover:text-sage transition-colors">AMQ Registered</a>
               </div>
               <BotanicalCornerTL className="absolute -top-4 -left-4 w-24 h-24 text-sage/40" />
             </div>

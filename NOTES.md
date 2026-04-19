@@ -575,3 +575,16 @@ json"memberOf": {
   "name": "Regroupement des massothérapeutes du Québec (RMQ)"
 }
 
+## notes from Olya to change:
+1. Prenatal Massage -> "baby massage" from 3 month old
+2. add experience on home page (about olha) and the actual page - 10+ years
+3. fees (4 service) 45,60,90
+4. Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment. ???
+5. cash and e-transfer only (wording....)
+  Accepted methods of payment
+
+  Interac (onilne e-transfer)
+  Cash
+6. cost with taxes ??
+7. Proud members of Le Réseau des massothérapeutes du Québec. Receipts are issued for insurance purposes and treatment is covered by all insurance companies where massage coverage applies.
+8. CHECK CONTACT US FORM
