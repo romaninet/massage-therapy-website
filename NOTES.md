@@ -23,9 +23,9 @@ Olha is registered with AMQ https://membres.rmqmasso.ca/en/find-member/details/M
 Olha is professional massage therapist
 
 For contact page, use the following:
-Phone: (506) 426-6818
-Email: olyashelest22@gmail.com
-Address: 514 Rue Jacques-Poulin, Gatineau, QC J8P 5Z9
+Phone: 11111111
+Email: mmmmm@gmail.com
+Address: 148 Rue Eddy, Gatineau, QC J8X 2W8
 
 Keep the code clean and well structured
 

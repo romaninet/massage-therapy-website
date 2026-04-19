@@ -10,16 +10,16 @@ export function absoluteUrl(path: string): string {
 
 export const BUSINESS = {
   name: 'Olha Shelest',
-  email: 'roman.inet@gmail.com',
-  phone: '(506) 426-6818',
-  phoneTel: '+15064266818',
-  address: '514 Rue Jacques-Poulin',
-  city: 'Gatineau, QC J8P 5Z9',
+  email: 'info@shelestwellness.ca',
+  phone: '(819) 815-5603',
+  phoneTel: '+18198155603',
+  address: '148 Rue Eddy',
+  city: 'Gatineau, QC J8X 2W8',
   cityName: 'Gatineau',
   province: 'QC',
-  postalCode: 'J8P 5Z9',
+  postalCode: 'J8X 2W8',
   country: 'CA',
   amqNumber: 'M-24-4471',
   amqUrl: 'https://membres.rmqmasso.ca/en/find-member/details/M-24-4471',
-  mapsUrl: 'https://maps.google.com/maps?q=514+Rue+Jacques-Poulin,+Gatineau,+QC+J8P+5Z9&output=embed',
+  mapsUrl: 'https://maps.google.com/maps?q=148+Rue+Eddy,+Gatineau,+QC+J8X+2W8&output=embed',
 } as const;
