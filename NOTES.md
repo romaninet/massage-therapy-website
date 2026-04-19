@@ -536,3 +536,42 @@ Lower impact
 fees page — Likely missing JSON-LD (servicesJsonLd exists in jsonld.ts but may not be used there — worth checking).
 
 <html> tag missing hreflang link elements — The alternates.languages in page metadata handles this via Next.js, but worth verifying it renders correctly in the <head>.
+
+
+
+
+# BACKLINK AMQ and RMQ
+How to update your profile
+Step 1 — Log in to the member portal
+Go to membres.rmqmasso.ca/en/login
+
+Username: your email address on file, or your member number M-24-4471
+Password: whatever you set when you registered
+
+If you don't remember your password, use the "I forgot my password" link on that page.
+Step 2 — Look for profile or account settings
+Once logged in, look for any of these labels in the navigation: "My Profile," "Mon profil," "My Account," "Edit my listing," or similar. The logged-in interface is not publicly visible so I can't see the exact layout — but this is standard for member portals.
+Step 3 — Add your website URL
+Enter https://shelestrmt.ca in whatever website field is available. Also fill in while you're there:
+
+Phone: the 819 Fongo number
+City: Gatineau, QC
+A short description of your services in French
+A professional photo if supported
+
+Step 4 — If there is no website field in the portal
+This is a real possibility — some association portals don't expose all fields for self-editing. In that case, contact RMQ/AMQ directly and ask them to add your website to your public member listing.
+Contact options from their site:
+
+Phone: 1-888-268-2516 (toll free) or 1-450-824-3550
+Email: info@collectifsante.ca
+Tell them: "I would like to add my website URL https://shelestrmt.ca to my public member directory profile, member number M-24-4471."
+
+
+One additional note for your SEO plan
+Since AMQ and RMQ are merging and amquebec.qc.ca now redirects to rmqmasso.ca, anywhere in your website or structured data where you previously referenced AMQ, you should now reference RMQ (Regroupement des massothérapeutes du Québec) as the organization name, since that's the active domain Google will see when it crawls the link. Update the JSON-LD schema block accordingly:
+json"memberOf": {
+  "@type": "Organization",
+  "name": "Regroupement des massothérapeutes du Québec (RMQ)"
+}
+
