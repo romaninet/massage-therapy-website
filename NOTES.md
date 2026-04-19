@@ -588,3 +588,4 @@ json"memberOf": {
 6. cost with taxes ??
 7. Proud members of Le Réseau des massothérapeutes du Québec. Receipts are issued for insurance purposes and treatment is covered by all insurance companies where massage coverage applies.
 8. CHECK CONTACT US FORM
+9. massage@shelestwellness.ca
