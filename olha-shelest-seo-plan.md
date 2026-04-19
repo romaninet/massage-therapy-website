@@ -435,3 +435,88 @@ On the day of the address change, in this order:
 
 *Document prepared for Olha Shelest, sole proprietor, Gatineau QC.*  
 *Last updated: April 2026*
+
+# backlinks!!!
+How backlinks actually work for local SEO
+There are two different things links do for you:
+Citations — directories that list your NAP (name, address, phone). These don't necessarily send traffic, but they confirm to Google that your business is real and located where you say. Quantity and consistency matter here.
+Authority backlinks — links from relevant, trusted websites that Google actually weighs as endorsements. Quality matters far more than quantity. One link from AMQ is worth more than 50 links from random directories.
+For a solo massage therapist in Gatineau, your realistic goal is: 4–6 high-quality authority backlinks + 10–15 consistent citations. That's enough to dominate local results. You don't need hundreds of links.
+
+Tier 1 — Highest priority (do these first)
+AMQ member directory
+You already have this. It's your single most valuable backlink. Make sure:
+
+Your AMQ listing links directly to https://shelestrmt.ca
+The name, address, and phone on your AMQ profile match GBP exactly
+Your membership number is visible on your website (builds trust signal)
+
+Jane App
+Jane is the dominant practice management and booking platform for Canadian RMTs and health practitioners. It has a public practitioner directory that Google indexes well. Even if you don't use Jane for booking, creating a profile there is worth doing.
+
+Go to jane.app → create a practitioner profile
+Free public profile is available
+This is a high-authority Canadian health domain — the backlink has real value
+Many clients in Canada specifically search Jane for practitioners
+
+PagesJaunes / Yellow Pages Canada
+For Quebec in particular, PagesJaunes (the French version of Yellow Pages) carries significant weight. Google treats it as an authoritative local source in the Quebec market.
+
+pagesjaunes.ca — create a free business listing
+Also create the English counterpart at yellowpages.ca
+NAP must match GBP exactly
+
+
+Tier 2 — Worth doing, lower effort
+Yelp Canada
+Yelp has genuine authority and ranks well in Google search results for service queries like "massage Gatineau." Even if it doesn't send much direct traffic initially, it appears in search results alongside your website and GBP — which increases the total footprint of visible results for searches about you.
+
+yelp.ca → claim or create a business listing
+Free basic listing
+
+Canada411 / 411.ca
+Pure citation directory — low effort, consistent NAP signal, indexed by Google.
+
+canada411.ca → add your business
+
+Cylex Canada
+Another indexed Canadian business directory. Low authority individually but adds to citation consistency.
+
+cylex.ca
+
+Chambre de commerce de Gatineau
+This one is different from the others — it's a local business association, not a generic directory. A link from the Gatineau Chamber of Commerce is a genuine local authority signal.
+
+Check membership costs at ccgap.ca — there may be a fee
+If cost is a concern, skip for now and revisit when the practice is established
+If they have a free member listing or business finder, prioritize that
+
+
+Tier 3 — Worthwhile but requires effort or time
+RateMDs
+Canadian health practitioner review site. Google frequently surfaces RateMDs profiles in search results for practitioner name searches. Worth creating a profile so that when someone searches "Olha Shelest Gatineau," RateMDs appears and shows positive reviews — reinforcing trust.
+
+ratemds.com → create a free practitioner profile
+
+Wellness/health local blogs or publications
+This requires active outreach but produces the highest-quality backlinks. The approach:
+
+Search for French-language wellness bloggers in the Gatineau/Ottawa region
+Offer to write a short guest post (in French) on a topic like "les bienfaits du massage thérapeutique" or "comment choisir un massothérapeute à Gatineau"
+The post links back to shelestrmt.ca
+This is the hardest to execute but the most valuable link type because it's editorial, not just a directory listing
+
+Realistic target: 1–2 of these in the first year.
+Le Droit / Ottawa Citizen
+Local newspapers with high domain authority. Getting listed or mentioned in a local news article (even a small business spotlight) produces a genuinely powerful backlink. This isn't something you can buy — it requires pitching a story angle.
+Realistic angle: "Gatineau massothérapeute ouvre sa pratique" as a local business item. Le Droit sometimes does short business spotlight features. Worth a cold email to their local desk once the business is established and has reviews.
+
+What to avoid
+Generic link farms and "submit to 500 directories" services — these are either useless or actively harmful. Google has been penalizing mass low-quality directory submissions since 2012. Don't pay anyone to "build backlinks" unless you can see exactly where those links will appear.
+Reciprocal link schemes — "I'll link to you if you link to me" between unrelated businesses. Google detects and discounts these.
+Buying links — any service offering guaranteed links for money is either selling low-quality spam or links that violate Google's guidelines. Either outcome is bad.
+
+Practical order of operations
+PriorityActionCostEffort1Verify AMQ listing links to your site with correct NAPFree10 min2Create Jane App practitioner profileFree20 min3Create PagesJaunes + YellowPages listingsFree20 min4Create Yelp Canada listingFree15 min5Create Canada411 + Cylex citationsFree15 min6Create RateMDs profileFree15 min7Research Chambre de commerce de Gatineau membershipLow cost30 min8Outreach to local wellness bloggers for guest postFreeOngoing9Pitch Le Droit for local business mentionFreeOngoing
+Total for steps 1–6: about 1.5 hours and $0. Do these before pursuing anything else.
+One thing to watch: every time you create one of these listings, record the login credentials and the exact NAP format you used. When the address changes in the future, you'll need to update every single one of them on the same day, and you'll need to remember where they all are.
