@@ -21,7 +21,7 @@ export const BUSINESS = {
   address: '148 Rue Eddy',
   city: 'Gatineau, QC J8X 2W8',
   cityName: 'Gatineau',
-  province: 'Quebec',
+  province: 'QC',
   postalCode: 'J8X 2W8',
   country: 'CA',
   amqNumber: 'M-24-4471',

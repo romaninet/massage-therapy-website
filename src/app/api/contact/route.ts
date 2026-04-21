@@ -69,7 +69,7 @@ export async function POST(request: Request) {
     `;
 
     const { error } = await resend.emails.send({
-      from: 'Massage Therapy - Contact <onboarding@resend.dev>',
+      from: `Massage Therapy - Contact <${BUSINESS.email}>`,
       to: BUSINESS.email,
       replyTo: email,
       subject: `Massage Therapy inquiry from ${name}`,
