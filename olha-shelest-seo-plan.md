@@ -1,6 +1,6 @@
 # SEO & Online Presence Setup Plan
 ## Olha Shelest — Massothérapeute, Gatineau QC
-### shelestrmt.ca · shelestrmt@gmail.com
+### shelestwellness.ca · shelestwellness@gmail.com
 
 ---
 
@@ -27,9 +27,9 @@ Google uses NAP (Name + Address + Phone) signals to determine geographic relevan
 
 ### Problem 2 — Do not use Google Workspace
 
-Google Workspace (~$8–10 USD/month) gives you a `@shelestrmt.ca` email address, but it's cosmetic and not worth the cost for a solo practice. A free Gmail account works perfectly for Google Business Profile and Google Search Console.
+Google Workspace (~$8–10 USD/month) gives you a `@shelestwellness.ca` email address, but it's cosmetic and not worth the cost for a solo practice. A free Gmail account works perfectly for Google Business Profile and Google Search Console.
 
-**Middle-ground option (recommended):** Porkbun includes free email forwarding. You can set up `info@shelestrmt.ca` to forward to `shelestrmt@gmail.com`. Clients see a professional address; mail lands in Gmail. Free.
+**Middle-ground option (recommended):** Porkbun includes free email forwarding. You can set up `info@shelestwellness.ca` to forward to `shelestwellness@gmail.com`. Clients see a professional address; mail lands in Gmail. Free.
 
 ---
 
@@ -44,7 +44,7 @@ Google Workspace (~$8–10 USD/month) gives you a `@shelestrmt.ca` email address
 - Write it down — this is your public business phone number forever
 - Time: ~15 min
 
-### Step 0.2 — Create shelestrmt@gmail.com
+### Step 0.2 — Create shelestwellness@gmail.com
 
 - Go to [accounts.google.com](https://accounts.google.com) → Create account
 - Choose **"For personal use"** — not "For work or business" (that leads to paid Workspace)
@@ -59,19 +59,19 @@ Google Workspace (~$8–10 USD/month) gives you a `@shelestrmt.ca` email address
 
 **Estimated time: ~20 minutes**
 
-### Step 1.1 — Buy shelestrmt.ca
+### Step 1.1 — Buy shelestwellness.ca
 
 - Go to [porkbun.com](https://porkbun.com)
-- Search for `shelestrmt.ca` — confirm it is available
+- Search for `shelestwellness.ca` — confirm it is available
 - Purchase it (~$15–17 CAD/year for .ca)
-- At checkout, use `shelestrmt@gmail.com` as the Porkbun account email
+- At checkout, use `shelestwellness@gmail.com` as the Porkbun account email
 - **Enable auto-renew** — losing a domain by forgetting to renew is a common and costly mistake
 - Enable domain privacy (Porkbun includes it free) — this hides personal info from public WHOIS records
 
 ### Step 1.2 — Set up free email forwarding on Porkbun
 
 - In Porkbun dashboard → Email Routing
-- Create a forward: `info@shelestrmt.ca` → `shelestrmt@gmail.com`
+- Create a forward: `info@shelestwellness.ca` → `shelestwellness@gmail.com`
 - You can add more aliases later (e.g., `contact@`, `bonjour@`)
 - This is email *forwarding*, not a mailbox — it's free and requires no email app setup
 
@@ -86,13 +86,13 @@ This is a two-sided process: configure Vercel first, then update DNS records on 
 ### Step 2.1 — Add domain in Vercel
 
 - Go to your Vercel project dashboard → Settings → Domains
-- Add `shelestrmt.ca` (the root/apex domain)
-- Also add `www.shelestrmt.ca`
+- Add `shelestwellness.ca` (the root/apex domain)
+- Also add `www.shelestwellness.ca`
 - Vercel will display the exact DNS records you need — keep this tab open
 
 ### Step 2.2 — Configure DNS on Porkbun
 
-- Go to Porkbun → DNS → Manage records for `shelestrmt.ca`
+- Go to Porkbun → DNS → Manage records for `shelestwellness.ca`
 - Add the records Vercel specifies. Typically:
   - An **A record** for `@` (root) pointing to Vercel's IP address
   - A **CNAME record** for `www` pointing to `cname.vercel-dns.com`
@@ -100,15 +100,15 @@ This is a two-sided process: configure Vercel first, then update DNS records on 
 
 ### Step 2.3 — Set canonical domain in Vercel
 
-- In Vercel → Settings → Domains, set `shelestrmt.ca` (without www) as the **primary domain**
-- Vercel will automatically redirect `www.shelestrmt.ca` → `shelestrmt.ca`
+- In Vercel → Settings → Domains, set `shelestwellness.ca` (without www) as the **primary domain**
+- Vercel will automatically redirect `www.shelestwellness.ca` → `shelestwellness.ca`
 - This is critical: Google must only index one version of the URL
 
 ### Step 2.4 — Wait for DNS propagation and verify
 
 - Propagation typically takes 30 minutes to 2 hours; worst case 48 hours
-- Test worldwide propagation at [dnschecker.org](https://dnschecker.org) — search `shelestrmt.ca`
-- Also verify that `https://shelestrmt.ca` loads with a valid SSL certificate (Vercel provisions this automatically)
+- Test worldwide propagation at [dnschecker.org](https://dnschecker.org) — search `shelestwellness.ca`
+- Also verify that `https://shelestwellness.ca` loads with a valid SSL certificate (Vercel provisions this automatically)
 - **Do not proceed to Phase 3 until the domain resolves with HTTPS everywhere**
 
 ---
@@ -121,7 +121,7 @@ This is a two-sided process: configure Vercel first, then update DNS records on 
 
 ### Step 3.1 — Verify robots.txt
 
-- Visit `https://shelestrmt.ca/robots.txt` — it must exist and must NOT block Googlebot
+- Visit `https://shelestwellness.ca/robots.txt` — it must exist and must NOT block Googlebot
 - For a Next.js App Router project, add this file if not already present:
 
 ```js
@@ -129,7 +129,7 @@ This is a two-sided process: configure Vercel first, then update DNS records on 
 export default function robots() {
   return {
     rules: { userAgent: '*', allow: '/' },
-    sitemap: 'https://shelestrmt.ca/sitemap.xml',
+    sitemap: 'https://shelestwellness.ca/sitemap.xml',
   };
 }
 ```
@@ -141,7 +141,7 @@ The sitemap must include all pages in **both languages**. Example for next-intl 
 ```js
 // app/sitemap.ts
 export default function sitemap() {
-  const baseUrl = 'https://shelestrmt.ca';
+  const baseUrl = 'https://shelestwellness.ca';
   const locales = ['en', 'fr'];
   const routes = ['', '/services', '/contact', '/about']; // adjust to your actual pages
 
@@ -156,7 +156,7 @@ export default function sitemap() {
 }
 ```
 
-- Verify it works at `https://shelestrmt.ca/sitemap.xml` — you should see a list of URLs
+- Verify it works at `https://shelestwellness.ca/sitemap.xml` — you should see a list of URLs
 
 ### Step 3.3 — Hreflang tags (critical for bilingual sites — often missed)
 
@@ -168,10 +168,10 @@ With Next.js App Router and next-intl, add this to your page metadata:
 // In your page metadata (app/[locale]/page.tsx or layout.tsx)
 export const metadata = {
   alternates: {
-    canonical: 'https://shelestrmt.ca/en', // change per page/locale
+    canonical: 'https://shelestwellness.ca/en', // change per page/locale
     languages: {
-      'en': 'https://shelestrmt.ca/en',
-      'fr': 'https://shelestrmt.ca/fr',
+      'en': 'https://shelestwellness.ca/en',
+      'fr': 'https://shelestwellness.ca/fr',
     },
   },
 };
@@ -203,8 +203,8 @@ This is a machine-readable block that tells Google exactly what kind of business
   "@type": "MassageTherapist",
   "name": "Olha Shelest",
   "jobTitle": "Massothérapeute / Registered Massage Therapist",
-  "image": "https://shelestrmt.ca/og-image.jpg",
-  "url": "https://shelestrmt.ca",
+  "image": "https://shelestwellness.ca/og-image.jpg",
+  "url": "https://shelestwellness.ca",
   "telephone": "+1-819-XXX-XXXX",
   "address": {
     "@type": "PostalAddress",
@@ -244,8 +244,8 @@ export const metadata = {
   openGraph: {
     title: 'Olha Shelest — Massothérapeute à Gatineau',
     description: 'Massothérapeute agréée à Gatineau, QC. Membre de l\'AMQ.',
-    url: 'https://shelestrmt.ca',
-    images: [{ url: 'https://shelestrmt.ca/og-image.jpg', width: 1200, height: 630 }],
+    url: 'https://shelestwellness.ca',
+    images: [{ url: 'https://shelestwellness.ca/og-image.jpg', width: 1200, height: 630 }],
   },
 };
 ```
@@ -257,7 +257,7 @@ export const metadata = {
 - Test mobile layout at [search.google.com/test/mobile-friendly](https://search.google.com/test/mobile-friendly)
 - Check page speed at [pagespeed.web.dev](https://pagespeed.web.dev) — Vercel + Next.js should score well
 - Manually visit every page in both languages and confirm they load correctly on the new domain
-- Confirm that the old Vercel deployment domain (e.g., `your-project.vercel.app`) no longer resolves as the primary URL, or if it does, that Vercel is redirecting it to `shelestrmt.ca`
+- Confirm that the old Vercel deployment domain (e.g., `your-project.vercel.app`) no longer resolves as the primary URL, or if it does, that Vercel is redirecting it to `shelestwellness.ca`
 
 ---
 
@@ -268,9 +268,9 @@ export const metadata = {
 ### Step 4.1 — Create Search Console property
 
 - Go to [search.google.com/search-console](https://search.google.com/search-console)
-- Log in with `shelestrmt@gmail.com`
+- Log in with `shelestwellness@gmail.com`
 - Click **Add property** → choose **Domain** property type (not "URL prefix")
-- Enter: `shelestrmt.ca`
+- Enter: `shelestwellness.ca`
 - Google will give you a TXT record value to verify ownership
 
 ### Step 4.2 — Verify via DNS on Porkbun
@@ -427,8 +427,8 @@ For massage therapy in Gatineau, in order of ROI:
 
 1. **Instagram** — visual platform, strong for wellness businesses. Show the treatment space, share brief educational content about massage benefits. Start when Olha has time to post consistently (even once a week is enough to start).
 2. **Facebook** — useful for local discovery and allows a separate business page linked to GBP
-3. Create both profiles using `shelestrmt@gmail.com` when ready
-4. Username on both platforms: `shelestrmt` if available, otherwise `olhashelest`
+3. Create both profiles using `shelestwellness@gmail.com` when ready
+4. Username on both platforms: `shelestwellness` if available, otherwise `olhashelest`
 
 ### Address change checklist (for when it happens)
 
@@ -448,9 +448,9 @@ On the day of the address change, in this order:
 | Step | Action | Time |
 |---|---|---|
 | 0.1 | Get 819 Fongo number | 15 min |
-| 0.2 | Create shelestrmt@gmail.com | 10 min |
-| 1.1 | Buy shelestrmt.ca on Porkbun + enable auto-renew | 15 min |
-| 1.2 | Set up email forwarding (info@shelestrmt.ca → Gmail) | 5 min |
+| 0.2 | Create shelestwellness@gmail.com | 10 min |
+| 1.1 | Buy shelestwellness.ca on Porkbun + enable auto-renew | 15 min |
+| 1.2 | Set up email forwarding (info@shelestwellness.ca → Gmail) | 5 min |
 | 2.1–2.3 | Add domain in Vercel + configure DNS on Porkbun | 20 min |
 | 2.4 | Wait for DNS propagation + verify HTTPS | up to 48h |
 | 3.1–3.7 | Technical SEO on website (robots, sitemap, hreflang, schema, OG, meta) | 2–4 hours |
@@ -465,7 +465,7 @@ On the day of the address change, in this order:
 
 | Item | Cost |
 |---|---|
-| shelestrmt.ca domain | ~$15–17 CAD/year |
+| shelestwellness.ca domain | ~$15–17 CAD/year |
 | Vercel hosting | Free (Hobby plan) |
 | Gmail | Free |
 | Porkbun email forwarding | Free |
@@ -491,7 +491,7 @@ Tier 1 — Highest priority (do these first)
 AMQ member directory
 You already have this. It's your single most valuable backlink. Make sure:
 
-Your AMQ listing links directly to https://shelestrmt.ca
+Your AMQ listing links directly to https://shelestwellness.ca
 The name, address, and phone on your AMQ profile match GBP exactly
 Your membership number is visible on your website (builds trust signal)
 
@@ -547,7 +547,7 @@ This requires active outreach but produces the highest-quality backlinks. The ap
 
 Search for French-language wellness bloggers in the Gatineau/Ottawa region
 Offer to write a short guest post (in French) on a topic like "les bienfaits du massage thérapeutique" or "comment choisir un massothérapeute à Gatineau"
-The post links back to shelestrmt.ca
+The post links back to shelestwellness.ca
 This is the hardest to execute but the most valuable link type because it's editorial, not just a directory listing
 
 Realistic target: 1–2 of these in the first year.
