@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SITE } from '@/lib/config';
+import { SITE, absoluteUrl } from '@/lib/config';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 
 export async function generateMetadata({
@@ -18,18 +18,20 @@ export async function generateMetadata({
       ? 'Privacy policy for Olha Shelest massage therapy practice in Gatineau, QC. Compliant with Quebec Law 25 and PIPEDA.'
       : 'Politique de confidentialité de la pratique de massothérapie d\'Olha Shelest à Gatineau, QC. Conforme à la Loi 25 du Québec et à la LPRPDE.',
     alternates: {
-      canonical: `/${locale}/privacy-policy`,
+      canonical: absoluteUrl(`/${locale}/privacy-policy`),
       languages: {
-        en: '/en/privacy-policy',
-        fr: '/fr/privacy-policy',
-        'x-default': '/en/privacy-policy',
+        en: absoluteUrl('/en/privacy-policy'),
+        fr: absoluteUrl('/fr/privacy-policy'),
+        'x-default': absoluteUrl('/en/privacy-policy'),
       },
     },
     openGraph: {
-      url: `/${locale}/privacy-policy`,
+      url: absoluteUrl(`/${locale}/privacy-policy`),
       images: [
         {
-          url: SITE.ogImage,
+          url: absoluteUrl(SITE.ogImage),
+          width: 1200,
+          height: 630,
           alt: isEn
             ? 'Olha Shelest Massage Therapy — Gatineau, QC'
             : 'Massothérapie Olha Shelest — Gatineau, QC',
@@ -38,7 +40,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      images: [SITE.ogImage],
+      images: [absoluteUrl(SITE.ogImage)],
     },
   };
 }

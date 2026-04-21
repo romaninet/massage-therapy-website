@@ -20,6 +20,12 @@ const businessEntity = {
   address: postalAddress,
   image: `${SITE.url}${SITE.portraitImage}`,
   hasMap: BUSINESS.mapsUrl.replace('&output=embed', ''),
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS.geo.latitude,
+    longitude: BUSINESS.geo.longitude,
+  },
+  openingHours: BUSINESS.openingHours,
   areaServed: [
     { '@type': 'City', name: 'Gatineau' },
     { '@type': 'AdministrativeArea', name: 'Outaouais' },

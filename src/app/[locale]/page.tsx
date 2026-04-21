@@ -28,6 +28,10 @@ export async function generateMetadata({
       languages: { en: absoluteUrl('/en'), fr: absoluteUrl('/fr'), 'x-default': absoluteUrl('/en') },
     },
     openGraph: {
+      type: 'website',
+      siteName: isEn ? 'Olha Shelest — Massage Therapy Gatineau' : 'Olha Shelest — Massothérapie Gatineau',
+      locale: isEn ? 'en_CA' : 'fr_CA',
+      alternateLocale: isEn ? ['fr_CA'] : ['en_CA'],
       url: absoluteUrl(`/${locale}`),
       images: [
         {

@@ -61,7 +61,7 @@ export default function HeroSection() {
         <div className="relative lg:block hidden min-h-[calc(100vh-8px)] mt-2 overflow-hidden rounded-3xl">
           {/* Photo */}
           <Image
-            src={SITE.ogImage}
+            src={SITE.heroImage}
             alt="Spa atmosphere — soft towels and candlelight"
             fill
             priority
