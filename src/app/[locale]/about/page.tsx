@@ -16,9 +16,11 @@ export async function generateMetadata({
   const { locale } = await params;
   const isEn = locale === 'en';
   return {
-    title: isEn
-      ? 'About Olha Shelest | Professional Massage Therapist, Gatineau'
-      : 'À propos d\'Olha Shelest | Massothérapeute Professionnelle, Gatineau',
+    title: {
+      absolute: isEn
+        ? 'About Olha Shelest | Professional Massage Therapist, Gatineau'
+        : 'À propos d\'Olha Shelest | Massothérapeute Professionnelle, Gatineau',
+    },
     description: isEn
       ? 'Meet Olha Shelest, Professional Massage Therapist and AMQ member based in Gatineau, QC. Personalized therapeutic massage tailored to your needs.'
       : 'Découvrez Olha Shelest, massothérapeute professionnelle et membre AMQ à Gatineau, QC. Des soins thérapeutiques personnalisés adaptés à vos besoins.',
@@ -31,6 +33,8 @@ export async function generateMetadata({
       images: [
         {
           url: absoluteUrl(SITE.portraitImage),
+          width: 1200,
+          height: 630,
           alt: isEn
             ? 'Olha Shelest — Professional Massage Therapist'
             : 'Olha Shelest — Massothérapeute Professionnelle',

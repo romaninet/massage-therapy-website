@@ -131,3 +131,20 @@ The site is deployed on **Vercel**. Pushing to `main` triggers an automatic depl
 
 Make sure the following environment variable is set in Vercel project settings:
 - `RESEND_API_KEY`
+
+
+## List of services used
+
+- following emails (gmail + porkbun)
+    - shelestwellness@gmail.com
+    - info@shelestwellness.ca
+    - contact@shelestwellness.ca
+    - massage@shelestwellness.ca
+- fongo.com
+    - (819) 815 5603
+- porkbun.com
+    - http://shelestwellness.ca/
+    - http://www.shelestwellness.ca/
+- vercel.com
+- resend.com
+

@@ -14,9 +14,11 @@ export async function generateMetadata({
   const { locale } = await params;
   const isEn = locale === 'en';
   return {
-    title: isEn
-      ? 'Contact Olha Shelest | Book a Massage in Gatineau'
-      : 'Contacter Olha Shelest | Réserver un massage à Gatineau',
+    title: {
+      absolute: isEn
+        ? 'Contact Olha Shelest | Book a Massage in Gatineau'
+        : 'Contacter Olha Shelest | Réserver un massage à Gatineau',
+    },
     description: isEn
       ? `Book a massage therapy appointment with Olha Shelest in Gatineau, QC. Call ${BUSINESS.phone} or send a message online. Located at ${BUSINESS.address}.`
       : `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne. ${BUSINESS.address}.`,
@@ -29,6 +31,8 @@ export async function generateMetadata({
       images: [
         {
           url: absoluteUrl(SITE.ogImage),
+          width: 1200,
+          height: 630,
           alt: isEn
             ? 'Contact Olha Shelest — massage therapy in Gatineau, QC'
             : 'Contacter Olha Shelest — massothérapie à Gatineau, QC',

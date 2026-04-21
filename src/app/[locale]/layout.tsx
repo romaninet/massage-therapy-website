@@ -35,6 +35,8 @@ export async function generateMetadata({
       images: [
         {
           url: absoluteUrl(SITE.ogImage),
+          width: 1200,
+          height: 630,
           alt: isEn
             ? 'Professional massage therapy in Gatineau, QC'
             : 'Massothérapie professionnelle à Gatineau, QC',

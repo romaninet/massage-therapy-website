@@ -15,9 +15,11 @@ export async function generateMetadata({
   const { locale } = await params;
   const isEn = locale === 'en';
   return {
-    title: isEn
-      ? 'Massage Therapy Fees & Services | Gatineau'
-      : 'Tarifs et services de massothérapie | Gatineau',
+    title: {
+      absolute: isEn
+        ? 'Massage Therapy Fees & Services | Olha Shelest, Gatineau'
+        : 'Tarifs et services de massothérapie | Olha Shelest, Gatineau',
+    },
     description: isEn
       ? 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & prenatal massage from $65 CAD. Direct insurance billing available.'
       : 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et prénatal à partir de 65 $ CAD. Facturation directe disponible.',
@@ -30,6 +32,8 @@ export async function generateMetadata({
       images: [
         {
           url: absoluteUrl(SITE.ogImage),
+          width: 1200,
+          height: 630,
           alt: isEn
             ? 'Massage therapy fees and services in Gatineau, QC'
             : 'Tarifs et services de massothérapie à Gatineau, QC',

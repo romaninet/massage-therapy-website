@@ -14,10 +14,16 @@ const businessEntity = {
   '@id': SITE.url,
   name: BUSINESS.name,
   url: SITE.url,
+  description: 'Professional Massage Therapist in Gatineau, QC offering Swedish, deep tissue, relaxation and prenatal massage. AMQ registered member.',
   telephone: BUSINESS.phoneTel,
   email: BUSINESS.email,
   address: postalAddress,
   image: `${SITE.url}${SITE.portraitImage}`,
+  hasMap: BUSINESS.mapsUrl.replace('&output=embed', ''),
+  areaServed: [
+    { '@type': 'City', name: 'Gatineau' },
+    { '@type': 'AdministrativeArea', name: 'Outaouais' },
+  ],
   priceRange: '$$',
   currenciesAccepted: 'CAD',
   sameAs: [BUSINESS.amqUrl],
@@ -41,6 +47,7 @@ export function personJsonLd(locale: string) {
     image: `${SITE.url}${SITE.portraitImage}`,
     worksFor: {
       '@type': 'HealthAndBeautyBusiness',
+      '@id': SITE.url,
       name: BUSINESS.name,
     },
     memberOf: {

@@ -10,7 +10,7 @@ export function absoluteUrl(path: string): string {
 
 export const BUSINESS = {
   name: 'Olha Shelest',
-  email: 'info@shelestwellness.ca',
+  email: 'massage@shelestwellness.ca',
   phone: '(819) 815-5603',
   phoneTel: '+18198155603',
   address: '148 Rue Eddy',
