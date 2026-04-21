@@ -47,7 +47,7 @@ export default function ServicesSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
-            {locale === 'en' ? 'What We Offer' : 'Ce que nous offrons'}
+            {t('preTitle')}
           </p>
           <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-6">
             {t('title')}
@@ -86,7 +86,7 @@ export default function ServicesSection() {
             href={`/${locale}/fees`}
             className="inline-flex items-center gap-2 text-forest border-b border-sage pb-0.5 hover:border-forest text-sm tracking-wider uppercase font-medium transition-colors"
           >
-            {locale === 'en' ? 'View Fees & Pricing' : 'Voir les tarifs'}
+            {t('viewFees')}
             <span>→</span>
           </Link>
         </div>

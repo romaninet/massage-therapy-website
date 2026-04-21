@@ -6,15 +6,24 @@
     "contact": "Contact",
     "bookNow": "Réserver"
   },
+  "header": {
+    "logoAlt": "Olha Shelest, Massothérapeute Professionnelle",
+    "subtitle": "Massothérapeute"
+  },
   "hero": {
     "tagline": "Guérir. Restaurer. Renouveler.",
     "subtitle": "Massothérapie professionnelle adaptée à votre corps et votre esprit, au cœur de Gatineau.",
     "cta": "Réserver une séance",
-    "credential": "Massothérapeute Professionnelle · Membre AMQ"
+    "credential": "Massothérapeute Professionnelle · Membre AMQ",
+    "meetOlha": "Rencontrer Olha",
+    "massageTherapy": "Massothérapie",
+    "imageAlt": "Massothérapie"
   },
   "services": {
     "title": "Services",
+    "preTitle": "Ce que nous offrons",
     "subtitle": "Des soins thérapeutiques soigneusement adaptés à votre bien-être",
+    "viewFees": "Voir les tarifs",
     "swedish": {
       "title": "Massage suédois",
       "description": "Un massage corps entier doux et fluide qui favorise la circulation, soulage les tensions musculaires et induit une relaxation profonde et réparatrice."
@@ -34,6 +43,7 @@
   },
   "about": {
     "preview": {
+      "preTitle": "À propos",
       "title": "Rencontrez Olha Shelest",
       "subtitle": "Massothérapeute Professionnelle",
       "bio": "Avec une profonde passion pour la guérison holistique et un engagement envers l'excellence, Olha apporte à la fois expertise et véritable attention à chaque soin — vous aidant à mieux bouger, vous sentir et vivre.",
@@ -46,6 +56,8 @@
       "bio2": "Formée dans un large éventail de techniques thérapeutiques, Olha se spécialise dans l'aide aux clients pour surmonter la douleur, récupérer après une blessure, gérer le stress et atteindre une relaxation durable. Son approche est toujours personnalisée — chaque séance est soigneusement adaptée à vos besoins uniques et à vos objectifs de santé.",
       "bio3": "Olha croit que la massothérapie est bien plus qu'un luxe. C'est une composante essentielle d'un mode de vie sain et équilibré. Que vous soyez un athlète cherchant une récupération plus rapide, une personne gérant une douleur chronique, ou simplement en besoin de relaxation profonde, Olha est là pour vous guider sur votre chemin vers le bien-être.",
       "bio4": "Elle accueille des clients de tous horizons et adapte ses techniques au niveau de confort et aux objectifs thérapeutiques de chaque individu. Chaque visite est un pas vers un vous plus sain et plus équilibré.",
+      "preTitle": "Notre thérapeute",
+      "profileAlt": "Olha Shelest — Massothérapeute Professionnelle",
       "amqTitle": "Membre inscrite à l'AMQ",
       "amqText": "Olha est membre vérifiée de l'Association de Massothérapie du Québec (AMQ), assurant que sa pratique répond aux plus hauts standards professionnels et éthiques au Québec.",
       "amqLink": "Vérifier l'adhésion",
@@ -67,6 +79,7 @@
     }
   },
   "fees": {
+    "preTitle": "Tarification transparente",
     "title": "Tarifs et services",
     "subtitle": "Des prix transparents pour des soins thérapeutiques de qualité",
     "note": "Les prix sont en dollars canadiens (CAD). La facturation directe peut être disponible auprès de certains assureurs — veuillez nous contacter pour confirmer votre couverture avant votre rendez-vous.",
@@ -84,6 +97,8 @@
     "ctaButton": "Nous contacter"
   },
   "contact": {
+    "preTitle": "Nous joindre",
+    "infoTitle": "Coordonnées",
     "title": "Nous contacter",
     "subtitle": "Réservez votre séance ou posez vos questions — Je serai ravie de vous entendre.",
     "phone": "Téléphone",
@@ -115,6 +130,7 @@
     }
   },
   "footer": {
+    "contactTitle": "Contact",
     "tagline": "Massothérapeute Professionnelle",
     "location": "Gatineau, QC",
     "rights": "Tous droits réservés.",
@@ -123,6 +139,7 @@
     "amqMember": "Membre AMQ"
   },
   "privacy": {
+    "preTitle": "Juridique",
     "title": "Politique de confidentialité",
     "subtitle": "Comment nous collectons, utilisons et protégeons vos renseignements personnels",
     "lastUpdated": "Dernière mise à jour : avril 2025",
@@ -162,6 +179,7 @@
     ]
   },
   "cta": {
+    "preTitle": "Faites le premier pas",
     "title": "Prêt(e) à vous sentir au mieux?",
     "subtitle": "Faites le premier pas vers un bien-être durable. Réservez une séance avec Olha aujourd'hui.",
     "button": "Réserver votre séance"

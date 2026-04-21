@@ -44,7 +44,7 @@ export default function HeroSection() {
               href={`/${locale}/about`}
               className="inline-flex items-center justify-center px-8 py-4 border border-forest/30 text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:border-forest hover:bg-forest/5"
             >
-              {locale === 'en' ? 'Meet Olha' : 'Rencontrer Olha'}
+              {t('meetOlha')}
             </Link>
           </div>
 
@@ -62,7 +62,7 @@ export default function HeroSection() {
           {/* Photo */}
           <Image
             src={SITE.heroImage}
-            alt="Spa atmosphere — soft towels and candlelight"
+            alt={t('imageAlt')}
             fill
             priority
             sizes="50vw"
@@ -79,10 +79,10 @@ export default function HeroSection() {
           {/* Bottom-left credential tag */}
           <div className="absolute bottom-10 left-8 z-10">
             <p className="font-heading text-white text-base italic tracking-wide drop-shadow-md">
-              {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
+              Olha Shelest
             </p>
             <p className="text-white/70 text-xs tracking-[0.25em] uppercase mt-0.5 drop-shadow-sm">
-              {locale === 'en' ? 'Massage Therapy' : 'Massothérapie'}
+              {t('massageTherapy')}
             </p>
           </div>
 

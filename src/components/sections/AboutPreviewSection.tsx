@@ -14,7 +14,7 @@ export default function AboutPreviewSection() {
           {/* Left: text */}
           <div className="flex flex-col">
             <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
-              {locale === 'en' ? 'About' : 'À propos'}
+              {t('preTitle')}
             </p>
             <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold leading-tight mb-4">
               {t('title')}
@@ -48,11 +48,6 @@ export default function AboutPreviewSection() {
                   style={{ filter: 'invert(1) brightness(3)' }}
                 />
               </div>
-              <p className="font-heading text-white/50 italic text-base tracking-wide">
-                {locale === 'en'
-                  ? '"Your wellness is my purpose."'
-                  : '"Votre bien-être est ma raison d\'être."'}
-              </p>
             </div>
 
             {/* Bottom botanical corner */}

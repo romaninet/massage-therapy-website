@@ -28,9 +28,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'website',
-      siteName: isEn
-        ? 'Olha Shelest — Massage Therapy Gatineau'
-        : 'Olha Shelest — Massothérapie Gatineau',
+      siteName: isEn ? SITE.siteNames.en : SITE.siteNames.fr,
       locale: isEn ? 'en_CA' : 'fr_CA',
       images: [
         {
@@ -69,6 +67,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      data-scroll-behavior="smooth"
       className={`${playfair.variable} ${dmSans.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">

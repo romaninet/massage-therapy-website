@@ -32,6 +32,14 @@ const businessEntity = {
   ],
   priceRange: '$$',
   currenciesAccepted: 'CAD',
+  paymentAccepted: BUSINESS.paymentAccepted.join(', '),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: BUSINESS.phoneTel,
+    email: BUSINESS.email,
+    contactType: 'customer service',
+    availableLanguage: ['English', 'French'],
+  },
   sameAs: [BUSINESS.amqUrl],
 };
 

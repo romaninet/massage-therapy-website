@@ -6,15 +6,24 @@
     "contact": "Contact",
     "bookNow": "Book Now"
   },
+  "header": {
+    "logoAlt": "Olha Shelest, Professional Massage Therapist",
+    "subtitle": "Massage Therapist"
+  },
   "hero": {
     "tagline": "Heal. Restore. Renew.",
     "subtitle": "Professional massage therapy tailored to your body and mind, in the heart of Gatineau.",
     "cta": "Book Your Session",
-    "credential": "Professional Massage Therapist · AMQ Member"
+    "credential": "Professional Massage Therapist · AMQ Member",
+    "meetOlha": "Meet Olha",
+    "massageTherapy": "Massage Therapy",
+    "imageAlt": "Massage Therapy"
   },
   "services": {
     "title": "Services",
+    "preTitle": "What We Offer",
     "subtitle": "Therapeutic treatments thoughtfully tailored to your wellbeing",
+    "viewFees": "View Fees & Pricing",
     "swedish": {
       "title": "Swedish Massage",
       "description": "A gentle, flowing full-body massage that promotes circulation, eases muscle tension, and induces deep, restorative relaxation."
@@ -34,6 +43,7 @@
   },
   "about": {
     "preview": {
+      "preTitle": "About",
       "title": "Meet Olha Shelest",
       "subtitle": "Professional Massage Therapist",
       "bio": "With a deep passion for holistic healing and a commitment to excellence, Olha brings both expertise and genuine care to every treatment — helping you move, feel, and live better.",
@@ -46,6 +56,8 @@
       "bio2": "Trained in a comprehensive range of therapeutic techniques, Olha specializes in helping clients overcome pain, recover from injury, manage stress, and achieve lasting relaxation. Her approach is always personalized — every session is thoughtfully tailored to your unique needs and health goals.",
       "bio3": "Olha believes that massage therapy is far more than a luxury. It is an essential component of a balanced, healthy lifestyle. Whether you are an athlete seeking faster recovery, someone managing chronic pain, or simply in need of deep relaxation, Olha is here to guide you on your path to wellness.",
       "bio4": "She welcomes clients of all backgrounds and adapts her techniques to suit each individual's comfort level and therapeutic objectives. Every visit is a step toward a healthier, more balanced you.",
+      "preTitle": "Our Therapist",
+      "profileAlt": "Olha Shelest — Professional Massage Therapist",
       "amqTitle": "AMQ Registered Member",
       "amqText": "Olha is a verified member of the Association de Massothérapie du Québec (AMQ), ensuring her practice meets the highest professional and ethical standards in Quebec.",
       "amqLink": "Verify Membership",
@@ -67,6 +79,7 @@
     }
   },
   "fees": {
+    "preTitle": "Transparent Pricing",
     "title": "Fees & Services",
     "subtitle": "Transparent pricing for quality therapeutic care",
     "note": "Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment.",
@@ -84,6 +97,8 @@
     "ctaButton": "Get in Touch"
   },
   "contact": {
+    "preTitle": "Reach Out",
+    "infoTitle": "Contact Information",
     "title": "Get in Touch",
     "subtitle": "Book your session or ask any questions — I'll be happy to hear from you.",
     "phone": "Phone",
@@ -115,6 +130,7 @@
     }
   },
   "footer": {
+    "contactTitle": "Contact",
     "tagline": "Professional Massage Therapist",
     "location": "Gatineau, QC",
     "rights": "All rights reserved.",
@@ -123,6 +139,7 @@
     "amqMember": "AMQ Member"
   },
   "privacy": {
+    "preTitle": "Legal",
     "title": "Privacy Policy",
     "subtitle": "How we collect, use, and protect your personal information",
     "lastUpdated": "Last updated: April 2025",
@@ -162,6 +179,7 @@
     ]
   },
   "cta": {
+    "preTitle": "Take the First Step",
     "title": "Ready to Feel Your Best?",
     "subtitle": "Take the first step toward lasting wellness. Book a session with Olha today.",
     "button": "Book Your Session"

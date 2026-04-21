@@ -24,7 +24,7 @@ export default function CTASection() {
 
       <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center relative z-10">
         <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-6">
-          {locale === 'en' ? 'Take the First Step' : 'Faites le premier pas'}
+          {t('preTitle')}
         </p>
         <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-white font-semibold leading-tight mb-6">
           {t('title')}

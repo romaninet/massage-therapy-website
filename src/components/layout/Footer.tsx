@@ -31,7 +31,7 @@ export default function Footer() {
             <Link href={`${prefix}`} className="flex items-center gap-3">
               <div className="flex flex-col leading-tight">
                 <span className="font-heading text-white font-semibold tracking-wide text-lg">
-                  {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
+                  Olha Shelest
                 </span>
                 <span className="text-white/50 text-[10px] tracking-widest uppercase">
                   {t('tagline')}
@@ -65,7 +65,7 @@ export default function Footer() {
           {/* Contact column */}
           <div>
             <h3 className="text-xs tracking-widest uppercase text-white/40 font-medium mb-5">
-              Contact
+              {t('contactTitle')}
             </h3>
             <ul className="flex flex-col gap-4">
               <li>

@@ -28,7 +28,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'website',
-      siteName: isEn ? 'Olha Shelest — Massage Therapy Gatineau' : 'Olha Shelest — Massothérapie Gatineau',
+      siteName: isEn ? SITE.siteNames.en : SITE.siteNames.fr,
       locale: isEn ? 'en_CA' : 'fr_CA',
       alternateLocale: isEn ? ['fr_CA'] : ['en_CA'],
       url: absoluteUrl(`/${locale}/contact`),
@@ -68,7 +68,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         <BotanicalCornerBR className="absolute bottom-0 right-0 w-48 h-48 text-white/10 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center relative z-10">
           <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-5">
-            {locale === 'en' ? 'Reach Out' : 'Nous joindre'}
+            {t('preTitle')}
           </p>
           <h1 className="font-heading text-5xl lg:text-6xl text-white font-semibold mb-4">
             {t('title')}
@@ -89,7 +89,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <div className="flex flex-col gap-10">
               <div>
                 <h2 className="font-heading text-3xl text-forest font-semibold mb-8">
-                  {locale === 'en' ? 'Contact Information' : 'Coordonnées'}
+                  {t('infoTitle')}
                 </h2>
 
                 <div className="flex flex-col gap-8">

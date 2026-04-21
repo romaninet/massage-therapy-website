@@ -17,6 +17,7 @@ const NAV_LINKS = [
 
 export default function Header() {
   const t = useTranslations('nav');
+  const tHeader = useTranslations('header');
   const locale = useLocale();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function Header() {
             <div className="w-28 h-28 relative flex-shrink-0">
               <Image
                 src="/images/logo.png"
-                alt={locale === 'fr' ? 'Olha Shelest, Massothérapeute Professionnelle' : 'Olha Shelest, Professional Massage Therapist'}
+                alt={tHeader('logoAlt')}
                 fill
                 sizes="112px"
                 className="object-contain brightness-0 invert"
@@ -62,10 +63,10 @@ export default function Header() {
             </div>
             <div className="hidden sm:flex flex-col leading-tight items-center">
               <span className="font-heading text-white font-semibold tracking-wide text-lg">
-                {locale === 'en' ? 'Olha Shelest' : 'Olha Shelest'}
+                Olha Shelest
               </span>
               <span className="text-white/60 text-[10px] tracking-widest uppercase font-light">
-                {locale === 'en' ? 'Massage Therapist' : 'Massothérapeute'}
+                {tHeader('subtitle')}
               </span>
             </div>
           </Link>
