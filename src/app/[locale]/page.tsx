@@ -21,8 +21,8 @@ export async function generateMetadata({
         : 'Massothérapie à Gatineau | Olha Shelest, Massothérapeute Professionnelle',
     },
     description: isEn
-      ? 'Professional Massage Therapist in Gatineau, QC. Swedish, deep tissue, relaxation & prenatal massage. Book your session with Olha Shelest — AMQ member.'
-      : 'Massothérapeute Professionnelle à Gatineau, QC. Massages suédois, en profondeur, de relaxation et prénatal. Réservez votre séance avec Olha Shelest — membre AMQ.',
+      ? 'Professional Massage Therapist in Gatineau, QC. Swedish, deep tissue, relaxation & children\'s massage. Book your session with Olha Shelest — AMQ member.'
+      : 'Massothérapeute Professionnelle à Gatineau, QC. Massages suédois, en profondeur, de relaxation et pour enfants. Réservez votre séance avec Olha Shelest — membre AMQ.',
     alternates: {
       canonical: absoluteUrl(`/${locale}`),
       languages: { en: absoluteUrl('/en'), fr: absoluteUrl('/fr'), 'x-default': absoluteUrl('/en') },

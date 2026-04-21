@@ -36,9 +36,9 @@
       "title": "Relaxation Massage",
       "description": "A calming, nurturing treatment designed to soothe the nervous system, quiet the mind, and melt away the stress of everyday life."
     },
-    "prenatal": {
-      "title": "Prenatal Massage",
-      "description": "Specially adapted techniques to support expectant mothers through each trimester, easing discomfort and promoting restful wellbeing."
+    "children": {
+      "title": "Children's Massage",
+      "description": "Our kids deserve attentive care from the very start. Massage for kids as young as a few months old, my sessions are designed to be fun, safe, and relaxing — using gentle, age-appropriate techniques to ease tension, support restful sleep, and nurture healthy development."
     }
   },
   "about": {
@@ -89,8 +89,8 @@
       { "duration": "60 min", "name": "Deep Tissue Massage", "price": "$110" },
       { "duration": "90 min", "name": "Swedish Massage", "price": "$140" },
       { "duration": "90 min", "name": "Deep Tissue Massage", "price": "$150" },
-      { "duration": "60 min", "name": "Prenatal Massage", "price": "$100" },
-      { "duration": "90 min", "name": "Prenatal Massage", "price": "$140" }
+      { "duration": "60 min", "name": "Children's Massage", "price": "$100" },
+      { "duration": "90 min", "name": "Children's Massage", "price": "$140" }
     ],
     "ctaTitle": "Ready to Book?",
     "ctaText": "Contact Olha to schedule your appointment.",

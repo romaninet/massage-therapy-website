@@ -36,9 +36,9 @@
       "title": "Massage de relaxation",
       "description": "Un soin apaisant et bienveillant conçu pour calmer le système nerveux, apaiser l'esprit et faire fondre le stress du quotidien."
     },
-    "prenatal": {
-      "title": "Massage prénatal",
-      "description": "Des techniques spécialement adaptées pour accompagner les futures mamans tout au long de leur grossesse, soulageant l'inconfort et favorisant le bien-être."
+    "children": {
+      "title": "Massage pour enfants",
+      "description": "Nos enfants méritent des soins attentifs dès le plus jeune âge. Le massage pour enfants dès quelques mois, mes séances sont conçues pour être agréables, sécuritaires et relaxantes — avec des techniques douces et adaptées pour soulager les tensions, favoriser le sommeil et accompagner un développement sain."
     }
   },
   "about": {
@@ -89,8 +89,8 @@
       { "duration": "60 min", "name": "Massage en profondeur", "price": "110 $" },
       { "duration": "90 min", "name": "Massage suédois", "price": "140 $" },
       { "duration": "90 min", "name": "Massage en profondeur", "price": "150 $" },
-      { "duration": "60 min", "name": "Massage prénatal", "price": "100 $" },
-      { "duration": "90 min", "name": "Massage prénatal", "price": "140 $" }
+      { "duration": "60 min", "name": "Massage pour enfants", "price": "100 $" },
+      { "duration": "90 min", "name": "Massage pour enfants", "price": "140 $" }
     ],
     "ctaTitle": "Prêt(e) à réserver?",
     "ctaText": "Contactez Olha pour planifier votre rendez-vous.",

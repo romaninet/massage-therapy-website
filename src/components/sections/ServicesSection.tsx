@@ -26,16 +26,17 @@ const SERVICE_ICONS = {
       <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.3" />
     </svg>
   ),
-  prenatal: (
+  children: (
     <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-      <circle cx="24" cy="20" r="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M16 28 Q16 38 24 40 Q32 38 32 28" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M18 32 Q18 37 24 38 Q30 37 30 32" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5" />
+      <circle cx="24" cy="16" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M16 28 Q16 40 24 40 Q32 40 32 28 Q32 22 24 22 Q16 22 16 28Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M16 30 Q12 28 11 32 Q10 36 14 37" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.6" />
+      <path d="M32 30 Q36 28 37 32 Q38 36 34 37" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.6" />
     </svg>
   ),
 };
 
-const SERVICE_KEYS = ['swedish', 'deepTissue', 'relaxation', 'prenatal'] as const;
+const SERVICE_KEYS = ['swedish', 'deepTissue', 'relaxation', 'children'] as const;
 
 export default function ServicesSection() {
   const t = useTranslations('services');
