@@ -3,7 +3,7 @@
 - fix prices and massage types
 - create googe business profile for SEO ((Google Maps listing with address, hours, phone) — this is one of the highest-impact local SEO actions and costs nothing.)
 - Set up Google Analytics tracking for free - You add a small tracking code to the website, and Google shows you a dashboard: how many people visit, which pages they read, where they found the site (Google search, direct, social), what city they're from. Completely free. We can add it in Phase 4 — it's useful once the site is live and indexed.
-- add experience on home page (about olha) and the actual page - 10+ years
+
 - fees (4 service) 45,60,90
 - Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment. ???
 - cash and e-transfer only (wording....)
