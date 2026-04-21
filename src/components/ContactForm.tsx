@@ -24,6 +24,20 @@ const FILTERS: Record<keyof FormFields, (v: string) => string> = {
 
 const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 
+const formatPhone = (raw: string): string => {
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length === 11 && digits[0] === '1')
+    return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+  if (digits.length === 10)
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  return raw;
+};
+
+const isValidPhone = (raw: string): boolean => {
+  const digits = raw.replace(/\D/g, '');
+  return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
+};
+
 export default function ContactForm() {
   const t = useTranslations('contact.form');
   const v = useTranslations('contact.form.validation');
@@ -45,13 +59,24 @@ export default function ContactForm() {
     if (!email) errs.email = v('emailRequired');
     else if (!EMAIL_RE.test(email)) errs.email = v('emailInvalid');
 
-    if (phone && phone.replace(/\D/g, '').length < 7) errs.phone = v('phoneInvalid');
+    if (phone && !isValidPhone(phone)) errs.phone = v('phoneInvalid');
 
     if (!message) errs.message = v('messageRequired');
     else if (message.length < 10) errs.message = v('messageTooShort');
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
+  };
+
+  const handlePhoneBlur = () => {
+    const raw = form.phone.trim();
+    if (!raw) return;
+    if (isValidPhone(raw)) {
+      setForm((prev) => ({ ...prev, phone: formatPhone(raw) }));
+      setErrors((prev) => ({ ...prev, phone: undefined }));
+    } else {
+      setErrors((prev) => ({ ...prev, phone: v('phoneInvalid') }));
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -150,9 +175,10 @@ export default function ContactForm() {
           type="tel"
           value={form.phone}
           onChange={handleChange}
+          onBlur={handlePhoneBlur}
           placeholder={t('phonePlaceholder')}
           autoComplete="tel"
-          maxLength={15}
+          maxLength={17}
           className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.phone ? 'border-red-400' : ''}`}
         />
         {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
