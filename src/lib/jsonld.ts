@@ -55,6 +55,7 @@ export function personJsonLd(locale: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': `${SITE.url}/#person`,
     name: BUSINESS.name,
     jobTitle: locale === 'fr' ? 'Massothérapeute Professionnelle' : 'Professional Massage Therapist',
     url: `${SITE.url}/${locale}/about`,
@@ -66,7 +67,7 @@ export function personJsonLd(locale: string) {
     },
     memberOf: {
       '@type': 'Organization',
-      name: 'Association de Massothérapie du Québec (AMQ)',
+      name: 'Association des Massothérapeutes du Québec (AMQ)',
       url: BUSINESS.amqUrl,
     },
   };

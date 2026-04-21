@@ -28,6 +28,7 @@
       "Read(**/*.key)",
       "Read(**/.ssh/**)",
       "Read(NOTES.md)",
+      "Read(TODO.md)",
       "Read(olha-shelest-seo-plan.md)",
       
       "Bash(rm -rf:*)",
