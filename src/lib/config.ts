@@ -13,6 +13,63 @@ export function absoluteUrl(path: string): string {
   return `${SITE.url}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+export const SERVICES = [
+  {
+    key: 'swedish',
+    title: { en: 'Swedish Massage', fr: 'Massage suédois' },
+    description: {
+      en: 'A gentle, flowing full-body massage that promotes circulation, eases muscle tension, and induces deep, restorative relaxation.',
+      fr: 'Un massage doux et fluide de tout le corps qui favorise la circulation, soulage les tensions musculaires et induit une relaxation profonde et réparatrice.',
+    },
+    tiers: [
+      { duration: '45 min', price: 95 },
+      { duration: '60 min', price: 120 },
+      { duration: '90 min', price: 165 },
+    ],
+  },
+  {
+    key: 'deepTissue',
+    title: { en: 'Deep Tissue Massage', fr: 'Massage en profondeur' },
+    description: {
+      en: 'Targeting deeper layers of muscle and connective tissue to release chronic tension, address pain patterns, and restore mobility.',
+      fr: 'Ciblant les couches profondes des muscles et des tissus conjonctifs pour relâcher les tensions chroniques, traiter les douleurs et restaurer la mobilité.',
+    },
+    tiers: [
+      { duration: '45 min', price: 95 },
+      { duration: '60 min', price: 120 },
+      { duration: '90 min', price: 165 },
+    ],
+  },
+  {
+    key: 'relaxation',
+    title: { en: 'Relaxation Massage', fr: 'Massage de relaxation' },
+    description: {
+      en: 'A calming, nurturing treatment designed to soothe the nervous system, quiet the mind, and melt away the stress of everyday life.',
+      fr: 'Un soin apaisant et bienveillant conçu pour calmer le système nerveux, apaiser l\'esprit et faire fondre le stress du quotidien.',
+    },
+    tiers: [
+      { duration: '45 min', price: 95 },
+      { duration: '60 min', price: 120 },
+      { duration: '90 min', price: 165 },
+    ],
+  },
+  {
+    key: 'children',
+    title: { en: "Children's Massage", fr: 'Massage pour enfants' },
+    description: {
+      en: "Our kids deserve attentive care from the very start. Massage for kids as young as a few months old, my sessions are designed to be fun, safe, and relaxing — using gentle, age-appropriate techniques to ease tension, support restful sleep, and nurture healthy development.",
+      fr: "Nos enfants méritent des soins attentifs dès le plus jeune âge. Le massage pour enfants dès quelques mois, mes séances sont conçues pour être agréables, sécuritaires et relaxantes — avec des techniques douces et adaptées pour soulager les tensions, favoriser le sommeil et accompagner un développement sain.",
+    },
+    tiers: [
+      { duration: '45 min', price: 95 },
+      { duration: '60 min', price: 120 },
+      { duration: '90 min', price: 165 },
+    ],
+  },
+] as const;
+
+export type ServiceKey = (typeof SERVICES)[number]['key'];
+
 export const BUSINESS = {
   name: 'Olha Shelest',
   email: 'massage@shelestwellness.ca',

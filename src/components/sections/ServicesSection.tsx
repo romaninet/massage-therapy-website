@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { BotanicalDivider } from '@/components/BotanicalDecor';
+import { SERVICES } from '@/lib/config';
 
 const SERVICE_ICONS = {
   swedish: (
@@ -36,11 +37,9 @@ const SERVICE_ICONS = {
   ),
 };
 
-const SERVICE_KEYS = ['swedish', 'deepTissue', 'relaxation', 'children'] as const;
-
 export default function ServicesSection() {
   const t = useTranslations('services');
-  const locale = useLocale();
+  const locale = useLocale() as 'en' | 'fr';
 
   return (
     <section className="bg-pale-sage py-24 lg:py-32 relative overflow-hidden">
@@ -61,20 +60,20 @@ export default function ServicesSection() {
 
         {/* Services grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICE_KEYS.map((key) => (
+          {SERVICES.map((service) => (
             <div
-              key={key}
+              key={service.key}
               className="group bg-white rounded-lg p-8 border border-forest/8 hover:border-sage/40 hover:shadow-xl hover:shadow-forest/8 transition-all duration-300 hover:-translate-y-1 flex flex-col gap-5"
             >
               <div className="text-forest/50 group-hover:text-sage transition-colors duration-300">
-                {SERVICE_ICONS[key]}
+                {SERVICE_ICONS[service.key]}
               </div>
               <div>
                 <h3 className="font-heading text-forest text-xl font-semibold mb-3">
-                  {t(`${key}.title`)}
+                  {service.title[locale]}
                 </h3>
                 <p className="text-forest/60 text-sm leading-relaxed">
-                  {t(`${key}.description`)}
+                  {service.description[locale]}
                 </p>
               </div>
             </div>

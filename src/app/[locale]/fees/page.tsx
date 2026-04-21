@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SITE, absoluteUrl } from '@/lib/config';
+import { SITE, SERVICES, absoluteUrl } from '@/lib/config';
 import { servicesJsonLd } from '@/lib/jsonld';
 import Link from 'next/link';
 import { Clock, Info } from 'lucide-react';
@@ -21,8 +21,8 @@ export async function generateMetadata({
         : 'Tarifs et services de massothérapie | Olha Shelest, Gatineau',
     },
     description: isEn
-      ? 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & children\'s massage from $65 CAD. Direct insurance billing available.'
-      : 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et pour enfants à partir de 65 $ CAD. Facturation directe disponible.',
+      ? 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & children\'s massage from $95 CAD. Direct insurance billing available.'
+      : 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et pour enfants à partir de 95 $ CAD. Facturation directe disponible.',
     alternates: {
       canonical: absoluteUrl(`/${locale}/fees`),
       languages: { en: absoluteUrl('/en/fees'), fr: absoluteUrl('/fr/fees'), 'x-default': absoluteUrl('/en/fees') },
@@ -56,7 +56,15 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'fees' });
-  const services = t.raw('services') as { duration: string; name: string; price: string }[];
+  const isEn = locale === 'en';
+  const lang = isEn ? 'en' : 'fr';
+  const services = SERVICES.flatMap((s) =>
+    s.tiers.map((tier) => ({
+      name: s.title[lang],
+      duration: tier.duration,
+      price: isEn ? `$${tier.price}` : `${tier.price} $`,
+    }))
+  );
 
   return (
     <>

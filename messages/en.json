@@ -23,23 +23,7 @@
     "title": "Services",
     "preTitle": "What We Offer",
     "subtitle": "Therapeutic treatments thoughtfully tailored to your wellbeing",
-    "viewFees": "View Fees & Pricing",
-    "swedish": {
-      "title": "Swedish Massage",
-      "description": "A gentle, flowing full-body massage that promotes circulation, eases muscle tension, and induces deep, restorative relaxation."
-    },
-    "deepTissue": {
-      "title": "Deep Tissue Massage",
-      "description": "Targeting deeper layers of muscle and connective tissue to release chronic tension, address pain patterns, and restore mobility."
-    },
-    "relaxation": {
-      "title": "Relaxation Massage",
-      "description": "A calming, nurturing treatment designed to soothe the nervous system, quiet the mind, and melt away the stress of everyday life."
-    },
-    "children": {
-      "title": "Children's Massage",
-      "description": "Our kids deserve attentive care from the very start. Massage for kids as young as a few months old, my sessions are designed to be fun, safe, and relaxing — using gentle, age-appropriate techniques to ease tension, support restful sleep, and nurture healthy development."
-    }
+    "viewFees": "View Fees & Pricing"
   },
   "about": {
     "preview": {
@@ -83,15 +67,6 @@
     "title": "Fees & Services",
     "subtitle": "Transparent pricing for quality therapeutic care",
     "note": "Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment.",
-    "services": [
-      { "duration": "30 min", "name": "Relaxation Massage", "price": "$65" },
-      { "duration": "60 min", "name": "Swedish Massage", "price": "$100" },
-      { "duration": "60 min", "name": "Deep Tissue Massage", "price": "$110" },
-      { "duration": "90 min", "name": "Swedish Massage", "price": "$140" },
-      { "duration": "90 min", "name": "Deep Tissue Massage", "price": "$150" },
-      { "duration": "60 min", "name": "Children's Massage", "price": "$100" },
-      { "duration": "90 min", "name": "Children's Massage", "price": "$140" }
-    ],
     "ctaTitle": "Ready to Book?",
     "ctaText": "Contact Olha to schedule your appointment.",
     "ctaButton": "Get in Touch"

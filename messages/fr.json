@@ -23,23 +23,7 @@
     "title": "Services",
     "preTitle": "Ce que nous offrons",
     "subtitle": "Des soins thérapeutiques soigneusement adaptés à votre bien-être",
-    "viewFees": "Voir les tarifs",
-    "swedish": {
-      "title": "Massage suédois",
-      "description": "Un massage corps entier doux et fluide qui favorise la circulation, soulage les tensions musculaires et induit une relaxation profonde et réparatrice."
-    },
-    "deepTissue": {
-      "title": "Massage en profondeur",
-      "description": "Ciblant les couches profondes des muscles et des tissus conjonctifs pour libérer les tensions chroniques, traiter les douleurs et restaurer la mobilité."
-    },
-    "relaxation": {
-      "title": "Massage de relaxation",
-      "description": "Un soin apaisant et bienveillant conçu pour calmer le système nerveux, apaiser l'esprit et faire fondre le stress du quotidien."
-    },
-    "children": {
-      "title": "Massage pour enfants",
-      "description": "Nos enfants méritent des soins attentifs dès le plus jeune âge. Le massage pour enfants dès quelques mois, mes séances sont conçues pour être agréables, sécuritaires et relaxantes — avec des techniques douces et adaptées pour soulager les tensions, favoriser le sommeil et accompagner un développement sain."
-    }
+    "viewFees": "Voir les tarifs"
   },
   "about": {
     "preview": {
@@ -83,15 +67,6 @@
     "title": "Tarifs et services",
     "subtitle": "Des prix transparents pour des soins thérapeutiques de qualité",
     "note": "Les prix sont en dollars canadiens (CAD). La facturation directe peut être disponible auprès de certains assureurs — veuillez nous contacter pour confirmer votre couverture avant votre rendez-vous.",
-    "services": [
-      { "duration": "30 min", "name": "Massage de relaxation", "price": "65 $" },
-      { "duration": "60 min", "name": "Massage suédois", "price": "100 $" },
-      { "duration": "60 min", "name": "Massage en profondeur", "price": "110 $" },
-      { "duration": "90 min", "name": "Massage suédois", "price": "140 $" },
-      { "duration": "90 min", "name": "Massage en profondeur", "price": "150 $" },
-      { "duration": "60 min", "name": "Massage pour enfants", "price": "100 $" },
-      { "duration": "90 min", "name": "Massage pour enfants", "price": "140 $" }
-    ],
     "ctaTitle": "Prêt(e) à réserver?",
     "ctaText": "Contactez Olha pour planifier votre rendez-vous.",
     "ctaButton": "Nous contacter"
