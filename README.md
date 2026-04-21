@@ -30,7 +30,9 @@ RESEND_API_KEY=re_your_api_key_here
 3. Create a new key and copy it
 4. Paste it into `.env.local` as shown above
 
-The key is used by the contact form (`/api/contact`) to send emails to the business address.
+The key is used by the contact form (`/api/contact`) to send emails via `massage@shelestwellness.ca`.
+
+**Resend domain setup:** the sending domain `shelestwellness.ca` must be verified in the [Resend dashboard](https://resend.com/domains) (add the DNS records Resend provides to Porkbun). Without verification, emails will be rejected with a 403 error.
 
 **When deploying to Vercel:** add `RESEND_API_KEY` as an environment variable in the Vercel project settings — `.env.local` is not used in production.
 
@@ -46,9 +48,9 @@ src/lib/config.ts
 
 Update that single file to change any business details site-wide.
 
-### When you get a domain
+### Domain
 
-Update `SITE.url` in `config.ts` — this single change propagates to:
+The live domain is `https://www.shelestwellness.ca`, set in `SITE.url` in `config.ts`. This single value propagates to:
 - All canonical URLs and `hreflang` alternates
 - Open Graph and Twitter card image URLs
 - JSON-LD structured data (`@id`, `url`, `image`)
@@ -81,8 +83,7 @@ The site is set up with:
 - **Semantic HTML** — address in footer uses `<address>` element
 
 **Still to add when available:**
-- `openingHours` in JSON-LD (`src/lib/jsonld.ts` → `businessEntity`)
-- Google Business Profile (links to it via `sameAs` once created)
+- Google Business Profile URL — add to `BUSINESS` in `config.ts` and append to the `sameAs` array in `src/lib/jsonld.ts`
 
 ---
 
@@ -101,13 +102,17 @@ No third-party captcha service is used — no cost, no user friction, no additio
 
 ## Images
 
-Images are stored in `public/images/`:
+Images are stored in `public/images/`. The three active image paths are referenced via `SITE` constants in `config.ts` — change the filename there to swap an image site-wide.
 
-| File | Usage |
-|---|---|
-| `logo.png` | Header logo (inverted white via CSS) |
-| `image1.jpg` | Hero section & Open Graph default image |
-| `olya-pic.jpg` | About page portrait & OG image for About |
+| File | `config.ts` key | Usage |
+|---|---|---|
+| `logo.png` | — | Header & about preview panel (inverted white via CSS) |
+| `image1.jpg` | `SITE.heroImage` | Hero section background |
+| `media-opengraph.jpg` | `SITE.ogImage` | Open Graph image — home, fees, contact, privacy pages |
+| `olya-pic.jpg` | `SITE.portraitImage` | About page portrait + OG image for About page |
+| `image2.jpg` | — | Currently unused |
+
+Recommended minimum sizes: hero (`image1.jpg`) — no strict requirement; OG image (`media-opengraph.jpg`) — **1200×630 px**; portrait (`olya-pic.jpg`) — tall crop, at least 800×1000 px.
 
 ---
 

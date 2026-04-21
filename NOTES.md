@@ -587,6 +587,20 @@ json"memberOf": {
   Cash
 6. cost with taxes ??
 7. Proud members of Le Réseau des massothérapeutes du Québec. Receipts are issued for insurance purposes and treatment is covered by all insurance companies where massage coverage applies.
-8. CHECK CONTACT US FORM
-9. massage@shelestwellness.ca
+8. chnage AMQ site with website link (attention to personal data changes like phoe and address)
+
 10. remove words: sweedish, prenatal
+11. protect main branch 
+12. 4.3 + 4.4 + 5
+13. check how to book online https://jane.app OR https://www.setmore.com/
+14. Even if you don't use Jane for booking, creating a profile there is worth doing.
+15. ask AI where to create backlinks for free for RMT in Canada
+16. PagesJaunes / Yellow Pages Canada For Quebec in particular, PagesJaunes (the French version of Yellow Pages) carries significant weight. Google treats it as an authoritative local source in the Quebec market.
+17. pagesjaunes.ca — create a free business listing Also create the English counterpart at yellowpages.ca NAP must match GBP exactly
+18. Worth doing, lower effort Yelp Canada Yelp has genuine authority and ranks well in Google search results for service queries like "massage Gatineau." Even if it doesn't send much direct traffic initially, it appears in search results alongside your website and GBP — which increases the total footprint of visible results for searches about you.
+19. yelp.ca → claim or create a business listing Free basic listing
+20. MORE to do in plan.md (read doc)
+21. read README - we need to update google business part when available
+
+
+
