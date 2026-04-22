@@ -7,13 +7,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
-
-const NAV_LINKS = [
-  { key: 'home', href: '/' },
-  { key: 'about', href: '/about' },
-  { key: 'fees', href: '/fees' },
-  { key: 'contact', href: '/contact' },
-] as const;
+import { NAV_LINKS } from '@/lib/config';
 
 export default function Header() {
   const t = useTranslations('nav');

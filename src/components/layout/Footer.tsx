@@ -2,7 +2,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
-import { BUSINESS } from '@/lib/config';
+import { BUSINESS, NAV_LINKS } from '@/lib/config';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -10,13 +10,6 @@ export default function Footer() {
   const locale = useLocale();
   const prefix = `/${locale}`;
   const year = new Date().getFullYear();
-
-  const navLinks = [
-    { key: 'home', href: '/' },
-    { key: 'about', href: '/about' },
-    { key: 'fees', href: '/fees' },
-    { key: 'contact', href: '/contact' },
-  ] as const;
 
   return (
     <footer className="bg-forest text-white relative overflow-hidden">
@@ -49,7 +42,7 @@ export default function Footer() {
               {t('nav')}
             </h3>
             <ul className="flex flex-col gap-3">
-              {navLinks.map(({ key, href }) => (
+              {NAV_LINKS.map(({ key, href }) => (
                 <li key={key}>
                   <Link
                     href={`${prefix}${href === '/' ? '' : href}`}

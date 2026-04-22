@@ -70,6 +70,15 @@ export const SERVICES = [
 
 export type ServiceKey = (typeof SERVICES)[number]['key'];
 
+export const NAV_LINKS = [
+  { key: 'home', href: '/' },
+  { key: 'about', href: '/about' },
+  { key: 'fees', href: '/fees' },
+  { key: 'contact', href: '/contact' },
+] as const;
+
+export type NavKey = (typeof NAV_LINKS)[number]['key'];
+
 export const BUSINESS = {
   name: 'Olha Shelest',
   email: 'massage@shelestwellness.ca',

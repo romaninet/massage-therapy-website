@@ -1,7 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SITE } from '@/lib/config';
+import { SITE, BUSINESS } from '@/lib/config';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
 
 export default function HeroSection() {
@@ -52,7 +52,7 @@ export default function HeroSection() {
           <div className="flex items-center gap-4 mt-14">
             <div className="h-px w-12 bg-sage/40" />
             <p className="text-forest/40 text-xs tracking-widest uppercase">
-              Gatineau, QC
+              {BUSINESS.cityName}, {BUSINESS.province}
             </p>
           </div>
         </div>
