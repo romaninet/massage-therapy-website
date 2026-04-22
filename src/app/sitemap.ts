@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return pages.flatMap(({ path, changeFrequency, priority }) => [
     {
       url: `${base}/en${path}`,
-      lastModified: new Date(),
+      lastModified: SITE.lastUpdated,
       changeFrequency,
       priority,
       alternates: {
@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${base}/fr${path}`,
-      lastModified: new Date(),
+      lastModified: SITE.lastUpdated,
       changeFrequency,
       priority,
       alternates: {
