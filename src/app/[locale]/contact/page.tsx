@@ -55,6 +55,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'contact' });
+  const lang: Locale = locale as Locale;
   return (
     <>
       <script
