@@ -42,10 +42,22 @@ export default function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-24">
-          {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-3 group">
-            <div className="w-28 h-28 relative flex-shrink-0">
+        {/* Mobile: 3-col grid [name | logo | controls]. Desktop: flex justify-between */}
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-24 lg:flex lg:justify-between">
+
+          {/* Mobile: name + subtitle left — hidden on desktop (lives inside logo link there) */}
+          <div className="lg:hidden flex flex-col leading-tight">
+            <span className="font-heading text-white font-semibold tracking-wide text-sm leading-tight">
+              Olha Shelest
+            </span>
+            <span className="text-white/60 text-[9px] tracking-widest uppercase font-light">
+              {tHeader('subtitle')}
+            </span>
+          </div>
+
+          {/* Logo — centered on mobile, left-anchored on desktop */}
+          <Link href={`/${locale}`} className="flex items-center gap-3 group justify-self-center lg:justify-self-auto">
+            <div className="w-28 h-28 lg:w-28 lg:h-28 relative flex-shrink-0">
               <Image
                 src="/images/logo.png"
                 alt={tHeader('logoAlt')}
@@ -55,7 +67,8 @@ export default function Header() {
                 priority
               />
             </div>
-            <div className="hidden sm:flex flex-col leading-tight items-center">
+            {/* Name + subtitle — desktop only, inside the link */}
+            <div className="hidden lg:flex flex-col leading-tight items-center">
               <span className="font-heading text-white font-semibold tracking-wide text-lg">
                 Olha Shelest
               </span>
@@ -98,8 +111,8 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile controls */}
-          <div className="flex lg:hidden items-center gap-4">
+          {/* Mobile controls — right column */}
+          <div className="flex lg:hidden items-center gap-4 justify-self-end">
             <LanguageSwitcher dark />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -109,6 +122,7 @@ export default function Header() {
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
+
         </div>
       </div>
 
