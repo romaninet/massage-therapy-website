@@ -82,9 +82,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* Main bio section */}
-      <section className="bg-off-white py-20 lg:py-28">
+      <section className="bg-off-white py-10 md:py-16 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 items-start">
             {/* Photo */}
             <div className="relative">
               <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-2xl shadow-forest/15">
@@ -140,14 +140,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* Values / Approach section */}
-      <section className="bg-pale-sage py-20 lg:py-28 relative overflow-hidden">
+      <section className="bg-pale-sage py-10 md:py-16 lg:py-28 relative overflow-hidden">
         <BotanicalCornerTL className="absolute top-0 left-0 w-40 h-40 text-sage/20 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-14">
+          <div className="text-center mb-4 lg:mb-14">
             <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-4">
               {t('valuesTitle')}
             </h2>
-            <BotanicalDivider className="w-64 mx-auto text-sage/50 mt-6" />
+            <BotanicalDivider className="w-48 lg:w-64 mx-auto text-sage/50 mt-2 lg:mt-6" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((value, i) => {

@@ -9,13 +9,13 @@ export default function HeroSection() {
   const locale = useLocale();
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-off-white pt-24">
+    <section className="relative lg:min-h-screen flex items-center overflow-hidden bg-off-white pt-24">
       {/* Subtle botanical corner accents on the off-white side */}
       <BotanicalCornerTL className="absolute top-20 left-0 w-52 h-52 text-sage/20 pointer-events-none z-10" />
 
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 items-center gap-0 min-h-[calc(100vh-5rem)]">
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 items-center gap-0 lg:min-h-[calc(100vh-5rem)]">
         {/* Left: text content */}
-        <div className="relative z-10 py-20 lg:py-0 flex flex-col justify-center">
+        <div className="relative z-10 pt-8 pb-6 lg:py-0 flex flex-col justify-center">
           <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-6">
             {t('credential')}
           </p>
@@ -49,7 +49,7 @@ export default function HeroSection() {
           </div>
 
           {/* Small decorative divider */}
-          <div className="flex items-center gap-4 mt-14">
+          <div className="flex items-center gap-4 mt-7 lg:mt-14">
             <div className="h-px w-12 bg-sage/40" />
             <p className="text-forest/40 text-xs tracking-widest uppercase">
               {BUSINESS.cityName}, {BUSINESS.province}

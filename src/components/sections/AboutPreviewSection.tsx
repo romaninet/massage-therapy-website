@@ -8,9 +8,9 @@ export default function AboutPreviewSection() {
   const locale = useLocale();
 
   return (
-    <section className="bg-off-white py-24 lg:py-32 overflow-hidden">
+    <section className="bg-off-white py-12 md:py-16 lg:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left: text */}
           <div className="flex flex-col">
             <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
@@ -33,7 +33,7 @@ export default function AboutPreviewSection() {
           </div>
 
           {/* Right: decorative forest panel */}
-          <div className="relative h-96 lg:h-[500px] rounded-lg overflow-hidden bg-forest flex items-center justify-center">
+          <div className="hidden lg:flex relative h-96 lg:h-[500px] rounded-lg overflow-hidden bg-forest items-center justify-center">
             <BotanicalCornerTL className="absolute top-0 left-0 w-36 h-36 text-white/15 pointer-events-none" />
 
             {/* Decorative botanical pattern */}

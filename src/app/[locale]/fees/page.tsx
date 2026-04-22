@@ -73,7 +73,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd(services, locale)) }}
       />
       {/* Hero */}
-      <section className="bg-forest pt-36 pb-20 relative overflow-hidden">
+      <section className="bg-forest pt-36 pb-8 lg:pb-20 relative overflow-hidden">
         <BotanicalCornerTL className="absolute top-0 left-0 w-48 h-48 text-white/10 pointer-events-none" />
         <BotanicalCornerBR className="absolute bottom-0 right-0 w-48 h-48 text-white/10 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center relative z-10">
@@ -88,9 +88,9 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* Pricing table */}
-      <section className="bg-off-white py-20 lg:py-28">
+      <section className="bg-off-white py-5 md:py-16 lg:py-28">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-14">
+          <div className="text-center mb-3 lg:mb-14">
             <BotanicalDivider className="w-64 mx-auto text-sage/50" />
           </div>
 

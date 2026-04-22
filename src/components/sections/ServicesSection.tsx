@@ -42,17 +42,17 @@ export default function ServicesSection() {
   const locale = useLocale() as 'en' | 'fr';
 
   return (
-    <section className="bg-pale-sage py-24 lg:py-32 relative overflow-hidden">
+    <section className="bg-pale-sage py-6 md:py-16 lg:py-32 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
+        <div className="text-center mb-4 lg:mb-16">
+          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-3 lg:mb-4">
             {t('preTitle')}
           </p>
-          <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-6">
+          <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-3 lg:mb-6">
             {t('title')}
           </h2>
-          <BotanicalDivider className="w-72 mx-auto text-sage/50 my-6" />
+          <BotanicalDivider className="w-48 lg:w-72 mx-auto text-sage/50 my-2 lg:my-6" />
           <p className="text-forest/60 text-lg max-w-xl mx-auto leading-relaxed">
             {t('subtitle')}
           </p>
@@ -81,7 +81,7 @@ export default function ServicesSection() {
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-14">
+        <div className="text-center mt-8 lg:mt-14">
           <Link
             href={`/${locale}/fees`}
             className="inline-flex items-center gap-2 text-forest border-b border-sage pb-0.5 hover:border-forest text-sm tracking-wider uppercase font-medium transition-colors"

@@ -65,7 +65,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale)) }}
       />
       {/* Hero */}
-      <section className="bg-forest pt-36 pb-20 relative overflow-hidden">
+      <section className="bg-forest pt-36 pb-4 lg:pb-20 relative overflow-hidden">
         <BotanicalCornerTL className="absolute top-0 left-0 w-48 h-48 text-white/10 pointer-events-none" />
         <BotanicalCornerBR className="absolute bottom-0 right-0 w-48 h-48 text-white/10 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center relative z-10">
@@ -80,13 +80,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* Contact content */}
-      <section className="bg-off-white py-20 lg:py-28">
+      <section className="bg-off-white py-3 md:py-16 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-14">
+          <div className="text-center mb-2 lg:mb-14">
             <BotanicalDivider className="w-64 mx-auto text-sage/50" />
           </div>
 
-          <div className="grid lg:grid-cols-2 lg:grid-rows-[auto_auto] gap-8 lg:gap-x-24 lg:gap-y-10 items-start">
+          <div className="grid lg:grid-cols-2 lg:grid-rows-[auto_auto] gap-16 lg:gap-x-24 lg:gap-y-10 items-start">
 
             {/* 1 — Form (mobile: first · desktop: right col, row 1) */}
             <div className="order-1 lg:col-start-2 lg:row-start-1 bg-white rounded-lg p-8 lg:p-10 border border-forest/8 shadow-sm relative overflow-hidden">

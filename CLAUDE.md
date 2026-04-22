@@ -41,6 +41,8 @@ Here are some details about Olha Shelest and her self-employment business:
  - Should be high-end, fully responsive website
  - Looks well on desktop and mobile devices (mobile browsers)
  - Website should emulate modern aesthetic, elegant headings. Colour palette: deep forest green #2D6A4F as the primary brand color (navbars, buttons, headings, fills), sage green #52B788 for links and hover states, pale sage #F0F7F4 for light section backgrounds, and warm off-white #FAF9F5 as the base page background.
+ - Website design could have different styles for full view on a desktop computer vs a narrow view on a phone browser
+	- If needed for reference, review session summary of changes we made in `session-with-phone-styles-adjustments` below
  - Use the following websites for design inspiration:
 	- https://www.natalimosh.com/
 	- https://www.nateherk.com/
@@ -84,3 +86,49 @@ You are an expert website developer with excellent knowledge in following fields
 
 ## Previous Sessions summary for context management
 
+# Summary of changes made in `session-with-phone-styles-adjustments`
+Mobile Spacing Fixes — Session Summary
+All changes are mobile-only (scoped with sm:/md:/lg: prefixes). Desktop layout is untouched.
+
+Problem
+Excessive vertical whitespace on narrow/phone screens across all pages.
+
+Changes Made
+src/components/sections/HeroSection.tsx
+
+Removed min-h-screen and min-h-[calc(100vh-5rem)] on mobile (now lg: only) — was forcing full viewport height
+Reduced text column padding: py-20 → pt-8 pb-6 lg:py-0
+Reduced gap before "GATINEAU, QC" tag: mt-14 → mt-7 lg:mt-14
+src/components/sections/ServicesSection.tsx
+
+Section padding: py-24 → py-6 md:py-16 lg:py-32
+Header bottom margin: mb-16 → mb-4 lg:mb-16
+Pre-title margin: mb-4 → mb-3 lg:mb-4
+Heading margin: mb-6 → mb-3 lg:mb-6
+BotanicalDivider: w-72 my-6 → w-48 lg:w-72 my-2 lg:my-6
+CTA margin: mt-14 → mt-8 lg:mt-14
+src/components/sections/AboutPreviewSection.tsx
+
+Section padding: py-24 → py-12 md:py-16 lg:py-32
+Grid gap: gap-16 → gap-8 lg:gap-16
+Green logo box: hidden on mobile (hidden lg:flex) — not needed on phones
+src/app/[locale]/about/page.tsx
+
+Bio section padding: py-20 → py-10 md:py-16 lg:py-28
+Bio grid gap: gap-16 → gap-8 lg:gap-24
+Values section padding: py-20 → py-10 md:py-16 lg:py-28
+Values title margin: mb-14 → mb-4 lg:mb-14
+Values BotanicalDivider: mt-6 → mt-2 lg:mt-6, w-64 → w-48 lg:w-64
+src/app/[locale]/fees/page.tsx
+
+Hero bottom padding: pb-20 → pb-8 lg:pb-20
+Content section padding: py-20 → py-5 md:py-16 lg:py-28
+Divider wrapper margin: mb-14 → mb-3 lg:mb-14
+src/app/[locale]/contact/page.tsx
+
+Hero bottom padding: pb-20 → pb-4 lg:pb-20
+Content section padding: py-20 → py-3 md:py-16 lg:py-28
+Divider wrapper margin: mb-14 → mb-2 lg:mb-14
+Grid gap between form and contact info: gap-8 → gap-16 (doubled on mobile, intentional)
+
+# Summary of changes made in ``
