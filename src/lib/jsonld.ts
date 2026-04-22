@@ -1,5 +1,7 @@
 import { BUSINESS, SERVICES, SITE } from './config';
 
+type Locale = 'en' | 'fr';
+
 const postalAddress = {
   '@type': 'PostalAddress',
   streetAddress: BUSINESS.address,
@@ -45,7 +47,7 @@ const businessEntity = {
   sameAs: [BUSINESS.amqUrl],
 };
 
-export function localBusinessJsonLd(locale: string) {
+export function localBusinessJsonLd(locale: Locale) {
   return {
     '@context': 'https://schema.org',
     ...businessEntity,
@@ -53,7 +55,7 @@ export function localBusinessJsonLd(locale: string) {
   };
 }
 
-export function personJsonLd(locale: string) {
+export function personJsonLd(locale: Locale) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -77,7 +79,7 @@ export function personJsonLd(locale: string) {
 
 export function servicesJsonLd(
   services: { name: string; duration: string; price: string }[],
-  locale: string
+  locale: Locale
 ) {
   return {
     '@context': 'https://schema.org',
