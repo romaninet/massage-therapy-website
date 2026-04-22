@@ -36,7 +36,7 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col lg:justify-end z-20">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12 pb-20 lg:pb-28 text-center w-full flex-1 flex flex-col lg:block">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12 pb-20 lg:pb-28 text-center w-full flex-1 flex flex-col lg:flex-none lg:block">
 
           {/* Text block — centered on mobile, inline on desktop */}
           <div className="flex-1 flex flex-col items-center justify-center lg:block">
