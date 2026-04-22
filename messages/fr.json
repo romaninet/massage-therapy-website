@@ -66,7 +66,12 @@
     "preTitle": "Tarification transparente",
     "title": "Tarifs et services",
     "subtitle": "Des prix transparents pour des soins thérapeutiques de qualité",
-    "note": "Les prix sont en dollars canadiens (CAD). La facturation directe peut être disponible auprès de certains assureurs — veuillez nous contacter pour confirmer votre couverture avant votre rendez-vous.",
+    "notePricingLabel": "Tarification",
+    "notePricing1": "Les prix sont en dollars canadiens (CAD).",
+    "notePricing2": "Taxes incluses.",
+    "notePaymentLabel": "Modes de paiement",
+    "noteInsuranceLabel": "Assurance",
+    "noteInsurance": "Des reçus officiels sont fournis pour tous les traitements. Si votre régime d'assurance inclut la massothérapie, vous pouvez soumettre ces reçus directement à votre assureur pour remboursement. Nous vous recommandons de confirmer votre couverture auprès de votre compagnie d'assurance avant votre rendez-vous.",
     "ctaTitle": "Prêt(e) à réserver?",
     "ctaText": "Contactez Olha pour planifier votre rendez-vous.",
     "ctaButton": "Nous contacter"

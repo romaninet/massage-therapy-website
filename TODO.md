@@ -5,13 +5,6 @@
 - Set up Google Analytics tracking for free - You add a small tracking code to the website, and Google shows you a dashboard: how many people visit, which pages they read, where they found the site (Google search, direct, social), what city they're from. Completely free. We can add it in Phase 4 — it's useful once the site is live and indexed.
 
 
-- Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment. ???
-- cash and e-transfer only (wording....)
-  Accepted methods of payment
-   - Interac (onilne e-transfer)
-   - Cash
-- cost with taxes ??
-- Proud members of Le Réseau des massothérapeutes du Québec. Receipts are issued for insurance purposes and treatment is covered by all insurance companies where massage coverage applies.
 - chnage AMQ site with website link (attention to personal data changes like phoe and address)
 - remove words: sweedish
 - protect main branch 
@@ -27,4 +20,5 @@
 - read README - we need to update google business part when available
 - Once Olha creates google business profile, Google gives a "Place ID". We add it to the structured data in the website so Google links the website to the verified business listing. One line of code change. Not urgent.
 - update business card with new data
+- add Read more on fees to link about massage
 

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SITE, SERVICES, absoluteUrl } from '@/lib/config';
+import { SITE, SERVICES, BUSINESS, absoluteUrl } from '@/lib/config';
 import { servicesJsonLd } from '@/lib/jsonld';
 import Link from 'next/link';
-import { Clock, Info } from 'lucide-react';
+import { Clock, Banknote, CreditCard, FileText } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
 
@@ -120,12 +120,47 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
           </div>
 
           {/* Info note */}
-          <div className="mt-10 flex items-start gap-4 bg-pale-sage rounded-lg p-6 border border-sage/20 relative overflow-hidden">
-            <BotanicalCornerBR className="absolute bottom-0 right-0 w-20 h-20 text-sage/20 pointer-events-none" />
-            <Info size={18} className="text-sage mt-0.5 flex-shrink-0" />
-            <p className="text-forest/65 text-sm leading-relaxed relative z-10">
-              {t('note')}
-            </p>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Pricing + Payment combined */}
+            <div className="bg-pale-sage rounded-lg p-6 border border-sage/20 flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-sage">
+                  <Banknote size={18} />
+                  <span className="text-xs font-semibold uppercase tracking-widest text-forest/50">{t('notePricingLabel')}</span>
+                </div>
+                <ul className="space-y-2">
+                  {[t('notePricing1'), t('notePricing2')].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-forest/70 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="border-t border-sage/20 pt-4 flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-sage">
+                  <CreditCard size={18} />
+                  <span className="text-xs font-semibold uppercase tracking-widest text-forest/50">{t('notePaymentLabel')}</span>
+                </div>
+                <ul className="space-y-2">
+                  {BUSINESS.paymentAccepted.map((method) => (
+                    <li key={method} className="flex items-center gap-2 text-forest/70 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
+                      {method}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Insurance */}
+            <div className="bg-pale-sage rounded-lg p-6 border border-sage/20 flex flex-col gap-3">
+              <div className="flex items-center gap-2 text-sage">
+                <FileText size={18} />
+                <span className="text-xs font-semibold uppercase tracking-widest text-forest/50">{t('noteInsuranceLabel')}</span>
+              </div>
+              <p className="text-forest/70 text-sm leading-relaxed">{t('noteInsurance')}</p>
+            </div>
           </div>
 
           {/* CTA card */}

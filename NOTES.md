@@ -4,7 +4,7 @@
 Build a high-end, fully responsive website for “Olha Shelest - Professional Massage Therapist".
 Use the following technologies: Next.js, Tailwind CSS, and shadcn/ui. 
 
-Use https://www.promassotherapie_com/ and https://alignyourbody_com/home as design inspiration, emulating its modern aesthetic, elegant serif headings, with clean sans-serif body text, and open layout with generous whitespaces.
+Use https://www.promassotherapie_com/ and alignyourbody_com/home and natalimosh_com as design inspiration, emulating its modern aesthetic, elegant serif headings, with clean sans-serif body text, and open layout with generous whitespaces.
 Colour palette: deep forest green #2D6A4F as the primary brand color (navbars, buttons, headings, fills), sage green #52B788 for links and hover states, pale sage #F0F7F4 for light section backgrounds, and warm off-white #FAF9F5 as the base page background.
 If design permits, use some elements from business card for general vibe reference when building the website (Business-card-front.jpg is a screenshot of the front of the business card)
 
@@ -49,7 +49,7 @@ Here are some details about the website:
  - Supports two languages (mandatory): English and French. 
  - Useing the following technologies: Next.js, Tailwind CSS, and shadcn/ui
  - All personal or sherable data across website and languages should avoid duplications and kept in config.ts
- - Initially it used the following websites for design inspiration: https://www.promassotherapie_com/ and https://alignyourbody_com/home 
+ - Initially it used the following websites for design inspiration: https://www.promassotherapie_com/ and https://alignyourbody_com/home and natalimosh_com
  - contact form is sent using resend.com
  - deployed to Vercel
  - using a dedicated logo

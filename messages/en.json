@@ -66,7 +66,12 @@
     "preTitle": "Transparent Pricing",
     "title": "Fees & Services",
     "subtitle": "Transparent pricing for quality therapeutic care",
-    "note": "Prices shown are in Canadian dollars (CAD). Direct billing may be available through select insurance providers — please contact us to confirm your coverage before your appointment.",
+    "notePricingLabel": "Pricing",
+    "notePricing1": "Prices shown are in Canadian dollars (CAD).",
+    "notePricing2": "Tax included.",
+    "notePaymentLabel": "Payment Methods",
+    "noteInsuranceLabel": "Insurance",
+    "noteInsurance": "Official receipts are provided for all treatments. If your insurance plan includes massage therapy coverage, you can submit these receipts directly to your provider for reimbursement. We recommend confirming your coverage with your insurance company before your appointment.",
     "ctaTitle": "Ready to Book?",
     "ctaText": "Contact Olha to schedule your appointment.",
     "ctaButton": "Get in Touch"
