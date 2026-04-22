@@ -165,7 +165,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             {/* 4 — Map (mobile: fourth · desktop: right col, row 2) */}
             <div className="order-4 lg:col-start-2 lg:row-start-2 relative w-full h-64 rounded-lg overflow-hidden bg-pale-sage border border-sage/20">
               <iframe
-                title="Map"
+                title={t('mapTitle')}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
