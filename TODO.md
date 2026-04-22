@@ -3,8 +3,6 @@
 - fix prices and massage types
 - create googe business profile for SEO ((Google Maps listing with address, hours, phone) — this is one of the highest-impact local SEO actions and costs nothing.)
 - Set up Google Analytics tracking for free - You add a small tracking code to the website, and Google shows you a dashboard: how many people visit, which pages they read, where they found the site (Google search, direct, social), what city they're from. Completely free. We can add it in Phase 4 — it's useful once the site is live and indexed.
-
-
 - chnage AMQ site with website link (attention to personal data changes like phoe and address)
 - remove words: swedish
 - protect main branch 
