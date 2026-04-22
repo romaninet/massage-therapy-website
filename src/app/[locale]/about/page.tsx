@@ -64,7 +64,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale as 'en' | 'fr')) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-20 relative overflow-hidden">

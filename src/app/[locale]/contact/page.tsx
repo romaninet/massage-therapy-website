@@ -62,7 +62,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale as 'en' | 'fr')) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-4 lg:pb-20 relative overflow-hidden">

@@ -59,7 +59,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale as 'en' | 'fr')) }}
       />
       <HeroSection />
       <ServicesSection />
