@@ -84,6 +84,8 @@
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
+    "hours": "Opening Hours",
+    "closed": "Closed",
     "form": {
       "title": "Send a Message",
       "name": "Full Name",

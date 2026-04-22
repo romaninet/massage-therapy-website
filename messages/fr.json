@@ -84,6 +84,8 @@
     "phone": "Téléphone",
     "email": "Courriel",
     "address": "Adresse",
+    "hours": "Heures d'ouverture",
+    "closed": "Fermé",
     "form": {
       "title": "Envoyer un message",
       "name": "Nom complet",
