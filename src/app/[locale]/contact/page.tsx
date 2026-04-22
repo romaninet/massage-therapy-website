@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { localBusinessJsonLd } from '@/lib/jsonld';
+import { localBusinessJsonLd, type Locale } from '@/lib/jsonld';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
@@ -55,14 +55,11 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'contact' });
-  const lang = locale as 'en' | 'fr';
-
-
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale as 'en' | 'fr')) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale as Locale)) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-4 lg:pb-20 relative overflow-hidden">
