@@ -9,91 +9,86 @@ export default function HeroSection() {
   const locale = useLocale();
 
   return (
-    <section className="relative lg:min-h-screen flex items-center overflow-hidden bg-off-white pt-24">
-      {/* Subtle botanical corner accents on the off-white side */}
-      <BotanicalCornerTL className="absolute top-20 left-0 w-52 h-52 text-sage/20 pointer-events-none z-10" />
+    <section className="relative min-h-screen overflow-hidden flex flex-col">
+      {/* Full-bleed background image */}
+      <Image
+        src={SITE.heroBgImage}
+        alt={t('imageAlt')}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[center_30%]"
+      />
 
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 items-center gap-0 lg:min-h-[calc(100vh-5rem)]">
-        {/* Left: text content */}
-        <div className="relative z-10 pt-8 pb-6 lg:py-0 flex flex-col justify-center">
-          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-6">
-            {t('credential')}
-          </p>
+      {/* Overlay layer 1 — darkening gradient, heavier at top and bottom */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65 pointer-events-none" />
+      {/* Overlay layer 2 — subtle edge vignette on desktop */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 pointer-events-none hidden lg:block" />
 
-          <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold text-forest leading-[1.1] mb-8">
-            {t('tagline').split('. ').map((part, i, arr) => (
-              <span key={i}>
-                {part}{i < arr.length - 1 ? '.' : ''}
-                {i < arr.length - 1 && <br />}
-              </span>
-            ))}
-          </h1>
+      {/* Botanical corner accents */}
+      <BotanicalCornerTL className="absolute top-0 left-0 w-56 h-56 text-white/15 pointer-events-none z-10" />
+      <BotanicalCornerBR className="absolute bottom-0 right-0 w-48 h-48 text-white/10 pointer-events-none z-10" />
 
-          <p className="text-forest/70 text-lg leading-relaxed max-w-md mb-10">
+      {/* Mobile credential — pinned just below header */}
+      <p className="lg:hidden absolute top-28 left-0 right-0 text-center text-white/70 font-medium tracking-[0.25em] uppercase text-xs z-20">
+        {t('credential')}
+      </p>
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col lg:justify-end z-20">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12 pb-20 lg:pb-28 text-center w-full flex-1 flex flex-col lg:block">
+
+          {/* Text block — centered on mobile, inline on desktop */}
+          <div className="flex-1 flex flex-col items-center justify-center lg:block">
+            <p className="hidden lg:block text-white/70 font-medium tracking-[0.25em] uppercase text-xs mb-5">
+              {t('credential')}
+            </p>
+
+            <h1 className="font-heading text-5xl sm:text-6xl lg:text-8xl font-semibold text-white leading-[1.05] mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+              {t('tagline').split('. ').map((part, i, arr) => (
+                <span key={i}>
+                  {part}{i < arr.length - 1 ? '.' : ''}
+                  {i < arr.length - 1 && <br />}
+                </span>
+              ))}
+            </h1>
+
+          </div>
+
+          {/* Subtitle + buttons — grouped at bottom on mobile */}
+          <p className="text-white/90 text-lg lg:text-xl leading-relaxed max-w-xl mx-auto mb-6 lg:mb-10 drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
             {t('subtitle')}
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link
               href={`/${locale}/contact`}
-              className="inline-flex items-center justify-center px-8 py-4 bg-forest text-white font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-forest-dark hover:shadow-lg hover:shadow-forest/20 hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-off-white hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5"
             >
               {t('cta')}
             </Link>
             <Link
               href={`/${locale}/about`}
-              className="inline-flex items-center justify-center px-8 py-4 border border-forest/30 text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:border-forest hover:bg-forest/5"
+              className="inline-flex items-center justify-center px-8 py-4 border border-white/70 bg-forest/30 text-white font-medium tracking-wider uppercase text-sm rounded transition-all hover:border-white hover:bg-white/10 backdrop-blur-sm"
             >
               {t('meetOlha')}
             </Link>
           </div>
 
-          {/* Small decorative divider */}
-          <div className="flex items-center gap-4 mt-7 lg:mt-14">
-            <div className="h-px w-12 bg-sage/40" />
-            <p className="text-forest/40 text-xs tracking-widest uppercase">
-              {BUSINESS.cityName}, {BUSINESS.province}
+          {/* Location strip */}
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-px w-10 bg-white/30" />
+            <p className="text-white/50 text-xs tracking-widest uppercase">
+              {t('locationLabel')} {BUSINESS.cityName}, {BUSINESS.province}
             </p>
+            <div className="h-px w-10 bg-white/30" />
           </div>
-        </div>
-
-        {/* Right: hero image panel */}
-        <div className="relative lg:block hidden min-h-[calc(100vh-8px)] mt-2 overflow-hidden rounded-3xl">
-          {/* Photo */}
-          <Image
-            src={SITE.heroImage}
-            alt={t('imageAlt')}
-            fill
-            priority
-            sizes="50vw"
-            className="object-cover object-center"
-          />
-
-          {/* Left edge: dissolves into off-white background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-off-white/60 via-transparent to-transparent" />
-          {/* Top edge: subtle fade */}
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(250,249,245,0.62) 0%, transparent 22%)' }} />
-          {/* Bottom: forest tint anchors the credential tag */}
-          <div className="absolute inset-0 bg-gradient-to-t from-forest/55 via-transparent to-transparent" />
-
-          {/* Bottom-left credential tag */}
-          <div className="absolute bottom-10 left-8 z-10">
-            <p className="font-heading text-white text-base italic tracking-wide drop-shadow-md">
-              Olha Shelest
-            </p>
-            <p className="text-white/70 text-xs tracking-[0.25em] uppercase mt-0.5 drop-shadow-sm">
-              {t('massageTherapy')}
-            </p>
-          </div>
-
-          {/* Subtle botanical corner accent */}
-          <BotanicalCornerBR className="absolute bottom-0 right-0 w-40 h-40 text-white/15 pointer-events-none z-10" />
         </div>
       </div>
 
-      {/* Mobile background hint */}
-      <div className="absolute inset-0 lg:hidden pointer-events-none">
-        <BotanicalCornerBR className="absolute bottom-0 right-0 w-40 h-40 text-forest/10" />
+      {/* Scroll indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 pointer-events-none">
+        <span className="text-white/40 text-[10px] tracking-widest uppercase">{t('scroll')}</span>
+        <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent animate-float" />
       </div>
     </section>
   );

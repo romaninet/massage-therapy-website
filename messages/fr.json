@@ -17,7 +17,9 @@
     "credential": "Massothérapeute Professionnelle · Membre AMQ",
     "meetOlha": "Rencontrer Olha",
     "massageTherapy": "Massothérapie",
-    "imageAlt": "Massothérapie"
+    "imageAlt": "Massothérapie",
+    "locationLabel": "Situé à",
+    "scroll": "Défiler"
   },
   "services": {
     "title": "Services",

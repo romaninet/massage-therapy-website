@@ -17,7 +17,9 @@
     "credential": "Professional Massage Therapist · AMQ Member",
     "meetOlha": "Meet Olha",
     "massageTherapy": "Massage Therapy",
-    "imageAlt": "Massage Therapy"
+    "imageAlt": "Massage Therapy",
+    "locationLabel": "Located in",
+    "scroll": "Scroll"
   },
   "services": {
     "title": "Services",
