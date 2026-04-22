@@ -8,6 +8,7 @@ export const SITE = {
     en: 'Olha Shelest — Massage Therapy Gatineau',
     fr: 'Olha Shelest — Massothérapie Gatineau',
   },
+  description: 'Professional Massage Therapist in Gatineau, QC',
 } as const;
 
 export function absoluteUrl(path: string): string {

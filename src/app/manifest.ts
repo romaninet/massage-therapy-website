@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next';
-import { BUSINESS } from '@/lib/config';
+import { BUSINESS, SITE } from '@/lib/config';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: BUSINESS.name,
     short_name: BUSINESS.name,
-    description: 'Professional Massage Therapist in Gatineau, QC',
+    description: SITE.description,
     start_url: '/en',
     display: 'standalone',
     background_color: '#FAF9F5',
