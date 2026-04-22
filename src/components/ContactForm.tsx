@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { formatPhone } from '@/lib/phone';
 
 type FormState = 'idle' | 'sending' | 'success' | 'error';
 type FormFields = { name: string; email: string; phone: string; message: string };
@@ -24,14 +25,6 @@ const FILTERS: Record<keyof FormFields, (v: string) => string> = {
 
 const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 
-const formatPhone = (raw: string): string => {
-  const digits = raw.replace(/\D/g, '');
-  if (digits.length === 11 && digits[0] === '1')
-    return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
-  if (digits.length === 10)
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-  return raw;
-};
 
 const isValidPhone = (raw: string): boolean => {
   const digits = raw.replace(/\D/g, '');

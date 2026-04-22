@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { BUSINESS, SITE } from '@/lib/config';
+import { formatPhone } from '@/lib/phone';
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY ?? '');
@@ -19,15 +20,6 @@ export async function POST(request: Request) {
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
-
-    const formatPhone = (raw: string): string => {
-      const digits = raw.replace(/\D/g, '');
-      if (digits.length === 11 && digits[0] === '1')
-        return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
-      if (digits.length === 10)
-        return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-      return raw;
-    };
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
