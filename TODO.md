@@ -6,7 +6,7 @@
 
 
 - chnage AMQ site with website link (attention to personal data changes like phoe and address)
-- remove words: sweedish
+- remove words: swedish
 - protect main branch 
 - 4.3 + 4.4 + 5
 - check how to book online https://jane.app OR https://www.setmore.com/

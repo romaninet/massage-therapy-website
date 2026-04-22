@@ -85,6 +85,14 @@ export const BUSINESS = {
   amqUrl: 'https://membres.rmqmasso.ca/en/find-member/details/M-24-4471',
   mapsUrl: 'https://maps.google.com/maps?q=148+Rue+Eddy,+Gatineau,+QC+J8X+2W8&output=embed',
   paymentAccepted: ['Cash', 'Interac e-Transfer'],
-  openingHours: ['Mo-Fr 17:00-20:00'],
+  openingHours: [
+    { days: { en: 'Monday',    fr: 'Lundi'    }, schemaDay: 'Mo', open: '17:00', close: '20:00' },
+    { days: { en: 'Tuesday',   fr: 'Mardi'    }, schemaDay: 'Tu', open: '17:00', close: '20:00' },
+    { days: { en: 'Wednesday', fr: 'Mercredi' }, schemaDay: 'We', open: '17:00', close: '20:00' },
+    { days: { en: 'Thursday',  fr: 'Jeudi'    }, schemaDay: 'Th', open: '17:00', close: '20:00' },
+    { days: { en: 'Friday',    fr: 'Vendredi' }, schemaDay: 'Fr', open: '17:00', close: '20:00' },
+    { days: { en: 'Saturday',  fr: 'Samedi'   }, schemaDay: 'Sa', open: null,    close: null    },
+    { days: { en: 'Sunday',    fr: 'Dimanche' }, schemaDay: 'Su', open: null,    close: null    },
+  ],
   geo: { latitude: 45.42998533558253, longitude: -75.72007407363735 },
 } as const;

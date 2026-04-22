@@ -1,4 +1,4 @@
-import { BUSINESS, SITE } from './config';
+import { BUSINESS, SERVICES, SITE } from './config';
 
 const postalAddress = {
   '@type': 'PostalAddress',
@@ -14,7 +14,7 @@ const businessEntity = {
   '@id': SITE.url,
   name: BUSINESS.name,
   url: SITE.url,
-  description: 'Professional Massage Therapist in Gatineau, QC offering Swedish, deep tissue, relaxation and children\'s massage. AMQ registered member.',
+  description: `Professional Massage Therapist in Gatineau, QC offering ${SERVICES.map((s) => s.title.en).join(', ')}. AMQ registered member.`,
   telephone: BUSINESS.phoneTel,
   email: BUSINESS.email,
   address: postalAddress,
@@ -25,7 +25,9 @@ const businessEntity = {
     latitude: BUSINESS.geo.latitude,
     longitude: BUSINESS.geo.longitude,
   },
-  openingHours: BUSINESS.openingHours,
+  openingHours: BUSINESS.openingHours
+    .filter((h) => h.open !== null)
+    .map((h) => `${h.schemaDay} ${h.open}-${h.close}`),
   areaServed: [
     { '@type': 'City', name: 'Gatineau' },
     { '@type': 'AdministrativeArea', name: 'Outaouais' },
