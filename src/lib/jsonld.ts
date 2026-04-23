@@ -11,12 +11,22 @@ const postalAddress = {
   addressCountry: BUSINESS.country,
 };
 
+const locationPlace = {
+  '@type': 'Place',
+  name: `${BUSINESS.neighborhood}, ${BUSINESS.cityName}`,
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS.geo.latitude,
+    longitude: BUSINESS.geo.longitude,
+  },
+};
+
 const businessEntity = {
   '@type': 'HealthAndBeautyBusiness',
   '@id': SITE.url,
   name: BUSINESS.name,
   url: SITE.url,
-  description: `Professional Massage Therapist in Gatineau, QC offering ${SERVICES.map((s) => s.title.en).join(', ')}. AMQ registered member.`,
+  description: `Professional Massage Therapist in Gatineau, QC — serving Gatineau and Ottawa in the National Capital Region. Offering ${SERVICES.map((s) => s.title.en).join(', ')}. AMQ registered member.`,
   telephone: BUSINESS.phoneTel,
   email: BUSINESS.email,
   address: postalAddress,
@@ -32,7 +42,9 @@ const businessEntity = {
     .map((h) => `${h.schemaDay} ${h.open}-${h.close}`),
   areaServed: [
     { '@type': 'City', name: 'Gatineau' },
+    { '@type': 'City', name: 'Ottawa' },
     { '@type': 'AdministrativeArea', name: 'Outaouais' },
+    { '@type': 'AdministrativeArea', name: 'National Capital Region' },
   ],
   priceRange: '$$',
   currenciesAccepted: 'CAD',
@@ -44,6 +56,7 @@ const businessEntity = {
     contactType: 'customer service',
     availableLanguage: ['English', 'French'],
   },
+  location: locationPlace,
   sameAs: [BUSINESS.amqUrl],
 };
 

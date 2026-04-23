@@ -18,12 +18,12 @@ export async function generateMetadata({
   return {
     title: {
       absolute: isEn
-        ? 'Massage Services | Swedish, Deep Tissue & More | Olha Shelest, Gatineau'
-        : 'Services de massage | Suédois, profondeur et plus | Olha Shelest, Gatineau',
+        ? 'Massage Services in Gatineau | Swedish, Deep Tissue & More | Serving Ottawa'
+        : 'Services de massage à Gatineau | Suédois, profondeur et plus | Service Ottawa',
     },
     description: isEn
-      ? 'Explore professional massage services in Gatineau: Swedish, Deep Tissue, Relaxation, and Children\'s massage. Personalized therapeutic care by Olha Shelest, AMQ member.'
-      : 'Découvrez les services de massage professionnels à Gatineau : massage suédois, en profondeur, de relaxation et pour enfants. Soins thérapeutiques personnalisés par Olha Shelest, membre AMQ.',
+      ? 'Professional massage services in Gatineau, QC — near Ottawa. Swedish, Deep Tissue, Relaxation, and Children\'s massage. Personalized therapeutic care by Olha Shelest, AMQ member.'
+      : 'Services de massage professionnels à Gatineau, QC — près d\'Ottawa. Massage suédois, en profondeur, de relaxation et pour enfants. Soins personnalisés par Olha Shelest, membre AMQ.',
     alternates: {
       canonical: absoluteUrl(`/${locale}/services`),
       languages: {

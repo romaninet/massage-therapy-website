@@ -12,10 +12,10 @@ export const SITE = {
     },
   },
   siteNames: {
-    en: 'Olha Shelest — Massage Therapy Gatineau',
-    fr: 'Olha Shelest — Massothérapie Gatineau',
+    en: 'Olha Shelest — Massage Therapy Gatineau–Ottawa',
+    fr: 'Olha Shelest — Massothérapie Gatineau–Ottawa',
   },
-  description: 'Professional Massage Therapist in Gatineau, QC',
+  description: 'Professional Massage Therapist in Gatineau, QC — serving Ottawa–Gatineau',
 } as const;
 
 export function absoluteUrl(path: string): string {
@@ -125,6 +125,7 @@ export const BUSINESS = {
   address: '148 Rue Eddy',
   city: 'Gatineau, QC J8X 2W8',
   cityName: 'Gatineau',
+  neighborhood: 'Hull',
   province: 'QC',
   postalCode: 'J8X 2W8',
   country: 'CA',

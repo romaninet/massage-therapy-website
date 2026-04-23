@@ -83,7 +83,7 @@ export default function Footer() {
                 <div className="flex items-start gap-3 text-white/70 text-sm">
                   <MapPin size={15} className="mt-0.5 flex-shrink-0" />
                   <address className="not-italic">
-                    {BUSINESS.address},<br />{BUSINESS.city}
+                    {BUSINESS.address}, {BUSINESS.city}
                   </address>
                 </div>
               </li>

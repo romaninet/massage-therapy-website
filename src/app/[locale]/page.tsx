@@ -17,12 +17,12 @@ export async function generateMetadata({
   return {
     title: {
       absolute: isEn
-        ? 'Massage Therapy in Gatineau | Olha Shelest, Professional Massage Therapist'
-        : 'Massothérapie à Gatineau | Olha Shelest, Massothérapeute Professionnelle',
+        ? 'Massage Therapy in Gatineau | Olha Shelest — Serving Ottawa & the NCR'
+        : 'Massothérapie à Gatineau | Olha Shelest — Au service d\'Ottawa et de la RCN',
     },
     description: isEn
-      ? 'Professional Massage Therapist in Gatineau, QC. Swedish, deep tissue, relaxation & children\'s massage. Book your session with Olha Shelest — AMQ member.'
-      : 'Massothérapeute Professionnelle à Gatineau, QC. Massages suédois, en profondeur, de relaxation et pour enfants. Réservez votre séance avec Olha Shelest — membre AMQ.',
+      ? 'Professional Massage Therapist in Gatineau, QC — serving the Ottawa–Gatineau region. Swedish, deep tissue, relaxation & children\'s massage. Book with Olha Shelest — AMQ member.'
+      : 'Massothérapeute Professionnelle à Gatineau, QC — au service de la région Ottawa–Gatineau. Massages suédois, en profondeur, de relaxation et pour enfants. Réservez avec Olha Shelest — membre AMQ.',
     alternates: {
       canonical: absoluteUrl(`/${locale}`),
       languages: { en: absoluteUrl('/en'), fr: absoluteUrl('/fr'), 'x-default': absoluteUrl('/en') },

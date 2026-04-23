@@ -16,12 +16,12 @@ export async function generateMetadata({
   return {
     title: {
       absolute: isEn
-        ? 'Contact Olha Shelest | Book a Massage in Gatineau'
-        : 'Contacter Olha Shelest | Réserver un massage à Gatineau',
+        ? 'Contact Olha Shelest | Book a Massage in Hull, Gatineau — Near Ottawa'
+        : 'Contacter Olha Shelest | Réserver un massage à Hull, Gatineau — Près d\'Ottawa',
     },
     description: isEn
-      ? `Book a massage therapy appointment with Olha Shelest in Gatineau, QC. Call ${BUSINESS.phone} or send a message online. Located at ${BUSINESS.address}.`
-      : `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne. ${BUSINESS.address}.`,
+      ? `Book a massage therapy appointment with Olha Shelest in Gatineau, QC — accessible from Ottawa. Call ${BUSINESS.phone} or send a message online.`
+      : `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC — accessible depuis Ottawa. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne.`,
     alternates: {
       canonical: absoluteUrl(`/${locale}/contact`),
       languages: { en: absoluteUrl('/en/contact'), fr: absoluteUrl('/fr/contact'), 'x-default': absoluteUrl('/en/contact') },
@@ -138,7 +138,10 @@ export default async function ContactPage({
                   <div>
                     <p className="text-xs font-medium tracking-widest uppercase text-forest/40 mb-1">{t('address')}</p>
                     <p className="font-medium text-forest text-lg leading-snug">
-                      {BUSINESS.address}<br />{BUSINESS.city}
+                      {BUSINESS.address}, {BUSINESS.city}
+                    </p>
+                    <p className="text-forest/50 text-sm mt-1">
+                      {lang === 'en' ? '5 min from downtown Ottawa' : '5 min du centre-ville d\'Ottawa'}
                     </p>
                   </div>
                 </div>
