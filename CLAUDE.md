@@ -131,4 +131,53 @@ Content section padding: py-20 → py-3 md:py-16 lg:py-28
 Divider wrapper margin: mb-14 → mb-2 lg:mb-14
 Grid gap between form and contact info: gap-8 → gap-16 (doubled on mobile, intentional)
 
-# Summary of changes made in ``
+# Summary of changes made in `Services Page & Contact Form Enhancements`
+- New: Dedicated Services Page (/en/services, /fr/services)
+	- Created src/app/[locale]/services/page.tsx — compact dark header (same style as About/Fees), 4 service sections with alternating image/text layout on desktop, full-width image above text on mobile
+	- Each section has anchor ID (#swedish, #deepTissue, #relaxation, #children) for deep-linking
+	- Per-service: extended description, benefits list, "who it's for" callout, starting price, "Book this session" → /contact?type=key, "See full pricing" → /fees#key
+	- Added to navigation (between About and Fees), sitemap (priority 0.9), JSON-LD (servicesPageJsonLd with Service schema + areaServed)
+	- localBusinessJsonLd on home/contact pages now includes hasOfferCatalog linking to all services
+
+- Config changes (src/lib/config.ts)
+	- Each service in SERVICES array now has an image field (src + bilingual alt) — user renamed files to service-swedish.jpg, service-deep-tissue.jpg, service-relaxation.jpg, service-children.jpg
+	- NAV_LINKS — added { key: 'services', href: '/services' }
+
+- Home Page Hero
+	- Added "Our Services" button alongside "Book Your Session" and "Meet Olha"
+	- Button sizing adjusted for 3-in-a-row on desktop, stacked on mobile
+
+-Fees Page Restructure
+	- Pricing table now grouped by service (was a flat list)
+	- Each service group header has: service name + "About this service →" (→ /services#key) + "Book this session →" (→ /contact?type=key), stacked vertically
+
+- Home Page ServicesSection
+	- Each service card now has "Learn more →" link to /services#key
+	- Bottom CTA now shows both "Explore All Services" and "View Fees & Pricing"
+
+- Contact Form — Inquiry Type Dropdown
+	- New "Type" dropdown field in ContactForm.tsx, options built from SERVICES config (no hardcoding)
+	- Default: "General Inquiry"; other options: 4 massage services in current locale
+	- Pre-selects service when navigating from "Book this session" button via ?type=service-key URL param
+	- Contact page reads searchParams server-side, passes initialType prop to form (no useSearchParams, no Suspense needed)
+	- Email template shows a "Type" row at the top of the email table; value always resolved to English for Olha
+
+- Duplication & Code Quality
+	- Extracted ServiceIcon.tsx component — single source for SVG icon paths, accepts serviceKey + className prop; used in both ServicesSection and services/page.tsx
+	- Removed pre-existing unused BUSINESS import from emailTemplate.ts
+
+- SEO / JSON-LD
+	- servicesPageJsonLd — Service schema per massage type with areaServed (Gatineau + Ottawa) and AggregateOffer pricing
+	- localBusinessJsonLd — added hasOfferCatalog with all services linking to anchor URLs
+	- LCP fix on services page: priority + loading="eager" on first service image only
+
+- Fixes
+	- Privacy policy date corrected: "April 2025" → "April 2026" in both en.json and fr.json
+	- scroll-mt-32 on fees service groups, scroll-mt-24 on services sections — prevents fixed header from covering anchor targets
+	- Service images shown on mobile: order-first aspect-[4/3] on mobile, aspect-[4/5] on desktop; sizes updated from 0vw to 100vw
+
+- README
+	- Pages table updated (added /services)
+	- Images table corrected: SITE.heroBgImage key fixed, all 4 per-service image filenames listed with their SERVICES[n].image.src config key
+	- SEO section updated to accurately describe all 4 JSON-LD schemas
+	
