@@ -171,19 +171,17 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   </div>
                 </div>
 
-                {/* Image column — hidden on mobile, order flips for odd indices */}
-                <div className={`hidden lg:block relative ${isReversed ? 'lg:order-1' : ''}`}>
-                  <div className="relative aspect-[4/5] rounded-lg overflow-hidden shadow-2xl shadow-forest/15">
-                    <Image
-                      src={service.image.src}
-                      alt={service.image.alt[lang]}
-                      fill
-                      sizes="(max-width: 1024px) 0vw, 50vw"
-                      className="object-cover object-center"
-                    />
-                    <div className="absolute inset-0 bg-forest/10" />
-                    <div className="absolute inset-x-0 bottom-0 h-1 bg-sage" />
-                  </div>
+                {/* Image — full-width on mobile (above text), side column on desktop */}
+                <div className={`relative order-first aspect-[4/3] lg:aspect-[4/5] rounded-lg overflow-hidden shadow-lg lg:shadow-2xl shadow-forest/15 ${isReversed ? 'lg:order-1' : 'lg:order-none'}`}>
+                  <Image
+                    src={service.image.src}
+                    alt={service.image.alt[lang]}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-forest/10" />
+                  <div className="absolute inset-x-0 bottom-0 h-1 bg-sage" />
                 </div>
 
               </div>
