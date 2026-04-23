@@ -108,7 +108,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
                   <h3 className="font-heading text-forest text-lg font-semibold">
                     {service.title[lang]}
                   </h3>
-                  <div className="flex items-center gap-5 flex-shrink-0">
+                  <div className="flex flex-col gap-1.5 flex-shrink-0 items-start">
                     <Link
                       href={`/${locale}/services#${service.key}`}
                       className="text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors"
