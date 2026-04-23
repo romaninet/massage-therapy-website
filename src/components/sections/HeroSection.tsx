@@ -29,37 +29,34 @@ export default function HeroSection() {
       <BotanicalCornerTL className="absolute top-0 left-0 w-56 h-56 text-white/15 pointer-events-none z-10" />
       <BotanicalCornerBR className="absolute bottom-0 right-0 w-48 h-48 text-white/10 pointer-events-none z-10" />
 
-      {/* Mobile credential — pinned just below header */}
-      <p className="lg:hidden absolute top-28 left-0 right-0 text-center text-white/70 font-medium tracking-[0.25em] uppercase text-xs z-20">
-        {t('credential')}
-      </p>
+      {/* Content — three-zone layout: credential top, heading center, buttons bottom */}
+      <div className="relative flex-1 flex flex-col z-20">
 
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col lg:justify-end z-20">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12 pb-20 lg:pb-28 text-center w-full flex-1 flex flex-col lg:flex-none lg:block">
+        {/* TOP: credential pinned just below the navbar (navbar is h-24 = 96px, so pt-28 = 112px clears it) */}
+        <div className="text-center pt-28 lg:pt-32 px-6">
+          <p className="text-white/70 font-medium tracking-wide lg:tracking-[0.25em] uppercase text-xs">
+            {t('credential')}
+          </p>
+        </div>
 
-          {/* Text block — centered on mobile, inline on desktop */}
-          <div className="flex-1 flex flex-col items-center justify-center lg:block">
-            <p className="hidden lg:block text-white/70 font-medium tracking-[0.25em] uppercase text-xs mb-5">
-              {t('credential')}
-            </p>
-
-            <h1 className="font-heading text-5xl sm:text-6xl lg:text-8xl font-semibold text-white leading-[1.05] mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
-              {t('tagline').split('. ').map((part, i, arr) => (
-                <span key={i}>
-                  {part}{i < arr.length - 1 ? '.' : ''}
-                  {i < arr.length - 1 && <br />}
-                </span>
-              ))}
-            </h1>
-
-          </div>
-
-          {/* Subtitle + buttons — grouped at bottom on mobile */}
-          <p className="text-white/90 text-lg lg:text-xl leading-relaxed max-w-xl mx-auto mb-6 lg:mb-10 drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
+        {/* MIDDLE: heading + subtitle vertically centered in remaining space */}
+        <div className="flex-1 flex flex-col items-center justify-center px-6 lg:px-12 text-center">
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-8xl font-semibold text-white leading-[1.05] mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+            {t('tagline').split('. ').map((part, i, arr) => (
+              <span key={i}>
+                {part}{i < arr.length - 1 ? '.' : ''}
+                {i < arr.length - 1 && <br />}
+              </span>
+            ))}
+          </h1>
+          <p className="text-white/90 text-lg lg:text-xl leading-relaxed max-w-xl mx-auto drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
             {t('subtitle')}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+        </div>
+
+        {/* BOTTOM: buttons + location pinned near the bottom */}
+        <div className="text-center px-6 lg:px-12 pb-20 lg:pb-28">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link
               href={`/${locale}/contact`}
               className="inline-flex items-center justify-center px-8 py-4 bg-white text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-off-white hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5"
@@ -73,8 +70,6 @@ export default function HeroSection() {
               {t('meetOlha')}
             </Link>
           </div>
-
-          {/* Location strip */}
           <div className="flex items-center justify-center gap-4">
             <div className="h-px w-10 bg-white/30" />
             <p className="text-white/50 text-xs tracking-widest uppercase">
@@ -83,6 +78,7 @@ export default function HeroSection() {
             <div className="h-px w-10 bg-white/30" />
           </div>
         </div>
+
       </div>
 
       {/* Scroll indicator */}
