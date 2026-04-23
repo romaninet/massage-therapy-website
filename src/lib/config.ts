@@ -31,7 +31,7 @@ export const SERVICES = [
       fr: 'Un massage doux et fluide de tout le corps qui favorise la circulation, soulage les tensions musculaires et induit une relaxation profonde et réparatrice.',
     },
     image: {
-      src: '/images/image2a.jpg',
+      src: '/images/service-swedish.jpg',
       alt: {
         en: 'Swedish massage therapy session in Gatineau',
         fr: 'Séance de massage suédois à Gatineau',
@@ -51,7 +51,7 @@ export const SERVICES = [
       fr: 'Ciblant les couches profondes des muscles et des tissus conjonctifs pour relâcher les tensions chroniques, traiter les douleurs et restaurer la mobilité.',
     },
     image: {
-      src: '/images/image2a.jpg',
+      src: '/images/service-deep-tissue.jpg',
       alt: {
         en: 'Deep tissue massage therapy in Gatineau',
         fr: 'Massage en profondeur à Gatineau',
@@ -71,7 +71,7 @@ export const SERVICES = [
       fr: 'Un soin apaisant et bienveillant conçu pour calmer le système nerveux, apaiser l\'esprit et faire fondre le stress du quotidien.',
     },
     image: {
-      src: '/images/image2a.jpg',
+      src: '/images/service-relaxation.jpg',
       alt: {
         en: 'Relaxation massage session in Gatineau',
         fr: 'Séance de massage de relaxation à Gatineau',
@@ -91,7 +91,7 @@ export const SERVICES = [
       fr: "Nos enfants méritent des soins attentifs dès le plus jeune âge. Le massage pour enfants dès quelques mois, mes séances sont conçues pour être agréables, sécuritaires et relaxantes — avec des techniques douces et adaptées pour soulager les tensions, favoriser le sommeil et accompagner un développement sain.",
     },
     image: {
-      src: '/images/image2a.jpg',
+      src: '/images/service-children.jpg',
       alt: {
         en: "Children's massage therapy session in Gatineau",
         fr: 'Séance de massage pour enfants à Gatineau',
