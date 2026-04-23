@@ -16,6 +16,7 @@ export default function HeroSection() {
         alt={t('imageAlt')}
         fill
         priority
+        loading="eager"
         sizes="100vw"
         className="object-cover object-[center_30%]"
       />
