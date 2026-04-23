@@ -122,7 +122,7 @@ export const BUSINESS = {
   email: 'massage@shelestwellness.ca',
   phone: '(819) 815-5603',
   phoneTel: '+18198155603',
-  address: '148 Rue Eddy',
+  address: '148 Rue Eddy, Unit 2',
   city: 'Gatineau, QC J8X 2W8',
   cityName: 'Gatineau',
   neighborhood: 'Hull',
@@ -131,7 +131,7 @@ export const BUSINESS = {
   country: 'CA',
   amqNumber: 'M-24-4471',
   amqUrl: 'https://membres.rmqmasso.ca/en/find-member/details/M-24-4471',
-  mapsUrl: 'https://maps.google.com/maps?q=148+Rue+Eddy,+Gatineau,+QC+J8X+2W8&output=embed',
+  mapsUrl: 'https://maps.google.com/maps?q=148+Rue+Eddy+Unit+2,+Gatineau,+QC+J8X+2W8&output=embed',
   paymentAccepted: ['Cash', 'Interac e-Transfer'],
   openingHours: [
     { days: { en: 'Monday',    fr: 'Lundi'    }, schemaDay: 'Mo', open: '17:00', close: '20:00' },
