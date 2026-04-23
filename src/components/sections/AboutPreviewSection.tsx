@@ -11,7 +11,7 @@ export default function AboutPreviewSection() {
   return (
     <section className="bg-off-white py-12 md:py-16 lg:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           {/* Left: text */}
           <div className="flex flex-col">
             <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
@@ -34,7 +34,7 @@ export default function AboutPreviewSection() {
           </div>
 
           {/* Right: photo */}
-          <div className="hidden md:block relative h-72 md:h-96 lg:h-[500px] rounded-2xl overflow-hidden">
+          <div className="hidden md:block relative h-full rounded-2xl overflow-hidden">
             <Image
               src={SITE.aboutPreviewImage.src}
               alt={SITE.aboutPreviewImage.alt[locale as 'en' | 'fr']}
