@@ -1,4 +1,4 @@
-import { BUSINESS, SITE } from './config';
+import { SITE } from './config';
 import { formatPhone } from './phone';
 
 export function buildContactEmailHtml(fields: {
@@ -6,8 +6,9 @@ export function buildContactEmailHtml(fields: {
   email: string;
   phone?: string;
   message: string;
+  type?: string;
 }): string {
-  const { name, email, phone, message } = fields;
+  const { name, email, phone, message, type } = fields;
 
   return `
     <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #FAF9F5; border: 1px solid #d4e6dc; border-radius: 8px;">
@@ -21,6 +22,10 @@ export function buildContactEmailHtml(fields: {
       </div>
       <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 14px;">
         <tr>
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; width: 110px; vertical-align: top;">Type</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${type ?? 'General Inquiry'}</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
           <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; width: 110px; vertical-align: top;">Name</td>
           <td style="padding: 10px 0; color: #1a2e25;">${name}</td>
         </tr>

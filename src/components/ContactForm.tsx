@@ -1,20 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { formatPhone } from '@/lib/phone';
+import { SERVICES } from '@/lib/config';
 
 type FormState = 'idle' | 'sending' | 'success' | 'error';
-type FormFields = { name: string; email: string; phone: string; message: string };
+type FormFields = { name: string; email: string; phone: string; message: string; type: string };
 
 // Strip disallowed characters on input (handles both typing and paste)
-const FILTERS: Record<keyof FormFields, (v: string) => string> = {
+const TEXT_FILTERS: Record<Exclude<keyof FormFields, 'type'>, (v: string) => string> = {
   // Letters (Latin + French accented À-ÿ), spaces, hyphens, apostrophes
-  name: (v) => v.replace(/[^a-zA-ZÀ-ÿ\s'\u2019\-]/g, ''),
+  name: (v) => v.replace(/[^a-zA-ZÀ-ÿ\s'’\-]/g, ''),
   // Standard email characters only
   email: (v) => v.replace(/[^a-zA-Z0-9@._+\-]/g, ''),
   // Digits, spaces, and phone punctuation only
@@ -25,22 +26,26 @@ const FILTERS: Record<keyof FormFields, (v: string) => string> = {
 
 const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 
-
 const isValidPhone = (raw: string): boolean => {
   const digits = raw.replace(/\D/g, '');
   return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
 };
 
-export default function ContactForm() {
+export default function ContactForm({ initialType = '' }: { initialType?: string }) {
   const t = useTranslations('contact.form');
   const v = useTranslations('contact.form.validation');
+  const locale = useLocale() as 'en' | 'fr';
+
   const [state, setState] = useState<FormState>('idle');
-  const [form, setForm] = useState<FormFields>({ name: '', email: '', phone: '', message: '' });
-  const [errors, setErrors] = useState<Partial<FormFields>>({});
+  const [form, setForm] = useState<FormFields>({
+    name: '', email: '', phone: '', message: '',
+    type: SERVICES.some((s) => s.key === initialType) ? initialType : '',
+  });
+  const [errors, setErrors] = useState<Partial<Omit<FormFields, 'type'>>>({});
   const [honeypot, setHoneypot] = useState('');
 
   const validate = (): boolean => {
-    const errs: Partial<FormFields> = {};
+    const errs: Partial<Omit<FormFields, 'type'>> = {};
     const name = form.name.trim();
     const email = form.email.trim();
     const phone = form.phone.trim();
@@ -74,8 +79,8 @@ export default function ContactForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    const key = name as keyof FormFields;
-    const filtered = FILTERS[key](value);
+    const key = name as Exclude<keyof FormFields, 'type'>;
+    const filtered = TEXT_FILTERS[key](value);
     setForm((prev) => ({ ...prev, [key]: filtered }));
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
   };
@@ -85,15 +90,21 @@ export default function ContactForm() {
     if (honeypot) { setState('success'); return; }
     if (!validate()) return;
     setState('sending');
+
+    // Resolve service key to English label for the email (Olha reads English)
+    const typeLabel = form.type
+      ? (SERVICES.find((s) => s.key === form.type)?.title.en ?? form.type)
+      : 'General Inquiry';
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, website: honeypot }),
+        body: JSON.stringify({ ...form, type: typeLabel, website: honeypot }),
       });
       if (!res.ok) throw new Error('Server error');
       setState('success');
-      setForm({ name: '', email: '', phone: '', message: '' });
+      setForm({ name: '', email: '', phone: '', message: '', type: '' });
     } catch {
       setState('error');
     }
@@ -124,6 +135,26 @@ export default function ContactForm() {
         style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
       />
       <h3 className="font-heading text-forest text-2xl font-semibold mb-2">{t('title')}</h3>
+
+      {/* Inquiry type */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
+          {t('typeLabel')}
+        </label>
+        <select
+          name="type"
+          value={form.type}
+          onChange={(e) => setForm((prev) => ({ ...prev, type: e.target.value }))}
+          className="w-full rounded-md border border-forest/20 bg-white px-3 py-2 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition-colors"
+        >
+          <option value="">{t('generalInquiry')}</option>
+          {SERVICES.map((s) => (
+            <option key={s.key} value={s.key}>
+              {s.title[locale]}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div className="flex flex-col gap-1.5">

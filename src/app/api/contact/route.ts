@@ -7,11 +7,12 @@ export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY ?? '');
   try {
     const body = await request.json();
-    const { name, email, phone, message, website } = body as {
+    const { name, email, phone, message, type, website } = body as {
       name?: string;
       email?: string;
       phone?: string;
       message?: string;
+      type?: string;
       website?: string;
     };
 
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
     }
 
-    const html = buildContactEmailHtml({ name, email, phone, message });
+    const html = buildContactEmailHtml({ name, email, phone, message, type });
 
     const { error } = await resend.emails.send({
       from: `Massage Therapy - Contact <${BUSINESS.email}>`,

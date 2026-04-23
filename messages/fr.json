@@ -155,6 +155,8 @@
       "phonePlaceholder": "(facultatif)",
       "message": "Message",
       "messagePlaceholder": "Parlez-nous de ce que vous recherchez, de vos préoccupations de santé ou de vos questions...",
+      "typeLabel": "Type de demande",
+      "generalInquiry": "Renseignement général",
       "submit": "Envoyer le message",
       "sending": "Envoi en cours...",
       "success": "Merci! Votre message a été envoyé. Olha vous contactera sous peu.",

@@ -189,7 +189,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                     </div>
                     <div className="flex flex-wrap gap-3 items-center ml-2">
                       <Link
-                        href={`/${locale}/contact`}
+                        href={`/${locale}/contact?type=${service.key}`}
                         className="px-6 py-3 bg-forest text-white text-sm tracking-wider uppercase font-medium rounded transition-all hover:bg-forest/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/20"
                       >
                         {t('bookSession')}

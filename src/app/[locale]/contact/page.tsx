@@ -50,8 +50,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ContactPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ type?: string }>;
+}) {
   const { locale } = await params;
+  const { type } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'contact' });
@@ -90,7 +97,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <div className="order-1 lg:col-start-2 lg:row-start-1 bg-white rounded-lg p-8 lg:p-10 border border-forest/8 shadow-sm relative overflow-hidden">
               <BotanicalCornerBR className="absolute bottom-0 right-0 w-32 h-32 text-pale-sage pointer-events-none" />
               <div className="relative z-10">
-                <ContactForm />
+                <ContactForm initialType={type ?? ''} />
               </div>
             </div>
 
