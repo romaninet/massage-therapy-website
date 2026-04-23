@@ -1,7 +1,8 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BotanicalCornerTL, BotanicalDivider } from '@/components/BotanicalDecor';
+import { BotanicalDivider } from '@/components/BotanicalDecor';
+import { SITE } from '@/lib/config';
 
 export default function AboutPreviewSection() {
   const t = useTranslations('about.preview');
@@ -32,31 +33,15 @@ export default function AboutPreviewSection() {
             </Link>
           </div>
 
-          {/* Right: decorative forest panel */}
-          <div className="hidden lg:flex relative h-96 lg:h-[500px] rounded-lg overflow-hidden bg-forest items-center justify-center">
-            <BotanicalCornerTL className="absolute top-0 left-0 w-36 h-36 text-white/15 pointer-events-none" />
-
-            {/* Decorative botanical pattern */}
-            <div className="relative z-10 text-center px-8">
-              <div className="mb-6">
-                <Image
-                  src="/images/logo.png"
-                  alt="Olha Shelest logo"
-                  width={400}
-                  height={400}
-                  className="mx-auto opacity-60 mix-blend-screen"
-                  style={{ filter: 'invert(1) brightness(3)' }}
-                />
-              </div>
-            </div>
-
-            {/* Bottom botanical corner */}
-            <div className="absolute bottom-0 right-0 w-32 h-32 text-sage/25">
-              <svg viewBox="0 0 120 120" fill="none" className="w-full h-full">
-                <path d="M110 10 Q100 50 60 70 Q80 40 110 10Z" stroke="currentColor" strokeWidth="1.2" fill="none" />
-                <path d="M115 30 Q90 60 50 80" stroke="currentColor" strokeWidth="1" fill="none" />
-              </svg>
-            </div>
+          {/* Right: photo */}
+          <div className="hidden md:block relative h-72 md:h-96 lg:h-[500px] rounded-2xl overflow-hidden">
+            <Image
+              src={SITE.aboutPreviewImage.src}
+              alt={SITE.aboutPreviewImage.alt[locale as 'en' | 'fr']}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
         </div>
       </div>

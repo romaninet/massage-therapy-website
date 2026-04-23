@@ -5,6 +5,13 @@ export const SITE = {
   heroBgImage: '/images/image1.jpg',
   ogImage: '/images/media-opengraph.jpg',
   portraitImage: '/images/olya-pic.jpg',
+  aboutPreviewImage: {
+    src: '/images/image2.jpg',
+    alt: {
+      en: 'Olha Shelest, massage therapist in Gatineau',
+      fr: 'Olha Shelest, massothérapeute à Gatineau',
+    },
+  },
   siteNames: {
     en: 'Olha Shelest — Massage Therapy Gatineau',
     fr: 'Olha Shelest — Massothérapie Gatineau',
