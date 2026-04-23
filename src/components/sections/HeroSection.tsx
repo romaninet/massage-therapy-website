@@ -41,7 +41,7 @@ export default function HeroSection() {
 
         {/* MIDDLE: heading + subtitle vertically centered in remaining space */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 lg:px-12 text-center">
-          <h1 className="font-heading text-4xl sm:text-5xl lg:text-8xl font-semibold text-white leading-[1.05] mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+          <h1 className="font-heading text-[clamp(2.5rem,12vw,5.5rem)] lg:text-8xl font-semibold text-white leading-[1.05] mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
             {t('tagline').split('. ').map((part, i, arr) => (
               <span key={i}>
                 {part}{i < arr.length - 1 ? '.' : ''}
@@ -49,7 +49,7 @@ export default function HeroSection() {
               </span>
             ))}
           </h1>
-          <p className="text-white/90 text-lg lg:text-xl leading-relaxed max-w-xl mx-auto drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
+          <p className="text-white/90 text-[clamp(1rem,4.5vw,1.2rem)] lg:text-xl leading-relaxed max-w-xl mx-auto drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
             {t('subtitle')}
           </p>
         </div>
