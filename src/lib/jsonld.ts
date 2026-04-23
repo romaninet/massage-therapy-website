@@ -31,7 +31,7 @@ const businessEntity = {
   email: BUSINESS.email,
   address: postalAddress,
   image: `${SITE.url}${SITE.portraitImage}`,
-  hasMap: BUSINESS.mapsUrl.replace('&output=embed', ''),
+  hasMap: BUSINESS.googleMapsUrl,
   geo: {
     '@type': 'GeoCoordinates',
     latitude: BUSINESS.geo.latitude,
@@ -57,7 +57,7 @@ const businessEntity = {
     availableLanguage: ['English', 'French'],
   },
   location: locationPlace,
-  sameAs: [BUSINESS.amqUrl],
+  sameAs: [BUSINESS.amqUrl, BUSINESS.googleMapsUrl],
 };
 
 export function localBusinessJsonLd(locale: Locale) {

@@ -86,8 +86,7 @@ The site is set up with:
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element
 
-**Still to add when available:**
-- Google Business Profile URL — add to `BUSINESS` in `config.ts` and append to the `sameAs` array in `src/lib/jsonld.ts`
+**Google Business Profile:** created and linked. `BUSINESS.googleMapsUrl` in `config.ts` holds the Maps short link. It is included in the `sameAs` array in `src/lib/jsonld.ts` and used as the `hasMap` value in structured data. The contact page map embed (`BUSINESS.mapsUrl`) is hardcoded to Olha's verified listing via the `?pb=` embed URL.
 
 ---
 

@@ -131,7 +131,8 @@ export const BUSINESS = {
   country: 'CA',
   amqNumber: 'M-24-4471',
   amqUrl: 'https://membres.rmqmasso.ca/en/find-member/details/M-24-4471',
-  mapsUrl: 'https://maps.google.com/maps?q=148+Rue+Eddy+Unit+2,+Gatineau,+QC+J8X+2W8&output=embed',
+  googleMapsUrl: 'https://maps.app.goo.gl/2yBJa1fr26cFyTzp9',
+  mapsUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2799.9763869298104!2d-75.72264832380549!3d45.42997733572155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce05247c1c6175%3A0x1d043d905687eeb3!2sOlha%20Shelest!5e0!3m2!1sen!2sca!4v1776975313510!5m2!1sen!2sca',
   paymentAccepted: ['Cash', 'Interac e-Transfer'],
   openingHours: [
     { days: { en: 'Monday',    fr: 'Lundi'    }, schemaDay: 'Mo', open: '17:00', close: '20:00' },

@@ -15,8 +15,8 @@
 - Worth doing, lower effort Yelp Canada Yelp has genuine authority and ranks well in Google search results for service queries like "massage Gatineau." Even if it doesn't send much direct traffic initially, it appears in search results alongside your website and GBP — which increases the total footprint of visible results for searches about you.
 - yelp.ca → claim or create a business listing Free basic listing
 - MORE to do in plan.md (read doc)
-- read README - we need to update google business part when available
-- Once Olha creates google business profile, Google gives a "Place ID". We add it to the structured data in the website so Google links the website to the verified business listing. One line of code change. Not urgent.
+- ✅ README updated with Google Business Profile details
+- ✅ Google Business Profile created. Maps embed on contact page updated to point to Olha's verified listing. googleMapsUrl added to sameAs in JSON-LD structured data.
 - update business card with new data
 
 
