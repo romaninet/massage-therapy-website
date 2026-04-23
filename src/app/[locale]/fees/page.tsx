@@ -103,17 +103,25 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
                 id={service.key}
                 className="scroll-mt-32 bg-white rounded-lg border border-forest/8 overflow-hidden"
               >
-                {/* Service name row with "Learn more" link */}
-                <div className="flex items-center justify-between px-8 py-4 bg-pale-sage/60 border-b border-forest/8">
+                {/* Service name row with action links */}
+                <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-8 py-4 bg-pale-sage/60 border-b border-forest/8">
                   <h3 className="font-heading text-forest text-lg font-semibold">
                     {service.title[lang]}
                   </h3>
-                  <Link
-                    href={`/${locale}/services#${service.key}`}
-                    className="text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors flex items-center gap-1 flex-shrink-0"
-                  >
-                    {t('learnMore')} →
-                  </Link>
+                  <div className="flex items-center gap-5 flex-shrink-0">
+                    <Link
+                      href={`/${locale}/services#${service.key}`}
+                      className="text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors"
+                    >
+                      {t('learnMore')} →
+                    </Link>
+                    <Link
+                      href={`/${locale}/contact?type=${service.key}`}
+                      className="text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors"
+                    >
+                      {t('bookSession')} →
+                    </Link>
+                  </div>
                 </div>
                 {/* Tier rows */}
                 {service.tiers.map((tier) => (
