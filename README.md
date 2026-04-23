@@ -112,7 +112,10 @@ Images are stored in `public/images/`. Paths referenced via `SITE` constants in 
 |---|---|---|
 | `logo.png` | — | Header & about preview panel (inverted white via CSS) |
 | `image1.jpg` | `SITE.heroBgImage` | Home page hero section background |
-| `image2a.jpg` | `SERVICES[n].image.src` | Service section images on the Services page (one per service — currently all point here; swap per-service in config) |
+| `service-swedish.jpg` | `SERVICES[0].image.src` | Swedish Massage section image on the Services page |
+| `service-deep-tissue.jpg` | `SERVICES[1].image.src` | Deep Tissue Massage section image on the Services page |
+| `service-relaxation.jpg` | `SERVICES[2].image.src` | Relaxation Massage section image on the Services page |
+| `service-children.jpg` | `SERVICES[3].image.src` | Children's Massage section image on the Services page |
 | `image2b.jpg` | `SITE.aboutPreviewImage.src` | About preview section on the home page |
 | `media-opengraph.jpg` | `SITE.ogImage` | Open Graph image — home, fees, contact, services, privacy pages |
 | `olya-pic.jpg` | `SITE.portraitImage` | About page portrait + OG image for About page |

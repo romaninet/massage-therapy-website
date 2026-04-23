@@ -6,40 +6,7 @@ import { SITE, SERVICES, absoluteUrl } from '@/lib/config';
 import { servicesPageJsonLd, type Locale } from '@/lib/jsonld';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
-
-const SERVICE_ICONS = {
-  swedish: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-12 h-12" aria-hidden="true">
-      <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="1.2" opacity="0.3" />
-      <path d="M16 24 Q20 16 24 14 Q28 16 32 24 Q28 32 24 34 Q20 32 16 24Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <circle cx="24" cy="24" r="4" stroke="currentColor" strokeWidth="1.2" fill="none" />
-    </svg>
-  ),
-  deepTissue: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-12 h-12" aria-hidden="true">
-      <path d="M12 36 Q18 28 24 24 Q30 20 36 12" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M12 30 Q18 24 24 20 Q30 16 36 8" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5" />
-      <path d="M16 40 Q22 32 28 28 Q34 24 40 16" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5" />
-      <circle cx="24" cy="24" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
-    </svg>
-  ),
-  relaxation: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-12 h-12" aria-hidden="true">
-      <path d="M24 38 Q16 30 14 22 Q12 14 24 10 Q36 14 34 22 Q32 30 24 38Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M24 10 Q24 20 24 38" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.4" />
-      <path d="M14 22 Q24 22 34 22" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.4" />
-      <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.3" />
-    </svg>
-  ),
-  children: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-12 h-12" aria-hidden="true">
-      <circle cx="24" cy="16" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M16 28 Q16 40 24 40 Q32 40 32 28 Q32 22 24 22 Q16 22 16 28Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M16 30 Q12 28 11 32 Q10 36 14 37" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.6" />
-      <path d="M32 30 Q36 28 37 32 Q38 36 34 37" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.6" />
-    </svg>
-  ),
-} as const;
+import ServiceIcon from '@/components/ServiceIcon';
 
 export async function generateMetadata({
   params,
@@ -146,7 +113,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                 {/* Text column — order flips on desktop for odd indices */}
                 <div className={isReversed ? 'lg:order-2' : ''}>
                   <div className="text-sage mb-5">
-                    {SERVICE_ICONS[service.key as keyof typeof SERVICE_ICONS]}
+                    <ServiceIcon serviceKey={service.key} className="w-12 h-12" />
                   </div>
                   <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-5">
                     {service.title[lang]}
