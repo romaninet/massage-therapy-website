@@ -18,6 +18,6 @@
 - read README - we need to update google business part when available
 - Once Olha creates google business profile, Google gives a "Place ID". We add it to the structured data in the website so Google links the website to the verified business listing. One line of code change. Not urgent.
 - update business card with new data
-- add Read more on fees to link about massage ✓ done
-- Provide service-specific photos (one per massage type) to replace the shared image2a.jpg on the Services page — update each service's `image.src` in config.ts
-- add combo in contact with massage + other
+
+
+
