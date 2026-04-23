@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "services": "Services",
     "fees": "Fees",
     "contact": "Contact",
     "bookNow": "Book Now"
@@ -25,7 +26,61 @@
     "title": "Services",
     "preTitle": "What We Offer",
     "subtitle": "Therapeutic treatments thoughtfully tailored to your wellbeing",
-    "viewFees": "View Fees & Pricing"
+    "viewFees": "View Fees & Pricing",
+    "learnMore": "Learn more",
+    "exploreAll": "Explore All Services"
+  },
+  "servicesPage": {
+    "preTitle": "What We Offer",
+    "title": "Our Services",
+    "subtitle": "Expert massage therapy tailored to your unique needs, offered in a calm and welcoming setting in Gatineau, QC.",
+    "startingFrom": "Starting from",
+    "seeFullPricing": "See full pricing",
+    "bookSession": "Book this session",
+    "whoForLabel": "Best for",
+    "benefitsLabel": "Benefits",
+    "services": {
+      "swedish": {
+        "longDescription": "A full-body therapeutic massage using long, flowing strokes to warm up muscle tissue, improve circulation, and calm the nervous system. Ideal as both a stand-alone treatment and a foundation for deeper work. Each session is paced gently, allowing your body to release tension at its own rhythm.",
+        "benefits": [
+          "Improves blood and lymphatic circulation",
+          "Relieves muscle tension and general soreness",
+          "Reduces cortisol and stress hormones",
+          "Supports restful, restorative sleep"
+        ],
+        "whoFor": "Anyone new to massage, seeking stress relief, or looking for a gentle, nurturing treatment to decompress from daily life."
+      },
+      "deepTissue": {
+        "longDescription": "A targeted, pressure-focused technique that works through superficial muscle layers to reach the underlying connective tissue and fascia. Exceptionally effective for chronic pain, postural issues, and sports recovery. Pressure is always adjusted to your comfort level and therapeutic goals.",
+        "benefits": [
+          "Breaks down adhesions and scar tissue",
+          "Alleviates chronic back, neck, and shoulder pain",
+          "Restores range of motion and joint mobility",
+          "Accelerates recovery after physical activity"
+        ],
+        "whoFor": "Athletes, people with chronic pain or tension, those recovering from injury, or anyone who carries stress in specific muscle groups."
+      },
+      "relaxation": {
+        "longDescription": "A slow, intentional treatment designed to activate the parasympathetic nervous system, quiet mental chatter, and bring the whole body into a state of deep, unhurried calm. Lighter in pressure than a Swedish massage, with a focus on the quality of presence and the experience of stillness.",
+        "benefits": [
+          "Calms anxiety and nervous system overactivation",
+          "Lowers blood pressure and heart rate",
+          "Releases held tension through gentle, warming touch",
+          "Improves overall mood and emotional wellbeing"
+        ],
+        "whoFor": "Anyone experiencing burnout, anxiety, insomnia, or simply in need of a genuine pause from the demands of daily life."
+      },
+      "children": {
+        "longDescription": "Gentle, playful, and always age-appropriate — children's sessions use carefully adapted techniques to suit young bodies, from newborns through to teens. Each session is designed to be comfortable, safe, and even enjoyable, supporting healthy development at every stage of growth.",
+        "benefits": [
+          "Eases colic, gas, and digestive discomfort in infants",
+          "Supports motor development and body awareness",
+          "Calms hyperactivity and improves focus",
+          "Encourages nurturing connection between parent and child"
+        ],
+        "whoFor": "Babies (as young as a few months old), toddlers, children, and teenagers. Sessions can be adapted for children with special needs or sensory sensitivities."
+      }
+    }
   },
   "about": {
     "preview": {
@@ -68,6 +123,7 @@
     "preTitle": "Transparent Pricing",
     "title": "Fees & Services",
     "subtitle": "Transparent pricing for quality therapeutic care",
+    "learnMore": "About this service",
     "notePricingLabel": "Pricing",
     "notePricing1": "Prices shown are in Canadian dollars (CAD).",
     "notePricing2": "Tax included.",

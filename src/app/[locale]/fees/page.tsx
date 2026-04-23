@@ -58,7 +58,9 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'fees' });
   const isEn = locale === 'en';
   const lang: Locale = isEn ? 'en' : 'fr';
-  const services = SERVICES.flatMap((s) =>
+
+  // Flat list used only for JSON-LD structured data
+  const servicesFlat = SERVICES.flatMap((s) =>
     s.tiers.map((tier) => ({
       name: s.title[lang],
       duration: tier.duration,
@@ -70,7 +72,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd(services, lang)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd(servicesFlat, lang)) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-8 lg:pb-20 relative overflow-hidden">
@@ -94,27 +96,40 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
             <BotanicalDivider className="w-64 mx-auto text-sage/50" />
           </div>
 
-          <div className="space-y-3">
-            {services.map((service, i) => (
+          <div className="space-y-4">
+            {SERVICES.map((service) => (
               <div
-                key={i}
-                className="group flex items-center justify-between gap-4 bg-white rounded-lg px-8 py-6 border border-forest/8 hover:border-sage/40 hover:shadow-lg hover:shadow-forest/8 transition-all duration-300"
+                key={service.key}
+                id={service.key}
+                className="scroll-mt-32 bg-white rounded-lg border border-forest/8 overflow-hidden"
               >
-                <div className="flex items-center gap-5 flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5 text-sage/70 flex-shrink-0">
-                    <Clock size={14} />
-                    <span className="text-sm font-medium text-forest/50 w-14">{service.duration}</span>
-                  </div>
-                  <div className="h-8 w-px bg-forest/10" />
-                  <h3 className="font-heading text-forest text-lg font-medium truncate">
-                    {service.name}
+                {/* Service name row with "Learn more" link */}
+                <div className="flex items-center justify-between px-8 py-4 bg-pale-sage/60 border-b border-forest/8">
+                  <h3 className="font-heading text-forest text-lg font-semibold">
+                    {service.title[lang]}
                   </h3>
+                  <Link
+                    href={`/${locale}/services#${service.key}`}
+                    className="text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors flex items-center gap-1 flex-shrink-0"
+                  >
+                    {t('learnMore')} →
+                  </Link>
                 </div>
-                <div className="flex-shrink-0 text-right">
-                  <span className="font-heading text-forest text-2xl font-semibold group-hover:text-sage transition-colors">
-                    {service.price}
-                  </span>
-                </div>
+                {/* Tier rows */}
+                {service.tiers.map((tier) => (
+                  <div
+                    key={tier.duration}
+                    className="group flex items-center justify-between gap-4 px-8 py-5 border-b border-forest/5 last:border-0 hover:bg-pale-sage/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 text-sage/70">
+                      <Clock size={14} />
+                      <span className="text-sm font-medium text-forest/50">{tier.duration}</span>
+                    </div>
+                    <span className="font-heading text-forest text-2xl font-semibold group-hover:text-sage transition-colors">
+                      {isEn ? `$${tier.price}` : `${tier.price} $`}
+                    </span>
+                  </div>
+                ))}
               </div>
             ))}
           </div>

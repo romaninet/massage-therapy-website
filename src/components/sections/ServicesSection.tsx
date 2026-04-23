@@ -68,7 +68,7 @@ export default function ServicesSection() {
               <div className="text-forest/50 group-hover:text-sage transition-colors duration-300">
                 {SERVICE_ICONS[service.key]}
               </div>
-              <div>
+              <div className="flex-1">
                 <h3 className="font-heading text-forest text-xl font-semibold mb-3">
                   {service.title[locale]}
                 </h3>
@@ -76,15 +76,29 @@ export default function ServicesSection() {
                   {service.description[locale]}
                 </p>
               </div>
+              <Link
+                href={`/${locale}/services#${service.key}`}
+                className="inline-flex items-center gap-1 text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors"
+              >
+                {t('learnMore')}
+                <span>→</span>
+              </Link>
             </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-8 lg:mt-14">
+        {/* CTAs */}
+        <div className="text-center mt-8 lg:mt-14 flex flex-wrap justify-center gap-6">
+          <Link
+            href={`/${locale}/services`}
+            className="inline-flex items-center gap-2 text-forest border-b border-sage pb-0.5 hover:border-forest text-sm tracking-wider uppercase font-medium transition-colors"
+          >
+            {t('exploreAll')}
+            <span>→</span>
+          </Link>
           <Link
             href={`/${locale}/fees`}
-            className="inline-flex items-center gap-2 text-forest border-b border-sage pb-0.5 hover:border-forest text-sm tracking-wider uppercase font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-forest/50 border-b border-forest/20 pb-0.5 hover:text-forest hover:border-forest text-sm tracking-wider uppercase font-medium transition-colors"
           >
             {t('viewFees')}
             <span>→</span>

@@ -2,6 +2,7 @@
   "nav": {
     "home": "Accueil",
     "about": "À propos",
+    "services": "Services",
     "fees": "Tarifs",
     "contact": "Contact",
     "bookNow": "Réserver"
@@ -25,7 +26,61 @@
     "title": "Services",
     "preTitle": "Ce que nous offrons",
     "subtitle": "Des soins thérapeutiques soigneusement adaptés à votre bien-être",
-    "viewFees": "Voir les tarifs"
+    "viewFees": "Voir les tarifs",
+    "learnMore": "En savoir plus",
+    "exploreAll": "Voir tous les services"
+  },
+  "servicesPage": {
+    "preTitle": "Ce que nous offrons",
+    "title": "Nos services",
+    "subtitle": "Massothérapie experte adaptée à vos besoins uniques, offerte dans un cadre calme et accueillant à Gatineau, QC.",
+    "startingFrom": "À partir de",
+    "seeFullPricing": "Voir tous les tarifs",
+    "bookSession": "Réserver cette séance",
+    "whoForLabel": "Idéal pour",
+    "benefitsLabel": "Bienfaits",
+    "services": {
+      "swedish": {
+        "longDescription": "Un massage thérapeutique complet du corps utilisant de longues manœuvres fluides pour réchauffer les tissus musculaires, améliorer la circulation et apaiser le système nerveux. Idéal comme traitement autonome ou comme base pour un travail plus profond. Chaque séance est rythmée doucement, permettant à votre corps de relâcher les tensions à son propre rythme.",
+        "benefits": [
+          "Améliore la circulation sanguine et lymphatique",
+          "Soulage les tensions et douleurs musculaires générales",
+          "Réduit le cortisol et les hormones de stress",
+          "Favorise un sommeil réparateur et profond"
+        ],
+        "whoFor": "Toute personne débutant en massage, cherchant à réduire le stress ou souhaitant un traitement doux et bienveillant pour se ressourcer au quotidien."
+      },
+      "deepTissue": {
+        "longDescription": "Une technique ciblée et soutenue qui travaille à travers les couches musculaires superficielles pour atteindre les tissus conjonctifs profonds et les fascias. Particulièrement efficace pour les douleurs chroniques, les problèmes posturaux et la récupération sportive. La pression est toujours adaptée à votre niveau de confort et à vos objectifs thérapeutiques.",
+        "benefits": [
+          "Décompose les adhérences et tissus cicatriciels",
+          "Soulage les douleurs chroniques du dos, cou et épaules",
+          "Restaure l'amplitude des mouvements et la mobilité articulaire",
+          "Accélère la récupération après l'activité physique"
+        ],
+        "whoFor": "Athlètes, personnes souffrant de douleurs ou tensions chroniques, ceux qui se remettent d'une blessure, ou quiconque accumule le stress dans des groupes musculaires spécifiques."
+      },
+      "relaxation": {
+        "longDescription": "Un traitement lent et intentionnel conçu pour activer le système nerveux parasympathique, calmer l'agitation mentale et amener l'ensemble du corps dans un état de calme profond et serein. Plus léger en pression qu'un massage suédois, avec un accent sur la qualité de présence et l'expérience de la quiétude.",
+        "benefits": [
+          "Calme l'anxiété et la suractivation du système nerveux",
+          "Abaisse la pression artérielle et le rythme cardiaque",
+          "Libère les tensions retenues par un toucher doux et réchauffant",
+          "Améliore l'humeur générale et le bien-être émotionnel"
+        ],
+        "whoFor": "Toute personne vivant un épuisement professionnel, de l'anxiété, de l'insomnie, ou ayant simplement besoin d'une véritable pause des exigences de la vie quotidienne."
+      },
+      "children": {
+        "longDescription": "Doux, ludique et toujours adapté à l'âge — les séances pour enfants utilisent des techniques soigneusement adaptées aux jeunes corps, des nouveau-nés aux adolescents. Chaque séance est conçue pour être confortable, sécurisée et même agréable, soutenant un développement sain à chaque étape de la croissance.",
+        "benefits": [
+          "Soulage les coliques, gaz et inconforts digestifs chez les nourrissons",
+          "Soutient le développement moteur et la conscience corporelle",
+          "Apaise l'hyperactivité et améliore la concentration",
+          "Encourage le lien bienveillant entre parent et enfant"
+        ],
+        "whoFor": "Bébés (dès quelques mois), tout-petits, enfants et adolescents. Les séances peuvent être adaptées pour les enfants ayant des besoins particuliers ou des sensibilités sensorielles."
+      }
+    }
   },
   "about": {
     "preview": {
@@ -68,6 +123,7 @@
     "preTitle": "Tarification transparente",
     "title": "Tarifs et services",
     "subtitle": "Des prix transparents pour des soins thérapeutiques de qualité",
+    "learnMore": "En savoir plus",
     "notePricingLabel": "Tarification",
     "notePricing1": "Les prix sont en dollars canadiens (CAD).",
     "notePricing2": "Taxes incluses.",

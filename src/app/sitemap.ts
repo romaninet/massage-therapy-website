@@ -4,6 +4,7 @@ import { SITE } from '@/lib/config';
 const pages = [
   { path: '', changeFrequency: 'monthly' as const, priority: 1.0 },
   { path: '/about', changeFrequency: 'monthly' as const, priority: 0.8 },
+  { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
   { path: '/fees', changeFrequency: 'monthly' as const, priority: 0.8 },
   { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.7 },
   { path: '/privacy-policy', changeFrequency: 'yearly' as const, priority: 0.3 },

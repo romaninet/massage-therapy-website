@@ -52,6 +52,23 @@ export function localBusinessJsonLd(locale: Locale) {
     '@context': 'https://schema.org',
     ...businessEntity,
     url: `${SITE.url}/${locale}`,
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: locale === 'fr' ? 'Services de massothérapie' : 'Massage Therapy Services',
+      url: `${SITE.url}/${locale}/services`,
+      itemListElement: SERVICES.map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: s.title[locale],
+            url: `${SITE.url}/${locale}/services#${s.key}`,
+          },
+        },
+      })),
+    },
   };
 }
 
@@ -74,6 +91,40 @@ export function personJsonLd(locale: Locale) {
       name: 'Association des Massothérapeutes du Québec (AMQ)',
       url: BUSINESS.amqUrl,
     },
+  };
+}
+
+export function servicesPageJsonLd(locale: Locale) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: locale === 'fr' ? 'Services de massothérapie' : 'Massage Therapy Services',
+    url: `${SITE.url}/${locale}/services`,
+    itemListElement: SERVICES.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: s.title[locale],
+        description: s.description[locale],
+        url: `${SITE.url}/${locale}/services#${s.key}`,
+        areaServed: [
+          { '@type': 'City', name: 'Gatineau' },
+          { '@type': 'City', name: 'Ottawa' },
+        ],
+        provider: {
+          '@type': 'HealthAndBeautyBusiness',
+          '@id': SITE.url,
+          name: BUSINESS.name,
+        },
+        offers: {
+          '@type': 'AggregateOffer',
+          priceCurrency: 'CAD',
+          lowPrice: Math.min(...s.tiers.map((t) => t.price)),
+          highPrice: Math.max(...s.tiers.map((t) => t.price)),
+        },
+      },
+    })),
   };
 }
 

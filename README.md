@@ -77,7 +77,11 @@ All user-facing text lives here. The site uses `next-intl` for routing and trans
 The site is set up with:
 
 - **Per-page metadata** — title, description, Open Graph, Twitter card on every page
-- **JSON-LD structured data** — `HealthAndBeautyBusiness` on home & contact pages, `Person` on About, `ItemList` (services) on Fees
+- **JSON-LD structured data:**
+  - `HealthAndBeautyBusiness` (with `hasOfferCatalog` linking to all services) — home & contact pages
+  - `Person` — About page
+  - `ItemList` with `Service` schema (per-service with pricing and area served) — Services page
+  - `ItemList` with `Offer` schema (per duration tier with pricing) — Fees page
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element
@@ -102,17 +106,19 @@ No third-party captcha service is used — no cost, no user friction, no additio
 
 ## Images
 
-Images are stored in `public/images/`. The three active image paths are referenced via `SITE` constants in `config.ts` — change the filename there to swap an image site-wide.
+Images are stored in `public/images/`. Paths referenced via `SITE` constants in `config.ts` can be swapped site-wide by changing the value there. Service images are managed per-service in the `SERVICES` array in `config.ts` (`SERVICES[n].image.src`).
 
 | File | `config.ts` key | Usage |
 |---|---|---|
 | `logo.png` | — | Header & about preview panel (inverted white via CSS) |
-| `image1.jpg` | `SITE.heroImage` | Hero section background |
-| `media-opengraph.jpg` | `SITE.ogImage` | Open Graph image — home, fees, contact, privacy pages |
+| `image1.jpg` | `SITE.heroBgImage` | Home page hero section background |
+| `image2a.jpg` | `SERVICES[n].image.src` | Service section images on the Services page (one per service — currently all point here; swap per-service in config) |
+| `image2b.jpg` | `SITE.aboutPreviewImage.src` | About preview section on the home page |
+| `media-opengraph.jpg` | `SITE.ogImage` | Open Graph image — home, fees, contact, services, privacy pages |
 | `olya-pic.jpg` | `SITE.portraitImage` | About page portrait + OG image for About page |
 | `image2.jpg` | — | Currently unused |
 
-Recommended minimum sizes: hero (`image1.jpg`) — no strict requirement; OG image (`media-opengraph.jpg`) — **1200×630 px**; portrait (`olya-pic.jpg`) — tall crop, at least 800×1000 px.
+Recommended minimum sizes: OG image (`media-opengraph.jpg`) — **1200×630 px**; portrait (`olya-pic.jpg`) — tall crop, at least 800×1000 px; service images — portrait aspect ratio (~4:5), at least 800×1000 px.
 
 ---
 
@@ -120,9 +126,10 @@ Recommended minimum sizes: hero (`image1.jpg`) — no strict requirement; OG ima
 
 | Route | Description |
 |---|---|
-| `/` | Home — hero, services, about preview, CTA |
+| `/` | Home — hero, services teaser, about preview, CTA |
 | `/about` | Olha's bio, values, AMQ credential |
-| `/fees` | Pricing table with service list |
+| `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type |
+| `/fees` | Pricing table grouped by service, with links to the services page |
 | `/contact` | Contact info, map, contact form |
 | `/privacy-policy` | Privacy policy (not in main nav) |
 
