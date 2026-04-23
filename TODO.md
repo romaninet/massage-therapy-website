@@ -6,7 +6,7 @@
 - chnage AMQ site with website link (attention to personal data changes like phoe and address)
 - remove words: swedish
 - protect main branch 
-- 4.3 + 4.4 + 5
+- SEO phase 5
 - check how to book online https://jane.app OR https://www.setmore.com/
 - Even if you don't use Jane for booking, creating a profile there is worth doing.
 - ask AI where to create backlinks for free for RMT in Canada

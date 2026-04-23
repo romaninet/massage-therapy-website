@@ -306,6 +306,8 @@ Submitting the sitemap is passive. URL Inspection actively asks Google to crawl 
 | `https://www.shelestwellness.ca/fr` | French homepage |
 | `https://www.shelestwellness.ca/en/about` | About page — Person entity, E-E-A-T signals |
 | `https://www.shelestwellness.ca/fr/about` | French about |
+| `https://www.shelestwellness.ca/en/services` | Services  |
+| `https://www.shelestwellness.ca/fr/services` | services in French |
 | `https://www.shelestwellness.ca/en/fees` | Services + pricing — keyword-rich |
 | `https://www.shelestwellness.ca/fr/fees` | French fees |
 | `https://www.shelestwellness.ca/en/contact` | Contact page — local SEO anchor |

@@ -179,6 +179,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover object-center"
+                    priority={index === 0}
+                    loading={index === 0 ? 'eager' : 'lazy'}
                   />
                   <div className="absolute inset-0 bg-forest/10" />
                   <div className="absolute inset-x-0 bottom-0 h-1 bg-sage" />
