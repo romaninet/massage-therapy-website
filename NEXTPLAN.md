@@ -59,7 +59,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Current titles/descriptions target Gatineau + Ottawa only. Missing "Hull" (the actual neighborhood), "Outaouais" (regional term), and condition-based long-tail keywords (back pain, tension headaches, sports recovery).
 **Where:** [messages/en.json](messages/en.json) / [messages/fr.json](messages/fr.json) — update `meta.*.description` and service-page body copy. Add "insurance billing" keyword to fees meta.
 
-### M3. Extract `<ServiceCard>` component from services page — [Easy]
+### M3. ~~Extract `<ServiceCard>` component from services page~~ — [Easy] ✅ DONE
 **Why:** [src/app/[locale]/services/page.tsx](src/app/[locale]/services/page.tsx) is 198 lines, with the per-service section inlined in a `.map()`. Breaking it out makes the alternating-layout logic testable and re-usable on future landing pages.
 
 ### M4. Create `formatPrice(service, locale)` utility — [Easy]
