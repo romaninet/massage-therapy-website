@@ -62,7 +62,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 ### M3. ~~Extract `<ServiceCard>` component from services page~~ — [Easy] ✅ DONE
 **Why:** [src/app/[locale]/services/page.tsx](src/app/[locale]/services/page.tsx) is 198 lines, with the per-service section inlined in a `.map()`. Breaking it out makes the alternating-layout logic testable and re-usable on future landing pages.
 
-### M4. Create `formatPrice(service, locale)` utility — [Easy]
+### M4. ~~Create `formatPrice(service, locale)` utility~~ — [Easy] ✅ DONE
 **Why:** Price display (`starting from X CAD` / `à partir de X $ CAD`) is computed in two places (services page, fees page) with slightly different string construction.
 **Where:** Add to [src/lib/config.ts](src/lib/config.ts) or new `src/lib/format.ts`.
 

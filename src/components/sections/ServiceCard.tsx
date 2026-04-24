@@ -4,6 +4,7 @@ import { BotanicalDivider } from '@/components/BotanicalDecor';
 import ServiceIcon from '@/components/ServiceIcon';
 import type { SERVICES } from '@/lib/config';
 import type { Locale } from '@/lib/jsonld';
+import { formatPrice } from '@/lib/format';
 
 interface ServiceCardProps {
   service: (typeof SERVICES)[number];
@@ -26,8 +27,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ service, index, locale, lang, content, labels }: ServiceCardProps) {
   const isReversed = index % 2 === 1;
-  const startingPrice = service.tiers[0].price;
-  const priceDisplay = lang === 'fr' ? `${startingPrice} $` : `$${startingPrice}`;
+  const priceDisplay = formatPrice(service.tiers[0].price, lang);
 
   return (
     <section

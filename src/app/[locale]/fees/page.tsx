@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SERVICES, BUSINESS } from '@/lib/config';
+import { formatPrice } from '@/lib/format';
 import { servicesJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
@@ -41,7 +42,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
     s.tiers.map((tier) => ({
       name: s.title[lang],
       duration: tier.duration,
-      price: isEn ? `$${tier.price}` : `${tier.price} $`,
+      price: formatPrice(tier.price, lang),
     }))
   );
 
@@ -102,7 +103,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
                       <span className="text-sm font-medium text-forest/50">{tier.duration}</span>
                     </div>
                     <span className="font-heading text-forest text-2xl font-semibold group-hover:text-sage transition-colors">
-                      {isEn ? `$${tier.price}` : `${tier.price} $`}
+                      {formatPrice(tier.price, lang)}
                     </span>
                   </div>
                 ))}
