@@ -74,7 +74,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Current JPEGs in `public/images/` are likely unoptimized. Next.js `<Image>` will serve modern formats if the source exists, but re-exporting at the correct dimensions shaves meaningful LCP time on mobile — a Core Web Vitals signal.
 **How:** Identify all files in [public/images/](public/images/), check file sizes, re-export service + hero + portrait images as optimized WebP at 2× the largest rendered size. Keep JPEG fallbacks only if needed.
 
-### M7. Update [README.md](README.md) — [Easy]
+### M7. ~~Update [README.md](README.md)~~ — [Easy] ✅ DONE
 **Why:** README lists JSON-LD schemas but omits `personJsonLd` and `servicesPageJsonLd` (both added in recent sessions), plus it won't reflect FAQ/Breadcrumb once H1/H2 land. Pages table will also need FAQ section notes.
 **Where:** Update schemas list, pages table (already updated for /services), add section on `generatePageMetadata` helper if H4 lands.
 

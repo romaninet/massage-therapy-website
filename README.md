@@ -52,6 +52,10 @@ Update that single file to change any business details site-wide.
 
 The dark forest-green header section (pre-title, H1, subtitle, botanical corners) shared by About, Services, Fees, Contact, and Privacy Policy is a single component at `src/components/sections/PageHeaderSection.tsx`. Pass `preTitle`, `title`, `subtitle` (optional), and `pb` (optional bottom-padding class, defaults to `'pb-20'`).
 
+### Price formatting
+
+`src/lib/format.ts` exports `formatPrice(price, locale)` — use this whenever displaying a CAD price. Returns `$X` for EN and `X $` for FR.
+
 ### Page metadata
 
 All page `generateMetadata` functions use a shared helper at `src/lib/metadata.ts` (`generatePageMetadata`). Pass `locale`, `path`, bilingual `titles` and `descriptions`, and an optional `ogImage`/`ogImageAlt` — canonical URLs, hreflang alternates, Open Graph, and Twitter card are all built automatically.
@@ -87,7 +91,7 @@ The site is set up with:
 - **Per-page metadata** — title, description, Open Graph, Twitter card on every page
 - **JSON-LD structured data:**
   - `HealthAndBeautyBusiness` (with `hasOfferCatalog` linking to all services) — home & contact pages
-  - `Person` — About page
+  - `Person` (with `hasCredential`, `knowsAbout`, `sameAs`) — About page
   - `ItemList` with `Service` schema (per-service with pricing and area served) — Services page
   - `ItemList` with `Offer` schema (per duration tier with pricing) — Fees page
   - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
@@ -95,13 +99,13 @@ The site is set up with:
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element
 
-**Google Business Profile:** created and linked. `BUSINESS.googleMapsUrl` in `config.ts` holds the Maps short link. It is included in the `sameAs` array in `src/lib/jsonld.ts` and used as the `hasMap` value in structured data. The contact page map embed (`BUSINESS.mapsUrl`) is hardcoded to Olha's verified listing via the `?pb=` embed URL.
+**Google Business Profile:** created and linked. `BUSINESS.googleMapsUrl` in `config.ts` holds the Maps short link. It is included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed (`BUSINESS.mapsUrl`) is hardcoded to Olha's verified listing via the `?pb=` embed URL.
 
 ---
 
 ## Contact Form
 
-The contact form logic is split across three files for maintainability:
+The contact form logic is split across four files for maintainability:
 
 | File | Purpose |
 |---|---|
