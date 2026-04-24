@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SITE, SERVICES, BUSINESS, absoluteUrl } from '@/lib/config';
-import { servicesJsonLd, type Locale } from '@/lib/jsonld';
+import { servicesJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import Link from 'next/link';
 import { Clock, Banknote, CreditCard, FileText } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
@@ -73,6 +73,10 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd(servicesFlat, lang)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [{ name: t('title'), path: `/${locale}/fees` }])) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-8 lg:pb-20 relative overflow-hidden">

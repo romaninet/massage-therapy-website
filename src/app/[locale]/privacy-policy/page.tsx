@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SITE, absoluteUrl } from '@/lib/config';
+import { breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 
 export async function generateMetadata({
@@ -54,6 +55,10 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(locale as Locale, [{ name: t('title'), path: `/${locale}/privacy-policy` }])) }}
+      />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-20 relative overflow-hidden">
         <BotanicalCornerTL className="absolute top-0 left-0 w-48 h-48 text-white/10 pointer-events-none" />

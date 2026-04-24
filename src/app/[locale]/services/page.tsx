@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SITE, SERVICES, absoluteUrl } from '@/lib/config';
-import { servicesPageJsonLd, type Locale } from '@/lib/jsonld';
+import { servicesPageJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
 import ServiceIcon from '@/components/ServiceIcon';
@@ -68,6 +68,10 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesPageJsonLd(lang)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [{ name: t('title'), path: `/${locale}/services` }])) }}
       />
 
       {/* Page header — compact dark header, same style as About / Fees */}

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { localBusinessJsonLd, type Locale } from '@/lib/jsonld';
+import { localBusinessJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
@@ -68,6 +68,10 @@ export default async function ContactPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale as Locale)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [{ name: t('title'), path: `/${locale}/contact` }])) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-4 lg:pb-20 relative overflow-hidden">

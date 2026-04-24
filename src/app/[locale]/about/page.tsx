@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { personJsonLd, type Locale } from '@/lib/jsonld';
+import { personJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
@@ -65,6 +65,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale as Locale)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(locale as Locale, [{ name: t('title'), path: `/${locale}/about` }])) }}
       />
       {/* Hero */}
       <section className="bg-forest pt-36 pb-20 relative overflow-hidden">

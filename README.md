@@ -82,6 +82,7 @@ The site is set up with:
   - `Person` — About page
   - `ItemList` with `Service` schema (per-service with pricing and area served) — Services page
   - `ItemList` with `Offer` schema (per duration tier with pricing) — Fees page
+  - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element

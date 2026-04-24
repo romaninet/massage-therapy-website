@@ -141,6 +141,27 @@ export function servicesPageJsonLd(locale: Locale) {
   };
 }
 
+export function breadcrumbJsonLd(
+  locale: Locale,
+  trail: { name: string; path: string }[]
+) {
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home';
+  const items = [
+    { name: homeLabel, path: `/${locale}` },
+    ...trail,
+  ];
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: `${SITE.url}${item.path}`,
+    })),
+  };
+}
+
 export function servicesJsonLd(
   services: { name: string; duration: string; price: string }[],
   locale: Locale

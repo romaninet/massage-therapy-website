@@ -18,7 +18,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Content:** 6–10 Q&A items in both locales in [messages/en.json](messages/en.json) / [messages/fr.json](messages/fr.json) under `faq` namespace. Topics: booking, what to bring/wear, direct insurance billing, receipt for claims, difference between Swedish vs deep tissue, cancellation policy, conditions treated (back pain, tension headaches, sports recovery), service area (Hull / Gatineau / Ottawa / Outaouais).
 **Bonus:** Render a visible FAQ section on the services page driven by the same translation data — schema mirrors visible content (Google requirement).
 
-### H2. Add BreadcrumbList JSON-LD schema — [Easy]
+### H2. ~~Add BreadcrumbList JSON-LD schema~~ — [Easy] ✅ DONE
 **Why:** Breadcrumbs appear directly in SERPs and improve crawl hierarchy. Particularly useful for the anchor-linked service sections.
 **Where:** New `breadcrumbJsonLd(locale, trail)` helper in [src/lib/jsonld.ts](src/lib/jsonld.ts). Apply on about, services, fees, contact, privacy-policy.
 
