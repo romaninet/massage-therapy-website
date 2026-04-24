@@ -82,11 +82,9 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Accessibility polish — multiple `<nav>` elements without labels are flagged by axe/Lighthouse.
 **Where:** [src/components/layout/Footer.tsx](src/components/layout/Footer.tsx), Header, future Breadcrumb component.
 
-### M9. Scheduled-tour / opening-hours schema per service — [Medium]
-**Why:** If service-specific hours ever differ (e.g., children's massage weekdays-only), encode per-service `openingHoursSpecification` on each `Service` in schema.
-**Where:** [src/lib/jsonld.ts](src/lib/jsonld.ts) `servicesPageJsonLd` — optional, only if hours differ.
+### M9. ~~Scheduled-tour / opening-hours schema per service~~ — REMOVED (not needed — all services share the same hours)
 
-### M10. Set up Google Analytics 4 + Search Console verification — [Easy]
+### ~~M10. Set up Google Analytics 4 + Search Console verification~~ — [Easy] ✅ DONE
 **Why:** TODO item. Without GA4 there's no data for iteration; without Search Console you can't see index coverage or submit sitemap.
 **How:** Add `NEXT_PUBLIC_GA_ID` env var, conditional `<Script>` in [src/app/layout.tsx](src/app/layout.tsx). Add Search Console verification meta tag via `verification.google` in root metadata.
 

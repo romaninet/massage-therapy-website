@@ -99,6 +99,8 @@ The site is set up with:
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element
 
+**Google Analytics 4:** tracking is injected in `src/app/[locale]/layout.tsx` via `next/script` with `strategy="afterInteractive"`. Set `NEXT_PUBLIC_GA_ID` to your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) to enable it. Omitting the variable disables tracking entirely.
+
 **Google Business Profile:** created and linked. `BUSINESS.googleMapsUrl` in `config.ts` holds the Maps short link. It is included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed (`BUSINESS.mapsUrl`) is hardcoded to Olha's verified listing via the `?pb=` embed URL.
 
 ---
@@ -167,8 +169,9 @@ All routes are available under `/en/` and `/fr/` prefixes.
 
 The site is deployed on **Vercel**. Pushing to `main` triggers an automatic deployment.
 
-Make sure the following environment variable is set in Vercel project settings:
+Make sure the following environment variables are set in Vercel project settings:
 - `RESEND_API_KEY`
+- `NEXT_PUBLIC_GA_ID` — Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`). When set, the GA4 tracking script is injected into every page via `src/app/[locale]/layout.tsx`. Omit or leave blank to disable tracking (useful for local development).
 
 
 ## List of services used
