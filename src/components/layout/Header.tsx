@@ -79,7 +79,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8" aria-label={t('mainNav')}>
             {NAV_LINKS.map(({ key, href }) => (
               <Link
                 key={key}
@@ -132,7 +132,7 @@ export default function Header() {
           mobileOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <nav className="bg-forest-dark border-t border-white/10 px-6 py-6 flex flex-col gap-1">
+        <nav className="bg-forest-dark border-t border-white/10 px-6 py-6 flex flex-col gap-1" aria-label={t('mobileNav')}>
           {NAV_LINKS.map(({ key, href }) => (
             <Link
               key={key}

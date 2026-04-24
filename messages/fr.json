@@ -5,7 +5,10 @@
     "services": "Services",
     "fees": "Tarifs",
     "contact": "Contact",
-    "bookNow": "Réserver"
+    "bookNow": "Réserver",
+    "mainNav": "Navigation principale",
+    "mobileNav": "Navigation mobile",
+    "footerNav": "Navigation du pied de page"
   },
   "header": {
     "logoAlt": "Olha Shelest, Massothérapeute Professionnelle",

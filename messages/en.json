@@ -5,7 +5,10 @@
     "services": "Services",
     "fees": "Fees",
     "contact": "Contact",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "footerNav": "Footer navigation"
   },
   "header": {
     "logoAlt": "Olha Shelest, Professional Massage Therapist",

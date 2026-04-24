@@ -78,7 +78,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** README lists JSON-LD schemas but omits `personJsonLd` and `servicesPageJsonLd` (both added in recent sessions), plus it won't reflect FAQ/Breadcrumb once H1/H2 land. Pages table will also need FAQ section notes.
 **Where:** Update schemas list, pages table (already updated for /services), add section on `generatePageMetadata` helper if H4 lands.
 
-### M8. Add `<nav aria-label>` to breadcrumb & footer nav — [Easy]
+### M8. ~~Add `<nav aria-label>` to breadcrumb & footer nav~~ — [Easy] ✅ DONE
 **Why:** Accessibility polish — multiple `<nav>` elements without labels are flagged by axe/Lighthouse.
 **Where:** [src/components/layout/Footer.tsx](src/components/layout/Footer.tsx), Header, future Breadcrumb component.
 

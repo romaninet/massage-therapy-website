@@ -41,18 +41,20 @@ export default function Footer() {
             <h3 className="text-xs tracking-widest uppercase text-white/40 font-medium mb-5">
               {t('nav')}
             </h3>
-            <ul className="flex flex-col gap-3">
-              {NAV_LINKS.map(({ key, href }) => (
-                <li key={key}>
-                  <Link
-                    href={`${prefix}${href === '/' ? '' : href}`}
-                    className="text-white/70 hover:text-sage-light text-sm tracking-wide transition-colors"
-                  >
-                    {tNav(key)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label={tNav('footerNav')}>
+              <ul className="flex flex-col gap-3">
+                {NAV_LINKS.map(({ key, href }) => (
+                  <li key={key}>
+                    <Link
+                      href={`${prefix}${href === '/' ? '' : href}`}
+                      className="text-white/70 hover:text-sage-light text-sm tracking-wide transition-colors"
+                    >
+                      {tNav(key)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Contact column */}
