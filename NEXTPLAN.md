@@ -43,7 +43,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Bilingual leak. The contact API returns English-only error strings that get surfaced in toasts on the FR locale.
 **Where:** [src/app/api/contact/route.ts:22,35,36,41](src/app/api/contact/route.ts#L22). Either return error *codes* and translate client-side, or accept `locale` in the request body and look up strings from `messages/{locale}.json` server-side.
 
-### H8. Add Google Maps iframe `title` attribute — [Easy]
+### H8. ~~Add Google Maps iframe `title` attribute~~ — [Easy] ✅ DONE (already implemented)
 **Why:** WCAG A violation — iframes require a `title` for screen readers. A `mapTitle` key already exists in messages; it's just not wired through.
 **Where:** [src/app/[locale]/contact/page.tsx](src/app/[locale]/contact/page.tsx) — add `title={t('mapTitle')}` to the Google Maps `<iframe>`.
 
