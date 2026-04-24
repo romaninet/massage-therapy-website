@@ -39,7 +39,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Hardest file in the repo to maintain — mixes validation, state, honeypot, inquiry-type logic, fetch, toast, and markup in one client component. Recent changes (type dropdown) stacked complexity.
 **How:** Extract `<FormField>` (label + input + error), `<TextareaField>`, move validation to `src/lib/validation.ts`, move `type` options computation to a `useInquiryTypes(locale)` hook.
 
-### H7. Move API error messages to i18n — [Easy]
+### H7. ~~Move API error messages to i18n~~ — [Easy] ✅ DONE
 **Why:** Bilingual leak. The contact API returns English-only error strings that get surfaced in toasts on the FR locale.
 **Where:** [src/app/api/contact/route.ts:22,35,36,41](src/app/api/contact/route.ts#L22). Either return error *codes* and translate client-side, or accept `locale` in the request body and look up strings from `messages/{locale}.json` server-side.
 
