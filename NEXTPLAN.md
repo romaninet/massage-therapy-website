@@ -31,7 +31,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Where:** Create [src/lib/metadata.ts](src/lib/metadata.ts) exporting `generatePageMetadata({ locale, path, titles: {en, fr}, descriptions: {en, fr}, ogImage? })`. Replace `generateMetadata` in all `page.tsx` files under [src/app/[locale]/](src/app/[locale]/).
 **Win:** ~40 lines removed per page, single source of truth for canonical/hreflang rules.
 
-### H5. Extract `<PageHeaderSection>` component — [Easy]
+### H5. ~~Extract `<PageHeaderSection>` component~~ — [Easy] ✅ DONE
 **Why:** The dark compact header is duplicated across about, services, fees, contact, privacy-policy pages with the same markup (botanical decor, pre-title, title, divider). Already 4–5 copies.
 **Where:** New [src/components/sections/PageHeaderSection.tsx](src/components/sections/PageHeaderSection.tsx) with props `{ preTitle, title, subtitle? }`. Replace inline headers in all `[locale]/*/page.tsx`.
 
