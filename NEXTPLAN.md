@@ -55,7 +55,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Google's E-E-A-T (Expertise, Experience, Authoritativeness, Trust) weighs heavily for health-adjacent businesses (YMYL). Current Person schema lacks `hasCredential`, `knowsAbout`, `alumniOf` / training institution.
 **Where:** [src/lib/jsonld.ts](src/lib/jsonld.ts) `personJsonLd`. Add `hasCredential: { '@type': 'EducationalOccupationalCredential', name: 'Registered Massage Therapist', recognizedBy: AMQ }`, plus `knowsAbout: ['Swedish massage', 'Deep tissue', 'Lymphatic drainage', ...]`.
 
-### M2. Enrich services meta with condition keywords + Hull/Outaouais — [Easy]
+### M2. ~~Enrich services meta with condition keywords + Hull/Outaouais~~ — [Easy] ✅ DONE
 **Why:** Current titles/descriptions target Gatineau + Ottawa only. Missing "Hull" (the actual neighborhood), "Outaouais" (regional term), and condition-based long-tail keywords (back pain, tension headaches, sports recovery).
 **Where:** [messages/en.json](messages/en.json) / [messages/fr.json](messages/fr.json) — update `meta.*.description` and service-page body copy. Add "insurance billing" keyword to fees meta.
 

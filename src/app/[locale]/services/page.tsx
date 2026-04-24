@@ -15,12 +15,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     locale,
     path: '/services',
     titles: {
-      en: 'Massage Services in Gatineau | Swedish, Deep Tissue & More | Serving Ottawa',
-      fr: 'Services de massage à Gatineau | Suédois, profondeur et plus | Service Ottawa',
+      en: 'Massage Services in Hull–Gatineau | Swedish, Deep Tissue & More | Near Ottawa',
+      fr: 'Services de massage à Hull–Gatineau | Suédois, profondeur et plus | Près d\'Ottawa',
     },
     descriptions: {
-      en: 'Professional massage services in Gatineau, QC — near Ottawa. Swedish, Deep Tissue, Relaxation, and Children\'s massage. Personalized therapeutic care by Olha Shelest, AMQ member.',
-      fr: 'Services de massage professionnels à Gatineau, QC — près d\'Ottawa. Massage suédois, en profondeur, de relaxation et pour enfants. Soins personnalisés par Olha Shelest, membre AMQ.',
+      en: 'Massage therapy in Hull–Gatineau for back pain, tension headaches & sports recovery. Swedish, deep tissue & relaxation massage. Serving Ottawa & Outaouais.',
+      fr: 'Massothérapie à Hull–Gatineau pour maux de dos, céphalées et récupération sportive. Massage suédois, profond et relaxation. Service Ottawa et Outaouais.',
     },
     ogImageAlt: {
       en: 'Massage therapy services in Gatineau, QC',

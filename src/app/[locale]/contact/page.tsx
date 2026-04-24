@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       fr: 'Contacter Olha Shelest | Réserver un massage à Hull, Gatineau — Près d\'Ottawa',
     },
     descriptions: {
-      en: `Book a massage therapy appointment with Olha Shelest in Gatineau, QC — accessible from Ottawa. Call ${BUSINESS.phone} or send a message online.`,
-      fr: `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC — accessible depuis Ottawa. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne.`,
+      en: `Book a massage in Hull–Gatineau with Olha Shelest — 5 min from Ottawa. Back pain, stress & more. Call ${BUSINESS.phone} or message online.`,
+      fr: `Réservez un massage à Hull–Gatineau avec Olha Shelest — à 5 min d'Ottawa. Maux de dos, stress et plus. Appelez le ${BUSINESS.phone} ou écrivez-nous.`,
     },
     ogImageAlt: {
       en: 'Contact Olha Shelest — massage therapy in Gatineau, QC',

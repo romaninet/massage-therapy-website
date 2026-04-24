@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       fr: 'À propos d\'Olha Shelest | Massothérapeute Professionnelle, Gatineau',
     },
     descriptions: {
-      en: 'Meet Olha Shelest, Professional Massage Therapist and AMQ member based in Gatineau, QC. Personalized therapeutic massage tailored to your needs.',
-      fr: 'Découvrez Olha Shelest, massothérapeute professionnelle et membre AMQ à Gatineau, QC. Des soins thérapeutiques personnalisés adaptés à vos besoins.',
+      en: 'Meet Olha Shelest, AMQ-registered massage therapist in Hull–Gatineau, QC. Specializing in back pain, stress relief & sports recovery — serving Ottawa & Outaouais.',
+      fr: 'Rencontrez Olha Shelest, massothérapeute membre AMQ à Hull–Gatineau, QC. Spécialisée en maux de dos, stress et récupération sportive — service Ottawa et Outaouais.',
     },
     ogImage: SITE.portraitImage,
     ogImageAlt: {

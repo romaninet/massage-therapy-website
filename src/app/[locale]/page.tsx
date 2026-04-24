@@ -12,12 +12,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     locale,
     path: '',
     titles: {
-      en: 'Massage Therapy in Gatineau | Olha Shelest — Serving Ottawa & the NCR',
-      fr: 'Massothérapie à Gatineau | Olha Shelest — Au service d\'Ottawa et de la RCN',
+      en: 'Massage Therapy in Hull–Gatineau | Olha Shelest — Ottawa & Outaouais',
+      fr: 'Massothérapie à Hull–Gatineau | Olha Shelest — Ottawa et Outaouais',
     },
     descriptions: {
-      en: 'Professional Massage Therapist in Gatineau, QC — serving the Ottawa–Gatineau region. Swedish, deep tissue, relaxation & children\'s massage. Book with Olha Shelest — AMQ member.',
-      fr: 'Massothérapeute Professionnelle à Gatineau, QC — au service de la région Ottawa–Gatineau. Massages suédois, en profondeur, de relaxation et pour enfants. Réservez avec Olha Shelest — membre AMQ.',
+      en: 'Massage therapist in Hull–Gatineau, QC — serving Ottawa & the Outaouais. Back pain, stress relief & sports recovery. Book with Olha Shelest, AMQ member.',
+      fr: 'Massothérapeute à Hull–Gatineau, QC — au service d\'Ottawa et de l\'Outaouais. Maux de dos, stress et récupération sportive. Réservez avec Olha Shelest, membre AMQ.',
     },
     ogImageAlt: {
       en: 'Professional massage therapy in Gatineau, QC',
