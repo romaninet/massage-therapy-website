@@ -1,54 +1,30 @@
-import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SITE, SERVICES, BUSINESS, absoluteUrl } from '@/lib/config';
+import { SERVICES, BUSINESS } from '@/lib/config';
 import { servicesJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
+import { generatePageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { Clock, Banknote, CreditCard, FileText } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const isEn = locale === 'en';
-  return {
-    title: {
-      absolute: isEn
-        ? 'Massage Therapy Fees & Services | Olha Shelest, Gatineau'
-        : 'Tarifs et services de massothérapie | Olha Shelest, Gatineau',
+  return generatePageMetadata({
+    locale,
+    path: '/fees',
+    titles: {
+      en: 'Massage Therapy Fees & Services | Olha Shelest, Gatineau',
+      fr: 'Tarifs et services de massothérapie | Olha Shelest, Gatineau',
     },
-    description: isEn
-      ? 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & children\'s massage from $95 CAD. Direct insurance billing available.'
-      : 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et pour enfants à partir de 95 $ CAD. Facturation directe disponible.',
-    alternates: {
-      canonical: absoluteUrl(`/${locale}/fees`),
-      languages: { en: absoluteUrl('/en/fees'), fr: absoluteUrl('/fr/fees'), 'x-default': absoluteUrl('/en/fees') },
+    descriptions: {
+      en: 'Transparent pricing for massage therapy in Gatineau. Swedish, deep tissue, relaxation & children\'s massage from $95 CAD. Direct insurance billing available.',
+      fr: 'Tarifs transparents pour la massothérapie à Gatineau. Massages suédois, en profondeur, relaxation et pour enfants à partir de 95 $ CAD. Facturation directe disponible.',
     },
-    openGraph: {
-      type: 'website',
-      siteName: isEn ? SITE.siteNames.en : SITE.siteNames.fr,
-      locale: isEn ? 'en_CA' : 'fr_CA',
-      alternateLocale: isEn ? ['fr_CA'] : ['en_CA'],
-      url: absoluteUrl(`/${locale}/fees`),
-      images: [
-        {
-          url: absoluteUrl(SITE.ogImage),
-          width: 1200,
-          height: 630,
-          alt: isEn
-            ? 'Massage therapy fees and services in Gatineau, QC'
-            : 'Tarifs et services de massothérapie à Gatineau, QC',
-        },
-      ],
+    ogImageAlt: {
+      en: 'Massage therapy fees and services in Gatineau, QC',
+      fr: 'Tarifs et services de massothérapie à Gatineau, QC',
     },
-    twitter: {
-      card: 'summary_large_image',
-      images: [absoluteUrl(SITE.ogImage)],
-    },
-  };
+  });
 }
 
 export default async function FeesPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -1,53 +1,29 @@
-import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localBusinessJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import ContactForm from '@/components/ContactForm';
-import { BUSINESS, SITE, absoluteUrl } from '@/lib/config';
+import { BUSINESS } from '@/lib/config';
+import { generatePageMetadata } from '@/lib/metadata';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const isEn = locale === 'en';
-  return {
-    title: {
-      absolute: isEn
-        ? 'Contact Olha Shelest | Book a Massage in Hull, Gatineau — Near Ottawa'
-        : 'Contacter Olha Shelest | Réserver un massage à Hull, Gatineau — Près d\'Ottawa',
+  return generatePageMetadata({
+    locale,
+    path: '/contact',
+    titles: {
+      en: 'Contact Olha Shelest | Book a Massage in Hull, Gatineau — Near Ottawa',
+      fr: 'Contacter Olha Shelest | Réserver un massage à Hull, Gatineau — Près d\'Ottawa',
     },
-    description: isEn
-      ? `Book a massage therapy appointment with Olha Shelest in Gatineau, QC — accessible from Ottawa. Call ${BUSINESS.phone} or send a message online.`
-      : `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC — accessible depuis Ottawa. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne.`,
-    alternates: {
-      canonical: absoluteUrl(`/${locale}/contact`),
-      languages: { en: absoluteUrl('/en/contact'), fr: absoluteUrl('/fr/contact'), 'x-default': absoluteUrl('/en/contact') },
+    descriptions: {
+      en: `Book a massage therapy appointment with Olha Shelest in Gatineau, QC — accessible from Ottawa. Call ${BUSINESS.phone} or send a message online.`,
+      fr: `Réservez un rendez-vous de massothérapie avec Olha Shelest à Gatineau, QC — accessible depuis Ottawa. Appelez le ${BUSINESS.phone} ou envoyez un message en ligne.`,
     },
-    openGraph: {
-      type: 'website',
-      siteName: isEn ? SITE.siteNames.en : SITE.siteNames.fr,
-      locale: isEn ? 'en_CA' : 'fr_CA',
-      alternateLocale: isEn ? ['fr_CA'] : ['en_CA'],
-      url: absoluteUrl(`/${locale}/contact`),
-      images: [
-        {
-          url: absoluteUrl(SITE.ogImage),
-          width: 1200,
-          height: 630,
-          alt: isEn
-            ? 'Contact Olha Shelest — massage therapy in Gatineau, QC'
-            : 'Contacter Olha Shelest — massothérapie à Gatineau, QC',
-        },
-      ],
+    ogImageAlt: {
+      en: 'Contact Olha Shelest — massage therapy in Gatineau, QC',
+      fr: 'Contacter Olha Shelest — massothérapie à Gatineau, QC',
     },
-    twitter: {
-      card: 'summary_large_image',
-      images: [absoluteUrl(SITE.ogImage)],
-    },
-  };
+  });
 }
 
 export default async function ContactPage({

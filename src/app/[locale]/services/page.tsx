@@ -1,59 +1,31 @@
-import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SITE, SERVICES, absoluteUrl } from '@/lib/config';
+import { SERVICES } from '@/lib/config';
 import { servicesPageJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
+import { generatePageMetadata } from '@/lib/metadata';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
 import ServiceIcon from '@/components/ServiceIcon';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const isEn = locale === 'en';
-  return {
-    title: {
-      absolute: isEn
-        ? 'Massage Services in Gatineau | Swedish, Deep Tissue & More | Serving Ottawa'
-        : 'Services de massage à Gatineau | Suédois, profondeur et plus | Service Ottawa',
+  return generatePageMetadata({
+    locale,
+    path: '/services',
+    titles: {
+      en: 'Massage Services in Gatineau | Swedish, Deep Tissue & More | Serving Ottawa',
+      fr: 'Services de massage à Gatineau | Suédois, profondeur et plus | Service Ottawa',
     },
-    description: isEn
-      ? 'Professional massage services in Gatineau, QC — near Ottawa. Swedish, Deep Tissue, Relaxation, and Children\'s massage. Personalized therapeutic care by Olha Shelest, AMQ member.'
-      : 'Services de massage professionnels à Gatineau, QC — près d\'Ottawa. Massage suédois, en profondeur, de relaxation et pour enfants. Soins personnalisés par Olha Shelest, membre AMQ.',
-    alternates: {
-      canonical: absoluteUrl(`/${locale}/services`),
-      languages: {
-        en: absoluteUrl('/en/services'),
-        fr: absoluteUrl('/fr/services'),
-        'x-default': absoluteUrl('/en/services'),
-      },
+    descriptions: {
+      en: 'Professional massage services in Gatineau, QC — near Ottawa. Swedish, Deep Tissue, Relaxation, and Children\'s massage. Personalized therapeutic care by Olha Shelest, AMQ member.',
+      fr: 'Services de massage professionnels à Gatineau, QC — près d\'Ottawa. Massage suédois, en profondeur, de relaxation et pour enfants. Soins personnalisés par Olha Shelest, membre AMQ.',
     },
-    openGraph: {
-      type: 'website',
-      siteName: isEn ? SITE.siteNames.en : SITE.siteNames.fr,
-      locale: isEn ? 'en_CA' : 'fr_CA',
-      alternateLocale: isEn ? ['fr_CA'] : ['en_CA'],
-      url: absoluteUrl(`/${locale}/services`),
-      images: [
-        {
-          url: absoluteUrl(SITE.ogImage),
-          width: 1200,
-          height: 630,
-          alt: isEn
-            ? 'Massage therapy services in Gatineau, QC'
-            : 'Services de massothérapie à Gatineau, QC',
-        },
-      ],
+    ogImageAlt: {
+      en: 'Massage therapy services in Gatineau, QC',
+      fr: 'Services de massothérapie à Gatineau, QC',
     },
-    twitter: {
-      card: 'summary_large_image',
-      images: [absoluteUrl(SITE.ogImage)],
-    },
-  };
+  });
 }
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {

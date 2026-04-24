@@ -1,49 +1,22 @@
-import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SITE, absoluteUrl } from '@/lib/config';
 import { breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
+import { generatePageMetadata } from '@/lib/metadata';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const isEn = locale === 'en';
-  return {
-    title: isEn
-      ? 'Privacy Policy | Olha Shelest Massage Therapy'
-      : 'Politique de confidentialité | Massothérapie Olha Shelest',
-    description: isEn
-      ? 'Privacy policy for Olha Shelest massage therapy practice in Gatineau, QC. Compliant with Quebec Law 25 and PIPEDA.'
-      : 'Politique de confidentialité de la pratique de massothérapie d\'Olha Shelest à Gatineau, QC. Conforme à la Loi 25 du Québec et à la LPRPDE.',
-    alternates: {
-      canonical: absoluteUrl(`/${locale}/privacy-policy`),
-      languages: {
-        en: absoluteUrl('/en/privacy-policy'),
-        fr: absoluteUrl('/fr/privacy-policy'),
-        'x-default': absoluteUrl('/en/privacy-policy'),
-      },
+  return generatePageMetadata({
+    locale,
+    path: '/privacy-policy',
+    titles: {
+      en: 'Privacy Policy | Olha Shelest Massage Therapy',
+      fr: 'Politique de confidentialité | Massothérapie Olha Shelest',
     },
-    openGraph: {
-      url: absoluteUrl(`/${locale}/privacy-policy`),
-      images: [
-        {
-          url: absoluteUrl(SITE.ogImage),
-          width: 1200,
-          height: 630,
-          alt: isEn
-            ? 'Olha Shelest Massage Therapy — Gatineau, QC'
-            : 'Massothérapie Olha Shelest — Gatineau, QC',
-        },
-      ],
+    descriptions: {
+      en: 'Privacy policy for Olha Shelest massage therapy practice in Gatineau, QC. Compliant with Quebec Law 25 and PIPEDA.',
+      fr: 'Politique de confidentialité de la pratique de massothérapie d\'Olha Shelest à Gatineau, QC. Conforme à la Loi 25 du Québec et à la LPRPDE.',
     },
-    twitter: {
-      card: 'summary_large_image',
-      images: [absoluteUrl(SITE.ogImage)],
-    },
-  };
+  });
 }
 
 export default async function PrivacyPolicyPage({ params }: { params: Promise<{ locale: string }> }) {

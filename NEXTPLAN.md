@@ -26,7 +26,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** TODO.md phase 5 item. Missing `gbpPlaceId` weakens the NAP (Name/Address/Phone) association between site and GBP, which is the single strongest local-pack ranking signal.
 **Where:** Add `gbpPlaceId` + `gbpUrl` fields to `BUSINESS` in [src/lib/config.ts](src/lib/config.ts). Append `gbpUrl` to the `sameAs` array in [src/lib/jsonld.ts](src/lib/jsonld.ts) for both `localBusinessJsonLd` and `personJsonLd`. Verify GBP listing links back to `https://www.shelestwellness.ca`.
 
-### H4. Extract `generatePageMetadata()` helper — [Medium]
+### H4. ~~Extract `generatePageMetadata()` helper~~ — [Medium] ✅ DONE
 **Why:** The `generateMetadata` block is duplicated near-verbatim across 7 pages (locale detection, title, description, canonical, alternates, OG, Twitter). A one-line bug fix today requires editing 7 files.
 **Where:** Create [src/lib/metadata.ts](src/lib/metadata.ts) exporting `generatePageMetadata({ locale, path, titles: {en, fr}, descriptions: {en, fr}, ogImage? })`. Replace `generateMetadata` in all `page.tsx` files under [src/app/[locale]/](src/app/[locale]/).
 **Win:** ~40 lines removed per page, single source of truth for canonical/hreflang rules.
