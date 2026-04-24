@@ -86,14 +86,31 @@ export function localBusinessJsonLd(locale: Locale) {
 }
 
 export function personJsonLd(locale: Locale) {
+  const isFr = locale === 'fr';
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': `${SITE.url}/#person`,
     name: BUSINESS.name,
-    jobTitle: locale === 'fr' ? 'Massothérapeute Professionnelle' : 'Professional Massage Therapist',
+    jobTitle: isFr ? 'Massothérapeute Professionnelle' : 'Professional Massage Therapist',
     url: `${SITE.url}/${locale}/about`,
     image: `${SITE.url}${SITE.portraitImage}`,
+    sameAs: [BUSINESS.amqUrl, BUSINESS.googleMapsUrl],
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      name: isFr ? 'Massothérapeute Professionnelle' : 'Registered Massage Therapist',
+      credentialCategory: isFr ? 'Certification professionnelle' : 'Professional Certification',
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'Association des Massothérapeutes du Québec (AMQ)',
+        url: BUSINESS.amqUrl,
+      },
+    },
+    knowsAbout: isFr
+      ? ['Massage suédois', 'Massage en profondeur', 'Massage de relaxation', 'Massage pour enfants',
+         'Récupération sportive', 'Gestion du stress', 'Guérison holistique', 'Thérapie des tissus mous']
+      : ['Swedish massage', 'Deep tissue massage', 'Relaxation massage', "Children's massage",
+         'Sports recovery', 'Stress management', 'Holistic healing', 'Soft tissue therapy'],
     worksFor: {
       '@type': 'HealthAndBeautyBusiness',
       '@id': SITE.url,

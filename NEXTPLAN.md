@@ -51,7 +51,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 
 ## MEDIUM IMPORTANCE
 
-### M1. Enrich `personJsonLd` with E-E-A-T signals — [Easy]
+### M1. ~~Enrich `personJsonLd` with E-E-A-T signals~~ — [Easy] ✅ DONE
 **Why:** Google's E-E-A-T (Expertise, Experience, Authoritativeness, Trust) weighs heavily for health-adjacent businesses (YMYL). Current Person schema lacks `hasCredential`, `knowsAbout`, `alumniOf` / training institution.
 **Where:** [src/lib/jsonld.ts](src/lib/jsonld.ts) `personJsonLd`. Add `hasCredential: { '@type': 'EducationalOccupationalCredential', name: 'Registered Massage Therapist', recognizedBy: AMQ }`, plus `knowsAbout: ['Swedish massage', 'Deep tissue', 'Lymphatic drainage', ...]`.
 
