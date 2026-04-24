@@ -35,7 +35,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** The dark compact header is duplicated across about, services, fees, contact, privacy-policy pages with the same markup (botanical decor, pre-title, title, divider). Already 4–5 copies.
 **Where:** New [src/components/sections/PageHeaderSection.tsx](src/components/sections/PageHeaderSection.tsx) with props `{ preTitle, title, subtitle? }`. Replace inline headers in all `[locale]/*/page.tsx`.
 
-### H6. Refactor [ContactForm.tsx](src/components/ContactForm.tsx) (255 lines) — [Medium]
+### H6. ~~Refactor [ContactForm.tsx](src/components/ContactForm.tsx) (255 lines)~~ — [Medium] ✅ DONE
 **Why:** Hardest file in the repo to maintain — mixes validation, state, honeypot, inquiry-type logic, fetch, toast, and markup in one client component. Recent changes (type dropdown) stacked complexity.
 **How:** Extract `<FormField>` (label + input + error), `<TextareaField>`, move validation to `src/lib/validation.ts`, move `type` options computation to a `useInquiryTypes(locale)` hook.
 

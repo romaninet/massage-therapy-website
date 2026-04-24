@@ -1,67 +1,40 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { formatPhone } from '@/lib/phone';
 import { SERVICES } from '@/lib/config';
+import { type FormFields, type ValidationErrors, TEXT_FILTERS, isValidPhone, validateForm } from '@/lib/validation';
+import { FormField, TextareaField } from '@/components/FormField';
+import { useInquiryTypes } from '@/hooks/useInquiryTypes';
 
 type FormState = 'idle' | 'sending' | 'success' | 'error';
-type FormFields = { name: string; email: string; phone: string; message: string; type: string };
-
-// Strip disallowed characters on input (handles both typing and paste)
-const TEXT_FILTERS: Record<Exclude<keyof FormFields, 'type'>, (v: string) => string> = {
-  // Letters (Latin + French accented À-ÿ), spaces, hyphens, apostrophes
-  name: (v) => v.replace(/[^a-zA-ZÀ-ÿ\s'’\-]/g, ''),
-  // Standard email characters only
-  email: (v) => v.replace(/[^a-zA-Z0-9@._+\-]/g, ''),
-  // Digits, spaces, and phone punctuation only
-  phone: (v) => v.replace(/[^0-9\s+\-().]/g, ''),
-  // Strip control characters only (allow all printable + Unicode + newlines)
-  message: (v) => v.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, ''),
-};
-
-const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
-
-const isValidPhone = (raw: string): boolean => {
-  const digits = raw.replace(/\D/g, '');
-  return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
-};
 
 export default function ContactForm({ initialType = '' }: { initialType?: string }) {
   const t = useTranslations('contact.form');
   const v = useTranslations('contact.form.validation');
-  const locale = useLocale() as 'en' | 'fr';
 
   const [state, setState] = useState<FormState>('idle');
   const [form, setForm] = useState<FormFields>({
     name: '', email: '', phone: '', message: '',
     type: SERVICES.some((s) => s.key === initialType) ? initialType : '',
   });
-  const [errors, setErrors] = useState<Partial<Omit<FormFields, 'type'>>>({});
+  const [errors, setErrors] = useState<ValidationErrors>({});
   const [honeypot, setHoneypot] = useState('');
+  const inquiryTypes = useInquiryTypes();
 
   const validate = (): boolean => {
-    const errs: Partial<Omit<FormFields, 'type'>> = {};
-    const name = form.name.trim();
-    const email = form.email.trim();
-    const phone = form.phone.trim();
-    const message = form.message.trim();
-
-    if (!name) errs.name = v('nameRequired');
-    else if (name.length < 2 || !/[a-zA-ZÀ-ÿ]/.test(name)) errs.name = v('nameInvalid');
-
-    if (!email) errs.email = v('emailRequired');
-    else if (!EMAIL_RE.test(email)) errs.email = v('emailInvalid');
-
-    if (phone && !isValidPhone(phone)) errs.phone = v('phoneInvalid');
-
-    if (!message) errs.message = v('messageRequired');
-    else if (message.length < 10) errs.message = v('messageTooShort');
-
+    const errs = validateForm(form, {
+      nameRequired: v('nameRequired'),
+      nameInvalid: v('nameInvalid'),
+      emailRequired: v('emailRequired'),
+      emailInvalid: v('emailInvalid'),
+      phoneInvalid: v('phoneInvalid'),
+      messageRequired: v('messageRequired'),
+      messageTooShort: v('messageTooShort'),
+    });
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -114,9 +87,7 @@ export default function ContactForm({ initialType = '' }: { initialType?: string
     return (
       <div className="flex flex-col items-center justify-center text-center py-16 px-8 bg-pale-sage rounded-lg border border-sage/20">
         <CheckCircle size={48} className="text-sage mb-4" />
-        <p className="font-heading text-forest text-xl font-semibold mb-2">
-          {t('success')}
-        </p>
+        <p className="font-heading text-forest text-xl font-semibold mb-2">{t('success')}</p>
       </div>
     );
   }
@@ -138,96 +109,40 @@ export default function ContactForm({ initialType = '' }: { initialType?: string
 
       {/* Inquiry type */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
-          {t('typeLabel')}
-        </label>
+        <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">{t('typeLabel')}</label>
         <select
           name="type"
           value={form.type}
           onChange={(e) => setForm((prev) => ({ ...prev, type: e.target.value }))}
           className="w-full rounded-md border border-forest/20 bg-white px-3 py-2 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition-colors"
         >
-          <option value="">{t('generalInquiry')}</option>
-          {SERVICES.map((s) => (
-            <option key={s.key} value={s.key}>
-              {s.title[locale]}
-            </option>
+          {inquiryTypes.map(({ value, label }) => (
+            <option key={value} value={value}>{label}</option>
           ))}
         </select>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-5">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
-            {t('name')}
-          </label>
-          <Input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder={t('namePlaceholder')}
-            autoComplete="name"
-            maxLength={30}
-            className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.name ? 'border-red-400' : ''}`}
-          />
-          {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
-            {t('email')}
-          </label>
-          <Input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder={t('emailPlaceholder')}
-            autoComplete="email"
-            maxLength={30}
-            className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.email ? 'border-red-400' : ''}`}
-          />
-          {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
-        </div>
+        <FormField
+          label={t('name')} name="name" value={form.name} onChange={handleChange}
+          placeholder={t('namePlaceholder')} autoComplete="name" maxLength={30} error={errors.name}
+        />
+        <FormField
+          label={t('email')} name="email" type="email" value={form.email} onChange={handleChange}
+          placeholder={t('emailPlaceholder')} autoComplete="email" maxLength={30} error={errors.email}
+        />
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
-          {t('phone')}
-        </label>
-        <Input
-          name="phone"
-          type="tel"
-          value={form.phone}
-          onChange={handleChange}
-          onBlur={handlePhoneBlur}
-          placeholder={t('phonePlaceholder')}
-          autoComplete="tel"
-          maxLength={17}
-          className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage ${errors.phone ? 'border-red-400' : ''}`}
-        />
-        {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
-      </div>
+      <FormField
+        label={t('phone')} name="phone" type="tel" value={form.phone}
+        onChange={handleChange} onBlur={handlePhoneBlur}
+        placeholder={t('phonePlaceholder')} autoComplete="tel" maxLength={17} error={errors.phone}
+      />
 
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center justify-between">
-          <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
-            {t('message')}
-          </label>
-          <span className={`text-xs tabular-nums ${form.message.length >= 300 ? 'text-red-500' : 'text-forest/40'}`}>
-            {form.message.length}/300
-          </span>
-        </div>
-        <Textarea
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          placeholder={t('messagePlaceholder')}
-          rows={6}
-          maxLength={300}
-          className={`bg-white border-forest/20 focus-visible:ring-sage focus-visible:border-sage resize-none ${errors.message ? 'border-red-400' : ''}`}
-        />
-        {errors.message && <p className="text-red-500 text-xs">{errors.message}</p>}
-      </div>
+      <TextareaField
+        label={t('message')} name="message" value={form.message} onChange={handleChange}
+        placeholder={t('messagePlaceholder')} rows={6} maxLength={300} error={errors.message}
+      />
 
       {state === 'error' && (
         <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-4 py-3 border border-red-200">

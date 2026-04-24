@@ -99,6 +99,17 @@ The site is set up with:
 
 ---
 
+## Contact Form
+
+The contact form logic is split across three files for maintainability:
+
+| File | Purpose |
+|---|---|
+| `src/components/ContactForm.tsx` | State, submit handler, honeypot, layout (~110 lines) |
+| `src/components/FormField.tsx` | `<FormField>` and `<TextareaField>` UI primitives |
+| `src/lib/validation.ts` | `TEXT_FILTERS`, `isValidPhone`, `validateForm()`, shared types |
+| `src/hooks/useInquiryTypes.ts` | Hook returning inquiry-type dropdown options in current locale |
+
 ## Contact Form Security
 
 The contact form (`src/components/ContactForm.tsx`) uses a **honeypot** field to filter bots:
