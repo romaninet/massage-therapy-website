@@ -181,3 +181,15 @@ Grid gap between form and contact info: gap-8 → gap-16 (doubled on mobile, int
 	- Images table corrected: SITE.heroBgImage key fixed, all 4 per-service image filenames listed with their SERVICES[n].image.src config key
 	- SEO section updated to accurately describe all 4 JSON-LD schemas
 	
+# Summary of changes made in Place ID + Low-priority improvements session
+- Config:
+	BUSINESS.placeId, BUSINESS.googleMapsUrl (canonical Place ID URL), BUSINESS.mapsUrl (kept original pb= embed — Place ID embed requires a paid API key) added/updated in src/lib/config.ts
+
+- Testing:
+	Vitest installed; run with npm test. 19 tests in src/lib/validation.test.ts covering all validators and text filters.
+
+- Bundle analysis:
+	@next/bundle-analyzer wired into next.config.ts, gated on ANALYZE=true. Run with ANALYZE=true npm run build. Bundle is clean — no heavy unexpected client libraries.
+
+- React.memo — permanently skip for this codebase:
+	BotanicalDecor and ServiceIcon are only used by Server Components. React.memo is a no-op on server components. Don't suggest memoizing them.
