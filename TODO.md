@@ -10,18 +10,22 @@
 - update AMQ profile: add website link (https://www.shelestwellness.ca), confirm 819 phone number and current address match GBP exactly
   - AMQ member page: https://membres.rmqmasso.ca/en/find-member/details/M-24-4471
 
-## Backlinks & directories (do in order, all free unless noted)
-1. Jane App — create free practitioner profile at jane.app (high-authority Canadian health domain; no need to use it for booking unless you want to)
-2. GoRendezvous — create free pro profile at gorendezvous.com/pro/fr (Quebec-specific wellness platform, French-language, strong local SEO signal for Gatineau/Ottawa; no need to use it for booking unless you want to)
-3. PagesJaunes — create free listing at pagesjaunes.ca (high weight in Quebec)
-4. Yellow Pages Canada — create free listing at yellowpages.ca (English counterpart)
-5. Yelp Canada — claim or create listing at yelp.ca
-6. Canada411 — add business at canada411.ca (citation signal)
-7. Cylex Canada — add business at cylex.ca (citation signal)
-8. RateMDs — create free practitioner profile at ratemds.com (ranks well for name searches)
-9. Chambre de commerce de Gatineau — check membership/listing at ccgap.ca (local authority signal; may have membership fee)
-10. Setmore — create free profile at setmore.com (generic US scheduling tool, low local SEO value; only worth doing if you plan to actually use it for online booking)
-- NAP must match GBP exactly on every listing: Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca
+## Backlinks & directories
+
+Do free ones first. NAP must match GBP exactly on every listing:
+**Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca**
+
+| # | Platform | Cost | SEO Value | Notes |
+|---|----------|------|-----------|-------|
+| 1 | **Yellow Pages / PagesJaunes** (yellowpages.ca) | Free | High | PagesJaunes and Yellow Pages Canada are the same company (YP Canada) — one listing covers both. Free listing at solutions.yp.ca/free-online-listing |
+| 2 | **Yelp Canada** (yelp.ca) | Free | High | Free basic listing; paid advertising optional. High domain authority, trusted by Google |
+| 3 | **RateMDs** (ratemds.com) | Free | High | Free basic practitioner profile. Ranks well in Google name searches. Paid plan ($179/mo) not needed |
+| 4 | **Canada411** (canada411.ca) | Free | Medium | Free profile. Pure citation/NAP signal. Go to homepage → Advertisers → "Free Business Profile" |
+| 5 | **Cylex Canada** (cylex-canada.ca) | Free | Medium | Free listing. Citation signal only |
+| 6 | **GoRendezvous** (gorendezvous.com/pro/fr) | Free profile / $59/mo for software | High (Quebec) | Quebec-specific wellness platform, French-language, strong local signal for Gatineau/Ottawa. Creating a free public profile page is enough for the backlink — no need to pay for the booking software unless you want to use it |
+| 7 | **Setmore** (setmore.com) | Free plan available | Low | Free plan: up to 200 appts/month, 4 users. Low local SEO value as a backlink (generic US tool). Only worth creating if you plan to actually use it for online booking |
+| 8 | **Chambre de commerce de Gatineau** (ccgatineau.ca) | Paid membership (fee unknown) | Medium | Local authority signal. Check ccgatineau.ca for current membership pricing before committing |
+| 9 | **Jane App** (jane.app) | Paid (~$39–79+/mo) | High | High-authority Canadian health domain but no free tier — confirmed requires paid subscription. Only worth it if using for practice management/booking |
 
 ## Google Reviews (ongoing)
 - Once GBP is verified, get shareable review link from GBP dashboard
