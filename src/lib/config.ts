@@ -176,7 +176,7 @@ export const BUSINESS = {
     { days: { en: 'Thursday',  fr: 'Jeudi'    }, schemaDay: 'Th', open: '15:00', close: '20:00' },
     { days: { en: 'Friday',    fr: 'Vendredi' }, schemaDay: 'Fr', open: '15:00', close: '20:00' },
     { days: { en: 'Saturday',  fr: 'Samedi'   }, schemaDay: 'Sa', open: null,    close: null    },
-    { days: { en: 'Sunday',    fr: 'Dimanche' }, schemaDay: 'Su', open: null,    close: null    },
+    { days: { en: 'Sunday',    fr: 'Dimanche' }, schemaDay: 'Su', open: '10:00', close: '16:00' },
   ],
   geo: { latitude: 45.42998533558253, longitude: -75.72007407363735 },
 } as const;
