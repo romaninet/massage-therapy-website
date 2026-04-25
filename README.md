@@ -178,6 +178,19 @@ Make sure the following environment variables are set in Vercel project settings
 - `NEXT_PUBLIC_GA_ID` — Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`). When set, the GA4 tracking script is injected into every page via `src/app/[locale]/layout.tsx`. Omit or leave blank to disable tracking (useful for local development).
 
 
+## Backlinks & Directory Listings
+
+Listings that have been created and must be kept up to date (NAP, hours, website URL) whenever business details change.
+
+**NAP to keep consistent everywhere:**
+Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca
+
+| Platform | URL | Date Created | Login / Account | Notes |
+|----------|-----|--------------|-----------------|-------|
+| Yelp Canada | yelp.ca | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
+
+---
+
 ## List of services used
 
 - following emails (gmail + porkbun)
