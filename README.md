@@ -101,7 +101,7 @@ The site is set up with:
 
 **Google Analytics 4:** tracking is injected in `src/app/[locale]/layout.tsx` via `next/script` with `strategy="afterInteractive"`. Set `NEXT_PUBLIC_GA_ID` to your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) to enable it. Omitting the variable disables tracking entirely.
 
-**Google Business Profile:** created and linked. `BUSINESS.googleMapsUrl` in `config.ts` holds the Maps short link. It is included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed (`BUSINESS.mapsUrl`) is hardcoded to Olha's verified listing via the `?pb=` embed URL.
+**Google Business Profile:** created and linked. `BUSINESS.placeId` in `config.ts` holds the Google Place ID (`ChIJdWEcfCQFzkwRs-6HVpA9BB0`). `BUSINESS.googleMapsUrl` is the canonical Place ID URL (`https://www.google.com/maps/place/?q=place_id:…`) included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed uses `BUSINESS.mapsUrl` — the original `?pb=` embed URL tied to Olha's verified listing (Place ID-based embed requires a Maps API key, so the `pb=` URL is kept for the iframe).
 
 ---
 

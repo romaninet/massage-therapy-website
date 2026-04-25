@@ -22,9 +22,9 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 **Why:** Breadcrumbs appear directly in SERPs and improve crawl hierarchy. Particularly useful for the anchor-linked service sections.
 **Where:** New `breadcrumbJsonLd(locale, trail)` helper in [src/lib/jsonld.ts](src/lib/jsonld.ts). Apply on about, services, fees, contact, privacy-policy.
 
-### H3. Complete Google Business Profile linkage — [Easy]
-**Why:** TODO.md phase 5 item. Missing `gbpPlaceId` weakens the NAP (Name/Address/Phone) association between site and GBP, which is the single strongest local-pack ranking signal.
-**Where:** Add `gbpPlaceId` + `gbpUrl` fields to `BUSINESS` in [src/lib/config.ts](src/lib/config.ts). Append `gbpUrl` to the `sameAs` array in [src/lib/jsonld.ts](src/lib/jsonld.ts) for both `localBusinessJsonLd` and `personJsonLd`. Verify GBP listing links back to `https://www.shelestwellness.ca`.
+### ~~H3. Complete Google Business Profile linkage~~ — [Easy] ✅ DONE
+**Why:** TODO.md phase 5 item. Missing `placeId` weakens the NAP (Name/Address/Phone) association between site and GBP, which is the single strongest local-pack ranking signal.
+**Where:** `BUSINESS.placeId` (`ChIJdWEcfCQFzkwRs-6HVpA9BB0`) added to [src/lib/config.ts](src/lib/config.ts). `BUSINESS.googleMapsUrl` updated to canonical Place ID URL and is already in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in [src/lib/jsonld.ts](src/lib/jsonld.ts). Map embed updated to Place ID-based URL.
 
 ### H4. ~~Extract `generatePageMetadata()` helper~~ — [Medium] ✅ DONE
 **Why:** The `generateMetadata` block is duplicated near-verbatim across 7 pages (locale detection, title, description, canonical, alternates, OG, Twitter). A one-line bug fix today requires editing 7 files.
@@ -127,7 +127,7 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 
 ## Suggested Execution Order
 
-1. **Sprint 1 (SEO quick wins, ~1 evening):** H3, H8, M2, M7, M10, L2 — immediate search-visibility and compliance wins, near-zero refactor risk.
+1. **Sprint 1 (SEO quick wins, ~1 evening):** H1, H8, M2, M7, M10, L2 — immediate search-visibility and compliance wins, near-zero refactor risk. (H3 done; H1 FAQPage schema is the next biggest SEO win.)
 2. **Sprint 2 (duplication cleanup, ~1 evening):** H4, H5, M3, M4 — the refactors that make every future change cheaper.
 3. **Sprint 3 (FAQ/schema push):** H1, H2, M1, M5, L5 — biggest long-term SEO lift.
 4. **Sprint 4 (form hardening):** H6, H7, L8 — stabilize the most-used user-facing code path.
