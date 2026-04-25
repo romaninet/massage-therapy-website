@@ -1,11 +1,12 @@
 import type { ServiceKey } from '@/lib/config';
 
 const ICON_PATHS: Record<ServiceKey, React.ReactNode> = {
-  swedish: (
+  therapeutic: (
     <>
       <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="1.2" opacity="0.3" />
-      <path d="M16 24 Q20 16 24 14 Q28 16 32 24 Q28 32 24 34 Q20 32 16 24Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <circle cx="24" cy="24" r="4" stroke="currentColor" strokeWidth="1.2" fill="none" />
+      <path d="M24 10 L24 38" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10 24 L38 24" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="24" cy="24" r="7" stroke="currentColor" strokeWidth="1.2" fill="none" />
     </>
   ),
   deepTissue: (
@@ -24,12 +25,28 @@ const ICON_PATHS: Record<ServiceKey, React.ReactNode> = {
       <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.3" />
     </>
   ),
+  lymphatic: (
+    <>
+      <path d="M10 20 Q17 12 24 20 Q31 28 38 20" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M10 28 Q17 20 24 28 Q31 36 38 28" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.4" />
+      <circle cx="10" cy="24" r="2" fill="currentColor" opacity="0.2" />
+      <circle cx="38" cy="24" r="2" fill="currentColor" opacity="0.2" />
+    </>
+  ),
   children: (
     <>
       <circle cx="24" cy="16" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" />
       <path d="M16 28 Q16 40 24 40 Q32 40 32 28 Q32 22 24 22 Q16 22 16 28Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
       <path d="M16 30 Q12 28 11 32 Q10 36 14 37" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.6" />
       <path d="M32 30 Q36 28 37 32 Q38 36 34 37" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.6" />
+    </>
+  ),
+  couples: (
+    <>
+      <circle cx="18" cy="24" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <circle cx="30" cy="24" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M24 16 Q28 20 28 24 Q28 28 24 32 Q20 28 20 24 Q20 20 24 16Z" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.35" />
     </>
   ),
 };

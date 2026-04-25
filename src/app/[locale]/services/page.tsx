@@ -13,12 +13,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     locale,
     path: '/services',
     titles: {
-      en: 'Massage Services in Hull–Gatineau | Swedish, Deep Tissue & More | Near Ottawa',
-      fr: 'Services de massage à Hull–Gatineau | Suédois, profondeur et plus | Près d\'Ottawa',
+      en: 'Massage Services in Hull–Gatineau | Therapeutic, Deep Tissue, Lymphatic & More | Near Ottawa',
+      fr: 'Services de massage à Hull–Gatineau | Thérapeutique, profondeur, lymphatique et plus | Près d\'Ottawa',
     },
     descriptions: {
-      en: 'Massage therapy in Hull–Gatineau for back pain, tension headaches & sports recovery. Swedish, deep tissue & relaxation massage. Serving Ottawa & Outaouais.',
-      fr: 'Massothérapie à Hull–Gatineau pour maux de dos, céphalées et récupération sportive. Massage suédois, profond et relaxation. Service Ottawa et Outaouais.',
+      en: 'Massage therapy in Hull–Gatineau for back pain, tension headaches & sports recovery. Therapeutic, deep tissue, relaxation, lymphatic drainage & couples massage. Serving Ottawa & Outaouais.',
+      fr: 'Massothérapie à Hull–Gatineau pour maux de dos, céphalées et récupération sportive. Massage thérapeutique, profond, relaxation, drainage lymphatique et duo. Service Ottawa et Outaouais.',
     },
     ogImageAlt: {
       en: 'Massage therapy services in Gatineau, QC',
@@ -60,9 +60,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           index={index}
           locale={locale}
           lang={lang}
-          content={t.raw(`services.${service.key}`) as { longDescription: string; benefits: string[]; whoFor: string }}
+          content={t.raw(`services.${service.key}`) as { longDescription: string; whoFor: string }}
           labels={{
-            benefitsLabel: t('benefitsLabel'),
             whoForLabel: t('whoForLabel'),
             startingFrom: t('startingFrom'),
             bookSession: t('bookSession'),

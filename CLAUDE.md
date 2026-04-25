@@ -134,13 +134,13 @@ Grid gap between form and contact info: gap-8 → gap-16 (doubled on mobile, int
 # Summary of changes made in `Services Page & Contact Form Enhancements`
 - New: Dedicated Services Page (/en/services, /fr/services)
 	- Created src/app/[locale]/services/page.tsx — compact dark header (same style as About/Fees), 4 service sections with alternating image/text layout on desktop, full-width image above text on mobile
-	- Each section has anchor ID (#swedish, #deepTissue, #relaxation, #children) for deep-linking
+	- Each section has anchor ID (#deepTissue, #relaxation, #children) for deep-linking
 	- Per-service: extended description, benefits list, "who it's for" callout, starting price, "Book this session" → /contact?type=key, "See full pricing" → /fees#key
 	- Added to navigation (between About and Fees), sitemap (priority 0.9), JSON-LD (servicesPageJsonLd with Service schema + areaServed)
 	- localBusinessJsonLd on home/contact pages now includes hasOfferCatalog linking to all services
 
 - Config changes (src/lib/config.ts)
-	- Each service in SERVICES array now has an image field (src + bilingual alt) — user renamed files to service-swedish.jpg, service-deep-tissue.jpg, service-relaxation.jpg, service-children.jpg
+	- Each service in SERVICES array now has an image field (src + bilingual alt) — user renamed files to service-deep-tissue.jpg, service-relaxation.jpg, service-children.jpg
 	- NAV_LINKS — added { key: 'services', href: '/services' }
 
 - Home Page Hero

@@ -2,7 +2,6 @@
 
 ## Fix / polish
 - fix prices and massage types
-- remove word "swedish" where not needed
 - protect main branch
 - update business card with new data
 

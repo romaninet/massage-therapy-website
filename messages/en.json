@@ -42,47 +42,30 @@
     "seeFullPricing": "See full pricing",
     "bookSession": "Book this session",
     "whoForLabel": "Best for",
-    "benefitsLabel": "Benefits",
     "services": {
-      "swedish": {
-        "longDescription": "A full-body therapeutic massage using long, flowing strokes to warm up muscle tissue, improve circulation, and calm the nervous system. Ideal as both a stand-alone treatment and a foundation for deeper work. Each session is paced gently, allowing your body to release tension at its own rhythm.",
-        "benefits": [
-          "Improves blood and lymphatic circulation",
-          "Relieves muscle tension and general soreness",
-          "Reduces cortisol and stress hormones",
-          "Supports restful, restorative sleep"
-        ],
-        "whoFor": "Anyone new to massage, seeking stress relief, or looking for a gentle, nurturing treatment to decompress from daily life."
+      "therapeutic": {
+        "longDescription": "A result-driven treatment that draws on a range of manual therapy techniques — including myofascial release, trigger point therapy, and neuromuscular work — to address specific musculoskeletal conditions, postural imbalances, and recovery goals. Each session begins with an assessment of your current concerns and is structured around a clear therapeutic objective. Pressure and technique are continuously adapted throughout the session.",
+        "whoFor": "Anyone managing a specific condition such as chronic back pain, neck stiffness, sciatica, tendinitis, or postural dysfunction — as well as those recovering from injury or seeking a clinically-focused approach."
       },
       "deepTissue": {
         "longDescription": "A targeted, pressure-focused technique that works through superficial muscle layers to reach the underlying connective tissue and fascia. Exceptionally effective for chronic pain, postural issues, and sports recovery. Pressure is always adjusted to your comfort level and therapeutic goals.",
-        "benefits": [
-          "Breaks down adhesions and scar tissue",
-          "Alleviates chronic back, neck, and shoulder pain",
-          "Restores range of motion and joint mobility",
-          "Accelerates recovery after physical activity"
-        ],
         "whoFor": "Athletes, people with chronic pain or tension, those recovering from injury, or anyone who carries stress in specific muscle groups."
       },
       "relaxation": {
-        "longDescription": "A slow, intentional treatment designed to activate the parasympathetic nervous system, quiet mental chatter, and bring the whole body into a state of deep, unhurried calm. Lighter in pressure than a Swedish massage, with a focus on the quality of presence and the experience of stillness.",
-        "benefits": [
-          "Calms anxiety and nervous system overactivation",
-          "Lowers blood pressure and heart rate",
-          "Releases held tension through gentle, warming touch",
-          "Improves overall mood and emotional wellbeing"
-        ],
+        "longDescription": "A slow, intentional treatment designed to activate the parasympathetic nervous system, quiet mental chatter, and bring the whole body into a state of deep, unhurried calm. Lighter in pressure than therapeutic or deep tissue work, with a focus on the quality of presence and the experience of stillness.",
         "whoFor": "Anyone experiencing burnout, anxiety, insomnia, or simply in need of a genuine pause from the demands of daily life."
+      },
+      "lymphatic": {
+        "longDescription": "Manual Lymphatic Drainage uses light, precise, rhythmic strokes to activate the superficial lymphatic vessels and encourage the movement of lymph fluid throughout the body. Particularly effective post-surgery, post-injury, or when the body is under immune stress, this gentle technique works with the body's own drainage system rather than against it. Sessions are always calm, meditative in pace, and deeply restorative.",
+        "whoFor": "Those recovering from surgery or injury, people experiencing edema or chronic puffiness, individuals with compromised immune function, or anyone seeking a gentle, deeply restorative treatment."
       },
       "children": {
         "longDescription": "Gentle, playful, and always age-appropriate — children's sessions use carefully adapted techniques to suit young bodies, from newborns through to teens. Each session is designed to be comfortable, safe, and even enjoyable, supporting healthy development at every stage of growth.",
-        "benefits": [
-          "Eases colic, gas, and digestive discomfort in infants",
-          "Supports motor development and body awareness",
-          "Calms hyperactivity and improves focus",
-          "Encourages nurturing connection between parent and child"
-        ],
-        "whoFor": "Babies (as young as a few months old), toddlers, children, and teenagers. Sessions can be adapted for children with special needs or sensory sensitivities."
+        "whoFor": "Babies (as young as a few months old), toddlers, children, and teenagers."
+      },
+      "couples": {
+        "longDescription": "Two people, one shared experience. In a couples massage, both partners receive their own full treatment simultaneously — each session independently adapted to each person's needs, tension patterns, and comfort level. Whether it's a gift, a celebration, or simply a moment of shared care, it's one of the most meaningful ways to experience massage therapy together.",
+        "whoFor": "Couples, close friends, or family members who want to enjoy a massage experience together. Also a thoughtful gift for anniversaries, birthdays, Valentine's Day, or any special occasion."
       }
     }
   },

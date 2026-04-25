@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       fr: 'Tarifs et services de massothérapie | Olha Shelest, Gatineau',
     },
     descriptions: {
-      en: 'Massage therapy fees in Hull–Gatineau from $95 CAD. Swedish, deep tissue, relaxation & children\'s massage. Insurance receipts provided. Serving Ottawa & Outaouais.',
-      fr: 'Tarifs massothérapie à Hull–Gatineau à partir de 95 $ CAD. Massage suédois, profond, relaxation et enfants. Reçus pour assurance. Service Ottawa et Outaouais.',
+      en: 'Massage therapy fees in Hull–Gatineau from $50 CAD. Therapeutic, deep tissue, relaxation, lymphatic drainage, children\'s & couples massage. Insurance receipts provided.',
+      fr: 'Tarifs massothérapie à Hull–Gatineau à partir de 50 $ CAD. Massage thérapeutique, profond, relaxation, drainage lymphatique, enfants et duo. Reçus pour assurance.',
     },
     ogImageAlt: {
       en: 'Massage therapy fees and services in Gatineau, QC',

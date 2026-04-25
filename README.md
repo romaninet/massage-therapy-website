@@ -141,10 +141,12 @@ Images are stored in `public/images/`. Paths referenced via `SITE` constants in 
 |---|---|---|
 | `logo.png` | — | Header & about preview panel (inverted white via CSS) |
 | `image1.jpg` | `SITE.heroBgImage` | Home page hero section background |
-| `service-swedish.jpg` | `SERVICES[0].image.src` | Swedish Massage section image on the Services page |
+| `service-therapeutic.jpg` | `SERVICES[0].image.src` | Therapeutic Massage section image on the Services page |
+| `service-lymphatic.jpg` | `SERVICES[3].image.src` | Lymphatic Drainage section image on the Services page |
+| `service-couples.jpg` | `SERVICES[5].image.src` | Couples Massage section image on the Services page |
 | `service-deep-tissue.jpg` | `SERVICES[1].image.src` | Deep Tissue Massage section image on the Services page |
 | `service-relaxation.jpg` | `SERVICES[2].image.src` | Relaxation Massage section image on the Services page |
-| `service-children.jpg` | `SERVICES[3].image.src` | Children's Massage section image on the Services page |
+| `service-children.jpg` | `SERVICES[4].image.src` | Children's Massage section image on the Services page |
 | `image2b.jpg` | `SITE.aboutPreviewImage.src` | About preview section on the home page |
 | `media-opengraph.jpg` | `SITE.ogImage` | Open Graph image — home, fees, contact, services, privacy pages |
 | `olya-pic.jpg` | `SITE.portraitImage` | About page portrait + OG image for About page |
@@ -160,7 +162,7 @@ Recommended minimum sizes: OG image (`media-opengraph.jpg`) — **1200×630 px**
 |---|---|
 | `/` | Home — hero, services teaser, about preview, CTA |
 | `/about` | Olha's bio, values, AMQ credential |
-| `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type |
+| `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type (Therapeutic, Deep Tissue, Relaxation, Lymphatic Drainage, Children's, Couples) |
 | `/fees` | Pricing table grouped by service, with links to the services page |
 | `/contact` | Contact info, map, contact form |
 | `/privacy-policy` | Privacy policy (not in main nav) |

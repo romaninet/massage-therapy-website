@@ -13,11 +13,9 @@ interface ServiceCardProps {
   lang: Locale;
   content: {
     longDescription: string;
-    benefits: string[];
     whoFor: string;
   };
   labels: {
-    benefitsLabel: string;
     whoForLabel: string;
     startingFrom: string;
     bookSession: string;
@@ -46,22 +44,7 @@ export default function ServiceCard({ service, index, locale, lang, content, lab
               {service.title[lang]}
             </h2>
             <BotanicalDivider className="w-40 text-sage/40 mb-6" />
-            <p className="text-forest/75 text-lg leading-relaxed mb-7">{content.longDescription}</p>
-
-            {/* Benefits */}
-            <div className="mb-7">
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-sage mb-3">
-                {labels.benefitsLabel}
-              </p>
-              <ul className="space-y-2">
-                {content.benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-start gap-3 text-forest/65 text-sm leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0 mt-[7px]" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="text-forest/75 text-lg leading-relaxed mb-8">{content.longDescription}</p>
 
             {/* Who it's for */}
             <div className="mb-8 p-4 rounded-lg bg-forest/5 border-l-2 border-sage">
@@ -103,7 +86,7 @@ export default function ServiceCard({ service, index, locale, lang, content, lab
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center"
               priority={index === 0}
-              loading={index === 0 ? 'eager' : 'lazy'}
+              loading="eager"
             />
             <div className="absolute inset-0 bg-forest/10" />
             <div className="absolute inset-x-0 bottom-0 h-1 bg-sage" />

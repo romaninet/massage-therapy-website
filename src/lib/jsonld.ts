@@ -107,10 +107,12 @@ export function personJsonLd(locale: Locale) {
       },
     },
     knowsAbout: isFr
-      ? ['Massage suédois', 'Massage en profondeur', 'Massage de relaxation', 'Massage pour enfants',
-         'Récupération sportive', 'Gestion du stress', 'Guérison holistique', 'Thérapie des tissus mous']
-      : ['Swedish massage', 'Deep tissue massage', 'Relaxation massage', "Children's massage",
-         'Sports recovery', 'Stress management', 'Holistic healing', 'Soft tissue therapy'],
+      ? ['Massage thérapeutique', 'Massage en profondeur', 'Massage de relaxation', 'Drainage lymphatique',
+         'Massage pour enfants', 'Massage en duo', 'Récupération sportive', 'Gestion du stress',
+         'Guérison holistique', 'Thérapie des tissus mous']
+      : ['Therapeutic massage', 'Deep tissue massage', 'Relaxation massage', 'Lymphatic drainage',
+         "Children's massage", 'Couples massage', 'Sports recovery', 'Stress management',
+         'Holistic healing', 'Soft tissue therapy'],
     worksFor: {
       '@type': 'HealthAndBeautyBusiness',
       '@id': SITE.url,
