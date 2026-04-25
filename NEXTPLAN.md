@@ -92,33 +92,35 @@ Tasks are grouped by **priority** (High / Medium / Low) and tagged with **effort
 
 ## LOW IMPORTANCE
 
-### L1. `React.memo()` on `BotanicalDecor` + `ServiceIcon` — [Easy]
-**Why:** Each is rendered 4–8 times per page with static props. Memoization is essentially free and avoids re-render churn. Measurable only in scenarios with lots of client state, but cheap.
+### ~~L1. `React.memo()` on `BotanicalDecor` + `ServiceIcon`~~ — N/A
+**Why:** Both components are consumed exclusively by Server Components (no `'use client'` in any parent). React.memo is a no-op on server components — they never re-render in the browser. Skip permanently.
 
-### L2. Parametrize hardcoded URL in `personJsonLd` — [Easy]
-**Why:** [src/lib/jsonld.ts](src/lib/jsonld.ts) hardcodes `/about` — should use `absoluteUrl(locale, '/about')` to match other schemas.
+### ~~L2. Parametrize hardcoded URL in `personJsonLd`~~ — ✅ Already done
+**Why:** `personJsonLd` already uses `` `${SITE.url}/${locale}/about` `` — locale is included. No change needed.
 
 ### L3. Consider `<picture>` + `priority` audit on hero — [Easy]
 **Why:** Hero is the LCP element; verify `priority` is set and `sizes` covers all breakpoints. Probably already fine.
 
-### L4. Typed nav links + service keys with TS literal unions — [Easy]
-**Why:** `NAV_LINKS[].key` and `SERVICES[].key` are typed as `string`. Promoting to literal unions would catch typos in `/contact?type=swedish` linking code at compile time.
-**Where:** [src/lib/config.ts](src/lib/config.ts) — use `as const` + derive `ServiceKey = typeof SERVICES[number]['key']`.
+### ~~L4. Typed nav links + service keys with TS literal unions~~ — ✅ Already done
+**Why:** `ServiceKey` and `NavKey` are both exported literal union types derived from `as const` arrays — lines 108 and 118 of [src/lib/config.ts](src/lib/config.ts). Already in place.
 
-### L5. Add a Review / AggregateRating schema stub (disabled) — [Easy]
-**Why:** Pre-wiring the schema now (commented-out or gated on `BUSINESS.reviewCount > 0`) means the moment real reviews exist on GBP, flipping one flag exposes star ratings in SERPs.
+### ~~L5. Add a Review / AggregateRating schema stub (disabled)~~ — ✅ DONE
+**Why:** Pre-wiring the schema now (gated on `BUSINESS.reviewCount > 0`) means the moment real reviews exist on GBP, flipping one flag exposes star ratings in SERPs.
+**Done:** `reviewCount` and `ratingValue` added to `BUSINESS` in [src/lib/config.ts](src/lib/config.ts) (both `0` = disabled). `aggregateRating` block added to `businessEntity` in [src/lib/jsonld.ts](src/lib/jsonld.ts) — activates automatically when `reviewCount > 0`.
 
 ### L6. Explore static FAQ page `/faq` or `/en/faq` — [Medium]
 **Why:** If the FAQ body grows past 10 items, a dedicated page outranks embedded FAQ snippets. Hold off until content exists.
 
-### L7. Preload key fonts explicitly — [Easy]
-**Why:** Next.js font loader handles most of this, but a `<link rel="preload">` for the display font (Playfair) can shave a small chunk off CLS on first paint.
+### ~~L7. Preload key fonts explicitly~~ — ✅ Already handled
+**Why:** `next/font/google` self-hosts all fonts at build time and automatically injects `<link rel="preload">` — no manual preload needed.
 
-### L8. Add a very light test harness for validation logic — [Medium]
-**Why:** No tests exist. Highest-value first test is `src/lib/validation.ts` (after H6 refactor) — email validation, honeypot detection, required-field matrix. Vitest is the lowest-friction choice with Next.js 15.
+### ~~L8. Add a very light test harness for validation logic~~ — ✅ DONE
+**Why:** No tests existed. Highest-value first test is `src/lib/validation.ts` — email validation, phone validation, required-field matrix, text filters.
+**Done:** Installed `vitest`, added `vitest.config.ts`, added `npm test` script. 19 tests in [src/lib/validation.test.ts](src/lib/validation.test.ts) covering all validators and filters — all pass.
 
-### L9. Consider `@next/bundle-analyzer` run — [Easy]
+### ~~L9. Consider `@next/bundle-analyzer` run~~ — ✅ DONE
 **Why:** Quick sanity check that no heavy client libraries snuck in; useful before next major deploy.
+**Done:** `@next/bundle-analyzer` installed, wired into [next.config.ts](next.config.ts) gated on `ANALYZE=true`. Run with `ANALYZE=true npm run build`. Analysis confirmed: largest client chunk is ~224 KB (React core — expected). No unexpected heavy libraries. Bundle is clean.
 
 ### L10. Privacy policy last-updated date wired from config — [Easy]
 **Why:** `SITE.lastUpdated` exists but the privacy page likely hardcodes "April 2026" in two translation files. If the date is centralised in config the translations interpolate it.

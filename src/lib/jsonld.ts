@@ -58,6 +58,15 @@ const businessEntity = {
   },
   location: locationPlace,
   sameAs: [BUSINESS.amqUrl, BUSINESS.googleMapsUrl],
+  ...(BUSINESS.reviewCount > 0 && {
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: BUSINESS.ratingValue,
+      reviewCount: BUSINESS.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
+  }),
 };
 
 export function localBusinessJsonLd(locale: Locale) {

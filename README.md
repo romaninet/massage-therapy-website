@@ -9,7 +9,9 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 
 ```bash
 npm install
-npm run dev
+npm run dev        # local dev server
+npm test           # run validation unit tests (Vitest)
+ANALYZE=true npm run build  # bundle analysis (opens HTML report in browser)
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
@@ -101,7 +103,9 @@ The site is set up with:
 
 **Google Analytics 4:** tracking is injected in `src/app/[locale]/layout.tsx` via `next/script` with `strategy="afterInteractive"`. Set `NEXT_PUBLIC_GA_ID` to your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) to enable it. Omitting the variable disables tracking entirely.
 
-**Google Business Profile:** created and linked. `BUSINESS.placeId` in `config.ts` holds the Google Place ID (`ChIJdWEcfCQFzkwRs-6HVpA9BB0`). `BUSINESS.googleMapsUrl` is the canonical Place ID URL (`https://www.google.com/maps/place/?q=place_id:…`) included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed uses `BUSINESS.mapsUrl` — the original `?pb=` embed URL tied to Olha's verified listing (Place ID-based embed requires a Maps API key, so the `pb=` URL is kept for the iframe).
+**Google Business Profile:** created and linked. `BUSINESS.placeId` in `config.ts` holds the Google Place ID (`ChIJdWEcfCQFzkwRs-6HVpA9BB0`). `BUSINESS.googleMapsUrl` is the canonical Place ID URL included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed uses `BUSINESS.mapsUrl` — the original `?pb=` embed URL (Place ID-based embed requires a paid Maps API key, so the `pb=` URL is kept for the iframe).
+
+**AggregateRating (star ratings in search):** pre-wired in `localBusinessJsonLd` in `src/lib/jsonld.ts`, gated on `BUSINESS.reviewCount > 0`. When real reviews exist, update `reviewCount` and `ratingValue` in `config.ts` to activate star rating snippets in SERPs.
 
 ---
 
