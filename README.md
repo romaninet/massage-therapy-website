@@ -187,6 +187,7 @@ Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · ht
 
 | Platform | URL | Date Created | Login / Account | Notes |
 |----------|-----|--------------|-----------------|-------|
+| AMQ (Association des massothérapeutes du Québec) | [membres.rmqmasso.ca/en/find-member/details/M-24-4471](https://membres.rmqmasso.ca/en/find-member/details/M-24-4471) | — | Member ID: M-24-4471 | Highest-value backlink. Add website URL if not already set. Update if address or phone changes |
 | Yelp Canada | yelp.ca | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
 
 ---
