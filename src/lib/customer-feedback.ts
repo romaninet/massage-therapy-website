@@ -56,8 +56,8 @@ export const CUSTOMER_FEEDBACK: CustomerFeedback[] = [
     author: 'Kodi',
     rating: 5,
     quote: {
-      en: "I injured my back a year ago. I tried several massage therapists, but the only one who really helped me was Olha. I'm so glad I found her.",
-      fr: "Je me suis blessé au dos il y a un an. J'ai essayé plusieurs massothérapeutes, mais la seule qui m'a vraiment aidée, c'est Olha. Je suis tellement contente de l'avoir trouvée.",
+      en: "I injured my back a year ago. I consulted several massage therapists, but the only one who truly relieved my pain was Olha. I'm so glad I found her. Her deep tissue massage is excellent",
+      fr: "Je me suis blessée au dos il y a un an. J'ai consulté plusieurs massothérapeutes, mais la seule qui m'ait vraiment soulagée, c'est Olha. Je suis tellement contente de l'avoir trouvée. Son massage en profondeur est excellent",
     },
   },
   {
