@@ -214,5 +214,12 @@
     "title": "Ready to Feel Your Best?",
     "subtitle": "Take the first step toward lasting wellness. Book a session with Olha today.",
     "button": "Book Your Session"
+  },
+  "testimonials": {
+    "preTitle": "Client Stories",
+    "title": "What Our Clients Say",
+    "ariaLabel": "Customer testimonials",
+    "arrowPrev": "Previous reviews",
+    "arrowNext": "Next reviews"
   }
 }

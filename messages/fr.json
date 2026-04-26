@@ -214,5 +214,12 @@
     "title": "Prêt(e) à vous sentir au mieux?",
     "subtitle": "Faites le premier pas vers un bien-être durable. Réservez une séance avec Olha aujourd'hui.",
     "button": "Réserver votre séance"
+  },
+  "testimonials": {
+    "preTitle": "Témoignages",
+    "title": "Ce que disent nos clients",
+    "ariaLabel": "Témoignages clients",
+    "arrowPrev": "Avis précédents",
+    "arrowNext": "Avis suivants"
   }
 }

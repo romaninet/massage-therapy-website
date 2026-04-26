@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
+import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import PageHeaderSection from '@/components/sections/PageHeaderSection';
 import { BUSINESS, SITE } from '@/lib/config';
 import { generatePageMetadata } from '@/lib/metadata';
@@ -135,6 +136,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      <TestimonialsSection />
       <CTASection />
     </>
   );

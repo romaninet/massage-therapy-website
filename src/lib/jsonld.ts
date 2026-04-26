@@ -1,4 +1,5 @@
 import { BUSINESS, SERVICES, SITE } from './config';
+import { CUSTOMER_FEEDBACK } from './customer-feedback';
 
 export type Locale = 'en' | 'fr';
 
@@ -65,6 +66,18 @@ export function localBusinessJsonLd(locale: Locale) {
     '@context': 'https://schema.org',
     ...businessEntity,
     url: `${SITE.url}/${locale}`,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: CUSTOMER_FEEDBACK.reduce((sum, r) => sum + r.rating, 0) / CUSTOMER_FEEDBACK.length,
+      bestRating: 5,
+      reviewCount: CUSTOMER_FEEDBACK.length,
+    },
+    review: CUSTOMER_FEEDBACK.map((r) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: r.author },
+      reviewBody: r.quote[locale],
+      reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
+    })),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: locale === 'fr' ? 'Services de massothérapie' : 'Massage Therapy Services',

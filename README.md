@@ -92,7 +92,7 @@ The site is set up with:
 
 - **Per-page metadata** — title, description, Open Graph, Twitter card on every page
 - **JSON-LD structured data:**
-  - `HealthAndBeautyBusiness` (with `hasOfferCatalog` linking to all services) — home & contact pages
+  - `HealthAndBeautyBusiness` (with `hasOfferCatalog`, `aggregateRating`, and `review[]` from client testimonials) — home & contact pages
   - `Person` (with `hasCredential`, `knowsAbout`, `sameAs`) — About page
   - `ItemList` with `Service` schema (per-service with pricing and area served) — Services page
   - `ItemList` with `Offer` schema (per duration tier with pricing) — Fees page
@@ -154,12 +154,28 @@ Recommended minimum sizes: OG image (`media-opengraph.jpg`) — **1200×630 px**
 
 ---
 
+## Customer Testimonials
+
+Client reviews are managed in one dedicated file:
+
+```
+src/lib/customer-feedback.ts
+```
+
+Each entry has `id`, `author` (first name), `rating` (always `5` — used in JSON-LD only, not displayed visually), and `quote` with `en`/`fr` strings. To add, edit, or remove a review, only this file needs to change.
+
+The `TestimonialsSection` component (`src/components/sections/TestimonialsSection.tsx`) renders all reviews in the server HTML at all times (so search crawlers index every review), showing 2 side by side on desktop and 1 on mobile. Left/right arrows let visitors navigate manually; the starting pair is randomised client-side after hydration.
+
+The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes all reviews as `Review` structured data with an `AggregateRating` — this appears on the home and contact pages and can unlock star ratings in Google Search results.
+
+---
+
 ## Pages
 
 | Route | Description |
 |---|---|
-| `/` | Home — hero, services teaser, about preview, CTA |
-| `/about` | Olha's bio, values, AMQ credential |
+| `/` | Home — hero, services teaser, about preview, testimonials, CTA |
+| `/about` | Olha's bio, values, AMQ credential, testimonials |
 | `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type (Therapeutic, Deep Tissue, Relaxation, Lymphatic Drainage, Children's, Couples) |
 | `/fees` | Pricing table grouped by service, with links to the services page |
 | `/contact` | Contact info, map, contact form |
