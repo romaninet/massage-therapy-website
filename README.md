@@ -207,6 +207,7 @@ Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · ht
 | Yelp Canada | yelp.ca | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
 | RateMDs | ratemds.com | 2026-04-25 | — | Free basic profile. Ranks well in Google name searches |
 | Cylex Canada | cylex.ca | 2026-04-25 | — | Free business directory listing. Update if address, phone, or hours change |
+| Setmore | [shelestwellness.setmore.com](https://shelestwellness.setmore.com/) | 2026-04-26 | — | Booking page / directory listing. Update if address, phone, hours, or services change |
 
 ---
 
