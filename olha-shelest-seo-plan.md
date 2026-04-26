@@ -33,7 +33,7 @@ Google Workspace (~$8–10 USD/month) gives you a `@shelestwellness.ca` email ad
 
 ---
 
-## Phase 0 — Preparation (Same day, do first)
+## Phase 0 — Preparation ✅ Complete
 
 **Estimated time: ~25 minutes**
 
@@ -55,7 +55,7 @@ Google Workspace (~$8–10 USD/month) gives you a `@shelestwellness.ca` email ad
 
 ---
 
-## Phase 1 — Purchase Domain on Porkbun
+## Phase 1 — Purchase Domain on Porkbun ✅ Complete
 
 **Estimated time: ~20 minutes**
 
@@ -77,7 +77,7 @@ Google Workspace (~$8–10 USD/month) gives you a `@shelestwellness.ca` email ad
 
 ---
 
-## Phase 2 — Connect Domain to Vercel
+## Phase 2 — Connect Domain to Vercel ✅ Complete
 
 **Estimated time: ~20 minutes + up to 48 hours DNS propagation**
 
@@ -113,7 +113,7 @@ This is a two-sided process: configure Vercel first, then update DNS records on 
 
 ---
 
-## Phase 3 — Technical SEO on the Website
+## Phase 3 — Technical SEO on the Website ✅ Complete
 
 **Estimated time: 2–4 hours**
 
@@ -261,7 +261,7 @@ export const metadata = {
 
 ---
 
-## Phase 4 — Google Search Console
+## Phase 4 — Google Search Console ✅ Complete
 
 **Estimated time: ~30 minutes**
 
@@ -322,7 +322,7 @@ Submitting the sitemap is passive. URL Inspection actively asks Google to crawl 
 
 ---
 
-## Phase 5 — Google Business Profile
+## Phase 5 — Google Business Profile ✅ Complete
 
 **Estimated time: ~30 minutes setup + 5–14 days for postcard verification**
 
@@ -385,7 +385,7 @@ Once the GBP profile is verified, Google assigns it a **Place ID** — a unique 
 
 ---
 
-## Phase 6 — NAP Consistency Audit
+## Phase 6 — NAP Consistency Audit ✅ Complete
 
 **Estimated time: ~30 minutes**
 
@@ -447,19 +447,20 @@ On the day of the address change, in this order:
 
 ## Summary: Order of Operations
 
-| Step | Action | Time |
-|---|---|---|
-| 0.1 | Get 819 Fongo number | 15 min |
-| 0.2 | Create shelestwellness@gmail.com | 10 min |
-| 1.1 | Buy shelestwellness.ca on Porkbun + enable auto-renew | 15 min |
-| 1.2 | Set up email forwarding (info@shelestwellness.ca → Gmail) | 5 min |
-| 2.1–2.3 | Add domain in Vercel + configure DNS on Porkbun | 20 min |
-| 2.4 | Wait for DNS propagation + verify HTTPS | up to 48h |
-| 3.1–3.7 | Technical SEO on website (robots, sitemap, hreflang, schema, OG, meta) | 2–4 hours |
-| 4.1–4.4 | Google Search Console: verify + submit sitemap + request indexing | 30 min |
-| 5.1–5.4 | Google Business Profile: create + fill + verify | 30 min + 5–14 days |
-| 6 | NAP audit: AMQ listing + website footer consistency check | 30 min |
-| 7 | First review requests from clients | Ongoing |
+| Step | Action | Time | Status |
+|---|---|---|---|
+| 0.1 | Get 819 Fongo number | 15 min | ✅ Done |
+| 0.2 | Create shelestwellness@gmail.com | 10 min | ✅ Done |
+| 1.1 | Buy shelestwellness.ca on Porkbun + enable auto-renew | 15 min | ✅ Done |
+| 1.2 | Set up email forwarding (massage@shelestwellness.ca → Gmail) | 5 min | ✅ Done |
+| 2.1–2.3 | Add domain in Vercel + configure DNS on Porkbun | 20 min | ✅ Done |
+| 2.4 | Wait for DNS propagation + verify HTTPS | up to 48h | ✅ Done |
+| 3.1–3.7 | Technical SEO on website (robots, sitemap, hreflang, schema, OG, meta) | 2–4 hours | ✅ Done |
+| 4.1–4.4 | Google Search Console: verify + submit sitemap + request indexing | 30 min | ✅ Done |
+| 5.1–5.4 | Google Business Profile: create + fill + verify | 30 min + 5–14 days | ✅ Done |
+| 5.5 | Add Place ID to website config + JSON-LD sameAs | 5 min | ✅ Done |
+| 6 | NAP audit: AMQ listing + website footer consistency check | 30 min | ✅ Done |
+| 7 | First review requests from clients | Ongoing | ⬜ Ongoing |
 
 ---
 
@@ -490,22 +491,19 @@ Authority backlinks — links from relevant, trusted websites that Google actual
 For a solo massage therapist in Gatineau, your realistic goal is: 4–6 high-quality authority backlinks + 10–15 consistent citations. That's enough to dominate local results. You don't need hundreds of links.
 
 Tier 1 — Highest priority (do these first)
-AMQ member directory
-You already have this. It's your single most valuable backlink. Make sure:
+✅ AMQ member directory
+You already have this. It's your single most valuable backlink. NAP verified: website URL, 819 number, and address confirmed matching GBP.
 
 Your AMQ listing links directly to https://shelestwellness.ca
 The name, address, and phone on your AMQ profile match GBP exactly
 Your membership number is visible on your website (builds trust signal)
 
-Jane App
-Jane is the dominant practice management and booking platform for Canadian RMTs and health practitioners. It has a public practitioner directory that Google indexes well. Even if you don't use Jane for booking, creating a profile there is worth doing.
+Jane App ⚠️ Requires paid subscription (~$39–79+/mo)
+Jane is the dominant practice management and booking platform for Canadian RMTs and health practitioners. It has a public practitioner directory that Google indexes well. However, a free public profile is no longer available — a paid subscription is required to be listed.
 
-Go to jane.app → create a practitioner profile
-Free public profile is available
-This is a high-authority Canadian health domain — the backlink has real value
-Many clients in Canada specifically search Jane for practitioners
+Only worth it if using Jane for practice management/booking — the backlink alone does not justify the monthly cost.
 
-PagesJaunes / Yellow Pages Canada
+⬜ PagesJaunes / Yellow Pages Canada
 For Quebec in particular, PagesJaunes (the French version of Yellow Pages) carries significant weight. Google treats it as an authoritative local source in the Quebec market.
 
 pagesjaunes.ca — create a free business listing
@@ -514,35 +512,37 @@ NAP must match GBP exactly
 
 
 Tier 2 — Worth doing, lower effort
-Yelp Canada
+✅ Yelp Canada
 Yelp has genuine authority and ranks well in Google search results for service queries like "massage Gatineau." Even if it doesn't send much direct traffic initially, it appears in search results alongside your website and GBP — which increases the total footprint of visible results for searches about you.
 
-yelp.ca → claim or create a business listing
-Free basic listing
+yelp.ca — listing created 2026-04-25
 
-Canada411 / 411.ca
+⬜ Canada411 / 411.ca
 Pure citation directory — low effort, consistent NAP signal, indexed by Google.
 
 canada411.ca → add your business
 
-Cylex Canada
+✅ Cylex Canada
 Another indexed Canadian business directory. Low authority individually but adds to citation consistency.
 
-cylex.ca
+cylex.ca — listing created 2026-04-25
+
+⬜ GoRendezvous (gorendezvous.com)
+Quebec-specific wellness platform, French-language, strong local signal for Gatineau/Ottawa. Creating a free public profile page is enough for the backlink.
 
 Chambre de commerce de Gatineau
 This one is different from the others — it's a local business association, not a generic directory. A link from the Gatineau Chamber of Commerce is a genuine local authority signal.
 
-Check membership costs at ccgap.ca — there may be a fee
+Check membership costs at ccgatineau.ca — there may be a fee
 If cost is a concern, skip for now and revisit when the practice is established
 If they have a free member listing or business finder, prioritize that
 
 
 Tier 3 — Worthwhile but requires effort or time
-RateMDs
+✅ RateMDs
 Canadian health practitioner review site. Google frequently surfaces RateMDs profiles in search results for practitioner name searches. Worth creating a profile so that when someone searches "Olha Shelest Gatineau," RateMDs appears and shows positive reviews — reinforcing trust.
 
-ratemds.com → create a free practitioner profile
+ratemds.com — profile created 2026-04-25
 
 Wellness/health local blogs or publications
 This requires active outreach but produces the highest-quality backlinks. The approach:
@@ -563,6 +563,20 @@ Reciprocal link schemes — "I'll link to you if you link to me" between unrelat
 Buying links — any service offering guaranteed links for money is either selling low-quality spam or links that violate Google's guidelines. Either outcome is bad.
 
 Practical order of operations
-PriorityActionCostEffort1Verify AMQ listing links to your site with correct NAPFree10 min2Create Jane App practitioner profileFree20 min3Create PagesJaunes + YellowPages listingsFree20 min4Create Yelp Canada listingFree15 min5Create Canada411 + Cylex citationsFree15 min6Create RateMDs profileFree15 min7Research Chambre de commerce de Gatineau membershipLow cost30 min8Outreach to local wellness bloggers for guest postFreeOngoing9Pitch Le Droit for local business mentionFreeOngoing
-Total for steps 1–6: about 1.5 hours and $0. Do these before pursuing anything else.
+
+| Priority | Action | Cost | Effort | Status |
+|---|---|---|---|---|
+| 1 | Verify AMQ listing links to your site with correct NAP | Free | 10 min | ✅ Done |
+| 2 | ~~Create Jane App practitioner profile~~ *(now requires paid plan — skip)* | — | — | ⏭️ Skipped |
+| 3 | Create PagesJaunes + YellowPages listings | Free | 20 min | ⬜ Todo |
+| 4 | Create Yelp Canada listing | Free | 15 min | ✅ Done |
+| 5 | Create Canada411 citation | Free | 15 min | ⬜ Todo |
+| 5 | Create Cylex citation | Free | 15 min | ✅ Done |
+| 6 | Create RateMDs profile | Free | 15 min | ✅ Done |
+| 7 | Create GoRendezvous profile (Quebec wellness platform) | Free | 20 min | ⬜ Todo |
+| 8 | Research Chambre de commerce de Gatineau membership | Low cost | 30 min | ⬜ Todo |
+| 9 | Outreach to local wellness bloggers for guest post | Free | Ongoing | ⬜ Todo |
+| 10 | Pitch Le Droit for local business mention | Free | Ongoing | ⬜ Todo |
+
+Total for completed free steps: AMQ ✅, Yelp ✅, Cylex ✅, RateMDs ✅ — still outstanding: PagesJaunes/YellowPages, Canada411, GoRendezvous.
 One thing to watch: every time you create one of these listings, record the login credentials and the exact NAP format you used. When the address changes in the future, you'll need to update every single one of them on the same day, and you'll need to remember where they all are.

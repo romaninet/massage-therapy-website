@@ -105,8 +105,6 @@ The site is set up with:
 
 **Google Business Profile:** created and linked. `BUSINESS.placeId` in `config.ts` holds the Google Place ID (`ChIJdWEcfCQFzkwRs-6HVpA9BB0`). `BUSINESS.googleMapsUrl` is the canonical Place ID URL included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed uses `BUSINESS.mapsUrl` — the original `?pb=` embed URL (Place ID-based embed requires a paid Maps API key, so the `pb=` URL is kept for the iframe).
 
-**AggregateRating (star ratings in search):** pre-wired in `localBusinessJsonLd` in `src/lib/jsonld.ts`, gated on `BUSINESS.reviewCount > 0`. When real reviews exist, update `reviewCount` and `ratingValue` in `config.ts` to activate star rating snippets in SERPs.
-
 ---
 
 ## Contact Form
