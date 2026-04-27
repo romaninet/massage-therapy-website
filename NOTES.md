@@ -49,7 +49,7 @@ Here are some details about the website:
  - Supports two languages (mandatory): English and French. 
  - Useing the following technologies: Next.js, Tailwind CSS, and shadcn/ui
  - All personal or sherable data across website and languages should avoid duplications and kept in config.ts
- - Initially it used the following websites for design inspiration: https://www.promassotherapie_com/ and https://alignyourbody_com/home and natalimosh_com
+ - Initially it used the following websites for design inspiration: https://www.promassotherapie_com/ and https://alignyourbody_com/home and natalimosh_com and https://www.ommassage_net
  - contact form is sent using resend.com
  - deployed to Vercel
  - using a dedicated logo

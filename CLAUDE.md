@@ -45,8 +45,8 @@ Here are some details about Olha Shelest and her self-employment business:
 	- If needed for reference, review session summary of changes we made in `session-with-phone-styles-adjustments` below
  - Use the following websites for design inspiration:
 	- https://www.natalimosh.com/
+	- https://www.ommassage.net/en/
 	- https://www.nateherk.com/
-	- 
 
 ## Pages
 
