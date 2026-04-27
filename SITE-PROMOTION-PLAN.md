@@ -22,9 +22,9 @@
 - `massage Hull`
 - `massage Aylmer`
 - `drainage lymphatique Gatineau`
-- `massage femme enceinte Gatineau` / `prenatal massage Gatineau`
-- `massage tissus profonds Gatineau` / `deep tissue massage Gatineau`
-- `massage enfant Gatineau`
+- `massage en profondeur Gatineau` / `deep tissue massage Gatineau`
+- `massage en duo Gatineau` / `couples massage Gatineau`
+- `massage enfant Gatineau` / `children's massage Gatineau`
 - `massothérapie Outaouais`
 
 ### Stretch keywords (Ottawa-side)
@@ -119,7 +119,8 @@ The GBP is verified but is probably running at ~40% of its potential. Spend one 
 
 **Categories**
 - Primary: `Massage therapist`
-- Secondary (add all that apply): `Massage spa`, `Reflexologist`, `Sports massage therapist`, `Aromatherapy service`, `Wellness center`, `Pregnancy care center` (if doing prenatal)
+- Secondary (add only what matches services in config.ts): `Sports massage therapist` (deep tissue is offered; closest GBP match), `Lymphatic drainage` (direct service match)
+- Do NOT add: `Massage spa`, `Reflexologist`, `Aromatherapy service`, `Wellness center`, `Pregnancy care center` — none of these match the actual services offered
 
 **Services list** (mirror the website's `SERVICES` config exactly)
 - For each service: name, price (CAD), duration, **200-character description in both languages**. Reviews mentioning these service names will index against the listing.
@@ -169,7 +170,7 @@ This is **the single highest-ROI activity for local pack ranking.** Reviews are 
 - Recency (a 5-star review from last week is worth more than one from 18 months ago)
 - Rating (4.7+ is the sweet spot — 5.0 with few reviews looks suspicious to Google)
 - Response rate (reply to 100% of them)
-- Keywords in the text ("deep tissue massage", "Gatineau", "prenatal" etc.)
+- Keywords in the text ("deep tissue massage", "massage en profondeur", "Gatineau", "drainage lymphatique", "massage en duo" etc.)
 
 **Setup steps:**
 
@@ -239,12 +240,12 @@ Google rewards sites that demonstrate **expertise (E-E-A-T)** with depth of cont
 | 2 | Massage thérapeutique vs massage de détente | Therapeutic vs relaxation massage — which to choose | massage thérapeutique Gatineau, différence massage |
 | 3 | Reçus AMQ : votre massage couvert par les assurances | AMQ receipts: getting your massage covered by insurance | reçu massage assurance, AMQ Gatineau |
 | 4 | Drainage lymphatique : à quoi s'attendre | Lymphatic drainage: what to expect | drainage lymphatique Gatineau |
-| 5 | Massage pour femmes enceintes à Gatineau | Prenatal massage in Gatineau | massage femme enceinte Gatineau, prenatal massage |
-| 6 | Massage sportif pour coureurs (Parc de la Gatineau) | Sports massage for runners (Gatineau Park trails) | massage sportif Gatineau, runners massage |
-| 7 | Massage des tissus profonds : indications | Deep tissue massage: when it's right for you | deep tissue Gatineau, tissus profonds |
+| 5 | Massage pour femmes enceintes à Gatineau | Prenatal massage in Gatineau | massage femme enceinte Gatineau, prenatal massage Gatineau |
+| 6 | Massage en profondeur pour la récupération sportive (Parc de la Gatineau) | Deep tissue massage for runners and athletes (Gatineau Park) | massage en profondeur Gatineau, deep tissue Gatineau, récupération sportive |
+| 7 | Massage en profondeur : à qui s'adresse-t-il ? | Deep tissue massage: when it's right for you | deep tissue Gatineau, massage en profondeur Gatineau |
 | 8 | Préparer sa première séance | Preparing for your first session | first massage what to expect |
 | 9 | Massage pour enfants : guide pour parents | Massage for children: a parent's guide | massage enfant Gatineau |
-| 10 | Massage en couple : pourquoi le faire ensemble | Couples massage: why share the experience | couples massage Gatineau |
+| 10 | Massage en duo : pourquoi le vivre ensemble | Couples massage: why share the experience | massage en duo Gatineau, couples massage Gatineau |
 | 11 | Stress, sommeil et massage : la science | Stress, sleep, and massage: the science | bienfaits massage stress |
 | 12 | Massage à Gatineau pour les employés fédéraux d'Ottawa | Massage in Gatineau for Ottawa federal workers (cross-river) | massage Ottawa Gatineau, downtown Ottawa massage |
 
@@ -369,9 +370,9 @@ These are the rare home-run backlinks. **Realistic target: 1–2 in year 1.**
 Every reply is more text Google indexes against your listing. **Use it deliberately.**
 
 Bad reply: "Thank you so much!"
-Good reply: "Thank you Marie — so glad the prenatal massage helped with your lower back pain. See you at your next session in Gatineau!"
+Good reply: "Thank you Marie — so glad the therapeutic massage helped with your lower back pain. See you at your next session in Gatineau!"
 
-The good reply quietly indexes the listing for "prenatal massage Gatineau", "lower back pain", and reinforces the location.
+The good reply quietly indexes the listing for "therapeutic massage Gatineau", "lower back pain", and reinforces the location.
 
 ### Review keyword targets
 Try to encourage (organically — never script) reviews that mention:
@@ -464,7 +465,7 @@ These are technical changes that need code work. Each can be a separate task/PR 
 | **4** | 20–25 reviews. 8 articles. **Top 10** for "massage Gatineau" and "massothérapie Gatineau". First specialty queries (drainage lymphatique, massage femme enceinte) starting to rank. |
 | **5–6** | 30+ reviews. 12 articles. **Top 5** for "massage Gatineau" / "massothérapie Gatineau" — primary goal achieved. Top 10 for English equivalents. First partnership backlinks live. |
 | **7–9** | 40+ reviews. Defending top 5. Ranking for "massage Hull", "massage Aylmer". Some Ottawa-side queries showing up via cross-river content. First editorial pitch (Le Droit etc.) |
-| **10–12** | 50+ reviews. Stable top 3 for primary queries. Specialty rankings (lymphatic drainage Gatineau, prenatal massage Outaouais). Potentially top 10 for "massage Ottawa" cross-river queries. |
+| **10–12** | 50+ reviews. Stable top 3 for primary queries. Specialty rankings (drainage lymphatique Gatineau, massage en profondeur Outaouais, massage en duo Gatineau). Potentially top 10 for "massage Ottawa" cross-river queries. |
 
 **Caveats:**
 - Reviews are the swing factor. If you hit 30+ reviews by month 4, top 5 happens earlier. If you stall at 10, it pushes everything 2–3 months later.
