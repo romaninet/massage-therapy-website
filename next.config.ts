@@ -6,6 +6,16 @@ const withBundleAnalyzer = createBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const nextConfig = {};
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/reviews',
+        destination: 'https://g.page/r/CbPuh1aQPQQdEAI/review',
+        permanent: true,
+      },
+    ];
+  },
+};
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));
