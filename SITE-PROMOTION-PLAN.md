@@ -410,7 +410,7 @@ These are technical changes that need code work. Each can be a separate task/PR 
 | 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium | ⬜ Todo |
 | 5 | Add local landing pages: `/massage-hull`, `/massage-ottawa`, `/massage-aylmer`, `/massage-outaouais` | — | High (location queries) | ✅ Done |
 | 6 | Verify `aggregateRating` and review markup in Search Console "Enhancements" panel | — | High (star ratings) | ✅ Done — markup valid; Google may withhold star display for self-published testimonials (no penalty) |
-| 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium | ⬜ Todo |
+| 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium | ✅ Done |
 ---
 
 ## 10. Tracking & Metrics
