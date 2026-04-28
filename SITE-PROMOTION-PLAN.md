@@ -418,7 +418,7 @@ These are technical changes that need code work. Each can be a separate task/PR 
 | 2 | Add FAQPage JSON-LD to home + services pages | — | High (PAA snippets) | ✅ Done |
 | 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + MDX or JSON content) | 4–6 hours | Very high (long-tail organic) | ⬜ Todo |
 | 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium | ⬜ Todo |
-| 5 | Add local landing pages: `/massotherapie-hull`, `/massage-ottawa`, etc. | 4 hours | High (location queries) | ⬜ Todo |
+| 5 | Add local landing pages: `/massage-hull`, `/massage-ottawa`, `/massage-aylmer`, `/massage-outaouais` | — | High (location queries) | ✅ Done |
 | 6 | Add `/service-area` page with regional map and `areaServed` JSON-LD | 2 hours | Medium | ⬜ Todo |
 | 7 | French URL slugs audit — ensure FR routes use French words (`/fr/services/massage-therapeutique` not `/fr/services/therapeutic-massage`) | 2 hours | Medium | ⬜ Todo |
 | 8 | Verify `aggregateRating` and review markup in Search Console "Enhancements" panel | — | High (star ratings) | ✅ Done — markup valid; Google may withhold star display for self-published testimonials (no penalty) |

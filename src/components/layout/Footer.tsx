@@ -101,6 +101,24 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Service areas */}
+        <div className="border-t border-white/10 py-4 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-white/35">
+          <span className="text-white/25 mr-1">{t('serviceAreas')}:</span>
+          {[
+            { label: 'Hull', href: '/massage-hull' },
+            { label: 'Ottawa', href: '/massage-ottawa' },
+            { label: 'Aylmer', href: '/massage-aylmer' },
+            { label: 'Outaouais', href: '/massage-outaouais' },
+          ].map(({ label, href }, i, arr) => (
+            <span key={href} className="flex items-center gap-1.5">
+              <Link href={`${prefix}${href}`} className="text-white/35 hover:text-white/60 transition-colors">
+                {label}
+              </Link>
+              {i < arr.length - 1 && <span className="text-white/20">·</span>}
+            </span>
+          ))}
+        </div>
+
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
           <p>

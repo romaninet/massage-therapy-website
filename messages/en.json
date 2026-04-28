@@ -168,7 +168,8 @@
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",
     "nav": "Navigation",
-    "amqMember": "AMQ Member"
+    "amqMember": "AMQ Member",
+    "serviceAreas": "Service Areas"
   },
   "privacy": {
     "preTitle": "Legal",
@@ -275,6 +276,140 @@
           "answer": "Yes. Therapeutic and deep tissue massage are effective tools for managing chronic pain, muscle tension, and post-injury recovery. Regular sessions can reduce inflammation, improve circulation, and restore range of motion. Massage also works well alongside physiotherapy or other treatments — the technique and pressure are always adapted to your specific condition."
         }
       ]
+    }
+  },
+  "areas": {
+    "hull": {
+      "preTitle": "Massage Therapy in Hull",
+      "title": "Massage in Hull–Gatineau",
+      "subtitle": "Professional massage therapy in the heart of Hull, steps from Place du Portage — serving Hull residents and Ottawa federal workers.",
+      "paragraphs": [
+        "Located at 148 Rue Eddy in the heart of Hull, Olha Shelest's practice is at the centre of Gatineau's most connected neighbourhood. Whether you live on boulevard Saint-Joseph, rue Laval, or anywhere in Vieux-Hull, professional massage therapy is close to home — no long drive required.",
+        "Hull is a bilingual, urban community with a high concentration of federal government workers, young professionals, and families. The stresses of desk work, long commutes, and everyday life accumulate. Therapeutic massage, deep tissue work, or a relaxation session can make a measurable difference — and a practice in your own neighbourhood makes it easy to maintain a regular routine.",
+        "Olha is an AMQ-registered massage therapist offering six massage types: therapeutic massage for pain and injury, deep tissue massage for chronic tension, relaxation massage for stress, lymphatic drainage, children's massage, and couples massage. Official insurance receipts are provided for all sessions."
+      ],
+      "gettingHere": {
+        "title": "Getting Here",
+        "body": "The practice is at 148 Rue Eddy Unit 2, between boulevard Saint-Laurent and rue Laurier. Free street parking is available on Rue Eddy and surrounding streets. If you work at Place du Portage or Terrasses de la Chaudière, the practice is a 3 to 5 minute walk. From downtown Ottawa, you can walk across the Portage bridge in under 10 minutes."
+      },
+      "servicesTitle": "Services Available in Hull",
+      "faq": {
+        "preTitle": "Questions About Hull",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Where exactly is your practice located in Hull?",
+            "answer": "The practice is at 148 Rue Eddy Unit 2 in Hull–Gatineau — between boulevard Saint-Laurent and rue Laurier, steps from Place du Portage. It is a short walk from Terrasses de la Chaudière and a 5-minute walk from the Portage bridge."
+          },
+          {
+            "question": "Is there parking near your Hull location?",
+            "answer": "Yes — free street parking is available directly on Rue Eddy and on surrounding streets (rue Laurier, rue Laval). There is no paid parking lot required."
+          },
+          {
+            "question": "Do you serve federal employees at Place du Portage?",
+            "answer": "Yes. Place du Portage and Terrasses de la Chaudière are a 3 to 5 minute walk from the practice. Many federal workers book sessions during lunch or after work — sessions are available Monday through Saturday."
+          }
+        ]
+      }
+    },
+    "ottawa": {
+      "preTitle": "Massage Therapy Near Ottawa",
+      "title": "Massage Therapy Near Ottawa",
+      "subtitle": "A 5-minute walk from downtown Ottawa across the Portage bridge — bilingual massage therapy for Ottawa residents and federal workers.",
+      "paragraphs": [
+        "If you work or live in Ottawa and have been looking for quality massage therapy without the downtown Ottawa prices, Olha Shelest's practice in Hull–Gatineau is closer than you think. From downtown Ottawa — Byward Market, Centretown, Sandy Hill, Lowertown — it is a short 5-minute walk across the Portage bridge or a quick drive via the Alexandra or Macdonald-Cartier bridge.",
+        "The National Capital Region's largest employer is the federal government, and many of its employees already cross the river daily. Place du Portage — just steps from the Portage bridge on the Ottawa side — connects directly to Rue Eddy on foot. Federal workers at Terrasses de la Chaudière, Les Terrasses de l'île, and Promenade du Portage are all within a 5-minute walk.",
+        "Olha is a bilingual (English and French) AMQ-registered massage therapist. Sessions are offered in English, French, and Ukrainian. Insurance receipts are provided for all sessions — accepted by most federal employee benefit plans and private group insurance."
+      ],
+      "gettingHere": {
+        "title": "Getting Here from Ottawa",
+        "body": "On foot: walk across the Portage bridge from downtown Ottawa (5–7 minutes from Place du Portage). By car: 5–10 minutes via the Portage, Alexandra, or Macdonald-Cartier bridge — free street parking on Rue Eddy. By transit: STO routes 31, 36, and 37 cross the river from Ottawa and stop within walking distance. Address: 148 Rue Eddy Unit 2, Hull–Gatineau, QC J8X 2W8."
+      },
+      "servicesTitle": "Services Available Near Ottawa",
+      "faq": {
+        "preTitle": "Questions from Ottawa Clients",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I get to your practice from Ottawa?",
+            "answer": "The easiest route is on foot via the Portage bridge — 5 to 7 minutes from Place du Portage, 10 minutes from Byward Market or Centretown. By car, it is 5 to 10 minutes via the Portage, Alexandra, or Macdonald-Cartier bridge. STO bus routes 31, 36, and 37 cross the river and stop within walking distance."
+          },
+          {
+            "question": "Is your practice walkable from downtown Ottawa without a car?",
+            "answer": "Yes. If you work at Place du Portage or anywhere along the Portage bridge corridor, the practice is a 5 to 7 minute walk across the bridge. From Byward Market or Rideau Centre, it is about 10 to 12 minutes on foot. Free parking is available on Rue Eddy for those who prefer to drive."
+          },
+          {
+            "question": "Do you offer massage sessions in English?",
+            "answer": "Yes — sessions are available in English, French, and Ukrainian. The practice is fully bilingual and welcomes clients from Ottawa's diverse English-speaking and francophone communities alike."
+          }
+        ]
+      }
+    },
+    "aylmer": {
+      "preTitle": "Massage Therapy in Aylmer",
+      "title": "Massage in Aylmer, Gatineau",
+      "subtitle": "Professional massage therapy for Aylmer residents — a short drive east along Boulevard des Allumettières to Hull–Gatineau.",
+      "paragraphs": [
+        "Aylmer is Gatineau's western residential community — a mix of families, outdoor enthusiasts, and professionals who value the quieter, greener setting along the Ottawa River. Whether you are recovering from a hike in Parc de la Gatineau, managing the physical demands of a desk job, or looking for a regular wellness routine, professional massage therapy is available at Olha Shelest's practice in Hull — just 15 to 20 minutes east along Boulevard des Allumettières.",
+        "Many Aylmer residents already travel this route daily for work, shopping, and services. Booking a massage session on the way home from work, or combining it with other errands in Hull, makes it easy to maintain a regular self-care practice.",
+        "Olha offers six massage types tailored to different needs: therapeutic massage for pain and injury, deep tissue for chronic tension, relaxation massage, lymphatic drainage, children's massage (with parental presence), and couples massage. AMQ-registered with official insurance receipts provided for all sessions."
+      ],
+      "gettingHere": {
+        "title": "Getting Here from Aylmer",
+        "body": "From Aylmer, take Boulevard des Allumettières east through Gatineau toward Hull. The practice is at 148 Rue Eddy Unit 2 in Hull, approximately 15 to 20 minutes from central Aylmer depending on traffic. Free street parking is available on Rue Eddy and nearby streets."
+      },
+      "servicesTitle": "Services Available for Aylmer Clients",
+      "faq": {
+        "preTitle": "Questions from Aylmer Clients",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How far is your practice from Aylmer?",
+            "answer": "The practice is at 148 Rue Eddy in Hull — approximately 15 to 20 minutes east of central Aylmer by car along Boulevard des Allumettières. It is a straightforward drive with no highway required."
+          },
+          {
+            "question": "Do you offer services suited for active families in the Aylmer area?",
+            "answer": "Yes. Children's massage (with parental consent and presence), sports recovery massage, and therapeutic massage are all available. Many clients from Aylmer come for recovery after outdoor activities in Parc de la Gatineau or Parc Brébeuf, and for managing the physical demands of family life."
+          },
+          {
+            "question": "Is there parking when coming from Aylmer?",
+            "answer": "Yes — free street parking is available on Rue Eddy and surrounding streets. There is no parking fee and spaces are typically available during business hours."
+          }
+        ]
+      }
+    },
+    "outaouais": {
+      "preTitle": "Massage Therapy in the Outaouais",
+      "title": "Massage Therapy in the Outaouais",
+      "subtitle": "Serving the entire Outaouais region — from Hull and Aylmer to Chelsea, Wakefield, and beyond — with bilingual, AMQ-registered massage therapy.",
+      "paragraphs": [
+        "Olha Shelest offers professional massage therapy from her practice in Hull–Gatineau, at the centre of the Outaouais region. Whether you are in Hull, Aylmer, the Gatineau sector, Buckingham, Masson-Angers, or in the surrounding communities of Chelsea, Cantley, or Wakefield, her practice is a convenient destination for therapeutic and wellness massage.",
+        "The Outaouais region spans a diverse area — from urban Hull and Aylmer along the Ottawa River to the forested hills of the MRC des Collines-de-l'Outaouais. Residents of the region share common needs: relief from desk work and commute fatigue, recovery from outdoor activities like skiing and hiking in Parc de la Gatineau, and the ongoing maintenance of physical and mental wellbeing.",
+        "As an AMQ (Association des Massothérapeutes du Québec) member, Olha provides official receipts accepted by most Quebec group insurance plans and federal employee benefit programs. Sessions are offered in French, English, and Ukrainian."
+      ],
+      "gettingHere": {
+        "title": "Getting Here",
+        "body": "The practice is centrally located at 148 Rue Eddy Unit 2 in Hull–Gatineau — accessible from all parts of the Outaouais. From central Gatineau: 10–15 minutes. From Aylmer: 15–20 minutes. From Chelsea: 15 minutes. From Buckingham: approximately 45 minutes. Free street parking is available on Rue Eddy."
+      },
+      "servicesTitle": "Services Across the Outaouais",
+      "faq": {
+        "preTitle": "Questions About the Outaouais",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Do you serve clients from across the Outaouais region?",
+            "answer": "Yes. Clients come from all parts of the Outaouais — Hull, Aylmer, the Gatineau sector, Buckingham, and surrounding communities including Chelsea, Cantley, and Wakefield. The practice is centrally located in Hull at 148 Rue Eddy, accessible from all directions."
+          },
+          {
+            "question": "Are massage receipts covered by Quebec insurance plans?",
+            "answer": "Yes. As an AMQ-registered massage therapist, official receipts are provided for all sessions. These are accepted by most Quebec group insurance plans and federal employee benefit programs. No doctor's referral is required — check your specific plan for coverage details."
+          },
+          {
+            "question": "Are sessions available in French?",
+            "answer": "Yes — sessions are offered in French, English, and Ukrainian. French is the primary working language of the practice, and all communication, intake forms, and recommendations are available in French."
+          }
+        ]
+      }
     }
   }
 }
