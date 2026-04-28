@@ -173,6 +173,18 @@ export function servicesPageJsonLd(locale: Locale) {
   };
 }
 
+export function faqJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+}
+
 export function breadcrumbJsonLd(
   locale: Locale,
   trail: { name: string; path: string }[]

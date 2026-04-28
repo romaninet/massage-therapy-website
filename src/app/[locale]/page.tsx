@@ -1,11 +1,12 @@
-import { setRequestLocale } from 'next-intl/server';
-import { localBusinessJsonLd, type Locale } from '@/lib/jsonld';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localBusinessJsonLd, faqJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import AboutPreviewSection from '@/components/sections/AboutPreviewSection';
 import CTASection from '@/components/sections/CTASection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import FAQSection from '@/components/sections/FAQSection';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -31,16 +32,24 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const tFaq = await getTranslations({ locale, namespace: 'faq' });
+  const faqItems = tFaq.raw('home.items') as { question: string; answer: string }[];
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(locale as Locale)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqItems)) }}
+      />
       <HeroSection />
       <ServicesSection />
       <AboutPreviewSection />
       <TestimonialsSection />
+      <FAQSection preTitle={tFaq('home.preTitle')} title={tFaq('home.title')} items={faqItems} />
       <CTASection />
     </>
   );

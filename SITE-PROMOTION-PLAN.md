@@ -63,7 +63,7 @@ There are two different things to rank:
 3. **No content/blog** — currently zero pages targeting informational long-tail queries. This is the biggest organic gap.
 4. **No location-specific landing pages** — one page about Gatineau is not the same as dedicated pages for Hull, Aylmer, Ottawa-side, etc.
 5. **GBP not used as a publishing surface** — Posts, Q&A, weekly photos, attributes are mostly empty
-6. **No FAQ schema** — easy win for "People also ask" boxes
+6. ~~**No FAQ schema**~~ ✅ Done — FAQPage JSON-LD added to home and services pages
 7. **No local partnerships / outreach links** — the citations done so far are passive directories. Editorial / partnership links are the next tier of authority.
 
 ---
@@ -283,14 +283,13 @@ These are not blog posts — they're permanent service-area pages designed to ra
 - Internal link to all services + booking
 - Hreflang to the corresponding French/English version
 
-### 5.3 FAQ section with FAQPage JSON-LD
+### 5.3 FAQ section with FAQPage JSON-LD ✅ Done
 
-Add an FAQ section to:
-- Home page (5–7 most common questions)
-- `/services` page (service-specific FAQs)
-- Each blog article that fits
-
-Wrap with `FAQPage` JSON-LD. This is what powers "People also ask" results in Google. Easy win — adds a structured-data eligibility signal that you're currently missing.
+- Home page — 5 general questions (insurance, areas served, first session, frequency, children's massage) with `FAQPage` JSON-LD
+- `/services` page — 5 service-specific questions (therapeutic vs relaxation, deep tissue pain, lymphatic drainage, couples massage, chronic pain/injury) with `FAQPage` JSON-LD
+- FAQ content lives in `messages/en.json` and `messages/fr.json` under the `"faq"` namespace
+- Component: `src/components/sections/FAQSection.tsx` — native `<details>/<summary>` accordion, no JS required
+- Still to add: FAQ schema to individual blog articles when the blog is built (§5.1)
 
 ### 5.4 Service area page
 
@@ -416,7 +415,7 @@ These are technical changes that need code work. Each can be a separate task/PR 
 | # | Improvement | Effort | Impact | Status |
 |---|-------------|--------|--------|--------|
 | 1 | Add `/reviews` redirect → GBP review URL (one line in `next.config.ts`) | — | High (powers QR card) | ✅ Done |
-| 2 | Add FAQPage JSON-LD to home + services pages | 1 hour | High (PAA snippets) | ⬜ Todo |
+| 2 | Add FAQPage JSON-LD to home + services pages | — | High (PAA snippets) | ✅ Done |
 | 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + MDX or JSON content) | 4–6 hours | Very high (long-tail organic) | ⬜ Todo |
 | 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium | ⬜ Todo |
 | 5 | Add local landing pages: `/massotherapie-hull`, `/massage-ottawa`, etc. | 4 hours | High (location queries) | ⬜ Todo |
