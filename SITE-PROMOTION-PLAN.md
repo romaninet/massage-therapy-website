@@ -5,7 +5,7 @@
 
 **Strategy:** Pure organic. $0 monthly budget. Gatineau-first, Ottawa-second. Realistic timeline to top 5 for primary Gatineau keywords: **4–8 months**.
 
-**Last updated:** 2026-04-26
+**Last updated:** 2026-04-28
 
 ---
 
@@ -55,6 +55,7 @@ There are two different things to rank:
 - 819 Fongo phone (local geo signal correct)
 - Google Analytics 4 installed
 - Client testimonials in JSON-LD (eligible for star ratings in search results)
+- `/reviews` redirect live (`next.config.ts`) — `shelestwellness.ca/reviews` permanently redirects to GBP review URL (`g.page/r/CbPuh1aQPQQdEAI/review`)
 
 ### Gaps to close (the remainder of this document)
 1. **Reviews velocity** — testimonials are on the site, but Google reviews on the GBP listing are what move the local pack. Need a deliberate review-collection engine.
@@ -177,10 +178,9 @@ This is **the single highest-ROI activity for local pack ranking.** Reviews are 
 1. **Get the direct review URL from GBP**
    - In GBP dashboard: Home → "Get more reviews" → copy the short URL (looks like `g.page/r/...`)
 
-2. **Set up `shelestwellness.ca/reviews` redirect**
-   - Add a redirect in `next.config.ts` or a route handler so `https://www.shelestwellness.ca/reviews` permanently redirects to the GBP review URL
-   - This is what goes on printed cards — easier to remember than `g.page/r/CXyZ...`
-   - Implementation: a one-line `redirects()` entry in `next.config.ts` (low effort, high reuse)
+2. ✅ **Set up `shelestwellness.ca/reviews` redirect** — DONE
+   - `next.config.ts` `redirects()` permanently redirects `/reviews` → `https://g.page/r/CbPuh1aQPQQdEAI/review`
+   - Use this URL on all printed cards and post-session messages
 
 3. **Print QR code cards** (~$15 at any local print shop, or free via Vistaprint trial)
    - Front: "Aimé votre séance ? Laissez un avis ✦ Loved your session? Leave a review"
@@ -413,18 +413,18 @@ Try to encourage (organically — never script) reviews that mention:
 
 These are technical changes that need code work. Each can be a separate task/PR in the future.
 
-| # | Improvement | Effort | Impact |
-|---|-------------|--------|--------|
-| 1 | Add `/reviews` redirect → GBP review URL (one line in `next.config.ts`) | 10 min | High (powers QR card) |
-| 2 | Add FAQPage JSON-LD to home + services pages | 1 hour | High (PAA snippets) |
-| 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + MDX or JSON content) | 4–6 hours | Very high (long-tail organic) |
-| 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium |
-| 5 | Add local landing pages: `/massotherapie-hull`, `/massage-ottawa`, etc. | 4 hours | High (location queries) |
-| 6 | Add `/service-area` page with regional map and `areaServed` JSON-LD | 2 hours | Medium |
-| 7 | French URL slugs audit — ensure FR routes use French words (`/fr/services/massage-therapeutique` not `/fr/services/therapeutic-massage`) | 2 hours | Medium |
-| 8 | Verify `aggregateRating` and review markup is eligible in Search Console "Enhancements" panel | 15 min check | Already done — just verify |
-| 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium |
-| 10 | Add a "From Ottawa?" small callout block on home page with bridge / parking info | 30 min | Medium (Ottawa capture) |
+| # | Improvement | Effort | Impact | Status |
+|---|-------------|--------|--------|--------|
+| 1 | Add `/reviews` redirect → GBP review URL (one line in `next.config.ts`) | — | High (powers QR card) | ✅ Done |
+| 2 | Add FAQPage JSON-LD to home + services pages | 1 hour | High (PAA snippets) | ⬜ Todo |
+| 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + MDX or JSON content) | 4–6 hours | Very high (long-tail organic) | ⬜ Todo |
+| 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium | ⬜ Todo |
+| 5 | Add local landing pages: `/massotherapie-hull`, `/massage-ottawa`, etc. | 4 hours | High (location queries) | ⬜ Todo |
+| 6 | Add `/service-area` page with regional map and `areaServed` JSON-LD | 2 hours | Medium | ⬜ Todo |
+| 7 | French URL slugs audit — ensure FR routes use French words (`/fr/services/massage-therapeutique` not `/fr/services/therapeutic-massage`) | 2 hours | Medium | ⬜ Todo |
+| 8 | Verify `aggregateRating` and review markup in Search Console "Enhancements" panel | — | High (star ratings) | ✅ Done — markup valid; Google may withhold star display for self-published testimonials (no penalty) |
+| 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium | ⬜ Todo |
+| 10 | Add a "From Ottawa?" small callout block on home page with bridge / parking info | 30 min | Medium (Ottawa capture) | ⬜ Todo |
 
 ---
 
@@ -497,7 +497,7 @@ The highest-ROI actions if you only have one focused day:
 2. **(15 min)** Create Canada411 free listing
 3. **(30 min)** Create GoRendezvous profile
 4. **(1 hour)** GBP: add 15 photos, fill all attributes, seed 10 Q&A, list every service with bilingual descriptions
-5. **(20 min)** Get GBP review short URL and set up `shelestwellness.ca/reviews` redirect (small code change in `next.config.ts`)
+5. ✅ **(20 min)** Get GBP review short URL and set up `shelestwellness.ca/reviews` redirect — **DONE** (`next.config.ts`)
 6. **(30 min)** Print or order QR code business cards pointing to `shelestwellness.ca/reviews`
 7. **(1 hour)** Write and publish first GBP Post — set a recurring 30-min calendar reminder for every Monday morning to publish a new one
 

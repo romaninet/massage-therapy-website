@@ -194,6 +194,16 @@ Make sure the following environment variables are set in Vercel project settings
 - `NEXT_PUBLIC_GA_ID` — Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`). When set, the GA4 tracking script is injected into every page via `src/app/[locale]/layout.tsx`. Omit or leave blank to disable tracking (useful for local development).
 
 
+## Redirects
+
+| Source | Destination | Type | Purpose |
+|--------|------------|------|---------|
+| `/reviews` | `https://g.page/r/CbPuh1aQPQQdEAI/review` | 301 permanent | Short vanity URL for QR cards and post-session messages → lands client directly on GBP review form |
+
+Redirects are configured in the `redirects()` function in `next.config.ts`.
+
+---
+
 ## Backlinks & Directory Listings
 
 Listings that have been created and must be kept up to date (NAP, hours, website URL) whenever business details change.
