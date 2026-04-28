@@ -1,9 +1,10 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SERVICES } from '@/lib/config';
-import { servicesPageJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
+import { servicesPageJsonLd, breadcrumbJsonLd, faqJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
 import { BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
+import FAQSection from '@/components/sections/FAQSection';
 import PageHeaderSection from '@/components/sections/PageHeaderSection';
 import ServiceCard from '@/components/sections/ServiceCard';
 
@@ -32,6 +33,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'servicesPage' });
+  const tFaq = await getTranslations({ locale, namespace: 'faq' });
+  const faqItems = tFaq.raw('services.items') as { question: string; answer: string }[];
   const lang = locale as Locale;
 
   return (
@@ -43,6 +46,10 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [{ name: t('title'), path: `/${locale}/services` }])) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqItems)) }}
       />
 
       <PageHeaderSection preTitle={t('preTitle')} title={t('title')} subtitle={t('subtitle')} pb="pb-8 lg:pb-20" />
@@ -69,6 +76,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           }}
         />
       ))}
+
+      <FAQSection preTitle={tFaq('services.preTitle')} title={tFaq('services.title')} items={faqItems} />
 
       <CTASection />
     </>

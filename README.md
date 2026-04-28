@@ -96,6 +96,8 @@ The site is set up with:
   - `Person` (with `hasCredential`, `knowsAbout`, `sameAs`) — About page
   - `ItemList` with `Service` schema (per-service with pricing and area served) — Services page
   - `ItemList` with `Offer` schema (per duration tier with pricing) — Fees page
+  - `FAQPage` with 5 general Q&As — home page
+  - `FAQPage` with 5 service-specific Q&As — Services page
   - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
@@ -193,6 +195,16 @@ Make sure the following environment variables are set in Vercel project settings
 - `RESEND_API_KEY`
 - `NEXT_PUBLIC_GA_ID` — Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`). When set, the GA4 tracking script is injected into every page via `src/app/[locale]/layout.tsx`. Omit or leave blank to disable tracking (useful for local development).
 
+
+## Redirects
+
+| Source | Destination | Type | Purpose |
+|--------|------------|------|---------|
+| `/reviews` | `https://g.page/r/CbPuh1aQPQQdEAI/review` | 301 permanent | Short vanity URL for QR cards and post-session messages → lands client directly on GBP review form |
+
+Redirects are configured in the `redirects()` function in `next.config.ts`.
+
+---
 
 ## Backlinks & Directory Listings
 

@@ -222,5 +222,59 @@
     "ariaLabel": "Témoignages clients",
     "arrowPrev": "Avis précédents",
     "arrowNext": "Avis suivants"
+  },
+  "faq": {
+    "home": {
+      "preTitle": "Questions fréquentes",
+      "title": "Foire aux questions",
+      "items": [
+        {
+          "question": "Fournissez-vous des reçus pour les assurances?",
+          "answer": "Oui. En tant que massothérapeute membre de l'AMQ, je fournis des reçus officiels acceptés par la plupart des régimes d'assurance collective canadiens. Aucune ordonnance médicale n'est requise — vérifiez les détails de votre régime pour les montants couverts."
+        },
+        {
+          "question": "Quelles régions desservez-vous?",
+          "answer": "Mon cabinet est situé au 148 Rue Eddy à Hull–Gatineau, QC — à quelques minutes des ponts Portage et Alexandra. Je reçois des clients de Gatineau, Hull, Aylmer et Ottawa, y compris les employés fédéraux à la Place du Portage et aux Terrasses de la Chaudière, à quelques minutes à pied."
+        },
+        {
+          "question": "À quoi m'attendre lors de ma première séance?",
+          "answer": "Nous commençons par un bref échange pour comprendre vos objectifs, vos antécédents de santé et vos zones de préoccupation. Tout au long de la séance, vous restez couvert(e) par un drap — la thérapeute travaille une zone à la fois en maintenant le reste drapé. Les premières séances durent généralement la totalité du temps réservé, avec des conseils de suivi à la fin."
+        },
+        {
+          "question": "À quelle fréquence devrais-je recevoir un massage?",
+          "answer": "Cela dépend de votre objectif. Pour une douleur aiguë ou une récupération, des séances hebdomadaires sont souvent recommandées au départ. Pour la gestion du stress ou le bien-être général, des séances mensuelles maintiennent bien les bénéfices. Nous discuterons de la fréquence adaptée lors de votre première visite."
+        },
+        {
+          "question": "Offrez-vous des massages pour enfants?",
+          "answer": "Oui. Le massage pour enfants est un service thérapeutique doux disponible avec le consentement et la présence d'un parent. Il peut aider avec les douleurs de croissance, le stress, les troubles du sommeil et la relaxation. Les séances sont adaptées en durée et en technique aux besoins de chaque enfant."
+        }
+      ]
+    },
+    "services": {
+      "preTitle": "Vous avez des questions?",
+      "title": "À propos de nos services",
+      "items": [
+        {
+          "question": "Quelle est la différence entre le massage thérapeutique et le massage de relaxation?",
+          "answer": "Le massage thérapeutique cible des douleurs, tensions ou dysfonctionnements spécifiques — il est orienté vers un objectif et peut inclure une pression plus profonde et un travail ciblé sur les zones problématiques. Le massage de relaxation utilise un toucher fluide et léger sur l'ensemble du corps pour réduire le stress. En cas de doute, décrivez votre préoccupation lors de la réservation et nous choisirons ensemble."
+        },
+        {
+          "question": "Le massage en profondeur est-il douloureux?",
+          "answer": "Le massage en profondeur implique une pression plus forte que le massage de relaxation, mais il ne devrait jamais être insupportable. Je communique avec vous tout au long de la séance pour rester dans votre zone de confort. Certain(e)s client(e)s ressentent une légère courbature pendant 24 à 48 heures — semblable aux courbatures après l'exercice — ce qui est normal et se résorbe rapidement."
+        },
+        {
+          "question": "Qui peut bénéficier du drainage lymphatique?",
+          "answer": "Le drainage lymphatique est particulièrement bénéfique après une chirurgie ou une blessure (une fois approuvé par votre médecin), pour les œdèmes persistants, la fatigue chronique et le soutien immunitaire. Il utilise des pressions très légères et rythmiques. Contre-indiqué en cas d'infection active, de thrombose ou de certaines affections cardiaques et rénales."
+        },
+        {
+          "question": "Deux personnes peuvent-elles réserver une séance de massage en duo?",
+          "answer": "Oui — le massage en duo est disponible. Deux personnes sont traitées simultanément dans la même salle. C'est un choix populaire pour les partenaires, les ami(e)s ou les membres de la famille. Chaque personne peut choisir un type de massage différent."
+        },
+        {
+          "question": "Le massage peut-il aider en cas de douleur chronique ou de récupération après une blessure?",
+          "answer": "Oui. Le massage thérapeutique et le massage en profondeur sont des outils efficaces pour gérer la douleur chronique, les tensions musculaires et la récupération après une blessure. Des séances régulières peuvent réduire l'inflammation, améliorer la circulation et restaurer l'amplitude des mouvements. Le massage se combine aussi très bien avec la physiothérapie ou d'autres traitements — la technique et la pression sont toujours adaptées à votre situation spécifique."
+        }
+      ]
+    }
   }
 }

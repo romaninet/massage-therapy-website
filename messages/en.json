@@ -222,5 +222,59 @@
     "ariaLabel": "Customer testimonials",
     "arrowPrev": "Previous reviews",
     "arrowNext": "Next reviews"
+  },
+  "faq": {
+    "home": {
+      "preTitle": "Common Questions",
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "Do you provide receipts for insurance?",
+          "answer": "Yes. As an AMQ-registered massage therapist, I provide official receipts accepted by most Canadian group insurance plans and employee benefit programs. No doctor's referral is required — check your plan details for coverage amounts."
+        },
+        {
+          "question": "Which areas do you serve?",
+          "answer": "My practice is located at 148 Rue Eddy in Hull–Gatineau, QC — just minutes from the Portage and Alexandra bridges. I serve clients from Gatineau, Hull, Aylmer, and Ottawa, including federal employees at Place du Portage and Terrasses de la Chaudière who are a short walk away."
+        },
+        {
+          "question": "What should I expect during my first massage?",
+          "answer": "We start with a short intake conversation to understand your goals, health history, and any areas of concern. Throughout the session you remain covered by a sheet — the therapist works on one area at a time, keeping everything else draped. First sessions typically run the full booked time, with follow-up care recommendations at the end."
+        },
+        {
+          "question": "How often should I get a massage?",
+          "answer": "It depends on your goal. For acute pain or injury recovery, weekly sessions are often recommended initially. For stress management or general wellness, monthly sessions maintain the benefits well. We will discuss the right cadence for you during your first visit."
+        },
+        {
+          "question": "Do you offer massage for children?",
+          "answer": "Yes. Children's massage is a gentle, therapeutic service available with parental consent and presence. It can help with growing pains, stress, sleep difficulties, and general relaxation. Sessions are adapted in duration and technique to each child's needs."
+        }
+      ]
+    },
+    "services": {
+      "preTitle": "Have Questions?",
+      "title": "About Our Services",
+      "items": [
+        {
+          "question": "What is the difference between therapeutic and relaxation massage?",
+          "answer": "Therapeutic massage targets specific pain, tension, or dysfunction — it is goal-oriented and may include deeper pressure and focused work on problem areas. Relaxation massage uses a flowing, lighter touch over the whole body to reduce stress and promote calm. If you are unsure which you need, describe your main concern during booking and we will choose together."
+        },
+        {
+          "question": "Is deep tissue massage painful?",
+          "answer": "Deep tissue work involves more pressure than relaxation massage, but it should never feel unbearable. I communicate with you throughout to stay within your comfort zone. Some clients feel mild soreness for 24–48 hours after — similar to post-workout soreness — which is normal and resolves quickly."
+        },
+        {
+          "question": "Who can benefit from lymphatic drainage massage?",
+          "answer": "Lymphatic drainage is particularly beneficial after surgery or injury (once cleared by your doctor), for persistent swelling or water retention, chronic fatigue, and immune support. It uses very light, rhythmic strokes — quite different from deep tissue work. It is contraindicated for active infections, blood clots, or certain heart and kidney conditions."
+        },
+        {
+          "question": "Can two people book a couples massage session together?",
+          "answer": "Yes — couples massage is available. Two people are treated simultaneously in the same room. It is a popular choice for partners, friends, or family members who want to share the experience. Each person can choose a different massage type."
+        },
+        {
+          "question": "Can massage help with chronic pain or injury recovery?",
+          "answer": "Yes. Therapeutic and deep tissue massage are effective tools for managing chronic pain, muscle tension, and post-injury recovery. Regular sessions can reduce inflammation, improve circulation, and restore range of motion. Massage also works well alongside physiotherapy or other treatments — the technique and pressure are always adapted to your specific condition."
+        }
+      ]
+    }
   }
 }
