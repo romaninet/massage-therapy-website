@@ -32,7 +32,15 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              {t('location')} · {t('amqMember')}
+              {t('location')} ·{' '}
+              <a
+                href={BUSINESS.amqUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-sage-light transition-colors underline underline-offset-2"
+              >
+                {t('amqMember')}
+              </a>
             </p>
           </div>
 

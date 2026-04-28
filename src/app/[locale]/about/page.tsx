@@ -81,6 +81,20 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <p className="text-forest/70 text-base leading-relaxed">{t('bio2')}</p>
               <p className="text-forest/70 text-base leading-relaxed">{t('bio3')}</p>
               <p className="text-forest/70 text-base leading-relaxed">{t('bio4')}</p>
+              <p className="text-forest/70 text-base leading-relaxed">
+                {t.rich('bioCta', {
+                  servicesLink: (chunks) => (
+                    <Link href={`/${locale}/services`} className="text-sage hover:text-forest underline underline-offset-2 transition-colors">
+                      {chunks}
+                    </Link>
+                  ),
+                  contactLink: (chunks) => (
+                    <Link href={`/${locale}/contact`} className="text-sage hover:text-forest underline underline-offset-2 transition-colors">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </p>
 
               {/* AMQ badge */}
               <div className="mt-4 p-6 bg-pale-sage rounded-lg border border-sage/20 relative overflow-hidden">
