@@ -168,7 +168,8 @@
     "rights": "Tous droits réservés.",
     "privacy": "Politique de confidentialité",
     "nav": "Navigation",
-    "amqMember": "Membre AMQ"
+    "amqMember": "Membre AMQ",
+    "serviceAreas": "Régions desservies"
   },
   "privacy": {
     "preTitle": "Juridique",
@@ -275,6 +276,140 @@
           "answer": "Oui. Le massage thérapeutique et le massage en profondeur sont des outils efficaces pour gérer la douleur chronique, les tensions musculaires et la récupération après une blessure. Des séances régulières peuvent réduire l'inflammation, améliorer la circulation et restaurer l'amplitude des mouvements. Le massage se combine aussi très bien avec la physiothérapie ou d'autres traitements — la technique et la pression sont toujours adaptées à votre situation spécifique."
         }
       ]
+    }
+  },
+  "areas": {
+    "hull": {
+      "preTitle": "Massothérapie à Hull",
+      "title": "Massage à Hull–Gatineau",
+      "subtitle": "Massothérapie professionnelle au cœur de Hull, à deux pas de la Place du Portage — au service des résidents de Hull et des employés fédéraux d'Ottawa.",
+      "paragraphs": [
+        "Situé au 148 Rue Eddy, au cœur de Hull, le cabinet d'Olha Shelest se trouve dans le quartier le mieux connecté de Gatineau. Que vous habitiez le boulevard Saint-Joseph, la rue Laval ou le Vieux-Hull, une massothérapie professionnelle est à deux pas de chez vous — sans long trajet en voiture.",
+        "Hull est une communauté urbaine bilingue comptant un grand nombre d'employés du gouvernement fédéral, de jeunes professionnels et de familles. Les tensions liées au travail de bureau, aux longs trajets quotidiens et aux exigences du quotidien s'accumulent. Un massage thérapeutique, un massage en profondeur ou une séance de relaxation peut faire une réelle différence — et un cabinet dans votre propre quartier facilite l'établissement d'une routine régulière.",
+        "Olha est massothérapeute agréée membre de l'AMQ et offre six types de massage : massage thérapeutique pour la douleur et les blessures, massage en profondeur pour les tensions chroniques, massage de relaxation pour le stress, drainage lymphatique, massage pour enfants et massage en duo. Des reçus officiels d'assurance sont fournis pour toutes les séances."
+      ],
+      "gettingHere": {
+        "title": "Comment s'y rendre",
+        "body": "Le cabinet est situé au 148 Rue Eddy, Unité 2, entre le boulevard Saint-Laurent et la rue Laurier. Le stationnement sur rue est gratuit sur la rue Eddy et les rues avoisinantes. Si vous travaillez à la Place du Portage ou aux Terrasses de la Chaudière, le cabinet est accessible en 3 à 5 minutes à pied. Depuis le centre-ville d'Ottawa, vous pouvez traverser le pont Portage à pied en moins de 10 minutes."
+      },
+      "servicesTitle": "Services disponibles à Hull",
+      "faq": {
+        "preTitle": "Questions sur Hull",
+        "title": "Foire aux questions",
+        "items": [
+          {
+            "question": "Où se trouve exactement votre cabinet à Hull?",
+            "answer": "Le cabinet est situé au 148 Rue Eddy, Unité 2 à Hull–Gatineau — entre le boulevard Saint-Laurent et la rue Laurier, à deux pas de la Place du Portage. Il est accessible à pied depuis les Terrasses de la Chaudière et à 5 minutes à pied du pont Portage."
+          },
+          {
+            "question": "Y a-t-il du stationnement près de votre cabinet à Hull?",
+            "answer": "Oui — le stationnement sur rue est gratuit directement sur la rue Eddy et les rues avoisinantes (rue Laurier, rue Laval). Aucun stationnement payant n'est requis."
+          },
+          {
+            "question": "Desservez-vous les employés fédéraux à la Place du Portage?",
+            "answer": "Oui. La Place du Portage et les Terrasses de la Chaudière sont à 3 à 5 minutes de marche du cabinet. De nombreux employés fédéraux réservent des séances pendant leur pause-repas ou après le travail — les séances sont disponibles du lundi au samedi."
+          }
+        ]
+      }
+    },
+    "ottawa": {
+      "preTitle": "Massothérapie près d'Ottawa",
+      "title": "Massothérapie près d'Ottawa",
+      "subtitle": "À 5 minutes à pied du centre-ville d'Ottawa via le pont Portage — massothérapie bilingue pour les résidents d'Ottawa et les employés fédéraux.",
+      "paragraphs": [
+        "Si vous travaillez ou habitez à Ottawa et que vous cherchez une massothérapie de qualité à meilleur prix que dans le centre-ville, le cabinet d'Olha Shelest à Hull–Gatineau est plus proche que vous ne le pensez. Depuis le centre-ville d'Ottawa — Marché By, Centre-ville, Sandy Hill, Basse-ville — il suffit de 5 minutes à pied pour traverser le pont Portage, ou de quelques minutes en voiture via le pont Alexandra ou le pont Macdonald-Cartier.",
+        "Le gouvernement fédéral est le plus grand employeur de la région de la capitale nationale, et de nombreux employés traversent déjà la rivière chaque jour. La Place du Portage — à deux pas du pont Portage côté Ottawa — est directement reliée à la rue Eddy à pied. Les employés fédéraux aux Terrasses de la Chaudière, aux Terrasses de l'île et à la Promenade du Portage sont tous à moins de 5 minutes à pied.",
+        "Olha est massothérapeute bilingue (anglais et français) et membre de l'AMQ. Les séances sont offertes en français, en anglais ou en ukrainien. Des reçus officiels d'assurance sont fournis pour toutes les séances — acceptés par la plupart des régimes d'avantages sociaux des employés fédéraux et des assurances collectives privées."
+      ],
+      "gettingHere": {
+        "title": "Comment se rendre depuis Ottawa",
+        "body": "À pied : traversez le pont Portage depuis le centre-ville d'Ottawa (5 à 7 minutes depuis la Place du Portage). En voiture : 5 à 10 minutes via les ponts Portage, Alexandra ou Macdonald-Cartier — stationnement gratuit sur la rue Eddy. En transport en commun : les lignes STO 31, 36 et 37 traversent la rivière depuis Ottawa et s'arrêtent à proximité. Adresse : 148 Rue Eddy, Unité 2, Hull–Gatineau, QC J8X 2W8."
+      },
+      "servicesTitle": "Services disponibles près d'Ottawa",
+      "faq": {
+        "preTitle": "Questions des clients d'Ottawa",
+        "title": "Foire aux questions",
+        "items": [
+          {
+            "question": "Comment me rendre à votre cabinet depuis Ottawa?",
+            "answer": "L'itinéraire le plus simple est à pied via le pont Portage — 5 à 7 minutes depuis la Place du Portage, 10 minutes depuis le Marché By ou le Centre-ville. En voiture, c'est 5 à 10 minutes via les ponts Portage, Alexandra ou Macdonald-Cartier. Les lignes de bus STO 31, 36 et 37 traversent la rivière et s'arrêtent à proximité."
+          },
+          {
+            "question": "Est-ce accessible depuis le centre-ville d'Ottawa sans voiture?",
+            "answer": "Oui. Si vous travaillez à la Place du Portage ou dans le couloir du pont Portage, le cabinet est à 5 à 7 minutes à pied en traversant le pont. Depuis le Marché By ou le Centre Rideau, c'est environ 10 à 12 minutes à pied. Un stationnement gratuit sur rue est disponible pour ceux qui préfèrent venir en voiture."
+          },
+          {
+            "question": "Les séances sont-elles disponibles en français?",
+            "answer": "Oui — les séances sont offertes en français, en anglais et en ukrainien. Le cabinet est entièrement bilingue et accueille les clients des communautés francophones et anglophones d'Ottawa et de la région."
+          }
+        ]
+      }
+    },
+    "aylmer": {
+      "preTitle": "Massothérapie à Aylmer",
+      "title": "Massage à Aylmer, Gatineau",
+      "subtitle": "Massothérapie professionnelle pour les résidents d'Aylmer — à 15 à 20 minutes vers l'est sur le boulevard des Allumettières jusqu'à Hull–Gatineau.",
+      "paragraphs": [
+        "Aylmer est le quartier résidentiel de l'ouest de Gatineau — un mélange de familles, d'amateurs de plein air et de professionnels qui apprécient le cadre plus calme et verdoyant en bordure de la rivière des Outaouais. Que vous récupériez d'une randonnée dans le Parc de la Gatineau, que vous gériez les contraintes physiques d'un emploi de bureau, ou que vous cherchiez simplement une routine bien-être régulière, la massothérapie professionnelle est disponible au cabinet d'Olha Shelest à Hull — à seulement 15 à 20 minutes vers l'est sur le boulevard des Allumettières.",
+        "De nombreux résidents d'Aylmer empruntent déjà cet itinéraire chaque jour pour le travail, les courses et les services. Réserver une séance de massage en rentrant du travail, ou la combiner avec d'autres déplacements à Hull, facilite l'établissement d'une pratique de bien-être régulière.",
+        "Olha propose six types de massage adaptés à différents besoins : massage thérapeutique pour la douleur et les blessures, massage en profondeur pour les tensions chroniques, massage de relaxation, drainage lymphatique, massage pour enfants (avec présence parentale) et massage en duo. Massothérapeute agréée membre de l'AMQ, avec reçus officiels d'assurance fournis pour toutes les séances."
+      ],
+      "gettingHere": {
+        "title": "Comment se rendre depuis Aylmer",
+        "body": "Depuis Aylmer, prenez le boulevard des Allumettières vers l'est en direction de Hull. Le cabinet est situé au 148 Rue Eddy, Unité 2 à Hull, à environ 15 à 20 minutes du centre d'Aylmer selon la circulation. Le stationnement sur rue est gratuit sur la rue Eddy et les rues avoisinantes."
+      },
+      "servicesTitle": "Services disponibles pour les clients d'Aylmer",
+      "faq": {
+        "preTitle": "Questions des clients d'Aylmer",
+        "title": "Foire aux questions",
+        "items": [
+          {
+            "question": "À quelle distance se trouve votre cabinet d'Aylmer?",
+            "answer": "Le cabinet est situé au 148 Rue Eddy à Hull — à environ 15 à 20 minutes vers l'est depuis le centre d'Aylmer en voiture via le boulevard des Allumettières. C'est un trajet simple, sans autoroute."
+          },
+          {
+            "question": "Offrez-vous des services adaptés aux familles actives de la région d'Aylmer?",
+            "answer": "Oui. Le massage pour enfants (avec consentement et présence d'un parent), le massage de récupération sportive et le massage thérapeutique sont tous disponibles. De nombreux clients d'Aylmer viennent pour récupérer après des activités de plein air dans le Parc de la Gatineau ou le Parc Brébeuf, et pour gérer les exigences physiques de la vie de famille."
+          },
+          {
+            "question": "Y a-t-il du stationnement en venant d'Aylmer?",
+            "answer": "Oui — le stationnement sur rue est gratuit sur la rue Eddy et les rues avoisinantes. Aucuns frais de stationnement ne sont requis et des places sont généralement disponibles pendant les heures d'ouverture."
+          }
+        ]
+      }
+    },
+    "outaouais": {
+      "preTitle": "Massothérapie en Outaouais",
+      "title": "Massothérapie en Outaouais",
+      "subtitle": "Au service de toute la région de l'Outaouais — de Hull et Aylmer à Chelsea, Wakefield et au-delà — avec une massothérapie bilingue et agréée AMQ.",
+      "paragraphs": [
+        "Olha Shelest offre une massothérapie professionnelle depuis son cabinet à Hull–Gatineau, au cœur de la région de l'Outaouais. Que vous soyez à Hull, Aylmer, dans le secteur de Gatineau, à Buckingham, à Masson-Angers ou dans les communautés environnantes de Chelsea, Cantley ou Wakefield, son cabinet est une destination pratique pour un massage thérapeutique ou un soin bien-être.",
+        "La région de l'Outaouais s'étend d'un secteur urbain — Hull et Aylmer en bordure de la rivière des Outaouais — aux collines boisées de la MRC des Collines-de-l'Outaouais. Les résidents de la région partagent des besoins communs : soulagement des tensions liées au travail de bureau et aux trajets quotidiens, récupération après des activités de plein air comme le ski et la randonnée dans le Parc de la Gatineau, et entretien continu du bien-être physique et mental.",
+        "En tant que membre de l'AMQ (Association des Massothérapeutes du Québec), Olha fournit des reçus officiels acceptés par la plupart des régimes d'assurance collective du Québec et des programmes d'avantages sociaux des employés fédéraux. Les séances sont offertes en français, en anglais et en ukrainien."
+      ],
+      "gettingHere": {
+        "title": "Comment s'y rendre",
+        "body": "Le cabinet est situé de façon centrale au 148 Rue Eddy, Unité 2 à Hull–Gatineau — accessible depuis toutes les parties de l'Outaouais. Depuis le centre de Gatineau : 10 à 15 minutes. Depuis Aylmer : 15 à 20 minutes. Depuis Chelsea : 15 minutes. Depuis Buckingham : environ 45 minutes. Stationnement gratuit sur rue disponible sur la rue Eddy."
+      },
+      "servicesTitle": "Services disponibles en Outaouais",
+      "faq": {
+        "preTitle": "Questions sur l'Outaouais",
+        "title": "Foire aux questions",
+        "items": [
+          {
+            "question": "Desservez-vous les clients de toute la région de l'Outaouais?",
+            "answer": "Oui. Des clients viennent de toutes les parties de l'Outaouais — Hull, Aylmer, le secteur de Gatineau, Buckingham, et les communautés environnantes comme Chelsea, Cantley et Wakefield. Le cabinet est situé de façon centrale à Hull au 148 Rue Eddy, accessible depuis toutes les directions."
+          },
+          {
+            "question": "Les reçus de massage sont-ils couverts par les assurances du Québec?",
+            "answer": "Oui. En tant que massothérapeute membre de l'AMQ, des reçus officiels sont fournis pour toutes les séances. Ils sont acceptés par la plupart des régimes d'assurance collective du Québec et des programmes d'avantages sociaux des employés fédéraux. Aucune ordonnance médicale n'est requise — vérifiez les détails de votre régime pour la couverture."
+          },
+          {
+            "question": "Les séances sont-elles disponibles en français?",
+            "answer": "Oui — les séances sont offertes en français, en anglais et en ukrainien. Le français est la langue de travail principale du cabinet, et toutes les communications, formulaires d'admission et recommandations sont disponibles en français."
+          }
+        ]
+      }
     }
   }
 }
