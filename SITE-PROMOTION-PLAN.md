@@ -216,8 +216,6 @@ This is **the single highest-ROI activity for local pack ranking.** Reviews are 
 The site has good internal linking already (Services ↔ Fees ↔ Contact). One quick check:
 - Every service description on the home page should link to the corresponding section on `/services`
 - Every service section on `/services` should link to its row in `/fees` (anchor link)
-- The `/about` page should link to `/services` and `/contact` in body text (not just nav)
-- Footer should include AMQ link with `rel="noopener"` (already a strong external trust signal)
 
 ---
 
