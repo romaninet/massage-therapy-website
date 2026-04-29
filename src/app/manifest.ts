@@ -4,7 +4,7 @@ import { BUSINESS, SITE } from '@/lib/config';
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: BUSINESS.name,
-    short_name: BUSINESS.name,
+    short_name: 'Olha Shelest',
     description: SITE.description,
     start_url: '/en',
     display: 'standalone',
