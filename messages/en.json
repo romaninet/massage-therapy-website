@@ -90,6 +90,7 @@
       "amqTitle": "AMQ Registered Member",
       "amqText": "Olha is a verified member of the Association des Massothérapeutes du Québec (AMQ), ensuring her practice meets the highest professional and ethical standards in Quebec.",
       "amqLink": "Verify Membership",
+      "amqCertAlt": "AMQ Membership Certificate — Olha Shelest",
       "valuesTitle": "My Approach",
       "values": [
         {
@@ -169,6 +170,7 @@
     "privacy": "Privacy Policy",
     "nav": "Navigation",
     "amqMember": "AMQ Member",
+    "amqCertAlt": "AMQ Membership Certificate — Olha Shelest",
     "serviceAreas": "Service Areas"
   },
   "privacy": {
