@@ -1,5 +1,6 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
 import { BUSINESS, NAV_LINKS } from '@/lib/config';
@@ -42,6 +43,13 @@ export default function Footer() {
                 {t('amqMember')}
               </a>
             </p>
+            <Image
+              src="/images/amq-cert.jpg"
+              alt={t('amqCertAlt')}
+              width={72}
+              height={96}
+              className="object-cover mt-1"
+            />
           </div>
 
           {/* Navigation column */}

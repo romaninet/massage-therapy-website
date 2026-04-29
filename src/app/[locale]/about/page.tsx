@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { personJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ExternalLink, Award, Heart, BookOpen } from 'lucide-react';
+import { Award, Heart, BookOpen } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR, BotanicalDivider } from '@/components/BotanicalDecor';
 import CTASection from '@/components/sections/CTASection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
@@ -101,21 +101,26 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <BotanicalCornerBR className="absolute bottom-0 right-0 w-20 h-20 text-sage/20 pointer-events-none" />
                 <div className="flex items-start gap-4 relative z-10">
                   <Award size={24} className="text-sage mt-0.5 flex-shrink-0" />
-                  <div>
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-heading text-forest font-semibold text-lg mb-2">
                       {t('amqTitle')}
                     </h3>
-                    <p className="text-forest/65 text-sm leading-relaxed mb-4">{t('amqText')}</p>
-                    <Link
-                      href={BUSINESS.amqUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sage hover:text-forest text-sm font-medium tracking-wide transition-colors"
-                    >
-                      {t('amqLink')}
-                      <ExternalLink size={14} />
-                    </Link>
+                    <p className="text-forest/65 text-sm leading-relaxed">{t('amqText')}</p>
                   </div>
+                  <a
+                    href={BUSINESS.amqUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-shrink-0"
+                  >
+                    <Image
+                      src="/images/amq-cert.jpg"
+                      alt={t('amqCertAlt')}
+                      width={90}
+                      height={120}
+                      className="object-cover"
+                    />
+                  </a>
                 </div>
               </div>
             </div>
