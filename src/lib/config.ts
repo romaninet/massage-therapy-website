@@ -152,7 +152,7 @@ export const NAV_LINKS = [
 export type NavKey = (typeof NAV_LINKS)[number]['key'];
 
 export const BUSINESS = {
-  name: 'Olha Shelest',
+  name: 'Olha Shelest, Massothérapeute',
   email: 'massage@shelestwellness.ca',
   phone: '(819) 815-5603',
   phoneTel: '+18198155603',
