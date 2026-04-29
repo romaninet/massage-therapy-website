@@ -52,6 +52,7 @@ There are two different things to rank:
 - Google Business Profile **verified** with Place ID, linked in JSON-LD `sameAs`
 - AMQ member listing (highest-value backlink) — NAP verified
 - Yelp Canada, RateMDs, Cylex Canada, Setmore — all live with consistent NAP
+- Bing Places for Business — live (also powers Apple Maps in Canada)
 - 819 Fongo phone (local geo signal correct)
 - Google Analytics 4 installed
 - Client testimonials in JSON-LD (eligible for star ratings in search results)
@@ -59,7 +60,7 @@ There are two different things to rank:
 
 ### Gaps to close (the remainder of this document)
 1. **Reviews velocity** — testimonials are on the site, but Google reviews on the GBP listing are what move the local pack. Need a deliberate review-collection engine.
-2. **Missing free citations** — PagesJaunes/YellowPages, Canada411, GoRendezvous (highest-priority misses for Quebec local SEO)
+2. **Missing citations** — PagesJaunes/YellowPages/Canada411 in progress. Remaining: Répertoire sante.gouv.qc.ca, Medimap.ca, Annuaire-Sante.ca (see TODO.md for full list)
 3. **No content/blog** — currently zero pages targeting informational long-tail queries. This is the biggest organic gap.
 4. **No location-specific landing pages** — one page about Gatineau is not the same as dedicated pages for Hull, Aylmer, Ottawa-side, etc.
 5. **GBP not used as a publishing surface** — Posts, Q&A, weekly photos, attributes are mostly empty
@@ -100,14 +101,18 @@ These are the highest-ROI, lowest-effort actions. Complete all of these before m
 
 ### 4.1 Complete the missing free citations (~2 hours total)
 
-| # | Platform | URL | Effort | Why it matters |
-|---|----------|-----|--------|----------------|
-| 1 | **PagesJaunes / YellowPages Canada** | solutions.yp.ca/free-online-listing | 30 min | One listing covers both. **Highest-authority Quebec-French citation** Google trusts. Critical for "massothérapie" queries |
-| 2 | **Canada411** | canada411.ca → Advertisers → Free Business Profile | 15 min | Pure citation/NAP signal. Indexed by Google as authoritative phone directory |
-| 3 | **GoRendezvous** | gorendezvous.com/pro/fr | 30 min | Quebec-specific wellness platform. Strong Outaouais signal. Free profile is enough — don't pay for booking software |
-| 4 | **Reseau-Sante.ca** | reseau-sante.ca | 15 min | Quebec health practitioner directory. Niche but trusted in QC market |
-| 5 | **Annuaire-Sante.ca** | annuaire-sante.ca | 15 min | Same category as above |
-| 6 | **Soins.ca** | soins.ca | 15 min | Lower priority but adds citation consistency |
+| # | Platform | Status | Effort | Why it matters |
+|---|----------|--------|--------|----------------|
+| 1 | **PagesJaunes / YellowPages Canada** — solutions.yp.ca/free-online-listing | 🟡 In progress | 30 min | One listing covers both sites. **Highest-authority Quebec-French citation** Google trusts. Critical for "massothérapie" queries |
+| 2 | **Canada411** — canada411.ca → Advertisers → Free Business Profile | 🟡 In progress | 15 min | Pure citation/NAP signal. Indexed by Google as an authoritative phone directory |
+| 3 | **Bing Places for Business** — bingplaces.com | ✅ Done | — | Microsoft Bing listing. Also powers Apple Maps in Canada |
+| 4 | **Répertoire des ressources en santé et services sociaux** — sante.gouv.qc.ca | ⬜ Near future | 30 min | Quebec government health directory. Strong trust signal for the QC market |
+| 5 | **Medimap.ca** — medimap.ca | ⬜ Near future | 15 min | Canadian healthcare directory used by patients to search for practitioners |
+| 6 | **Annuaire-Sante.ca** — annuaire-sante.ca | ⬜ Lower priority | 15 min | Quebec health practitioner directory. Adds citation consistency |
+
+**Notes:**
+- **GoRendezvous** — paid service; skip.
+- **Reseau-Sante.ca** — British Columbia directory, not Quebec; remove from consideration.
 
 **Critical:** Use the **exact** NAP every time:
 > Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca
@@ -139,7 +144,7 @@ The GBP is verified but is probably running at ~40% of its potential. Spend one 
 - Upload 15–25 photos at minimum: exterior, signage, treatment room, hands at work (no faces of clients), products used, neighborhood landmarks (Place du Portage, Rue Eddy streetscape), Olha headshot
 - Going forward: 2–4 new photos per month (Google rewards freshness)
 
-**Q&A seeding** — pre-populate the public Q&A panel with answers (you can ask and answer your own questions; this is allowed):
+**Q&A seeding** ⬜ TODO — see `TODO.md` for step-by-step guide and full question list. Pre-populate the public Q&A panel with answers (you can ask and answer your own questions; this is allowed):
 1. Quels services offrez-vous ? / What services do you offer?
 2. Quel est le tarif d'une séance ? / What's the rate for a session?
 3. Y a-t-il du stationnement ? / Is there parking nearby?
@@ -223,7 +228,7 @@ The site has good internal linking already (Services ↔ Fees ↔ Contact). One 
 
 This phase adds the **single biggest organic-ranking lever currently missing: a blog.**
 
-### 5.1 Add a bilingual blog/articles section
+### 5.1 Add a bilingual blog/articles section ⬜ TODO — see `TODO.md` for full implementation guide
 
 **Why this matters more than anything else in this phase:**
 Google rewards sites that demonstrate **expertise (E-E-A-T)** with depth of content on their topic. A 5-page brochure site ranks for ~10 keywords. A 5-page site **plus** 12 high-quality articles ranks for hundreds of long-tail keywords — many of which are pre-purchase research queries by people about to book.
@@ -330,9 +335,9 @@ These are the rare home-run backlinks. **Realistic target: 1–2 in year 1.**
 | Directory | Why |
 |-----------|-----|
 | **AMQ public directory** | ✅ Already done — make sure the listing has the website URL and is up to date |
-| **Reseau-Sante.ca** | Quebec health practitioner directory |
-| **Annuaire-Sante.ca** | Same niche |
-| **Soins.ca** | Quebec health/wellness directory |
+| **Annuaire-Sante.ca** | Quebec health practitioner directory — ⬜ near future |
+| **Répertoire sante.gouv.qc.ca** | Quebec government health directory — ⬜ near future |
+| **Medimap.ca** | Canadian healthcare directory — ⬜ near future |
 | **MassageBook.com** (international) | Free profile, English-language traffic, lower QC relevance |
 | **Wellness.com** | Free profile, US-centric but indexed |
 
@@ -442,7 +447,7 @@ These are technical changes that need code work. Each can be a separate task/PR 
 
 | Month | Expected outcome |
 |-------|------------------|
-| **1** | All free citations live (PagesJaunes, Canada411, GoRendezvous, Quebec health directories). GBP fully optimized, weekly Posts running, Q&A seeded, attributes complete. Review system in place. First 5–10 reviews coming in. First 1–2 blog articles published. |
+| **1** | PagesJaunes/Canada411 citations finalized. Répertoire sante.gouv.qc.ca and Medimap.ca created. GBP fully optimized: photos (15+), attributes, Q&A seeded, services listed, weekly Posts running. Review system active (QR cards, in-session ask). First 5–10 reviews. First 1–2 blog articles published. |
 | **2** | 10–15 reviews. 3–4 blog articles indexed. First long-tail queries showing up in Search Console. GBP appearing in 3-pack for narrow neighborhood queries (e.g., "massage Hull"). |
 | **3** | 15–20 reviews. 6 articles published. Local landing pages (Hull, Aylmer, Ottawa) live. First partnership outreach attempts. |
 | **4** | 20–25 reviews. 8 articles. **Top 10** for "massage Gatineau" and "massothérapie Gatineau". First specialty queries (drainage lymphatique, massage femme enceinte) starting to rank. |
@@ -478,10 +483,10 @@ These can actively damage rankings or get the listing suspended.
 
 The highest-ROI actions if you only have one focused day:
 
-1. **(30 min)** Create PagesJaunes/YellowPages free listing
-2. **(15 min)** Create Canada411 free listing
-3. **(30 min)** Create GoRendezvous profile
-4. **(1 hour)** GBP: add 15 photos, fill all attributes, seed 10 Q&A, list every service with bilingual descriptions
+1. 🟡 **(30 min)** Finish PagesJaunes/YellowPages free listing — in progress
+2. 🟡 **(15 min)** Finish Canada411 free listing — in progress
+3. ✅ **Bing Places for Business** — done
+4. **(1 hour)** GBP: add 15 photos, fill all attributes, seed 10 Q&A (see TODO.md), list every service with bilingual descriptions
 5. ✅ **(20 min)** Get GBP review short URL and set up `shelestwellness.ca/reviews` redirect — **DONE** (`next.config.ts`)
 6. **(30 min)** Print or order QR code business cards pointing to `shelestwellness.ca/reviews`
 7. **(1 hour)** Write and publish first GBP Post — set a recurring 30-min calendar reminder for every Monday morning to publish a new one

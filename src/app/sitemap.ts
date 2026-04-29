@@ -6,7 +6,7 @@ const pages = [
   { path: '/about', changeFrequency: 'monthly' as const, priority: 0.8 },
   { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
   { path: '/fees', changeFrequency: 'monthly' as const, priority: 0.8 },
-  { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.7 },
+  { path: '/contact', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: '/privacy-policy', changeFrequency: 'yearly' as const, priority: 0.3 },
   { path: '/massage-hull', changeFrequency: 'monthly' as const, priority: 0.8 },
   { path: '/massage-ottawa', changeFrequency: 'monthly' as const, priority: 0.8 },

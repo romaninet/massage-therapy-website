@@ -22,6 +22,15 @@ const locationPlace = {
   },
 };
 
+const DIRECTORY_URLS = [
+  BUSINESS.amqUrl,
+  BUSINESS.googleMapsUrl,
+  'https://www.yelp.ca/biz/olha-shelest-massoth%C3%A9rapeute-gatineau',
+  'https://www.cylex-canada.ca/company/olha-shelest--massoth%c3%a9rapeute-25186483.html',
+  'https://shelestwellness.setmore.com/',
+  'https://www.ratemds.com/clinic/ca-qc-gatineau-olha-shelest/',
+];
+
 const businessEntity = {
   '@type': 'HealthAndBeautyBusiness',
   '@id': SITE.url,
@@ -58,7 +67,7 @@ const businessEntity = {
     availableLanguage: ['English', 'French'],
   },
   location: locationPlace,
-  sameAs: [BUSINESS.amqUrl, BUSINESS.googleMapsUrl],
+  sameAs: DIRECTORY_URLS,
 };
 
 export function localBusinessJsonLd(locale: Locale) {
@@ -108,7 +117,7 @@ export function personJsonLd(locale: Locale) {
     jobTitle: isFr ? 'Massothérapeute Professionnelle' : 'Professional Massage Therapist',
     url: `${SITE.url}/${locale}/about`,
     image: `${SITE.url}${SITE.portraitImage}`,
-    sameAs: [BUSINESS.amqUrl, BUSINESS.googleMapsUrl],
+    sameAs: DIRECTORY_URLS,
     hasCredential: {
       '@type': 'EducationalOccupationalCredential',
       name: isFr ? 'Massothérapeute Professionnelle' : 'Registered Massage Therapist',

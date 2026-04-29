@@ -265,15 +265,18 @@ Redirects are configured in the `redirects()` function in `next.config.ts`.
 Listings that have been created and must be kept up to date (NAP, hours, website URL) whenever business details change.
 
 **NAP to keep consistent everywhere:**
-Olha Shelest · 148 Rue Eddy Unit 2, Gatineau QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca
+Olha Shelest · 148 Rue Eddy, Unit 2, Gatineau, QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca
 
 | Platform | URL | Date Created | Login / Account | Notes |
 |----------|-----|--------------|-----------------|-------|
 | AMQ (Association des massothérapeutes du Québec) | [membres.rmqmasso.ca/en/find-member/details/M-24-4471](https://membres.rmqmasso.ca/en/find-member/details/M-24-4471) | — | Member ID: M-24-4471 | Highest-value backlink. Add website URL if not already set. Update if address or phone changes |
-| Yelp Canada | yelp.ca , https://ypforbusiness.yellowpages.ca/ | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
-| RateMDs | ratemds.com | 2026-04-25 | — | Free basic profile. Ranks well in Google name searches |
-| Cylex Canada | cylex.ca | 2026-04-25 | — | Free business directory listing. Update if address, phone, or hours change |
+| Yelp Canada | [yelp.ca/biz/olha-shelest-massothérapeute-gatineau](https://www.yelp.ca/biz/olha-shelest-massoth%C3%A9rapeute-gatineau) | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
+| Yellow pages | [yellowpages.ca](https://ypforbusiness.yellowpages.ca/) | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
+| RateMDs | [ratemds.com](https://www.ratemds.com/clinic/ca-qc-gatineau-olha-shelest/), [manage](https://help.ratemds.com/support/tickets/new?ticket_form=managing_facilities&utm_source=gsc_managefacilities&utm_medium=gsc_managefacilitiesbanner&utm_campaign=gsc_claimprofile) | 2026-04-25 | — | Free basic profile. Ranks well in Google name searches |
+| Cylex Canada | https://www.cylex-canada.ca/company/olha-shelest--massoth%c3%a9rapeute-25186483.html | 2026-04-25 | — | Free business directory listing. Update if address, phone, or hours change |
 | Setmore | [shelestwellness.setmore.com](https://shelestwellness.setmore.com/) | 2026-04-26 | — | Booking page / directory listing. Update if address, phone, hours, or services change |
+| Bing Places for Business | [bingplaces.com](https://www.bingplaces.com/) (manage) | 2026-04-29 | — | Microsoft Bing business listing. Also powers Apple Maps in Canada (Apple uses Bing data). Update if address, phone, or hours change |
+| Apple Business Connect | [business.apple.com](https://business.apple.com/) (manage) | 2026-04-29 | — | Controls how the business appears on Apple Maps, Siri, and Spotlight. Verified via domain TXT record + AMQ professional certificate. Update if address, phone, or hours change |
 
 ---
 
