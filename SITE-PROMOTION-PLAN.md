@@ -291,16 +291,6 @@ These are not blog posts — they're permanent service-area pages designed to ra
 - Component: `src/components/sections/FAQSection.tsx` — native `<details>/<summary>` accordion, no JS required
 - Still to add: FAQ schema to individual blog articles when the blog is built (§5.1)
 
-### 5.4 Service area page
-
-Add a `/service-area` page (or section on `/contact`) showing the catchment with:
-- A list of cities/neighborhoods served
-- Approximate travel time from each (Hull 5 min, Aylmer 15 min, Ottawa downtown 10 min, Orléans 25 min, Kanata 30 min)
-- A wider Google Map showing the region
-- Service-area JSON-LD `areaServed` with all cities listed
-
-This signals to Google's local algorithm that the business serves a wider geographic area, which can help rank for queries from those areas.
-
 ---
 
 ## 6. Phase 3 — Backlinks & Local Partnerships (Months 3–6)
@@ -419,12 +409,8 @@ These are technical changes that need code work. Each can be a separate task/PR 
 | 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + MDX or JSON content) | 4–6 hours | Very high (long-tail organic) | ⬜ Todo |
 | 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium | ⬜ Todo |
 | 5 | Add local landing pages: `/massage-hull`, `/massage-ottawa`, `/massage-aylmer`, `/massage-outaouais` | — | High (location queries) | ✅ Done |
-| 6 | Add `/service-area` page with regional map and `areaServed` JSON-LD | 2 hours | Medium | ⬜ Todo |
-| 7 | French URL slugs audit — ensure FR routes use French words (`/fr/services/massage-therapeutique` not `/fr/services/therapeutic-massage`) | 2 hours | Medium | ⬜ Todo |
-| 8 | Verify `aggregateRating` and review markup in Search Console "Enhancements" panel | — | High (star ratings) | ✅ Done — markup valid; Google may withhold star display for self-published testimonials (no penalty) |
-| 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium | ⬜ Todo |
-| 10 | Add a "From Ottawa?" small callout block on home page with bridge / parking info | 30 min | Medium (Ottawa capture) | ⬜ Todo |
-
+| 6 | Verify `aggregateRating` and review markup in Search Console "Enhancements" panel | — | High (star ratings) | ✅ Done — markup valid; Google may withhold star display for self-published testimonials (no penalty) |
+| 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium | ✅ Done |
 ---
 
 ## 10. Tracking & Metrics

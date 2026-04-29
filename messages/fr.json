@@ -11,7 +11,7 @@
     "footerNav": "Navigation du pied de page"
   },
   "header": {
-    "logoAlt": "Olha Shelest, Massothérapeute Professionnelle",
+    "logoAlt": "Olha Shelest — Massothérapie Gatineau",
     "subtitle": "Massothérapeute"
   },
   "hero": {
@@ -22,7 +22,7 @@
     "ourServices": "Nos services",
     "meetOlha": "Rencontrer Olha",
     "massageTherapy": "Massothérapie",
-    "imageAlt": "Massothérapie",
+    "imageAlt": "Massothérapie à Gatineau — Olha Shelest",
     "locationLabel": "Situé à",
     "scroll": "Défiler"
   },
@@ -86,7 +86,7 @@
       "bio4": "Elle accueille des clients de tous horizons et adapte ses techniques au niveau de confort et aux objectifs thérapeutiques de chaque individu. Chaque visite est un pas vers un vous plus sain et plus équilibré.",
       "bioCta": "Découvrez nos <servicesLink>services de massothérapie</servicesLink> pour trouver le traitement qui vous convient, ou <contactLink>contactez-nous</contactLink> pour prendre rendez-vous.",
       "preTitle": "Notre thérapeute",
-      "profileAlt": "Olha Shelest — Massothérapeute Professionnelle",
+      "profileAlt": "Olha Shelest — Massothérapeute agréée à Gatineau",
       "amqTitle": "Membre inscrite à l'AMQ",
       "amqText": "Olha est membre vérifiée de l'Association des Massothérapeutes du Québec (AMQ), assurant que sa pratique répond aux plus hauts standards professionnels et éthiques au Québec.",
       "amqLink": "Vérifier l'adhésion",
@@ -285,7 +285,7 @@
       "subtitle": "Massothérapie professionnelle au cœur de Hull, à deux pas de la Place du Portage — au service des résidents de Hull et des employés fédéraux d'Ottawa.",
       "paragraphs": [
         "Situé au 148 Rue Eddy, au cœur de Hull, le cabinet d'Olha Shelest se trouve dans le quartier le mieux connecté de Gatineau. Que vous habitiez le boulevard Saint-Joseph, la rue Laval ou le Vieux-Hull, une massothérapie professionnelle est à deux pas de chez vous — sans long trajet en voiture.",
-        "Hull est une communauté urbaine bilingue comptant un grand nombre d'employés du gouvernement fédéral, de jeunes professionnels et de familles. Les tensions liées au travail de bureau, aux longs trajets quotidiens et aux exigences du quotidien s'accumulent. Un massage thérapeutique, un massage en profondeur ou une séance de relaxation peut faire une réelle différence — et un cabinet dans votre propre quartier facilite l'établissement d'une routine régulière.",
+        "Hull est une communauté urbaine animée comptant un grand nombre d'employés du gouvernement fédéral, de jeunes professionnels et de familles. Les tensions liées au travail de bureau, aux longs trajets quotidiens et aux exigences du quotidien s'accumulent. Un massage thérapeutique, un massage en profondeur ou une séance de relaxation peut faire une réelle différence — et un cabinet dans votre propre quartier facilite l'établissement d'une routine régulière.",
         "Olha est massothérapeute agréée membre de l'AMQ et offre six types de massage : massage thérapeutique pour la douleur et les blessures, massage en profondeur pour les tensions chroniques, massage de relaxation pour le stress, drainage lymphatique, massage pour enfants et massage en duo. Des reçus officiels d'assurance sont fournis pour toutes les séances."
       ],
       "gettingHere": {
@@ -315,11 +315,11 @@
     "ottawa": {
       "preTitle": "Massothérapie près d'Ottawa",
       "title": "Massothérapie près d'Ottawa",
-      "subtitle": "À 5 minutes à pied du centre-ville d'Ottawa via le pont Portage — massothérapie bilingue pour les résidents d'Ottawa et les employés fédéraux.",
+      "subtitle": "À 5 minutes à pied du centre-ville d'Ottawa via le pont Portage — massothérapie professionnelle pour les résidents d'Ottawa et les employés fédéraux.",
       "paragraphs": [
         "Si vous travaillez ou habitez à Ottawa et que vous cherchez une massothérapie de qualité à meilleur prix que dans le centre-ville, le cabinet d'Olha Shelest à Hull–Gatineau est plus proche que vous ne le pensez. Depuis le centre-ville d'Ottawa — Marché By, Centre-ville, Sandy Hill, Basse-ville — il suffit de 5 minutes à pied pour traverser le pont Portage, ou de quelques minutes en voiture via le pont Alexandra ou le pont Macdonald-Cartier.",
         "Le gouvernement fédéral est le plus grand employeur de la région de la capitale nationale, et de nombreux employés traversent déjà la rivière chaque jour. La Place du Portage — à deux pas du pont Portage côté Ottawa — est directement reliée à la rue Eddy à pied. Les employés fédéraux aux Terrasses de la Chaudière, aux Terrasses de l'île et à la Promenade du Portage sont tous à moins de 5 minutes à pied.",
-        "Olha est massothérapeute bilingue (anglais et français) et membre de l'AMQ. Les séances sont offertes en français, en anglais ou en ukrainien. Des reçus officiels d'assurance sont fournis pour toutes les séances — acceptés par la plupart des régimes d'avantages sociaux des employés fédéraux et des assurances collectives privées."
+        "Olha est massothérapeute membre de l'AMQ. Des reçus officiels d'assurance sont fournis pour toutes les séances — acceptés par la plupart des régimes d'avantages sociaux des employés fédéraux et des assurances collectives privées."
       ],
       "gettingHere": {
         "title": "Comment se rendre depuis Ottawa",
@@ -339,8 +339,8 @@
             "answer": "Oui. Si vous travaillez à la Place du Portage ou dans le couloir du pont Portage, le cabinet est à 5 à 7 minutes à pied en traversant le pont. Depuis le Marché By ou le Centre Rideau, c'est environ 10 à 12 minutes à pied. Un stationnement gratuit sur rue est disponible pour ceux qui préfèrent venir en voiture."
           },
           {
-            "question": "Les séances sont-elles disponibles en français?",
-            "answer": "Oui — les séances sont offertes en français, en anglais et en ukrainien. Le cabinet est entièrement bilingue et accueille les clients des communautés francophones et anglophones d'Ottawa et de la région."
+            "question": "Acceptez-vous les régimes d'avantages sociaux des employés fédéraux?",
+            "answer": "Oui. En tant que massothérapeute membre de l'AMQ, Olha fournit des reçus officiels acceptés par la plupart des régimes d'avantages sociaux des employés fédéraux, notamment le RASE et les régimes équivalents. Aucune ordonnance médicale n'est requise — vérifiez votre régime pour les montants couverts et les praticiens admissibles."
           }
         ]
       }
@@ -381,11 +381,11 @@
     "outaouais": {
       "preTitle": "Massothérapie en Outaouais",
       "title": "Massothérapie en Outaouais",
-      "subtitle": "Au service de toute la région de l'Outaouais — de Hull et Aylmer à Chelsea, Wakefield et au-delà — avec une massothérapie bilingue et agréée AMQ.",
+      "subtitle": "Au service de toute la région de l'Outaouais — de Hull et Aylmer à Chelsea, Wakefield et au-delà — avec une massothérapie professionnelle agréée AMQ.",
       "paragraphs": [
         "Olha Shelest offre une massothérapie professionnelle depuis son cabinet à Hull–Gatineau, au cœur de la région de l'Outaouais. Que vous soyez à Hull, Aylmer, dans le secteur de Gatineau, à Buckingham, à Masson-Angers ou dans les communautés environnantes de Chelsea, Cantley ou Wakefield, son cabinet est une destination pratique pour un massage thérapeutique ou un soin bien-être.",
         "La région de l'Outaouais s'étend d'un secteur urbain — Hull et Aylmer en bordure de la rivière des Outaouais — aux collines boisées de la MRC des Collines-de-l'Outaouais. Les résidents de la région partagent des besoins communs : soulagement des tensions liées au travail de bureau et aux trajets quotidiens, récupération après des activités de plein air comme le ski et la randonnée dans le Parc de la Gatineau, et entretien continu du bien-être physique et mental.",
-        "En tant que membre de l'AMQ (Association des Massothérapeutes du Québec), Olha fournit des reçus officiels acceptés par la plupart des régimes d'assurance collective du Québec et des programmes d'avantages sociaux des employés fédéraux. Les séances sont offertes en français, en anglais et en ukrainien."
+        "En tant que membre de l'AMQ (Association des Massothérapeutes du Québec), Olha fournit des reçus officiels acceptés par la plupart des régimes d'assurance collective du Québec et des programmes d'avantages sociaux des employés fédéraux."
       ],
       "gettingHere": {
         "title": "Comment s'y rendre",
@@ -405,8 +405,8 @@
             "answer": "Oui. En tant que massothérapeute membre de l'AMQ, des reçus officiels sont fournis pour toutes les séances. Ils sont acceptés par la plupart des régimes d'assurance collective du Québec et des programmes d'avantages sociaux des employés fédéraux. Aucune ordonnance médicale n'est requise — vérifiez les détails de votre régime pour la couverture."
           },
           {
-            "question": "Les séances sont-elles disponibles en français?",
-            "answer": "Oui — les séances sont offertes en français, en anglais et en ukrainien. Le français est la langue de travail principale du cabinet, et toutes les communications, formulaires d'admission et recommandations sont disponibles en français."
+            "question": "Offrez-vous des massages pour la récupération sportive et les activités de plein air?",
+            "answer": "Oui — le massage thérapeutique et le massage en profondeur sont particulièrement adaptés à la récupération après le ski, la randonnée, le vélo et d'autres activités populaires dans la région de l'Outaouais. Le massage aide à réduire les courbatures, améliorer la mobilité et accélérer la récupération. Mentionnez votre pratique et les zones à traiter lors de la prise en charge."
           }
         ]
       }

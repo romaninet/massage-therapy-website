@@ -11,7 +11,7 @@
     "footerNav": "Footer navigation"
   },
   "header": {
-    "logoAlt": "Olha Shelest, Professional Massage Therapist",
+    "logoAlt": "Olha Shelest — Massage Therapy Gatineau",
     "subtitle": "Massage Therapist"
   },
   "hero": {
@@ -22,7 +22,7 @@
     "ourServices": "Our Services",
     "meetOlha": "Meet Olha",
     "massageTherapy": "Massage Therapy",
-    "imageAlt": "Massage Therapy",
+    "imageAlt": "Massage therapy in Gatineau — Olha Shelest",
     "locationLabel": "Located in",
     "scroll": "Scroll"
   },
@@ -86,7 +86,7 @@
       "bio4": "She welcomes clients of all backgrounds and adapts her techniques to suit each individual's comfort level and therapeutic objectives. Every visit is a step toward a healthier, more balanced you.",
       "bioCta": "Explore our <servicesLink>massage services</servicesLink> to find the right treatment for you, or <contactLink>get in touch</contactLink> to book your first session.",
       "preTitle": "Our Therapist",
-      "profileAlt": "Olha Shelest — Professional Massage Therapist",
+      "profileAlt": "Olha Shelest — Registered Massage Therapist in Gatineau",
       "amqTitle": "AMQ Registered Member",
       "amqText": "Olha is a verified member of the Association des Massothérapeutes du Québec (AMQ), ensuring her practice meets the highest professional and ethical standards in Quebec.",
       "amqLink": "Verify Membership",
@@ -285,7 +285,7 @@
       "subtitle": "Professional massage therapy in the heart of Hull, steps from Place du Portage — serving Hull residents and Ottawa federal workers.",
       "paragraphs": [
         "Located at 148 Rue Eddy in the heart of Hull, Olha Shelest's practice is at the centre of Gatineau's most connected neighbourhood. Whether you live on boulevard Saint-Joseph, rue Laval, or anywhere in Vieux-Hull, professional massage therapy is close to home — no long drive required.",
-        "Hull is a bilingual, urban community with a high concentration of federal government workers, young professionals, and families. The stresses of desk work, long commutes, and everyday life accumulate. Therapeutic massage, deep tissue work, or a relaxation session can make a measurable difference — and a practice in your own neighbourhood makes it easy to maintain a regular routine.",
+        "Hull is a vibrant, urban community with a high concentration of federal government workers, young professionals, and families. The stresses of desk work, long commutes, and everyday life accumulate. Therapeutic massage, deep tissue work, or a relaxation session can make a measurable difference — and a practice in your own neighbourhood makes it easy to maintain a regular routine.",
         "Olha is an AMQ-registered massage therapist offering six massage types: therapeutic massage for pain and injury, deep tissue massage for chronic tension, relaxation massage for stress, lymphatic drainage, children's massage, and couples massage. Official insurance receipts are provided for all sessions."
       ],
       "gettingHere": {
@@ -315,11 +315,11 @@
     "ottawa": {
       "preTitle": "Massage Therapy Near Ottawa",
       "title": "Massage Therapy Near Ottawa",
-      "subtitle": "A 5-minute walk from downtown Ottawa across the Portage bridge — bilingual massage therapy for Ottawa residents and federal workers.",
+      "subtitle": "A 5-minute walk from downtown Ottawa across the Portage bridge — massage therapy for Ottawa residents and federal workers.",
       "paragraphs": [
         "If you work or live in Ottawa and have been looking for quality massage therapy without the downtown Ottawa prices, Olha Shelest's practice in Hull–Gatineau is closer than you think. From downtown Ottawa — Byward Market, Centretown, Sandy Hill, Lowertown — it is a short 5-minute walk across the Portage bridge or a quick drive via the Alexandra or Macdonald-Cartier bridge.",
         "The National Capital Region's largest employer is the federal government, and many of its employees already cross the river daily. Place du Portage — just steps from the Portage bridge on the Ottawa side — connects directly to Rue Eddy on foot. Federal workers at Terrasses de la Chaudière, Les Terrasses de l'île, and Promenade du Portage are all within a 5-minute walk.",
-        "Olha is a bilingual (English and French) AMQ-registered massage therapist. Sessions are offered in English, French, and Ukrainian. Insurance receipts are provided for all sessions — accepted by most federal employee benefit plans and private group insurance."
+        "Olha is an AMQ-registered massage therapist. Insurance receipts are provided for all sessions — accepted by most federal employee benefit plans and private group insurance."
       ],
       "gettingHere": {
         "title": "Getting Here from Ottawa",
@@ -339,8 +339,8 @@
             "answer": "Yes. If you work at Place du Portage or anywhere along the Portage bridge corridor, the practice is a 5 to 7 minute walk across the bridge. From Byward Market or Rideau Centre, it is about 10 to 12 minutes on foot. Free parking is available on Rue Eddy for those who prefer to drive."
           },
           {
-            "question": "Do you offer massage sessions in English?",
-            "answer": "Yes — sessions are available in English, French, and Ukrainian. The practice is fully bilingual and welcomes clients from Ottawa's diverse English-speaking and francophone communities alike."
+            "question": "Do you accept federal employee benefit plans?",
+            "answer": "Yes. As an AMQ-registered massage therapist, Olha provides official receipts accepted by most federal employee benefit programs, including PSHCP and equivalent plans. No doctor's referral is required — check your plan for covered amounts and eligible practitioners."
           }
         ]
       }
@@ -381,11 +381,11 @@
     "outaouais": {
       "preTitle": "Massage Therapy in the Outaouais",
       "title": "Massage Therapy in the Outaouais",
-      "subtitle": "Serving the entire Outaouais region — from Hull and Aylmer to Chelsea, Wakefield, and beyond — with bilingual, AMQ-registered massage therapy.",
+      "subtitle": "Serving the entire Outaouais region — from Hull and Aylmer to Chelsea, Wakefield, and beyond — with professional, AMQ-registered massage therapy.",
       "paragraphs": [
         "Olha Shelest offers professional massage therapy from her practice in Hull–Gatineau, at the centre of the Outaouais region. Whether you are in Hull, Aylmer, the Gatineau sector, Buckingham, Masson-Angers, or in the surrounding communities of Chelsea, Cantley, or Wakefield, her practice is a convenient destination for therapeutic and wellness massage.",
         "The Outaouais region spans a diverse area — from urban Hull and Aylmer along the Ottawa River to the forested hills of the MRC des Collines-de-l'Outaouais. Residents of the region share common needs: relief from desk work and commute fatigue, recovery from outdoor activities like skiing and hiking in Parc de la Gatineau, and the ongoing maintenance of physical and mental wellbeing.",
-        "As an AMQ (Association des Massothérapeutes du Québec) member, Olha provides official receipts accepted by most Quebec group insurance plans and federal employee benefit programs. Sessions are offered in French, English, and Ukrainian."
+        "As an AMQ (Association des Massothérapeutes du Québec) member, Olha provides official receipts accepted by most Quebec group insurance plans and federal employee benefit programs."
       ],
       "gettingHere": {
         "title": "Getting Here",
@@ -405,8 +405,8 @@
             "answer": "Yes. As an AMQ-registered massage therapist, official receipts are provided for all sessions. These are accepted by most Quebec group insurance plans and federal employee benefit programs. No doctor's referral is required — check your specific plan for coverage details."
           },
           {
-            "question": "Are sessions available in French?",
-            "answer": "Yes — sessions are offered in French, English, and Ukrainian. French is the primary working language of the practice, and all communication, intake forms, and recommendations are available in French."
+            "question": "Do you offer massage for sports and outdoor activity recovery?",
+            "answer": "Yes — therapeutic and deep tissue massage are well suited for recovery from skiing, hiking, cycling, and other activities popular in the Outaouais region. Massage helps reduce muscle soreness, improve range of motion, and speed up recovery. Please mention your activity and any areas of concern during intake."
           }
         ]
       }
