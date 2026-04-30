@@ -228,7 +228,7 @@ The site has good internal linking already (Services ↔ Fees ↔ Contact). One 
 
 This phase adds the **single biggest organic-ranking lever currently missing: a blog.**
 
-### 5.1 Add a bilingual blog/articles section ⬜ TODO — see `TODO.md` for full implementation guide
+### 5.1 Add a bilingual blog/articles section ✅ Done (4 of 12 articles published) — see `TODO.md` for remaining articles
 
 **Why this matters more than anything else in this phase:**
 Google rewards sites that demonstrate **expertise (E-E-A-T)** with depth of content on their topic. A 5-page brochure site ranks for ~10 keywords. A 5-page site **plus** 12 high-quality articles ranks for hundreds of long-tail keywords — many of which are pre-purchase research queries by people about to book.
@@ -411,8 +411,8 @@ These are technical changes that need code work. Each can be a separate task/PR 
 |---|-------------|--------|--------|--------|
 | 1 | Add `/reviews` redirect → GBP review URL (one line in `next.config.ts`) | — | High (powers QR card) | ✅ Done |
 | 2 | Add FAQPage JSON-LD to home + services pages | — | High (PAA snippets) | ✅ Done |
-| 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + MDX or JSON content) | 4–6 hours | Very high (long-tail organic) | ⬜ Todo |
-| 4 | Add Article JSON-LD schema for blog posts | 30 min | Medium | ⬜ Todo |
+| 3 | Add bilingual blog/articles section (`/[locale]/articles/[slug]` route + JSON content) | — | Very high (long-tail organic) | ✅ Done — 4 articles live |
+| 4 | Add Article JSON-LD schema for blog posts | — | Medium | ✅ Done |
 | 5 | Add local landing pages: `/massage-hull`, `/massage-ottawa`, `/massage-aylmer`, `/massage-outaouais` | — | High (location queries) | ✅ Done |
 | 6 | Verify `aggregateRating` and review markup in Search Console "Enhancements" panel | — | High (star ratings) | ✅ Done — markup valid; Google may withhold star display for self-published testimonials (no penalty) |
 | 9 | Image alt text audit — every image has bilingual descriptive alt with location keyword where natural | 1 hour | Low-medium | ✅ Done |

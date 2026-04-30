@@ -48,7 +48,8 @@ export default function Footer() {
               alt={t('amqCertAlt')}
               width={72}
               height={96}
-              className="object-cover mt-1"
+              className="mt-1"
+              style={{ width: '72px', height: 'auto' }}
             />
           </div>
 

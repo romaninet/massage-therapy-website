@@ -100,6 +100,7 @@ The site is set up with:
   - `FAQPage` with 5 service-specific Q&As — Services page
   - `FAQPage` with 3 area-specific Q&As + `HealthAndBeautyBusiness` + `BreadcrumbList` — each local area landing page
   - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
+  - `Article` (with `author`, `publisher`, `datePublished`, `inLanguage`) + `FAQPage` + `BreadcrumbList` — each article page
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element
@@ -236,6 +237,11 @@ The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes 
 | `/massage-ottawa` | Local landing page — Ottawa cross-river angle via Portage bridge |
 | `/massage-aylmer` | Local landing page — Aylmer / west Gatineau residents |
 | `/massage-outaouais` | Local landing page — regional catch-all for the full Outaouais |
+| `/articles` | Articles index — bilingual blog listing |
+| `/articles/how-to-choose-massage-therapist-gatineau` | Article: How to choose a massage therapist in Gatineau |
+| `/articles/deep-tissue-massage-runners-athletes-gatineau` | Article: Deep tissue massage for runners and athletes |
+| `/articles/therapeutic-vs-relaxation-massage-gatineau` | Article: Therapeutic vs relaxation massage — how to choose |
+| `/articles/amq-receipts-massage-insurance-coverage-gatineau` | Article: AMQ receipts and getting massage covered by insurance |
 
 All routes are available under `/en/` and `/fr/` prefixes.
 

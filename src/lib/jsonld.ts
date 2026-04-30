@@ -69,6 +69,22 @@ const businessEntity = {
   },
   location: locationPlace,
   sameAs: DIRECTORY_URLS,
+  potentialAction: {
+    '@type': 'ReserveAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE.url}/contact`,
+      inLanguage: ['en-CA', 'fr-CA'],
+      actionPlatform: [
+        'http://schema.org/DesktopWebPlatform',
+        'http://schema.org/MobileWebPlatform',
+      ],
+    },
+    result: {
+      '@type': 'Reservation',
+      name: 'Massage Therapy Appointment',
+    },
+  },
 };
 
 export function localBusinessJsonLd(locale: Locale) {
@@ -177,9 +193,47 @@ export function servicesPageJsonLd(locale: Locale) {
           priceCurrency: 'CAD',
           lowPrice: Math.min(...s.tiers.map((t) => t.price)),
           highPrice: Math.max(...s.tiers.map((t) => t.price)),
+          availability: 'https://schema.org/InStock',
         },
       },
     })),
+  };
+}
+
+export function articleJsonLd(article: {
+  title: string;
+  excerpt: string;
+  datePublished: string;
+  dateModified?: string;
+  image: string;
+  url: string;
+  locale: Locale;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified ?? article.datePublished,
+    inLanguage: article.locale === 'fr' ? 'fr-CA' : 'en-CA',
+    url: article.url,
+    image: `${SITE.url}${article.image}`,
+    author: {
+      '@type': 'Person',
+      name: BUSINESS.name,
+      url: `${SITE.url}/${article.locale}/about`,
+    },
+    publisher: {
+      '@type': 'HealthAndBeautyBusiness',
+      '@id': SITE.url,
+      name: BUSINESS.name,
+      url: SITE.url,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': article.url,
+    },
   };
 }
 
