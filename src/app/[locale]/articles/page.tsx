@@ -5,6 +5,7 @@ import { breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
 import { ARTICLES } from '@/lib/config';
 import { BotanicalDivider } from '@/components/BotanicalDecor';
+import PageHeaderSection from '@/components/sections/PageHeaderSection';
 
 export async function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'fr' }];
@@ -52,20 +53,12 @@ export default async function ArticlesIndexPage({ params }: { params: Promise<{ 
       />
 
       <main>
-        {/* Header */}
-        <section className="bg-forest text-white pt-28 pb-10 lg:pb-16 relative overflow-hidden">
-          <div className="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
-            <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
-              {t('index.preTitle')}
-            </p>
-            <h1 className="font-heading text-3xl lg:text-5xl font-semibold mb-4">
-              {t('index.title')}
-            </h1>
-            <p className="text-white/60 text-base lg:text-lg max-w-xl">
-              {t('index.subtitle')}
-            </p>
-          </div>
-        </section>
+        <PageHeaderSection
+          preTitle={t('index.preTitle')}
+          title={t('index.title')}
+          subtitle={t('index.subtitle')}
+          pb="pb-10 lg:pb-16"
+        />
 
         {/* Article list */}
         <section className="bg-off-white py-12 lg:py-20">
