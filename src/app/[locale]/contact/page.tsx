@@ -54,7 +54,7 @@ export default async function ContactPage({
 
       {/* Contact content */}
       <section className="bg-off-white py-3 md:py-16 lg:py-28">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="container-wide">
           <div className="text-center mb-2 lg:mb-14">
             <BotanicalDivider className="w-64 mx-auto text-sage/50" />
           </div>
@@ -76,7 +76,7 @@ export default async function ContactPage({
               </h2>
               <div className="flex flex-col gap-8">
                 <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center flex-shrink-0">
+                  <div className="icon-badge">
                     <Phone size={18} className="text-sage" />
                   </div>
                   <div>
@@ -88,7 +88,7 @@ export default async function ContactPage({
                 </div>
 
                 <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center flex-shrink-0">
+                  <div className="icon-badge">
                     <Mail size={18} className="text-sage" />
                   </div>
                   <div>
@@ -100,7 +100,7 @@ export default async function ContactPage({
                 </div>
 
                 <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center flex-shrink-0">
+                  <div className="icon-badge">
                     <MapPin size={18} className="text-sage" />
                   </div>
                   <div>
@@ -118,7 +118,7 @@ export default async function ContactPage({
 
             {/* 3 — Opening hours (mobile: third · desktop: left col, row 2) */}
             <div className="order-3 lg:col-start-1 lg:row-start-2 flex items-start gap-5">
-              <div className="w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center flex-shrink-0">
+              <div className="icon-badge">
                 <Clock size={18} className="text-sage" />
               </div>
               <div className="flex-1">
@@ -144,7 +144,7 @@ export default async function ContactPage({
                 title={t('mapTitle')}
                 width="100%"
                 height="100%"
-                style={{ border: 0 }}
+                className="border-0"
                 loading="lazy"
                 allowFullScreen
                 src={BUSINESS.mapsUrl}

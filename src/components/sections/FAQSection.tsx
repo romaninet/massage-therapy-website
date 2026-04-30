@@ -13,7 +13,7 @@ export default function FAQSection({ preTitle, title, items }: Props) {
     <section className="bg-off-white py-12 lg:py-20">
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center mb-8 lg:mb-12">
-          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-3">
+          <p className="section-pretitle mb-3">
             {preTitle}
           </p>
           <h2 className="font-heading text-3xl lg:text-4xl text-forest font-semibold mb-4">

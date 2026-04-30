@@ -10,13 +10,13 @@ export default function ServicesSection() {
 
   return (
     <section className="bg-pale-sage py-6 md:py-16 lg:py-32 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="container-wide">
         {/* Header */}
         <div className="text-center mb-4 lg:mb-16">
-          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-3 lg:mb-4">
+          <p className="section-pretitle mb-3 lg:mb-4">
             {t('preTitle')}
           </p>
-          <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-3 lg:mb-6">
+          <h2 className="heading-section mb-3 lg:mb-6">
             {t('title')}
           </h2>
           <BotanicalDivider className="w-48 lg:w-72 mx-auto text-sage/50 my-2 lg:my-6" />
@@ -30,7 +30,7 @@ export default function ServicesSection() {
           {SERVICES.map((service) => (
             <div
               key={service.key}
-              className="group bg-white rounded-lg p-8 border border-forest/8 hover:border-sage/40 hover:shadow-xl hover:shadow-forest/8 transition-all duration-300 hover:-translate-y-1 flex flex-col gap-5"
+              className="group bg-white rounded-lg p-8 border border-forest/8 hover:border-sage/40 hover:shadow-xl hover:shadow-forest/8 transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 flex flex-col gap-5"
             >
               <div className="text-forest/50 group-hover:text-sage transition-colors duration-300">
                 <ServiceIcon serviceKey={service.key} className="w-10 h-10" />

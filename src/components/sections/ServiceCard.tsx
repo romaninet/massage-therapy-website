@@ -32,7 +32,7 @@ export default function ServiceCard({ service, index, locale, lang, content, lab
       id={service.key}
       className={`scroll-mt-24 ${index % 2 === 0 ? 'bg-off-white' : 'bg-pale-sage'} py-12 lg:py-24 relative overflow-hidden`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
           {/* Text column — order flips on desktop for odd indices */}
@@ -40,7 +40,7 @@ export default function ServiceCard({ service, index, locale, lang, content, lab
             <div className="text-sage mb-5">
               <ServiceIcon serviceKey={service.key} className="w-12 h-12" />
             </div>
-            <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-5">
+            <h2 className="heading-section mb-5">
               {service.title[lang]}
             </h2>
             <BotanicalDivider className="w-40 text-sage/40 mb-6" />
@@ -63,7 +63,7 @@ export default function ServiceCard({ service, index, locale, lang, content, lab
               <div className="flex flex-wrap gap-3 items-center ml-2">
                 <Link
                   href={`/${locale}/contact?type=${service.key}`}
-                  className="px-6 py-3 bg-forest text-white text-sm tracking-wider uppercase font-medium rounded transition-all hover:bg-forest/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/20"
+                  className="px-6 py-3 bg-forest text-white text-sm tracking-wider uppercase font-medium rounded transition-[background-color,box-shadow,transform] duration-200 hover:bg-forest/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/20"
                 >
                   {labels.bookSession}
                 </Link>

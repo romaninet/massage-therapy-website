@@ -49,7 +49,7 @@ export default function ArticleTemplate({
       {/* Page header — matches About/Fees/Services dark header style */}
       <section className="bg-forest text-white pt-28 pb-8 lg:pb-12 relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 relative z-10">
-          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
+          <p className="section-pretitle mb-4">
             {preTitle}
           </p>
           <h1 className="font-heading text-3xl lg:text-4xl xl:text-5xl font-semibold leading-tight mb-4">

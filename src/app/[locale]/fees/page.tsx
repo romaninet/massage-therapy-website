@@ -165,7 +165,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
             <p className="text-white/60 mb-8 relative z-10">{t('ctaText')}</p>
             <Link
               href={`/${locale}/contact`}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-off-white hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 relative z-10"
+              className="btn-light gap-2 relative z-10"
             >
               {t('ctaButton')}
             </Link>

@@ -54,6 +54,20 @@ Update that single file to change any business details site-wide.
 
 The dark forest-green header section (pre-title, H1, subtitle, botanical corners) shared by About, Services, Fees, Contact, and Privacy Policy is a single component at `src/components/sections/PageHeaderSection.tsx`. Pass `preTitle`, `title`, `subtitle` (optional), and `pb` (optional bottom-padding class, defaults to `'pb-20'`).
 
+### CSS component classes
+
+Shared Tailwind patterns are extracted into `@layer components` in `src/app/globals.css`. **Use these classes instead of copy-pasting the utility strings:**
+
+| Class | Expands to | Used for |
+|---|---|---|
+| `.section-pretitle` | `text-sage font-medium tracking-[0.25em] uppercase text-xs` | Small uppercase sage label above section headings |
+| `.container-wide` | `max-w-7xl mx-auto px-6 lg:px-12` | Standard page/section content width with responsive horizontal padding |
+| `.heading-section` | `font-semibold text-forest text-4xl lg:text-5xl` | In-flow section `<h2>` headings (not the hero H1) |
+| `.btn-light` | White-on-forest CTA button with lift hover effect | Primary CTA on dark backgrounds (hero, fees CTA, CTA section) |
+| `.icon-badge` | `w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center flex-shrink-0` | Circular pale-sage icon container (contact info, values cards) |
+
+Per-site spacing utilities (`mb-3`, `gap-3`, etc.) compose with these classes as normal — they override the component layer automatically per Tailwind's cascade order.
+
 ### Price formatting
 
 `src/lib/format.ts` exports `formatPrice(price, locale)` — use this whenever displaying a CAD price. Returns `$X` for EN and `X $` for FR.
@@ -103,7 +117,8 @@ The site is set up with:
   - `Article` (with `author`, `publisher`, `datePublished`, `inLanguage`) + `FAQPage` + `BreadcrumbList` — each article page
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
-- **Semantic HTML** — address in footer uses `<address>` element
+- **Semantic HTML** — address in footer uses `<address>` element; `<header>` carries `role="banner"`; `<main>` carries `id="main-content"`
+- **Accessibility** — skip-to-content link in `Header.tsx` (visually hidden, appears on keyboard focus, targets `#main-content`); contact form error state uses `role="alert" aria-live="polite"` so screen readers announce it automatically; carousel prev/next buttons have `focus-visible` rings
 
 **Google Analytics 4:** tracking is injected in `src/app/[locale]/layout.tsx` via `next/script` with `strategy="afterInteractive"`. Set `NEXT_PUBLIC_GA_ID` to your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) to enable it. Omitting the variable disables tracking entirely.
 

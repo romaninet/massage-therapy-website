@@ -145,7 +145,7 @@ export default function ContactForm({ initialType = '' }: { initialType?: string
       />
 
       {state === 'error' && (
-        <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-4 py-3 border border-red-200">
+        <div role="alert" className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-4 py-3 border border-red-200">
           <AlertCircle size={16} />
           {t('error')}
         </div>
@@ -154,7 +154,7 @@ export default function ContactForm({ initialType = '' }: { initialType?: string
       <Button
         type="submit"
         disabled={state === 'sending'}
-        className="bg-forest hover:bg-forest-dark text-white tracking-wider uppercase text-sm font-medium py-6 transition-all hover:shadow-lg hover:shadow-forest/20 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        className="bg-forest hover:bg-forest-dark text-white tracking-wider uppercase text-sm font-medium py-6 transition-[background-color,box-shadow,transform,opacity] duration-200 hover:shadow-lg hover:shadow-forest/20 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
       >
         {state === 'sending' ? (
           <span className="flex items-center gap-2">

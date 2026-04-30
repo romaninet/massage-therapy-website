@@ -53,7 +53,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       {/* Main bio section */}
       <section className="bg-off-white py-10 md:py-16 lg:py-28">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 items-start">
             {/* Photo */}
             <div className="relative">
@@ -131,9 +131,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Values / Approach section */}
       <section className="bg-pale-sage py-10 md:py-16 lg:py-28 relative overflow-hidden">
         <BotanicalCornerTL className="absolute top-0 left-0 w-40 h-40 text-sage/20 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="container-wide">
           <div className="text-center mb-4 lg:mb-14">
-            <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-4">
+            <h2 className="heading-section mb-4">
               {t('valuesTitle')}
             </h2>
             <BotanicalDivider className="w-48 lg:w-64 mx-auto text-sage/50 mt-2 lg:mt-6" />
@@ -143,7 +143,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               const Icon = valueIcons[i];
               return (
                 <div key={i} className="bg-white rounded-lg p-8 border border-forest/8 shadow-sm flex flex-col gap-4">
-                  <div className="w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center">
+                  <div className="icon-badge">
                     <Icon size={22} className="text-sage" />
                   </div>
                   <h3 className="font-heading text-forest text-xl font-semibold">{value.title}</h3>
