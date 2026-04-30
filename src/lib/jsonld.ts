@@ -29,6 +29,7 @@ const DIRECTORY_URLS = [
   'https://www.cylex-canada.ca/company/olha-shelest--massoth%c3%a9rapeute-25186483.html',
   'https://shelestwellness.setmore.com/',
   'https://www.ratemds.com/clinic/ca-qc-gatineau-olha-shelest/',
+  'https://www.yellowpages.ca/bus/Quebec/Gatineau/Olha-Shelest/105279173.html',
 ];
 
 const businessEntity = {
