@@ -1,6 +1,6 @@
 export const SITE = {
   url: 'https://www.shelestwellness.ca',
-  lastUpdated: new Date('2026-04-28'),
+  lastUpdated: new Date('2026-04-30'),
   heroBgImage: '/images/image1.jpg',
   ogImage: '/images/media-opengraph.jpg',
   portraitImage: '/images/olya-pic.jpg',
@@ -141,11 +141,35 @@ export const SERVICES = [
 
 export type ServiceKey = (typeof SERVICES)[number]['key'];
 
+export const ARTICLES = [
+  {
+    slug: 'how-to-choose-massage-therapist-gatineau',
+    datePublished: '2026-04-15',
+    heroImage: '/images/article-choose-therapist.jpg',
+  },
+  {
+    slug: 'deep-tissue-massage-runners-athletes-gatineau',
+    datePublished: '2026-04-20',
+    heroImage: '/images/article-deep-tissue-runners.jpg',
+  },
+  {
+    slug: 'therapeutic-vs-relaxation-massage-gatineau',
+    datePublished: '2026-04-22',
+    heroImage: '/images/article-therapeutic-vs-relaxation.jpg',
+  },
+  {
+    slug: 'amq-receipts-massage-insurance-coverage-gatineau',
+    datePublished: '2026-04-30',
+    heroImage: '/images/article-amq-insurance.jpg',
+  },
+] as const;
+
 export const NAV_LINKS = [
   { key: 'home', href: '/' },
   { key: 'about', href: '/about' },
   { key: 'services', href: '/services' },
   { key: 'fees', href: '/fees' },
+  { key: 'articles', href: '/articles' },
   { key: 'contact', href: '/contact' },
 ] as const;
 

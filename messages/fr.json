@@ -8,7 +8,8 @@
     "bookNow": "Réserver",
     "mainNav": "Navigation principale",
     "mobileNav": "Navigation mobile",
-    "footerNav": "Navigation du pied de page"
+    "footerNav": "Navigation du pied de page",
+    "articles": "Articles"
   },
   "header": {
     "logoAlt": "Olha Shelest — Massothérapie Gatineau",
@@ -412,6 +413,288 @@
           }
         ]
       }
+    }
+  },
+  "articles": {
+    "index": {
+      "preTitle": "Ressources en massothérapie",
+      "title": "Articles & Guides",
+      "subtitle": "Conseils d'experts sur la massothérapie, le bien-être et la gestion de la douleur à Gatineau.",
+      "readMore": "Lire l'article →",
+      "heroImageAlt": "Articles et guides sur la massothérapie — Olha Shelest, Gatineau"
+    },
+    "how-to-choose-massage-therapist-gatineau": {
+      "preTitle": "Massothérapie · Gatineau",
+      "title": "Comment choisir un massothérapeute à Gatineau : guide complet",
+      "excerpt": "Tous les massothérapeutes ne se valent pas. Que vous cherchiez à soulager une douleur chronique, à récupérer d'une blessure ou simplement à réduire votre niveau de stress, choisir le bon massothérapeute agréé à Gatineau fait toute la différence. Voici ce qu'il faut regarder.",
+      "heroImageAlt": "Choisir un massothérapeute à Gatineau — massothérapie professionnelle chez Olha Shelest",
+      "ctaText": "Réservez votre première séance",
+      "ctaSubtext": "Prête à vivre la différence ? Réservez avec Olha Shelest, massothérapeute agréée membre de l'AMQ à Gatineau.",
+      "sections": [
+        {
+          "heading": "Pourquoi le choix du massothérapeute est important",
+          "paragraphs": [
+            "Une séance de massage, c'est bien plus qu'un traitement standardisé. Le bon thérapeute écoute vos objectifs, adapte sa technique à votre corps et crée un environnement où vous vous sentez en sécurité et respecté. Un mauvais choix — que ce soit au niveau de la communication, des compétences ou de l'approche — peut signifier du temps et de l'argent perdus, et dans certains cas, de l'inconfort.",
+            "À Gatineau, le nombre croissant de praticiens en bien-être rend plus facile que jamais de trouver des soins de massothérapie professionnels, mais rend aussi plus important de savoir comment évaluer vos options."
+          ]
+        },
+        {
+          "heading": "Vérifiez les accréditations — l'AMQ comme repère de confiance",
+          "paragraphs": [
+            "Au Québec, la massothérapie n'est pas une profession réglementée de la même façon que la physiothérapie ou la médecine. Cela signifie que n'importe qui peut se désigner comme « massothérapeute ». La distinction cruciale est l'appartenance à une association professionnelle reconnue.",
+            "L'Association des massothérapeutes du Québec (AMQ) est le principal organisme professionnel pour les massothérapeutes dans la province. Les membres de l'AMQ ont complété des programmes de formation reconnus, sont liés par un code de déontologie et maintiennent des exigences de formation continue. Lorsqu'un thérapeute est membre de l'AMQ, vous avez un standard concret de responsabilité professionnelle.",
+            "Lors de l'évaluation d'un thérapeute, demandez son numéro de membre AMQ. Vous pouvez le vérifier directement dans le répertoire public de l'AMQ. Olha Shelest est membre agréée de l'AMQ, vérifiable sur membres.rmqmasso.ca."
+          ]
+        },
+        {
+          "heading": "Quels services sont offerts ?",
+          "paragraphs": [
+            "Différents thérapeutes se spécialisent dans différentes modalités. Certains se concentrent sur la relaxation, d'autres sur le travail thérapeutique clinique, la récupération sportive ou des techniques spécifiques comme le drainage lymphatique. Avant de réserver, assurez-vous que le thérapeute offre le type de massage qui correspond à vos besoins.",
+            "Une pratique bien établie offre généralement le massage thérapeutique pour la douleur et les blessures, le massage en profondeur pour les tensions chroniques, le massage de relaxation pour le stress, et des services spécialisés comme le drainage lymphatique ou le massage pour enfants. Si vous avez une préoccupation spécifique — douleur lombaire, récupération post-chirurgicale ou performance sportive — confirmez que le thérapeute possède une expérience pertinente.",
+            "Consultez les services disponibles avant de réserver pour vous assurer que la pratique correspond à votre situation."
+          ]
+        },
+        {
+          "heading": "La communication et le confort, des éléments non négociables",
+          "paragraphs": [
+            "Un bon massothérapeute prendra quelques minutes au début de chaque séance pour vous interroger sur vos objectifs, les zones à éviter, vos préférences de pression et votre historique de santé pertinent. Ce n'est pas facultatif — c'est le fondement d'un traitement sûr et efficace.",
+            "Pendant la séance, vous devriez vous sentir à l'aise de donner votre avis sur la pression ou la technique, et votre thérapeute devrait répondre. Si vous vous sentez obligé de rester silencieux ou si vous sentez que vos commentaires sont ignorés, c'est un signal d'alarme.",
+            "Le drapage — rester couvert par un drap sauf pour la zone sur laquelle on travaille — est une norme professionnelle. Un thérapeute qui ne maintient pas un drapage approprié ne respecte pas les normes professionnelles."
+          ]
+        },
+        {
+          "heading": "Les reçus pour assurances : un critère important",
+          "paragraphs": [
+            "La plupart des régimes d'assurance collective canadiens et des programmes d'avantages sociaux couvrent la massothérapie lorsqu'elle est fournie par un membre de l'AMQ ou d'une association reconnue équivalente. Cela peut compenser considérablement le coût de séances régulières.",
+            "Avant de réserver, confirmez que le thérapeute fournit des reçus officiels que votre assureur acceptera. Les membres de l'AMQ sont habilités à émettre ces reçus — les non-membres typiquement ne le sont pas.",
+            "Aucune ordonnance médicale n'est requise pour la massothérapie au Québec. Consultez votre régime d'assurance spécifique pour les maximums annuels et les limites par séance. Consultez notre grille tarifaire complète pour les tarifs et les options de durée."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Quelle est la différence entre un massothérapeute et un physiothérapeute ?",
+          "answer": "Un massothérapeute se concentre sur les tissus mous — muscles, fascia et tissu conjonctif — en utilisant des techniques manuelles pour réduire la douleur, les tensions et le stress. Un physiothérapeute diagnostique et traite les troubles du mouvement et les blessures en utilisant un éventail plus large d'interventions. Les deux professions sont complémentaires : de nombreux clients alternent entre physio pour la réhabilitation et massage pour l'entretien continu."
+        },
+        {
+          "question": "La massothérapie est-elle couverte par les assurances au Québec ?",
+          "answer": "Oui, dans la plupart des cas. La majorité des régimes d'assurance collective canadiens et des programmes d'avantages sociaux des employés fédéraux couvrent la massothérapie lorsqu'elle est fournie par un membre de l'AMQ. La limite annuelle et le plafond par séance varient selon le régime. Aucune ordonnance médicale n'est requise — consultez les documents de votre régime ou appelez votre assureur pour confirmer votre couverture."
+        },
+        {
+          "question": "Ai-je besoin d'une ordonnance médicale pour un massage ?",
+          "answer": "Non. Au Québec, une ordonnance médicale n'est pas requise pour prendre rendez-vous avec un massothérapeute. Réservez simplement directement avec votre thérapeute. Certains régimes d'assurance peuvent exiger une note médicale pour le remboursement — vérifiez cela auprès de votre assureur spécifique avant votre première séance."
+        },
+        {
+          "question": "Combien de séances me faudra-t-il ?",
+          "answer": "Cela dépend de votre objectif. Pour une douleur aiguë ou une blessure spécifique, une courte série de séances hebdomadaires suivie d'une réévaluation est courante. Pour la gestion du stress et le bien-être général, des séances mensuelles sont souvent suffisantes pour maintenir les bénéfices. Votre thérapeute vous recommandera une fréquence à la fin de votre première visite en fonction de vos besoins individuels."
+        }
+      ]
+    },
+    "deep-tissue-massage-runners-athletes-gatineau": {
+      "preTitle": "Récupération sportive · Gatineau",
+      "title": "Massage en profondeur pour les coureurs et athlètes à Gatineau",
+      "excerpt": "Le printemps marque le début de la saison de course dans la région de la capitale nationale. Que vous vous entraîniez pour le Marathon d'Ottawa, que vous couriez les sentiers du Parc de la Gatineau ou que vous prépariez votre premier demi-marathon, vos muscles ont beaucoup à dire. Le massage en profondeur est l'un des outils de récupération les plus efficaces qui soient — et il est juste de l'autre côté de la rivière.",
+      "heroImageAlt": "Massage en profondeur pour coureurs et athlètes à Gatineau — récupération sportive chez Olha Shelest",
+      "ctaText": "Réservez votre séance de récupération",
+      "ctaSubtext": "Entraînez-vous plus fort, récupérez plus intelligemment. Réservez avec Olha Shelest, massothérapeute agréée membre de l'AMQ à Gatineau.",
+      "sections": [
+        {
+          "heading": "La communauté des coureurs de l'Outaouais et le Marathon d'Ottawa",
+          "paragraphs": [
+            "Le Marathon d'Ottawa, qui se tient chaque mois de mai, attire des milliers de coureurs de partout au Canada et au-delà. Nombreux sont ceux qui vivent et s'entraînent du côté gatinois — à Hull, Aylmer et dans toute la région de l'Outaouais — traversant la rivière quotidiennement pour le travail et l'entraînement. Le Parc de la Gatineau offre certains des meilleurs sentiers de course de la région de la capitale nationale, fréquentés à longueur d'année par une communauté dévouée d'athlètes.",
+            "Avec des charges d'entraînement élevées viennent des bandelettes iliotibiales tendues, des mollets douloureux et l'ache familière des jambes surmenées. Le massage en profondeur n'est pas un luxe pour cette communauté — c'est une composante d'un plan d'entraînement sérieux."
+          ]
+        },
+        {
+          "heading": "Pourquoi le massage en profondeur aide les coureurs",
+          "paragraphs": [
+            "La course à pied est répétitive par nature. Les mêmes groupes musculaires se contractent selon les mêmes schémas, kilomètre après kilomètre, jusqu'à ce que des adhérences se forment dans le fascia — des bandes de tissu fibreux qui restreignent le mouvement et causent de la douleur. Le massage en profondeur utilise des mouvements lents et fermes pour atteindre ces couches profondes de muscle et de tissu conjonctif, brisant les adhérences et restaurant la fonction normale du tissu.",
+            "Les problèmes courants chez les coureurs qui répondent bien au massage en profondeur comprennent le syndrome de la bandelette iliotibiale, la fasciite plantaire, les fléchisseurs de la hanche tendus, les tensions dans les mollets et les ischio-jambiers, et le syndrome du piriforme. Des massages réguliers ne traitent pas seulement ces problèmes une fois qu'ils apparaissent — ils peuvent prévenir leur développement.",
+            "Au-delà des bénéfices mécaniques, le massage réduit le cortisol (l'hormone du stress) et augmente la circulation sanguine vers les muscles fatigués, accélérant l'élimination des déchets métaboliques produits lors d'un entraînement intensif."
+          ]
+        },
+        {
+          "heading": "Avant la course ou après ? Quand réserver",
+          "paragraphs": [
+            "Le moment est important. Un massage en profondeur effectué trop près d'une course peut laisser les muscles temporairement fatigués ou endoloris — la dernière chose que vous voulez à la ligne de départ. La règle générale : réservez une séance de massage en profondeur 5 à 7 jours avant une course importante, et un massage de relaxation plus léger 2 à 3 jours avant si vous en souhaitez un plus proche du jour J.",
+            "L'après-course est là où le massage en profondeur offre le plus grand bénéfice. Attendez au moins 48 heures après un effort intense avant de réserver — vos muscles ont besoin d'une brève période de repos avant qu'un travail en profondeur soit productif. Une séance 3 à 5 jours après la course peut considérablement accélérer la récupération et vous préparer pour le prochain bloc d'entraînement."
+          ]
+        },
+        {
+          "heading": "Quelle fréquence de massage pour les coureurs ?",
+          "paragraphs": [
+            "La fréquence dépend de votre volume et de l'intensité de votre entraînement. Pendant les phases de construction de base avec un kilométrage modéré, une séance par mois est une bonne base d'entretien. À mesure que vous augmentez la cadence pour une course objectif, des séances aux deux semaines aident à gérer la fatigue cumulative. Pendant les semaines d'entraînement intensif, certains athlètes bénéficient de séances hebdomadaires.",
+            "Des massages réguliers et cohérents sont bien plus efficaces que des séances de sauvetage occasionnelles quand quelque chose fait mal. Pensez-y comme à de l'entretien plutôt qu'à un traitement."
+          ]
+        },
+        {
+          "heading": "Massage en profondeur vs massage sportif : quelle différence ?",
+          "paragraphs": [
+            "Ces termes sont souvent utilisés de façon interchangeable, mais il existe une distinction. Le massage en profondeur désigne la technique : une pression lente et ferme ciblant les couches profondes des muscles et du tissu conjonctif. Le massage sportif est davantage un contexte — un massage appliqué avant, pendant ou après une performance athlétique, qui peut inclure du travail en profondeur, des étirements ou des techniques de récupération plus légères selon la phase.",
+            "Pour la plupart des coureurs en entraînement — pas immédiatement avant ou après une compétition — le massage en profondeur est la modalité la plus appropriée. Votre thérapeute adaptera la pression et l'approche en fonction de l'étape de votre cycle d'entraînement."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Le massage en profondeur est-il douloureux ?",
+          "answer": "Le massage en profondeur implique plus de pression qu'un massage de relaxation, mais ne devrait jamais être vivement douloureux ou insupportable. La plupart des clients le décrivent comme un inconfort productif — on sent le travail qui se fait, mais cela reste dans une plage tolérable. La communication est essentielle : dites toujours à votre thérapeute si la pression est trop forte. Certains clients ressentent une légère courbature pendant 24 à 48 heures après une séance, similaire aux douleurs post-entraînement, qui se résorbe rapidement."
+        },
+        {
+          "question": "Combien de temps avant une course devrais-je faire un massage en profondeur ?",
+          "answer": "Planifiez votre dernière séance de massage en profondeur 5 à 7 jours avant votre course. Cela donne à vos muscles suffisamment de temps pour récupérer de toute courbature temporaire post-massage et être pleinement prêts à la ligne de départ. Si vous souhaitez un massage plus proche du jour de la course, optez pour une séance de relaxation légère 2 à 3 jours avant — pas de massage en profondeur."
+        },
+        {
+          "question": "Le massage sportif est-il couvert par les assurances ?",
+          "answer": "Oui, dans la plupart des cas. En tant que massothérapeute membre de l'AMQ, Olha fournit des reçus officiels acceptés par la plupart des régimes d'assurance collective canadiens et des programmes d'avantages sociaux des employés fédéraux, notamment le RSSFP. Le reçu couvre la séance qu'elle soit décrite comme thérapeutique, en profondeur ou sportive. Aucune ordonnance médicale n'est requise."
+        },
+        {
+          "question": "Serai-je courbaturé après un massage en profondeur ?",
+          "answer": "Une légère courbature pendant 24 à 48 heures après une séance de massage en profondeur est normale et courante, surtout si c'est votre première séance ou si une zone particulièrement tendue a été traitée. Buvez de l'eau supplémentaire et évitez un entraînement intense le jour de votre massage. La courbature se résorbe rapidement et est généralement suivie d'une amplitude de mouvement notablement améliorée et d'une tension réduite."
+        }
+      ]
+    },
+    "therapeutic-vs-relaxation-massage-gatineau": {
+      "preTitle": "Massothérapie · Gatineau",
+      "title": "Massage thérapeutique ou massage de relaxation : lequel choisir ?",
+      "excerpt": "Réserver son premier massage — ou son premier depuis longtemps — signifie souvent faire face à un choix inattendu : thérapeutique ou relaxation ? Les deux se ressemblent en surface, mais servent des objectifs très différents. Voici comment choisir.",
+      "heroImageAlt": "Massage thérapeutique vs massage de relaxation à Gatineau — massothérapie Olha Shelest",
+      "ctaText": "Réservez votre séance",
+      "ctaSubtext": "Vous ne savez pas quel type vous convient ? Mentionnez votre objectif lors de la réservation et Olha adaptera la séance à vos besoins.",
+      "sections": [
+        {
+          "heading": "Deux types, deux objectifs très différents",
+          "paragraphs": [
+            "La massothérapie n'est pas une chose unique. Le terme couvre un large éventail de techniques et d'approches, mais la distinction la plus importante pour la plupart des clients est entre le massage thérapeutique et le massage de relaxation. Faire le bon choix signifie une séance qui répond réellement à ce pour quoi vous êtes venu.",
+            "La bonne nouvelle : vous n'avez pas à le déterminer seul. Quelques questions honnêtes lors de la prise en charge — et un bon thérapeute qui sait les poser — vous orienteront dans la bonne direction à chaque fois."
+          ]
+        },
+        {
+          "heading": "Qu'est-ce que le massage thérapeutique ?",
+          "paragraphs": [
+            "Le massage thérapeutique est clinique et axé sur des objectifs. Le thérapeute commence par une évaluation initiale — en vous interrogeant sur votre historique de santé, la zone de préoccupation spécifique, vos schémas de douleur et tout contexte médical pertinent. La séance est ensuite structurée pour répondre à ces besoins précis.",
+            "Les techniques varient et peuvent inclure une pression ferme dans les zones de tension chronique, un travail ciblé sur des muscles ou articulations spécifiques, un relâchement myofascial ou une thérapie des points de déclenchement. La séance peut ressembler moins à une expérience de spa et davantage à un traitement ciblé — parce que c'en est un.",
+            "Le massage thérapeutique est le bon choix lorsque vous avez une plainte spécifique : douleur lombaire, tension cervicale et aux épaules due au travail de bureau, blessure sportive en récupération, tissu cicatriciel post-chirurgical ou schémas de douleur chronique. Les reçus d'assurance des thérapeutes membres de l'AMQ couvrent le massage thérapeutique — vérifiez les détails de votre régime."
+          ]
+        },
+        {
+          "heading": "Qu'est-ce que le massage de relaxation ?",
+          "paragraphs": [
+            "Le massage de relaxation adopte une approche différente. L'objectif n'est pas de corriger un problème spécifique, mais de calmer le système nerveux, réduire le stress global et offrir au corps une remise à zéro complète. Les techniques sont fluides et rythmiques — de longues effleurages couvrant tout le corps plutôt qu'un travail profond et ciblé sur une zone.",
+            "Le résultat est une réduction mesurable du cortisol (l'hormone du stress), une meilleure circulation et une sensation de calme mental qui persiste souvent pendant des jours après la séance. Le massage de relaxation régulier est de plus en plus reconnu comme un outil légitime pour gérer le stress, améliorer la qualité du sommeil et soutenir la fonction immunitaire.",
+            "Le massage de relaxation est le bon choix lorsque vous n'êtes pas en douleur aiguë, lorsque votre principale plainte est la fatigue mentale ou la tension généralisée, ou lorsque vous avez simplement besoin de décompresser. C'est aussi un bon point de départ pour les nouveaux clients qui souhaitent découvrir le massage avant de s'engager dans un travail plus ciblé."
+          ]
+        },
+        {
+          "heading": "Comment choisir : trois questions à vous poser",
+          "paragraphs": [
+            "Premièrement : y a-t-il un endroit précis qui fait mal ou un problème spécifique que vous souhaitez traiter ? Si oui, le massage thérapeutique convient mieux. Si la réponse est « je suis simplement stressé et tendu partout », la relaxation est le meilleur point de départ.",
+            "Deuxièmement : cherchez-vous un traitement ou une récupération ? Le traitement — ciblant une plainte définie — oriente vers le thérapeutique. La récupération d'une semaine difficile, d'un voyage ou d'une surcharge émotionnelle oriente vers la relaxation.",
+            "Troisièmement : quelle est votre tolérance à la pression aujourd'hui ? Le massage thérapeutique, surtout le travail en profondeur, implique plus de pression. Si vous traversez une période physiquement ou émotionnellement éprouvante, une séance de relaxation plus légère peut mieux vous servir, même si votre objectif à long terme est un travail plus ciblé."
+          ]
+        },
+        {
+          "heading": "Vous n'avez pas toujours à choisir",
+          "paragraphs": [
+            "En pratique, de nombreuses séances combinent les deux approches. Un thérapeute compétent consacrera généralement du temps ciblé à votre zone de préoccupation — en appliquant des techniques thérapeutiques au besoin — puis fera la transition vers une conclusion plus fluide et complète du corps. Cette approche hybride traite la plainte spécifique tout en offrant au système nerveux la remise à zéro dont il a besoin.",
+            "Au cabinet d'Olha Shelest, chaque séance commence par une conversation de prise en charge sur vos objectifs. Si vous n'êtes pas sûr du type de massage qui vous convient, dites-le — la prise en charge est exactement le bon moment pour le déterminer ensemble. Consultez le menu complet des services pour voir toutes les options disponibles."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Le massage thérapeutique est-il plus douloureux que le massage de relaxation ?",
+          "answer": "Le massage thérapeutique implique généralement plus de pression et peut être plus intense dans les zones de tension spécifiques. Mais il devrait s'agir d'une pression productive, pas d'une douleur vive. Un bon thérapeute communique tout au long et s'adapte à votre niveau de confort. Le massage de relaxation utilise des effleurages plus légers et fluides et est généralement plus doux tout au long de la séance."
+        },
+        {
+          "question": "Quel type de massage est meilleur pour la douleur au dos ?",
+          "answer": "Pour une douleur dorsale localisée et spécifique — comme la tension lombaire due à la position assise, une élongation musculaire ou un déséquilibre postural — le massage thérapeutique est le meilleur choix. Il cible les muscles et structures spécifiques impliqués. Pour une tension dorsale générale sans plainte définie, le massage de relaxation peut aussi apporter un soulagement significatif en réduisant le tonus musculaire global et les hormones du stress."
+        },
+        {
+          "question": "Puis-je alterner entre massage thérapeutique et relaxation d'une séance à l'autre ?",
+          "answer": "Absolument. De nombreux clients réguliers alternent selon leurs besoins de la semaine. Après une période de travail particulièrement stressante, une séance de relaxation peut être la priorité. Après un événement physiquement exigeant ou lorsqu'une plainte spécifique s'intensifie, le travail thérapeutique a plus de sens. Votre thérapeute peut vous aider à décider à chaque visite."
+        },
+        {
+          "question": "Les assurances couvrent-elles les deux types ?",
+          "answer": "Oui — dans la plupart des cas, le massage thérapeutique et le massage de relaxation sont couverts par les régimes d'assurance collective canadiens et les programmes d'avantages sociaux des employés fédéraux lorsqu'ils sont fournis par un thérapeute membre de l'AMQ. Le reçu couvre la séance quelle que soit la technique spécifique utilisée. Consultez votre régime pour les limites annuelles et les plafonds par séance. Aucune ordonnance médicale n'est requise."
+        }
+      ]
+    },
+    "amq-receipts-massage-insurance-coverage-gatineau": {
+      "preTitle": "Massothérapie & Avantages sociaux",
+      "title": "Reçus AMQ : votre massage couvert par les assurances",
+      "excerpt": "La plupart des régimes d'assurance collective canadiens couvrent la massothérapie — mais seulement lorsque le thérapeute est un professionnel reconnu. Voici exactement comment fonctionnent les reçus AMQ, qui est admissible et comment rembourser vos séances sans tracas.",
+      "heroImageAlt": "Reçu de massothérapie AMQ pour remboursement d'assurance à Gatineau",
+      "ctaText": "Réservez votre séance",
+      "ctaSubtext": "Olha Shelest est membre certifiée de l'AMQ. Chaque séance inclut un reçu officiel accepté par les assureurs canadiens.",
+      "sections": [
+        {
+          "heading": "Pourquoi les accréditations de votre thérapeute déterminent votre couverture",
+          "paragraphs": [
+            "Tous les massages ne donnent pas droit à un remboursement d'assurance. Les assureurs canadiens ont une exigence précise : le thérapeute doit détenir des accréditations professionnelles reconnues. Au Québec, cela signifie être membre de l'Association des massothérapeutes du Québec (AMQ) — le principal organisme professionnel de massothérapie de la province.",
+            "Lorsque vous réservez avec un thérapeute membre de l'AMQ, vous recevez un reçu officiel que votre assureur acceptera. Si vous consultez un praticien non inscrit, votre demande de remboursement sera probablement refusée — peu importe la qualité de la séance. Ce seul détail détermine si vos prestations couvrent vos soins ou non."
+          ]
+        },
+        {
+          "heading": "Qu'est-ce qu'un reçu AMQ ?",
+          "paragraphs": [
+            "Un reçu AMQ est un document officiel émis après chaque séance par un thérapeute qui détient une adhésion active à l'Association des massothérapeutes du Québec. Il constitue la preuve que votre traitement a été dispensé par un professionnel reconnu.",
+            "Le reçu comprend : le nom complet du thérapeute et son numéro de membre AMQ, la date et la durée de la séance, le type de service, le montant payé et le nom du client. La plupart des régimes d'assurance canadiens exigent tous ces renseignements — un simple reçu de caisse ou une facture ordinaire ne suffira pas.",
+            "Olha Shelest est membre agréée de l'AMQ. Son adhésion peut être vérifiée directement dans le répertoire des membres de l'AMQ."
+          ]
+        },
+        {
+          "heading": "Quels régimes d'assurance couvrent la massothérapie au Canada ?",
+          "paragraphs": [
+            "La couverture est répandue mais varie selon les régimes. La plupart des régimes d'avantages sociaux collectifs offerts par les employeurs au Canada incluent une prestation de massothérapie — généralement entre 300 $ et 1 000 $ par année civile, parfois avec un plafond par séance. Consultez le livret de votre régime ou le portail de prestations pour connaître vos limites exactes.",
+            "Les régimes de soins de santé complémentaires (SSC) sont les plus courants. Ce sont des régimes collectifs administrés par des assureurs comme Sun Life, Manuvie, Canada Vie, Desjardins et Croix Bleue. La plupart de ces régimes couvrent les thérapeutes membres de l'AMQ au Québec sans exiger une ordonnance médicale.",
+            "Les comptes de dépenses santé (CDS) et les comptes de dépenses personnelles (CDP) — parfois appelés comptes bien-être — sont de plus en plus courants. La massothérapie est une dépense admissible dans la plupart des CDS, et les CDP la couvrent souvent explicitement. Si votre employeur offre à la fois une limite de prestation traditionnelle et un compte de dépenses, vous pourrez peut-être utiliser les deux au cours de la même année.",
+            "Les régimes individuels d'assurance maladie (souscrits directement, sans passer par un employeur) peuvent également inclure la massothérapie. La couverture varie considérablement ; consultez votre police ou appelez directement votre assureur."
+          ]
+        },
+        {
+          "heading": "Employés fédéraux et le RSSFP",
+          "paragraphs": [
+            "Si vous travaillez pour le gouvernement fédéral — notamment à la Place du Portage, aux Terrasses de la Chaudière ou dans tout autre site fédéral de la région de la capitale nationale — vos avantages sociaux sont régis par le Régime de soins de santé de la fonction publique (RSSFP), administré par Canada Vie.",
+            "Le RSSFP couvre la massothérapie dispensée par un thérapeute membre de l'AMQ au Québec. Aucune ordonnance médicale n'est requise. Le régime actuel comprend une prestation annuelle de massothérapie — confirmez le montant exact via le portail des membres du RSSFP ou auprès des RH de votre ministère, car les niveaux de prestations sont périodiquement mis à jour dans le cadre des négociations collectives.",
+            "Étant donné le nombre d'employés fédéraux qui traversent quotidiennement la rivière d'Ottawa vers Gatineau, il s'agit de l'un des régimes de prestations les plus pertinents pour les clients de ce cabinet. La clinique de Hull au 148 rue Eddy est à quelques minutes à pied de la Place du Portage."
+          ]
+        },
+        {
+          "heading": "Comment vérifier votre couverture avant de réserver",
+          "paragraphs": [
+            "La façon la plus rapide de vérifier votre couverture est d'appeler le numéro des services aux membres au dos de votre carte d'assurance. Posez trois questions précises : (1) La massothérapie est-elle couverte par mon régime ? (2) Un thérapeute membre de l'AMQ au Québec est-il un prestataire admissible ? (3) Quelle est ma limite annuelle et en ai-je déjà utilisé une partie ?",
+            "Vous pouvez également vous connecter au portail des membres de votre assureur — Sun Life, Manuvie, Canada Vie et Desjardins ont tous des portails en ligne où vous pouvez consulter vos prestations restantes par catégorie. Cela prend deux minutes et vous donne le montant exact avant de réserver.",
+            "Vous n'avez pas besoin d'ordonnance ni de référence à l'avance. Confirmez simplement votre couverture, réservez votre séance et conservez votre reçu pour le soumettre ensuite."
+          ]
+        },
+        {
+          "heading": "Comment soumettre une demande de remboursement pour massothérapie",
+          "paragraphs": [
+            "La plupart des assureurs acceptent maintenant les demandes de remboursement numériques. Après votre séance, vous recevrez un reçu par courriel. Pour soumettre : connectez-vous à l'application ou au portail web de votre assureur, accédez à la section des demandes de remboursement, sélectionnez « massothérapie » ou « services paramédicaux », téléchargez une photo ou un scan de votre reçu, puis soumettez. Le remboursement arrive généralement par dépôt direct dans un délai de 3 à 10 jours ouvrables.",
+            "Si votre régime utilise des demandes de remboursement papier, remplissez le formulaire fourni par votre assureur, joignez le reçu original et envoyez-le par courrier ou télécopieur à l'adresse indiquée. Conservez une copie de tout ce que vous soumettez.",
+            "Important : certains régimes ont un délai de soumission — souvent dans les 12 mois suivant la date du service. Ne laissez pas vos reçus s'accumuler trop longtemps avant de faire votre demande."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Ai-je besoin d'une ordonnance médicale pour réclamer la massothérapie ?",
+          "answer": "Non. La plupart des régimes d'assurance collective canadiens — y compris le RSSFP fédéral — n'exigent pas d'ordonnance médicale pour la massothérapie. Vous pouvez réserver directement, payer votre séance et soumettre le reçu à votre assureur sans aucune autorisation préalable. Un petit nombre d'anciens régimes individuels peuvent encore exiger une ordonnance, il vaut donc la peine de vérifier auprès de votre assureur si vous n'êtes pas certain."
+        },
+        {
+          "question": "Quel montant les assurances couvrent-elles généralement par année ?",
+          "answer": "Cela varie selon les régimes, mais la plupart des régimes d'avantages sociaux collectifs offerts par les employeurs au Canada incluent entre 300 $ et 1 000 $ par année pour la massothérapie. Certains régimes ont un plafond par séance (par exemple, 80 $ par visite) en plus du maximum annuel. Les employés fédéraux sous le RSSFP ont une limite annuelle précise — consultez le portail des membres du RSSFP ou demandez à votre service des RH votre droit actuel. Si votre régime inclut un compte de dépenses santé, ces fonds peuvent compléter votre prestation de base."
+        },
+        {
+          "question": "Puis-je utiliser mon compte de dépenses santé (CDS) pour la massothérapie ?",
+          "answer": "Oui. La massothérapie dispensée par un thérapeute membre de l'AMQ est une dépense médicale admissible dans la plupart des comptes de dépenses santé au Canada. Si vous avez déjà utilisé votre prestation de base pour l'année, votre CDS est le prochain endroit où chercher. Soumettez le même reçu AMQ à l'administrateur de votre CDS via son portail de demandes — le processus est identique à une demande d'assurance ordinaire."
+        },
+        {
+          "question": "Quelles informations doivent figurer sur le reçu pour que mon assureur l'accepte ?",
+          "answer": "Un reçu valide pour les fins d'assurance doit inclure : le nom complet du thérapeute et son numéro de membre AMQ, le nom du client, la date du service, la durée et le type de séance, et le montant total payé. Une confirmation de paiement générale ou un courriel ne suffit pas. Olha Shelest émet des reçus officiels AMQ après chaque séance qui répondent à toutes les exigences des assureurs canadiens — vous n'aurez pas besoin de demander un format spécial."
+        }
+      ]
     }
   }
 }

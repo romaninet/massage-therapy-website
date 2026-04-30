@@ -213,3 +213,148 @@ credentials.json, token.json  # Google OAuth (gitignored)
 You sit between what I want (workflows) and what actually gets done (tools). Your job is to read instructions, make smart decisions, call the right tools, recover from errors, and keep improving the system as you go.
 
 Stay pragmatic. Stay reliable. Keep learning.
+
+
+
+
+====================
+How to do it in GBP
+Go to business.google.com → your listing
+Find the Q&A section (usually on the public profile view)
+Click "Ask a question" — type the question, submit
+Switch to the business owner view, find your question, click "Answer"
+Repeat for all 20 (10 FR + 10 EN — do both languages separately)
+Tip: Do FR and EN as separate Q&A pairs. GBP has no language filter — both will be visible and indexed by Google.
+
+The 10 questions — French then English
+1. Services offered
+FR Question: Quels services offrez-vous ?
+
+FR Answer:
+
+Massage thérapeutique, en profondeur, de relaxation, drainage lymphatique, massage pour enfants et massage en duo. Séances de 60 ou 90 min. Membre AMQ #M-24-4471 — reçus pour assurances fournis. 148 Rue Eddy Unit 2, Gatineau.
+
+EN Question: What services do you offer?
+
+EN Answer:
+
+Therapeutic, deep tissue, relaxation, lymphatic drainage, children's massage, and couples massage. Sessions 60 or 90 min. AMQ member #M-24-4471 — official insurance receipts provided. 148 Rue Eddy Unit 2, Gatineau.
+
+2. Rates
+FR Question: Quel est le tarif d'une séance ?
+
+FR Answer:
+
+Massage thérapeutique / relaxation / drainage : 110 $ (60 min) ou 150 $ (90 min). Massage en profondeur : 120 $ / 165 $. Massage enfant : 50 $ (30 min) ou 80 $ (60 min). Massage en duo : 220 $ / 300 $. Reçus AMQ fournis.
+
+EN Question: What are your rates?
+
+EN Answer:
+
+Therapeutic / relaxation / lymphatic: $110 (60 min) or $150 (90 min). Deep tissue: $120 / $165. Children's: $50 (30 min) or $80 (60 min). Couples: $220 / $300. AMQ insurance receipts provided for all sessions.
+
+3. Parking
+FR Question: Y a-t-il du stationnement à proximité ?
+
+FR Answer:
+
+Oui — stationnement gratuit sur rue Eddy et les rues avoisinantes (rue Laurier, rue Laval). Aucun stationnement payant requis. À 5 min à pied du pont Portage pour les clients d'Ottawa.
+
+EN Question: Is there parking near your location?
+
+EN Answer:
+
+Yes — free street parking on Rue Eddy and nearby streets (rue Laurier, rue Laval). No paid lot needed. A 5-minute walk from the Portage bridge for Ottawa-side clients.
+
+4. Insurance receipts
+FR Question: Acceptez-vous les reçus pour assurances ?
+
+FR Answer:
+
+Oui. À titre de massothérapeute membre de l'AMQ (#M-24-4471), je fournis des reçus officiels acceptés par la plupart des régimes d'assurance collective canadiens. Aucune référence médicale requise.
+
+EN Question: Do you provide receipts for insurance?
+
+EN Answer:
+
+Yes. As an AMQ-registered massage therapist (member #M-24-4471), I provide official receipts accepted by most Canadian group insurance and employee benefit plans. No doctor's referral required.
+
+5. Languages
+FR Question: Parlez-vous français et anglais ?
+
+FR Answer:
+
+Oui — les séances sont offertes en français et en anglais.
+
+EN Question: Do you offer sessions in French and English?
+
+EN Answer:
+
+Yes — sessions are available in both French and English.
+
+6. Booking
+FR Question: Faut-il prendre rendez-vous à l'avance ?
+
+FR Answer:
+
+Oui, un rendez-vous est requis. Réservez en ligne via shelestwellness.ca ou par courriel à massage@shelestwellness.ca. Disponibilités du lundi au vendredi 15h–20h et le dimanche 10h–16h.
+
+EN Question: Do I need to book in advance?
+
+EN Answer:
+
+Yes, appointment required. Book online at shelestwellness.ca or email massage@shelestwellness.ca. Available Mon–Fri 3–8 PM and Sunday 10 AM–4 PM.
+
+7. First visit recommendation
+FR Question: Quel type de massage recommandez-vous pour une première visite ?
+
+FR Answer:
+
+Le massage thérapeutique est un excellent point de départ — il peut être adapté à vos besoins. Nous discutons de vos objectifs en début de séance pour choisir la meilleure approche ensemble.
+
+EN Question: What massage do you recommend for a first visit?
+
+EN Answer:
+
+Therapeutic massage is a great starting point — it's adapted to your specific needs and goals. We discuss your concerns at the start of every session to choose the best approach together.
+
+8. Prenatal massage
+Before adding this one: confirm with Olha whether she offers prenatal / pregnancy massage. It's not listed as a named service in the config — if she does offer it as a variation of therapeutic massage, use the answer below. If not, skip this question entirely.
+
+FR Question: Faites-vous des massages pour femmes enceintes ?
+
+FR Answer (if yes):
+
+Oui — le massage prénatal est offert et adapté à chaque trimestre. Veuillez le mentionner lors de votre réservation afin de personnaliser la séance selon vos besoins.
+
+EN Question: Do you offer prenatal massage?
+
+EN Answer (if yes):
+
+Yes — prenatal massage is available and adapted to each trimester. Please mention your pregnancy when booking so the session can be tailored to your needs.
+
+9. First session — what to expect
+FR Question: À quoi dois-je m'attendre lors de ma première séance ?
+
+FR Answer:
+
+Une courte discussion sur vos objectifs et votre historique de santé, suivie d'un massage complet avec drapage maintenu en tout temps. Prévoyez quelques minutes supplémentaires pour l'accueil.
+
+EN Question: What should I expect during my first massage session?
+
+EN Answer:
+
+A short intake conversation about your goals and health history, then a full massage with draping maintained throughout. Allow a few extra minutes for the intake at the start of your first visit.
+
+10. Payment methods
+FR Question: Acceptez-vous les paiements par Interac, carte ou comptant ?
+
+FR Answer:
+
+Nous acceptons le comptant et le virement Interac. Les cartes de crédit ne sont pas acceptées pour le moment.
+
+EN Question: What payment methods do you accept?
+
+EN Answer:
+
+Cash and Interac e-Transfer accepted. Credit cards are not currently accepted.

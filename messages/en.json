@@ -8,7 +8,8 @@
     "bookNow": "Book Now",
     "mainNav": "Main navigation",
     "mobileNav": "Mobile navigation",
-    "footerNav": "Footer navigation"
+    "footerNav": "Footer navigation",
+    "articles": "Articles"
   },
   "header": {
     "logoAlt": "Olha Shelest — Massage Therapy Gatineau",
@@ -412,6 +413,288 @@
           }
         ]
       }
+    }
+  },
+  "articles": {
+    "index": {
+      "preTitle": "Massage Therapy Resources",
+      "title": "Articles & Guides",
+      "subtitle": "Expert advice on massage therapy, wellness, and pain management in Gatineau.",
+      "readMore": "Read article →",
+      "heroImageAlt": "Massage therapy articles and guides — Olha Shelest, Gatineau"
+    },
+    "how-to-choose-massage-therapist-gatineau": {
+      "preTitle": "Massage Therapy · Gatineau",
+      "title": "How to Choose a Massage Therapist in Gatineau: A Complete Guide",
+      "excerpt": "Not all massage therapists are the same. Whether you're dealing with chronic back pain, recovering from an injury, or simply looking to relieve stress, choosing the right registered massage therapist in Gatineau makes all the difference. Here's what to look for.",
+      "heroImageAlt": "Choosing a massage therapist in Gatineau — professional massage therapy at Olha Shelest",
+      "ctaText": "Book Your First Session",
+      "ctaSubtext": "Ready to experience the difference? Book with Olha Shelest, AMQ-registered massage therapist in Gatineau.",
+      "sections": [
+        {
+          "heading": "Why Your Choice of Massage Therapist Matters",
+          "paragraphs": [
+            "A massage session is more than a one-size-fits-all treatment. The right therapist listens to your goals, adapts their technique to your body, and creates an environment where you feel safe and respected. A poor fit — whether in communication style, skill set, or approach — can mean wasted time, money, and in some cases, discomfort.",
+            "In Gatineau, the growing number of wellness practitioners makes it easier than ever to find professional massage therapy, but also more important to know how to evaluate your options."
+          ]
+        },
+        {
+          "heading": "Check Credentials — AMQ Membership as the Benchmark",
+          "paragraphs": [
+            "In Quebec, massage therapy is not a regulated profession in the same way as physiotherapy or medicine. This means anyone can call themselves a 'massage therapist.' The critical distinction is membership in a recognized professional association.",
+            "The Association des massothérapeutes du Québec (AMQ) is the leading professional body for massage therapists in the province. AMQ members have completed recognized training programs, are bound by a code of ethics, and maintain continuing education requirements. When a therapist is an AMQ member, you have a concrete standard of professional accountability.",
+            "When evaluating a therapist, ask for their AMQ member number. You can verify it directly in the AMQ public directory. Olha Shelest is a registered AMQ member, verifiable at membres.rmqmasso.ca."
+          ]
+        },
+        {
+          "heading": "What Services Are Offered?",
+          "paragraphs": [
+            "Different therapists specialize in different modalities. Some focus on relaxation, others on clinical therapeutic work, sports recovery, or specific techniques like lymphatic drainage. Before booking, make sure the therapist offers the type of massage that matches your needs.",
+            "A well-rounded practice typically offers therapeutic massage for pain and injury, deep tissue massage for chronic tension, relaxation massage for stress, and specialized services such as lymphatic drainage or children's massage. If you have a specific concern — lower back pain, a post-surgical recovery, or athletic performance — confirm that the therapist has relevant experience.",
+            "Browse the available services before booking to make sure the practice is a good fit for your situation."
+          ]
+        },
+        {
+          "heading": "Communication and Comfort Are Non-Negotiable",
+          "paragraphs": [
+            "A good massage therapist will take a few minutes at the start of every session to ask about your goals, any areas to avoid, pressure preferences, and relevant health history. This is not optional — it is the foundation of a safe and effective treatment.",
+            "Throughout the session, you should feel comfortable giving feedback about pressure or technique, and your therapist should respond. If you feel pressure to stay silent or sense that your feedback is ignored, that is a red flag.",
+            "Draping — remaining covered by a sheet except for the area being worked on — is a professional standard. A therapist who does not maintain proper draping is not operating within professional norms."
+          ]
+        },
+        {
+          "heading": "Insurance Receipts — An Important Criterion",
+          "paragraphs": [
+            "Most Canadian group insurance plans and employee benefit programs cover massage therapy when provided by an AMQ member or an equivalent recognized association. This can significantly offset the cost of regular sessions.",
+            "Before booking, confirm that the therapist provides official receipts that your insurer will accept. AMQ members are entitled to issue these receipts — non-members typically are not.",
+            "No doctor's referral is required for massage therapy in Quebec. Check your specific insurance plan for annual maximums and per-session limits. See our full fee schedule for session rates and duration options."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "What is the difference between a massage therapist and a physiotherapist?",
+          "answer": "A massage therapist focuses on soft tissue — muscles, fascia, and connective tissue — using hands-on techniques to reduce pain, tension, and stress. A physiotherapist diagnoses and treats movement disorders and injuries using a broader range of interventions including exercises, manual therapy, and modalities like ultrasound. The two professions are complementary: many clients alternate between physio for rehabilitation and massage for ongoing maintenance."
+        },
+        {
+          "question": "Is massage therapy covered by insurance in Quebec?",
+          "answer": "Yes, in most cases. Most Canadian group insurance plans and federal employee benefit programs cover massage therapy when provided by an AMQ member. The annual limit and per-session cap vary by plan. No doctor's referral is required — check your plan documents or call your insurer to confirm your coverage."
+        },
+        {
+          "question": "Do I need a doctor's referral for a massage?",
+          "answer": "No. In Quebec, a doctor's referral is not required to book a massage therapy session. Simply book directly with your therapist. Some insurance plans may require a physician's note for reimbursement — verify this with your specific insurer before your first session."
+        },
+        {
+          "question": "How many sessions will I need?",
+          "answer": "It depends on your goal. For acute pain or a specific injury, a short series of weekly sessions followed by a reassessment is common. For stress management and general wellness, monthly sessions are often sufficient to maintain the benefits. Your therapist will recommend a cadence at the end of your first visit based on your individual needs."
+        }
+      ]
+    },
+    "deep-tissue-massage-runners-athletes-gatineau": {
+      "preTitle": "Sports Recovery · Gatineau",
+      "title": "Deep Tissue Massage for Runners and Athletes in Gatineau",
+      "excerpt": "Spring is running season in the National Capital Region. Whether you're training for Ottawa Race Weekend, logging trail kilometres in Parc de la Gatineau, or pushing through your first half-marathon, your muscles have a lot to say. Deep tissue massage is one of the most effective recovery tools available — and it's just across the river.",
+      "heroImageAlt": "Deep tissue massage for runners and athletes in Gatineau — sports recovery massage at Olha Shelest",
+      "ctaText": "Book Your Recovery Session",
+      "ctaSubtext": "Train harder, recover smarter. Book a deep tissue session with Olha Shelest, AMQ-registered massage therapist in Gatineau.",
+      "sections": [
+        {
+          "heading": "The Outaouais Running Community and Ottawa Race Weekend",
+          "paragraphs": [
+            "Ottawa Race Weekend, held each May, draws thousands of runners from across Canada and beyond. Many live and train on the Gatineau side — in Hull, Aylmer, and the broader Outaouais region — crossing the river daily for work and training. Parc de la Gatineau offers some of the best trail running in the National Capital Region, used year-round by a dedicated community of athletes.",
+            "With high training loads come tight IT bands, sore calves, and the familiar ache of overworked legs. Deep tissue massage is not a luxury for this community — it is part of a serious training plan."
+          ]
+        },
+        {
+          "heading": "Why Deep Tissue Massage Helps Runners",
+          "paragraphs": [
+            "Running is repetitive by nature. The same muscle groups fire in the same patterns, kilometre after kilometre, until adhesions form in the fascia — bands of fibrous tissue that restrict movement and cause pain. Deep tissue massage uses slow, firm strokes to reach these deeper layers of muscle and connective tissue, breaking up adhesions and restoring normal tissue function.",
+            "Common runner complaints that respond well to deep tissue work include iliotibial (IT) band syndrome, plantar fasciitis, tight hip flexors, calf and hamstring tension, and piriformis syndrome. Regular massage does not just treat these problems after they appear — it can prevent them from developing in the first place.",
+            "Beyond the mechanical benefits, massage reduces cortisol (the stress hormone) and increases blood circulation to fatigued muscles, accelerating the clearance of metabolic waste products produced during intense training."
+          ]
+        },
+        {
+          "heading": "Before the Race or After? When to Book",
+          "paragraphs": [
+            "Timing matters. A deep tissue massage performed too close to a race can leave muscles feeling temporarily fatigued or sore — the last thing you want at the start line. The general guideline: book a deep tissue session 5 to 7 days before a major race, and a lighter relaxation massage 2 to 3 days before if you want one closer to race day.",
+            "Post-race is where deep tissue work delivers the most benefit. Wait at least 48 hours after a hard effort before booking — your muscles need a brief window of rest before deep work is productive. A session 3 to 5 days post-race can significantly accelerate recovery and prepare you for the next training block."
+          ]
+        },
+        {
+          "heading": "How Often Should Runners Book?",
+          "paragraphs": [
+            "Frequency depends on your training volume and intensity. During base-building phases with moderate mileage, one session per month is a good maintenance baseline. As you ramp up for a goal race, biweekly sessions help manage cumulative fatigue. During peak training weeks, some athletes benefit from weekly sessions.",
+            "Consistent, regular massage is far more effective than occasional rescue sessions when something hurts. Think of it as maintenance rather than treatment."
+          ]
+        },
+        {
+          "heading": "Deep Tissue vs Sports Massage — What's the Difference?",
+          "paragraphs": [
+            "These terms are often used interchangeably, but there is a distinction. Deep tissue massage refers to the technique: slow, firm pressure targeting deeper layers of muscle and connective tissue. Sports massage is more of a context — massage applied before, during, or after athletic performance, which may include deep tissue work, stretching, or lighter recovery techniques depending on the phase.",
+            "For most runners in training — not immediately pre- or post-competition — deep tissue massage is the most appropriate modality. Your therapist will adapt the pressure and approach based on where you are in your training cycle."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Is deep tissue massage painful?",
+          "answer": "Deep tissue work involves more pressure than a relaxation massage, but it should never be sharply painful or unbearable. Most clients describe it as productive discomfort — you can feel the work happening, but it stays within a tolerable range. Communication is key: always tell your therapist if the pressure is too much, and a good therapist will adjust immediately. Some clients experience mild soreness for 24 to 48 hours after a session, similar to post-workout soreness, which resolves quickly."
+        },
+        {
+          "question": "How long before a race should I get a deep tissue massage?",
+          "answer": "Plan your last deep tissue session 5 to 7 days before your race. This gives your muscles enough time to recover from any temporary post-massage soreness and feel fully ready at the start line. If you want a massage closer to race day, opt for a lighter relaxation session 2 to 3 days before — not deep tissue."
+        },
+        {
+          "question": "Is sports massage covered by insurance?",
+          "answer": "Yes, in most cases. As an AMQ-registered massage therapist, Olha provides official receipts accepted by most Canadian group insurance plans and federal employee benefit programs, including PSHCP. The receipt covers the session regardless of whether it is described as therapeutic, deep tissue, or sports massage. No doctor's referral is required."
+        },
+        {
+          "question": "Will I be sore after a deep tissue massage?",
+          "answer": "Mild soreness for 24 to 48 hours after a deep tissue session is normal and common, especially if it is your first session or if a particularly tight area was addressed. Drink extra water and avoid intense training on the day of your massage. The soreness resolves quickly and is generally followed by noticeably improved range of motion and reduced tension."
+        }
+      ]
+    },
+    "therapeutic-vs-relaxation-massage-gatineau": {
+      "preTitle": "Massage Therapy · Gatineau",
+      "title": "Therapeutic vs Relaxation Massage: Which Is Right for You?",
+      "excerpt": "Booking your first massage — or your first in a while — often means facing a choice you didn't expect: therapeutic or relaxation? The two feel similar on the surface but serve very different purposes. Here's how to decide.",
+      "heroImageAlt": "Therapeutic vs relaxation massage in Gatineau — Olha Shelest massage therapy",
+      "ctaText": "Book Your Session",
+      "ctaSubtext": "Not sure which type is right for you? Tell us your goal when booking and Olha will adapt the session to fit your needs.",
+      "sections": [
+        {
+          "heading": "Two Types, Two Very Different Goals",
+          "paragraphs": [
+            "Massage therapy is not a single thing. The term covers a wide range of techniques and approaches, but the most important distinction for most clients is between therapeutic massage and relaxation massage. Getting this choice right means a session that actually addresses what you came in for.",
+            "The good news: you do not need to figure it out alone. A few honest questions at intake — and a good therapist who knows how to ask them — will point you in the right direction every time."
+          ]
+        },
+        {
+          "heading": "What Is Therapeutic Massage?",
+          "paragraphs": [
+            "Therapeutic massage is clinical and goal-oriented. The therapist starts with an intake assessment — asking about your health history, the specific area of concern, your pain patterns, and any relevant medical context. The session is then structured to address those specific findings.",
+            "Techniques vary and may include firm pressure in areas of chronic tension, targeted work on specific muscles or joints, myofascial release, or trigger point therapy. The session may feel less like a spa experience and more like a focused treatment — because it is one.",
+            "Therapeutic massage is the right choice when you have a specific complaint: lower back pain, neck and shoulder tension from desk work, a sports injury in recovery, post-surgical scar tissue, or chronic pain patterns. Insurance receipts from AMQ-registered therapists cover therapeutic massage — check your plan for details."
+          ]
+        },
+        {
+          "heading": "What Is Relaxation Massage?",
+          "paragraphs": [
+            "Relaxation massage takes a different approach. The goal is not to fix a specific problem but to calm the nervous system, reduce overall stress, and give the body a full reset. Techniques are flowing and rhythmic — long strokes covering the whole body rather than deep, focused work on one area.",
+            "The result is a measurable reduction in cortisol (the stress hormone), improved circulation, and a sense of mental calm that often lingers for days after the session. Regular relaxation massage is increasingly recognized as a legitimate tool for managing stress, improving sleep quality, and supporting immune function.",
+            "Relaxation massage is the right choice when you are not in acute pain, when your main complaint is mental fatigue or generalized tension, or when you simply need to decompress. It is also a good starting point for first-time clients who want to experience massage before committing to more targeted work."
+          ]
+        },
+        {
+          "heading": "How to Choose: Three Questions to Ask Yourself",
+          "paragraphs": [
+            "First: Is there a specific place that hurts or a specific problem you want addressed? If yes, therapeutic massage is the better fit. If the answer is 'I'm just stressed and tense everywhere,' relaxation is the place to start.",
+            "Second: Are you looking for treatment or recovery? Treatment — targeting a defined complaint — points to therapeutic. Recovery from a hard week, travel, or emotional overload points to relaxation.",
+            "Third: How is your pain tolerance today? Therapeutic massage, especially deep tissue work, involves more pressure. If you are going through a physically or emotionally taxing period, a lighter relaxation session may serve you better, even if your long-term goal is more targeted work."
+          ]
+        },
+        {
+          "heading": "You Don't Always Have to Choose",
+          "paragraphs": [
+            "In practice, many sessions combine both approaches. A skilled therapist will typically spend focused time on your area of concern — applying therapeutic techniques where needed — and then transition to a more flowing, full-body finish. This hybrid approach treats the specific complaint while also giving the nervous system the reset it needs.",
+            "At Olha Shelest's practice, every session begins with an intake conversation about your goals. If you are unsure which type of massage is right for you, say so — the intake is exactly the right moment to figure it out together. Browse the full service menu to see all available options."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Is therapeutic massage more painful than relaxation massage?",
+          "answer": "Therapeutic massage typically involves more pressure and may be more intense in specific areas of tension. But it should feel like productive pressure, not sharp pain. A good therapist communicates throughout and adjusts to your comfort level. Relaxation massage uses lighter, flowing strokes and is generally gentler throughout the session."
+        },
+        {
+          "question": "Which type of massage is better for back pain?",
+          "answer": "For localized, specific back pain — such as lower back tension from sitting, a muscle strain, or postural imbalance — therapeutic massage is the better choice. It targets the specific muscles and structures involved. For general back tension without a defined complaint, relaxation massage can also provide significant relief by reducing overall muscle tone and stress hormones."
+        },
+        {
+          "question": "Can I switch between therapeutic and relaxation massage from session to session?",
+          "answer": "Absolutely. Many regular clients alternate based on what they need that week. After a particularly stressful period, a relaxation session may be the priority. After a physically demanding event or when a specific complaint flares up, therapeutic work makes more sense. Your therapist can help you decide at each visit."
+        },
+        {
+          "question": "Does insurance cover both types?",
+          "answer": "Yes — in most cases, both therapeutic and relaxation massage are covered by Canadian group insurance plans and federal employee benefit programs when provided by an AMQ-registered therapist. The receipt covers the session regardless of the specific technique used. Check your plan for annual limits and per-session caps. No doctor's referral is required."
+        }
+      ]
+    },
+    "amq-receipts-massage-insurance-coverage-gatineau": {
+      "preTitle": "Massage Therapy & Benefits",
+      "title": "AMQ Receipts: Getting Your Massage Covered by Insurance",
+      "excerpt": "Most Canadian group insurance plans cover massage therapy — but only when the therapist is a recognized professional. Here's exactly how AMQ receipts work, who qualifies, and how to claim your sessions without the guesswork.",
+      "heroImageAlt": "AMQ massage therapy receipt for insurance reimbursement in Gatineau",
+      "ctaText": "Book Your Session",
+      "ctaSubtext": "Olha Shelest is a registered AMQ member. Every session includes an official receipt accepted by Canadian insurers.",
+      "sections": [
+        {
+          "heading": "Why Your Therapist's Credentials Determine Your Coverage",
+          "paragraphs": [
+            "Not every massage qualifies for insurance reimbursement. Canadian insurers have a specific requirement: the therapist must hold recognized professional credentials. In Quebec, that means membership in the Association des massothérapeutes du Québec (AMQ) — the province's leading professional body for massage therapy.",
+            "When you book with an AMQ-registered therapist, you receive an official receipt that your insurer will accept. Book with an unregistered practitioner, and your claim will likely be denied — regardless of how good the session was. This single detail determines whether your benefit dollars cover your care or not."
+          ]
+        },
+        {
+          "heading": "What Is an AMQ Receipt?",
+          "paragraphs": [
+            "An AMQ receipt is an official document issued after each session by a therapist who holds active membership with the Association des massothérapeutes du Québec. It functions as proof that your treatment was delivered by a recognized professional.",
+            "The receipt includes: the therapist's full name and AMQ membership number, the date and duration of the session, the type of service, the amount paid, and the client's name. Most Canadian insurance plans require all of these fields — a standard cash receipt or a simple invoice will not suffice.",
+            "Olha Shelest is a registered AMQ member. Her membership can be verified directly on the AMQ member directory."
+          ]
+        },
+        {
+          "heading": "Which Insurance Plans Cover Massage Therapy in Canada?",
+          "paragraphs": [
+            "Coverage is widespread but varies by plan. Most employer-sponsored group benefit plans in Canada include a massage therapy benefit — typically ranging from $300 to $1,000 per calendar year, sometimes with a per-session cap. Check your plan booklet or benefits portal for your exact limits.",
+            "Extended Health Care (EHC) plans are the most common vehicle. These are employer-sponsored plans administered by providers such as Sun Life, Manulife, Great-West Life (Canada Life), Desjardins, and Blue Cross. Most of these plans cover AMQ-registered therapists in Quebec without requiring a physician's referral.",
+            "Health Spending Accounts (HSAs) and Personal Spending Accounts (PSAs) — sometimes called wellness accounts — are increasingly common. Massage therapy is an eligible expense under most HSAs, and PSAs often cover it explicitly. If your employer offers both a traditional benefit limit and a spending account, you may be able to use both in the same year.",
+            "Individual health insurance plans (purchased directly, not through an employer) may also include massage therapy. Coverage varies significantly, so review your policy or call your insurer directly."
+          ]
+        },
+        {
+          "heading": "Federal Employees and the PSHCP",
+          "paragraphs": [
+            "If you work for the federal government — including at Place du Portage, Terrasses de la Chaudière, or any other federal site in the National Capital Region — your benefits are governed by the Public Service Health Care Plan (PSHCP), administered by Canada Life.",
+            "The PSHCP covers massage therapy provided by an AMQ-registered therapist in Quebec. No physician referral is required. The current plan includes an annual massage therapy benefit — confirm the exact amount through the PSHCP member portal or your department's HR team, as benefit levels are periodically updated through collective bargaining.",
+            "Given the number of federal employees who cross the river from Ottawa to Gatineau daily, this is one of the most relevant benefit plans for clients at this practice. The Hull location at 148 Rue Eddy is a short walk from Place du Portage."
+          ]
+        },
+        {
+          "heading": "How to Check Your Coverage Before Booking",
+          "paragraphs": [
+            "The fastest way to verify your coverage is to call the member services number on the back of your insurance card. Ask three specific questions: (1) Is massage therapy covered under my plan? (2) Is an AMQ-registered therapist in Quebec an eligible provider? (3) What is my annual limit and has any of it been used?",
+            "Alternatively, log into your insurer's member portal — Sun Life, Manulife, Canada Life, and Desjardins all have online portals where you can view your remaining benefits by category. This takes two minutes and gives you the exact dollar figure before you book.",
+            "You do not need a prescription or referral in advance. Simply confirm your coverage, book your session, and bring your receipt to submit afterward."
+          ]
+        },
+        {
+          "heading": "How to Submit a Massage Therapy Claim",
+          "paragraphs": [
+            "Most insurers now accept digital claims. After your session, you will receive a receipt by email. To submit: log into your insurer's app or web portal, navigate to the claims section, select 'massage therapy' or 'paramedical services,' upload a photo or scan of your receipt, and submit. Reimbursement typically arrives by direct deposit within 3 to 10 business days.",
+            "If your plan uses paper claims, complete the claim form provided by your insurer, attach the original receipt, and mail or fax it to the address indicated. Keep a copy of everything you submit.",
+            "Important: some plans have a submission deadline — often within 12 months of the service date. Do not let your receipts accumulate for too long before claiming."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Do I need a doctor's referral to claim massage therapy?",
+          "answer": "No. Most Canadian group insurance plans — including the federal PSHCP — do not require a physician's referral for massage therapy. You can book directly, pay for your session, and submit the receipt to your insurer without any prior authorization. A small number of older individual plans may still require a referral, so it is worth confirming with your insurer if you are unsure."
+        },
+        {
+          "question": "How much does insurance typically cover per year?",
+          "answer": "It varies by plan, but most employer-sponsored group benefit plans in Canada include between $300 and $1,000 per year for massage therapy. Some plans have a per-session cap (for example, $80 per visit) in addition to the annual maximum. Federal employees under the PSHCP have a specific annual limit — check the PSHCP member portal or ask HR for your current entitlement. If your plan includes a Health Spending Account, those funds can supplement your base benefit."
+        },
+        {
+          "question": "Can I use my Health Spending Account (HSA) for massage therapy?",
+          "answer": "Yes. Massage therapy provided by an AMQ-registered therapist qualifies as an eligible medical expense under most Health Spending Accounts in Canada. If you have already used your base massage benefit for the year, your HSA is the next place to look. Submit the same AMQ receipt to your HSA administrator using their claim portal — the process is identical to a standard insurance claim."
+        },
+        {
+          "question": "What information must appear on the receipt for my insurer to accept it?",
+          "answer": "A valid receipt for insurance purposes must include: the therapist's full name and AMQ membership number, the client's name, the date of service, the duration and type of session, and the total amount paid. A general payment confirmation or email is not sufficient. Olha Shelest issues official AMQ receipts after every session that meet all Canadian insurer requirements — you will not need to request a special format."
+        }
+      ]
     }
   }
 }

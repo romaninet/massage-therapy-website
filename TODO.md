@@ -2,52 +2,42 @@
 
 ## Blog / Articles Section
 
-**Priority: High — the single biggest organic ranking lever currently missing.**
+### Infrastructure ✅ Done
 
-Without blog content, the site competes only via the Google Maps 3-pack. Every informational long-tail query ("massage pour le dos Gatineau", "drainage lymphatique à quoi s'attendre", "massothérapeute vs physiothérapeute") returns zero content from this site. Competitors with 10+ articles rank for hundreds of keyword variations.
+- Route `/[locale]/articles/[slug]` — dynamic, bilingual, next-intl
+- Articles index at `/[locale]/articles`
+- Article content stored as JSON in `messages/en.json` and `messages/fr.json` under `articles.*`
+- `articleJsonLd()` in `src/lib/jsonld.ts` — `@type: Article` with `author`, `publisher`, `datePublished`, `inLanguage`
+- `sitemap.ts` includes all article routes dynamically from `ARTICLES` config
+- Articles linked from main nav and footer
 
-### What to build (code — 4–6 hours)
+### Articles published
 
-1. Add route `/[locale]/articles/[slug]` — dynamic, bilingual, uses next-intl
-2. Add articles index page at `/[locale]/articles`
-3. Store article content as JSON files in `messages/articles/` (JSON preferred over MDX for easier bilingual i18n)
-4. Add `articleJsonLd()` to `src/lib/jsonld.ts` — `@type: Article` with `author`, `publisher`, `datePublished`, `inLanguage`
-5. Update `src/app/sitemap.ts` to include all `/articles/*` routes dynamically
-6. Link the articles index from the footer and from the home page CTA section
+| # | Slug | Published |
+|---|------|-----------|
+| ✅ 1 | `how-to-choose-massage-therapist-gatineau` | 2026-04-15 |
+| ✅ 2 | `deep-tissue-massage-runners-athletes-gatineau` | 2026-04-30 |
+| ✅ 3 | `therapeutic-vs-relaxation-massage-gatineau` | 2026-05-10 |
+| ✅ 4 | `amq-receipts-massage-insurance-coverage-gatineau` | 2026-05-20 |
 
-### Article template (every post must follow this)
+**Hero images still needed** — drop these into `public/images/` before deploying:
+- `article-choose-therapist.jpg`
+- `article-deep-tissue-runners.jpg`
+- `article-therapeutic-vs-relaxation.jpg`
+- `article-amq-insurance.jpg`
 
-- **Length:** 800–1500 words
-- **H1** with primary keyword
-- **3–5 H2 sections**
-- At least **2 internal links** to `/services` and `/fees`
-- Geographic keywords woven in naturally (Gatineau, Hull, Outaouais, Ottawa)
-- AMQ membership reference where credible
-- **Article JSON-LD** (`@type: Article`, author: Olha Shelest, publisher: shelestwellness.ca, datePublished)
-- **FAQ JSON-LD** if the article has 3+ question/answer blocks
-- CTA at end: "Prête à réserver une séance ? / Ready to book?" → `/contact`
-- 1 hero image with bilingual alt text
-
-### Articles to write — in this order (FR first, EN translation second)
+### Articles still to write (cadence: 1 every 2 weeks)
 
 | # | FR title | EN title | Primary keywords |
 |---|----------|----------|-----------------|
-| 1 | Comment choisir un massothérapeute à Gatineau | How to choose a massage therapist in Gatineau | massothérapeute Gatineau, choisir massothérapeute |
-| 2 | Massage thérapeutique vs massage de détente | Therapeutic vs relaxation massage — which to choose | massage thérapeutique Gatineau, différence massage |
-| 3 | Reçus AMQ : votre massage couvert par les assurances | AMQ receipts: getting your massage covered by insurance | reçu massage assurance, AMQ Gatineau |
-| 4 | Drainage lymphatique : à quoi s'attendre | Lymphatic drainage: what to expect | drainage lymphatique Gatineau |
-| 5 | Massage pour femmes enceintes à Gatineau | Prenatal massage in Gatineau | massage femme enceinte Gatineau, prenatal massage Gatineau |
-| 6 | Massage en profondeur pour la récupération sportive (Parc de la Gatineau) | Deep tissue massage for runners and athletes | massage en profondeur Gatineau, deep tissue Gatineau |
-| 7 | Massage en profondeur : à qui s'adresse-t-il ? | Deep tissue massage: when it's right for you | deep tissue Gatineau, massage en profondeur |
+| 5 | Drainage lymphatique : à quoi s'attendre | Lymphatic drainage: what to expect | drainage lymphatique Gatineau |
+| 6 | Massage pour femmes enceintes à Gatineau | Prenatal massage in Gatineau | massage femme enceinte Gatineau |
+| 7 | Massage en profondeur : à qui s'adresse-t-il ? | Deep tissue massage: when it's right for you | deep tissue Gatineau |
 | 8 | Préparer sa première séance | Preparing for your first massage session | first massage what to expect |
 | 9 | Massage pour enfants : guide pour parents | Massage for children: a parent's guide | massage enfant Gatineau |
-| 10 | Massage en duo : pourquoi le vivre ensemble | Couples massage: why share the experience | massage en duo Gatineau, couples massage Gatineau |
+| 10 | Massage en duo : pourquoi le vivre ensemble | Couples massage: why share the experience | massage en duo Gatineau |
 | 11 | Stress, sommeil et massage : la science | Stress, sleep, and massage: the science | bienfaits massage stress |
-| 12 | Massage à Gatineau pour les employés fédéraux d'Ottawa | Massage in Gatineau for Ottawa federal workers | massage Ottawa Gatineau, cross-river massage |
-
-**Cadence:** 1 article every 2 weeks. Do NOT publish all at once — Google may sandbox a sudden content flood.
-
-See full implementation guidance in [SITE-PROMOTION-PLAN.md §5.1](SITE-PROMOTION-PLAN.md).
+| 12 | Massage à Gatineau pour les employés fédéraux d'Ottawa | Massage in Gatineau for Ottawa federal workers | massage Ottawa Gatineau |
 
 ---
 

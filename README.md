@@ -100,6 +100,7 @@ The site is set up with:
   - `FAQPage` with 5 service-specific Q&As — Services page
   - `FAQPage` with 3 area-specific Q&As + `HealthAndBeautyBusiness` + `BreadcrumbList` — each local area landing page
   - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
+  - `Article` (with `author`, `publisher`, `datePublished`, `inLanguage`) + `FAQPage` + `BreadcrumbList` — each article page
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
 - **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
 - **Semantic HTML** — address in footer uses `<address>` element
@@ -236,6 +237,11 @@ The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes 
 | `/massage-ottawa` | Local landing page — Ottawa cross-river angle via Portage bridge |
 | `/massage-aylmer` | Local landing page — Aylmer / west Gatineau residents |
 | `/massage-outaouais` | Local landing page — regional catch-all for the full Outaouais |
+| `/articles` | Articles index — bilingual blog listing |
+| `/articles/how-to-choose-massage-therapist-gatineau` | Article: How to choose a massage therapist in Gatineau |
+| `/articles/deep-tissue-massage-runners-athletes-gatineau` | Article: Deep tissue massage for runners and athletes |
+| `/articles/therapeutic-vs-relaxation-massage-gatineau` | Article: Therapeutic vs relaxation massage — how to choose |
+| `/articles/amq-receipts-massage-insurance-coverage-gatineau` | Article: AMQ receipts and getting massage covered by insurance |
 
 All routes are available under `/en/` and `/fr/` prefixes.
 
@@ -271,7 +277,7 @@ Olha Shelest · 148 Rue Eddy, Unit 2, Gatineau, QC J8X 2W8 · (819) 815-5603 · 
 |----------|-----|--------------|-----------------|-------|
 | AMQ (Association des massothérapeutes du Québec) | [membres.rmqmasso.ca/en/find-member/details/M-24-4471](https://membres.rmqmasso.ca/en/find-member/details/M-24-4471) | — | Member ID: M-24-4471 | Highest-value backlink. Add website URL if not already set. Update if address or phone changes |
 | Yelp Canada | [yelp.ca/biz/olha-shelest-massothérapeute-gatineau](https://www.yelp.ca/biz/olha-shelest-massoth%C3%A9rapeute-gatineau) | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
-| Yellow pages | [yellowpages.ca](https://ypforbusiness.yellowpages.ca/) | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
+| Yellow pages | [yellowpages.ca](https://ypforbusiness.yellowpages.ca/) [olha yellow pages](https://www.yellowpages.ca/bus/Quebec/Gatineau/Olha-Shelest/105279173.html) | 2026-04-25 | — | Free listing. Update if address, phone, or hours change |
 | RateMDs | [ratemds.com](https://www.ratemds.com/clinic/ca-qc-gatineau-olha-shelest/), [manage](https://help.ratemds.com/support/tickets/new?ticket_form=managing_facilities&utm_source=gsc_managefacilities&utm_medium=gsc_managefacilitiesbanner&utm_campaign=gsc_claimprofile) | 2026-04-25 | — | Free basic profile. Ranks well in Google name searches |
 | Cylex Canada | https://www.cylex-canada.ca/company/olha-shelest--massoth%c3%a9rapeute-25186483.html | 2026-04-25 | — | Free business directory listing. Update if address, phone, or hours change |
 | Setmore | [shelestwellness.setmore.com](https://shelestwellness.setmore.com/) | 2026-04-26 | — | Booking page / directory listing. Update if address, phone, hours, or services change |
