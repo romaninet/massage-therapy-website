@@ -36,7 +36,7 @@ export default function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
           >
             {lang.toUpperCase()}
             <span
-              className={`absolute -bottom-1 left-0 h-px bg-sage transition-all duration-300 ${
+              className={`absolute -bottom-1 left-0 h-px bg-sage transition-[width] duration-300 ${
                 isActive ? 'w-full' : 'w-0 group-hover:w-full'
               }`}
             />

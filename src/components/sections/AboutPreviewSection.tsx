@@ -10,14 +10,14 @@ export default function AboutPreviewSection() {
 
   return (
     <section className="bg-off-white py-12 md:py-16 lg:py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           {/* Left: text */}
           <div className="flex flex-col">
-            <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-4">
+            <p className="section-pretitle mb-4">
               {t('preTitle')}
             </p>
-            <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold leading-tight mb-4">
+            <h2 className="heading-section leading-tight mb-4">
               {t('title')}
             </h2>
             <p className="font-heading text-sage/70 italic text-xl mb-6">{t('subtitle')}</p>
@@ -27,7 +27,7 @@ export default function AboutPreviewSection() {
             </p>
             <Link
               href={`/${locale}/about`}
-              className="self-start inline-flex items-center gap-3 px-8 py-4 bg-forest text-white font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-forest-dark hover:shadow-lg hover:shadow-forest/20 hover:-translate-y-0.5"
+              className="self-start inline-flex items-center gap-3 px-8 py-4 bg-forest text-white font-medium tracking-wider uppercase text-sm rounded transition-[background-color,box-shadow,transform] duration-200 hover:bg-forest-dark hover:shadow-lg hover:shadow-forest/20 hover:-translate-y-0.5"
             >
               {t('cta')}
             </Link>

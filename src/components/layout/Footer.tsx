@@ -18,7 +18,7 @@ export default function Footer() {
       <BotanicalCornerTL className="absolute top-0 left-0 w-40 h-40 text-white/10 pointer-events-none" />
       <BotanicalCornerBR className="absolute bottom-0 right-0 w-40 h-40 text-white/10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-8 relative z-10">
+      <div className="container-wide pt-16 pb-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand column */}
           <div className="flex flex-col gap-4">
@@ -49,7 +49,7 @@ export default function Footer() {
               width={72}
               height={96}
               className="mt-1"
-              style={{ width: '72px', height: 'auto' }}
+              style={{ height: 'auto' }}
             />
           </div>
 

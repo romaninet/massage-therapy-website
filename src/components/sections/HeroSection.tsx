@@ -60,19 +60,19 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-8">
             <Link
               href={`/${locale}/contact`}
-              className="inline-flex items-center justify-center px-6 lg:px-8 py-4 bg-white text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-off-white hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5"
+              className="btn-light px-6 lg:px-8"
             >
               {t('cta')}
             </Link>
             <Link
               href={`/${locale}/services`}
-              className="inline-flex items-center justify-center px-5 lg:px-7 py-4 border border-white/70 bg-forest/30 text-white font-medium tracking-wider uppercase text-sm rounded transition-all hover:border-white hover:bg-white/10 backdrop-blur-sm"
+              className="inline-flex items-center justify-center px-5 lg:px-7 py-4 border border-white/70 bg-forest/30 text-white font-medium tracking-wider uppercase text-sm rounded transition-colors hover:border-white hover:bg-white/10 backdrop-blur-sm"
             >
               {t('ourServices')}
             </Link>
             <Link
               href={`/${locale}/about`}
-              className="inline-flex items-center justify-center px-5 lg:px-7 py-4 border border-white/70 bg-forest/30 text-white font-medium tracking-wider uppercase text-sm rounded transition-all hover:border-white hover:bg-white/10 backdrop-blur-sm"
+              className="inline-flex items-center justify-center px-5 lg:px-7 py-4 border border-white/70 bg-forest/30 text-white font-medium tracking-wider uppercase text-sm rounded transition-colors hover:border-white hover:bg-white/10 backdrop-blur-sm"
             >
               {t('meetOlha')}
             </Link>

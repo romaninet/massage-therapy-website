@@ -4,7 +4,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { NAV_LINKS } from '@/lib/config';
@@ -27,6 +27,8 @@ export default function Header() {
     setMobileOpen(false);
   }, [pathname]);
 
+  const toggleMenu = useCallback(() => setMobileOpen((m) => !m), []);
+
   const prefix = `/${locale}`;
   const isActive = (href: string) => {
     const full = href === '/' ? prefix : `${prefix}${href}`;
@@ -34,14 +36,21 @@ export default function Header() {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-forest/95 backdrop-blur-md shadow-lg shadow-forest/20'
-          : 'bg-forest'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-forest focus:text-sm focus:font-medium focus:rounded focus:shadow-lg"
+      >
+        Skip to content
+      </a>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-300 ${
+          scrolled
+            ? 'bg-forest/95 backdrop-blur-md shadow-lg shadow-forest/20'
+            : 'bg-forest'
+        }`}
+      >
+      <div className="container-wide">
         {/* Mobile: 3-col grid [name | logo | controls]. Desktop: flex justify-between */}
         <div className="grid grid-cols-[1fr_auto_1fr] items-center h-24 lg:flex lg:justify-between">
 
@@ -92,7 +101,7 @@ export default function Header() {
               >
                 {t(key)}
                 <span
-                  className={`absolute -bottom-1 left-0 h-px bg-sage transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-0 h-px bg-sage transition-[width] duration-300 ${
                     isActive(href) ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                 />
@@ -105,7 +114,7 @@ export default function Header() {
             <LanguageSwitcher dark />
             <Link
               href={`${prefix}/contact`}
-              className="px-5 py-2.5 border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded transition-all hover:bg-white hover:text-forest"
+              className="px-5 py-2.5 border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded transition-colors hover:bg-white hover:text-forest"
             >
               {t('bookNow')}
             </Link>
@@ -115,7 +124,7 @@ export default function Header() {
           <div className="flex lg:hidden items-center gap-4 justify-self-end">
             <LanguageSwitcher dark />
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
+              onClick={toggleMenu}
               className="text-white p-1"
               aria-label="Toggle menu"
             >
@@ -128,7 +137,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`lg:hidden transition-all duration-300 overflow-hidden ${
+        className={`lg:hidden transition-[max-height,opacity] duration-300 overflow-hidden ${
           mobileOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
@@ -146,12 +155,13 @@ export default function Header() {
           ))}
           <Link
             href={`${prefix}/contact`}
-            className="mt-4 py-3 text-center border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded hover:bg-white hover:text-forest transition-all"
+            className="mt-4 py-3 text-center border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded hover:bg-white hover:text-forest transition-colors"
           >
             {t('bookNow')}
           </Link>
         </nav>
       </div>
-    </header>
+      </header>
+    </>
   );
 }

@@ -88,6 +88,28 @@
   font-family: var(--font-playfair), Georgia, serif;
 }
 
+@layer components {
+  .section-pretitle {
+    @apply text-sage font-medium tracking-[0.25em] uppercase text-xs;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-6 lg:px-12;
+  }
+
+  .heading-section {
+    @apply font-heading font-semibold text-forest text-4xl lg:text-5xl;
+  }
+
+  .btn-light {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-white text-forest font-medium tracking-wider uppercase text-sm rounded transition-[background-color,box-shadow,transform] duration-200 hover:bg-off-white hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5;
+  }
+
+  .icon-badge {
+    @apply w-12 h-12 rounded-full bg-pale-sage flex items-center justify-center flex-shrink-0;
+  }
+}
+
 @keyframes float-gentle {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }

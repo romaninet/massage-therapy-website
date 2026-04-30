@@ -23,7 +23,7 @@ export default function CTASection() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center relative z-10">
-        <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-6">
+        <p className="section-pretitle mb-6">
           {t('preTitle')}
         </p>
         <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-white font-semibold leading-tight mb-6">
@@ -34,7 +34,7 @@ export default function CTASection() {
         </p>
         <Link
           href={`/${locale}/contact`}
-          className="inline-flex items-center gap-3 px-10 py-4 bg-white text-forest font-medium tracking-wider uppercase text-sm rounded transition-all hover:bg-off-white hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5"
+          className="btn-light gap-3 px-10"
         >
           {t('button')}
         </Link>

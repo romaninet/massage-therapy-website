@@ -26,14 +26,14 @@ export default function TestimonialsSection() {
 
   return (
     <section className="bg-off-white py-12 md:py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="container-wide">
 
         {/* Header */}
         <div className="text-center mb-10 lg:mb-14">
-          <p className="text-sage font-medium tracking-[0.25em] uppercase text-xs mb-3">
+          <p className="section-pretitle mb-3">
             {t('preTitle')}
           </p>
-          <h2 className="font-heading text-4xl lg:text-5xl text-forest font-semibold mb-3">
+          <h2 className="heading-section mb-3">
             {t('title')}
           </h2>
           <BotanicalDivider className="w-48 lg:w-72 mx-auto text-sage/50 my-2 lg:my-6" />
@@ -45,7 +45,7 @@ export default function TestimonialsSection() {
           <button
             onClick={prev}
             aria-label={t('arrowPrev')}
-            className="flex-none w-10 h-10 rounded-full border border-forest/20 flex items-center justify-center text-forest/40 hover:text-forest hover:border-forest/50 transition-colors"
+            className="flex-none w-10 h-10 rounded-full border border-forest/20 flex items-center justify-center text-forest/40 hover:text-forest hover:border-forest/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2"
           >
             <ChevronLeft size={20} />
           </button>
@@ -86,7 +86,7 @@ export default function TestimonialsSection() {
           <button
             onClick={next}
             aria-label={t('arrowNext')}
-            className="flex-none w-10 h-10 rounded-full border border-forest/20 flex items-center justify-center text-forest/40 hover:text-forest hover:border-forest/50 transition-colors"
+            className="flex-none w-10 h-10 rounded-full border border-forest/20 flex items-center justify-center text-forest/40 hover:text-forest hover:border-forest/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2"
           >
             <ChevronRight size={20} />
           </button>
