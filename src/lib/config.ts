@@ -162,6 +162,11 @@ export const ARTICLES = [
     datePublished: '2026-04-30',
     heroImage: '/images/article-amq-insurance.jpg',
   },
+  {
+    slug: 'lymphatic-drainage-massage-gatineau',
+    datePublished: '2026-05-01',
+    heroImage: '/images/article-lymphatic-drainage.jpg',
+  },
 ] as const;
 
 export const NAV_LINKS = [
