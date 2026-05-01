@@ -257,6 +257,7 @@ The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes 
 | `/articles/deep-tissue-massage-runners-athletes-gatineau` | Article: Deep tissue massage for runners and athletes |
 | `/articles/therapeutic-vs-relaxation-massage-gatineau` | Article: Therapeutic vs relaxation massage — how to choose |
 | `/articles/amq-receipts-massage-insurance-coverage-gatineau` | Article: AMQ receipts and getting massage covered by insurance |
+| `/articles/lymphatic-drainage-massage-gatineau` | Article: Lymphatic drainage massage — benefits, technique, and who it's for |
 
 All routes are available under `/en/` and `/fr/` prefixes.
 
