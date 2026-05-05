@@ -302,6 +302,30 @@ Olha Shelest · 148 Rue Eddy, Unit 2, Gatineau, QC J8X 2W8 · (819) 815-5603 · 
 
 ---
 
+## Claude Code Setup
+
+This project uses [Claude Code](https://www.youtube.com/watch?v=eRS3CmvrOvA&list=LL&index=2) as the AI coding assistant. The following plugins and skill packs are installed to enhance the workflow:
+
+```bash
+# Official Anthropic skill packs
+/plugin install skill-creator@claude-plugins-official
+/plugin install superpowers@claude-plugins-official
+/plugin install frontend-design@claude-plugins-official
+
+# GSD (Get Shit Done) — structured task planning and execution workflow
+npx get-shit-done-cc --claude --global
+
+# Context mode — toggle focused context windows
+/plugin marketplace add mksglu/context-mode
+/plugin install context-mode@context-mode
+
+# Claude Mem — persistent memory across sessions
+/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem
+```
+
+---
+
 ## List of services used
 
 - following emails (gmail + porkbun)

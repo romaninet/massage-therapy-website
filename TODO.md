@@ -76,6 +76,32 @@ Pre-populate the public Q&A panel on Google Business Profile. You are allowed to
 
 ---
 
+## AEO (Answer Engine Optimization)
+
+See full plan in `AEO_optimization_plan.md`.
+
+### Phase 1 — Zero-Risk Wins ✅ Done
+
+- ✅ `public/llms.txt` — AI crawler entity file (entity, services, pages, articles)
+- ✅ `src/app/robots.ts` — explicit opt-in for GPTBot, Claude-Web, PerplexityBot
+- ⏭️ `src/lib/jsonld.ts` — add Bing Places + Apple Business Connect to `DIRECTORY_URLS` (skipped — URLs needed)
+
+### Phase 2 — Schema Enhancements
+
+- [ ] 2.1 Speakable schema on article pages
+- [ ] 2.2 HowTo schema for procedural articles
+- [ ] 2.3 Article E-E-A-T schema fields
+- [ ] 2.4 SearchAction / WebSite schema
+
+### Phase 3 — Content Additions
+
+- [ ] 3.1 Quick Answer box on every article
+- [ ] 3.2 Visible author bio block on articles
+- [ ] 3.3 Comparison table in therapeutic-vs-relaxation article
+- [ ] 3.4 FAQ answer quality pass
+
+---
+
 ## Near Future: Additional Directory Listings
 
 The following directories are worth creating when time allows. Use the canonical NAP exactly:
