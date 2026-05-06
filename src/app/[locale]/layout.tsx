@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { routing } from '@/i18n/routing';
 import { SITE, absoluteUrl } from '@/lib/config';
+import { websiteSearchJsonLd } from '@/lib/jsonld';
 import { playfair, dmSans, geistMono } from '@/lib/fonts';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -74,6 +75,10 @@ export default async function LocaleLayout({
       className={`${playfair.variable} ${dmSans.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSearchJsonLd()) }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
           <main id="main-content" className="flex-1">{children}</main>

@@ -86,12 +86,12 @@ See full plan in `AEO_optimization_plan.md`.
 - ✅ `src/app/robots.ts` — explicit opt-in for GPTBot, Claude-Web, PerplexityBot
 - ⏭️ `src/lib/jsonld.ts` — add Bing Places + Apple Business Connect to `DIRECTORY_URLS` (skipped — URLs needed)
 
-### Phase 2 — Schema Enhancements
+### Phase 2 — Schema Enhancements ✅ Done
 
-- [ ] 2.1 Speakable schema on article pages
-- [ ] 2.2 HowTo schema for procedural articles
-- [ ] 2.3 Article E-E-A-T schema fields
-- [ ] 2.4 SearchAction / WebSite schema
+- ✅ 2.1 Speakable schema on article pages — targets `h1`, `.article-excerpt`, `.article-quick-answer` (last two activate after Phase 3)
+- ✅ 2.2 HowTo schema — `howToJsonLd()` added; steps in en/fr for `how-to-choose` and `amq-receipts` articles
+- ✅ 2.3 Article E-E-A-T — `amqCredential()` + `articleAuthorPerson()` helpers; `author.sameAs`, `author.hasCredential`, `publisher.logo`, `keywords`, `about: MedicalTherapy` on all articles
+- ✅ 2.4 SearchAction / WebSite schema — `websiteSearchJsonLd()` emitted in locale layout
 
 ### Phase 3 — Content Additions
 

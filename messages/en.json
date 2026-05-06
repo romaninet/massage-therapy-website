@@ -430,6 +430,14 @@
       "heroImageAlt": "Choosing a massage therapist in Gatineau — professional massage therapy at Olha Shelest",
       "ctaText": "Book Your First Session",
       "ctaSubtext": "Ready to experience the difference? Book with Olha Shelest, AMQ-registered massage therapist in Gatineau.",
+      "keywords": ["how to choose a massage therapist", "registered massage therapist Gatineau", "AMQ massage therapist Quebec", "massage therapy Gatineau", "massage therapist credentials"],
+      "howToSteps": [
+        { "name": "Check for professional credentials", "text": "Look for AMQ membership in Quebec. AMQ registration guarantees formal training and professional liability insurance. Olha Shelest's AMQ member number is M-24-4471, verifiable at the AMQ public directory at membres.rmqmasso.ca." },
+        { "name": "Define your therapeutic goals", "text": "Identify whether you need clinical work — such as injury rehabilitation or chronic pain management — or general wellness and relaxation. This determines whether you need a therapeutic or relaxation specialist." },
+        { "name": "Review experience and specializations", "text": "Ask about experience with your specific condition. A therapist specializing in sports recovery uses different techniques than one focused on relaxation or lymphatic drainage." },
+        { "name": "Confirm practical details", "text": "Verify location, availability, session lengths, and payment methods before booking. Confirm whether the therapist provides AMQ receipts for insurance reimbursement." },
+        { "name": "Book a first session and communicate your needs", "text": "Arrive with clear goals. A qualified therapist will conduct an intake assessment, adjust pressure and technique to your needs, and advise on session frequency." }
+      ],
       "sections": [
         {
           "heading": "Why Your Choice of Massage Therapist Matters",
@@ -497,6 +505,7 @@
       "heroImageAlt": "Deep tissue massage for runners and athletes in Gatineau — sports recovery massage at Olha Shelest",
       "ctaText": "Book Your Recovery Session",
       "ctaSubtext": "Train harder, recover smarter. Book a deep tissue session with Olha Shelest, AMQ-registered massage therapist in Gatineau.",
+      "keywords": ["deep tissue massage Gatineau", "sports massage for runners Ottawa", "massage for athletes", "sports recovery massage", "running recovery massage Gatineau"],
       "sections": [
         {
           "heading": "The Outaouais Running Community and Ottawa Race Weekend",
@@ -561,6 +570,7 @@
       "heroImageAlt": "Therapeutic vs relaxation massage in Gatineau — Olha Shelest massage therapy",
       "ctaText": "Book Your Session",
       "ctaSubtext": "Not sure which type is right for you? Tell us your goal when booking and Olha will adapt the session to fit your needs.",
+      "keywords": ["therapeutic massage vs relaxation massage", "types of massage Gatineau", "therapeutic massage Gatineau", "relaxation massage Gatineau", "which massage is right for me"],
       "sections": [
         {
           "heading": "Two Types, Two Very Different Goals",
@@ -627,6 +637,7 @@
       "heroImageAlt": "Lymphatic drainage massage therapy session in Gatineau",
       "ctaText": "Book a Session",
       "ctaSubtext": "Olha Shelest offers therapeutic massage including lymphatic drainage techniques at her Gatineau practice. Every session is tailored to your specific needs.",
+      "keywords": ["lymphatic drainage massage Gatineau", "drainage lymphatique Gatineau", "lymphatic massage benefits", "gentle massage therapy Gatineau", "lymphedema massage Gatineau"],
       "sections": [
         {
           "heading": "What Is Lymphatic Drainage Massage?",
@@ -705,6 +716,14 @@
       "heroImageAlt": "AMQ massage therapy receipt for insurance reimbursement in Gatineau",
       "ctaText": "Book Your Session",
       "ctaSubtext": "Olha Shelest is a registered AMQ member. Every session includes an official receipt accepted by Canadian insurers.",
+      "keywords": ["AMQ receipt massage insurance", "massage insurance coverage Quebec", "massage therapy benefits Canada", "group insurance massage", "insurance reimbursement massage Gatineau"],
+      "howToSteps": [
+        { "name": "Book with an AMQ-registered therapist", "text": "Only sessions with a member of the Association des Massothérapeutes du Québec (AMQ) produce receipts accepted by most Canadian group insurers. Verify membership at membres.rmqmasso.ca. Olha Shelest's AMQ number is M-24-4471." },
+        { "name": "Receive your AMQ receipt after the session", "text": "The therapist provides an official AMQ receipt showing their member number after each session. Keep this receipt — it is required to submit your insurance claim." },
+        { "name": "Check your insurance plan coverage details", "text": "Log in to your group benefits portal or contact HR to confirm massage therapy is a covered benefit and to find your annual reimbursement limit and per-session cap." },
+        { "name": "Submit your claim with the AMQ receipt", "text": "Upload the receipt to your insurer's online portal or mobile app. Most Canadian group plans reimburse 80–100% of the session fee up to the annual maximum. No doctor's referral is required." },
+        { "name": "Track your annual coverage limit", "text": "Keep all receipts throughout the year to monitor remaining coverage. Most plans reset on January 1st or on your benefits anniversary date." }
+      ],
       "sections": [
         {
           "heading": "Why Your Therapist's Credentials Determine Your Coverage",

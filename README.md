@@ -114,15 +114,43 @@ The site is set up with:
   - `FAQPage` with 5 service-specific Q&As — Services page
   - `FAQPage` with 3 area-specific Q&As + `HealthAndBeautyBusiness` + `BreadcrumbList` — each local area landing page
   - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
-  - `Article` (with `author`, `publisher`, `datePublished`, `inLanguage`) + `FAQPage` + `BreadcrumbList` — each article page
+  - `Article` (E-E-A-T: `author.sameAs`, `author.hasCredential`, `publisher.logo`, `keywords`, `about: MedicalTherapy`, `speakable`) + `FAQPage` + `BreadcrumbList` — each article page
+  - `HowTo` (step-by-step schema) — `how-to-choose-massage-therapist-gatineau` and `amq-receipts-massage-insurance-coverage-gatineau` articles
+  - `WebSite` with `SearchAction` — emitted on every page via locale layout (`src/app/[locale]/layout.tsx`)
 - **Sitemap** — auto-generated at `/sitemap.xml` with `hreflang` alternates for both locales (`src/app/sitemap.ts`)
-- **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`)
+- **robots.txt** — auto-generated at `/robots.txt` (`src/app/robots.ts`); includes explicit opt-in rules for `GPTBot`, `Claude-Web`, and `PerplexityBot`
 - **Semantic HTML** — address in footer uses `<address>` element; `<header>` carries `role="banner"`; `<main>` carries `id="main-content"`
 - **Accessibility** — skip-to-content link in `Header.tsx` (visually hidden, appears on keyboard focus, targets `#main-content`); contact form error state uses `role="alert" aria-live="polite"` so screen readers announce it automatically; carousel prev/next buttons have `focus-visible` rings
 
 **Google Analytics 4:** tracking is injected in `src/app/[locale]/layout.tsx` via `next/script` with `strategy="afterInteractive"`. Set `NEXT_PUBLIC_GA_ID` to your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) to enable it. Omitting the variable disables tracking entirely.
 
 **Google Business Profile:** created and linked. `BUSINESS.placeId` in `config.ts` holds the Google Place ID (`ChIJdWEcfCQFzkwRs-6HVpA9BB0`). `BUSINESS.googleMapsUrl` is the canonical Place ID URL included in the `sameAs` array of both `localBusinessJsonLd` and `personJsonLd` in `src/lib/jsonld.ts`, and used as the `hasMap` value in structured data. The contact page map embed uses `BUSINESS.mapsUrl` — the original `?pb=` embed URL (Place ID-based embed requires a paid Maps API key, so the `pb=` URL is kept for the iframe).
+
+---
+
+## AEO (Answer Engine Optimization)
+
+Optimizations targeting AI-powered answer engines (ChatGPT, Perplexity, Google AI Overviews, Bing Copilot). See `AEO_optimization_plan.md` for the full plan.
+
+### Phase 1 — Crawler signals (complete)
+
+- **`public/llms.txt`** — static plain-text entity file served at `/llms.txt`. AI crawlers (GPTBot, Claude-Web, PerplexityBot) read this to understand who the entity is, what pages to prioritize, and what services/articles are available. Update this file whenever services, prices, or articles change.
+- **`src/app/robots.ts`** — explicit named rules for `GPTBot`, `Claude-Web`, and `PerplexityBot` alongside the existing wildcard rule.
+
+### Phase 2 — Schema enhancements (complete)
+
+All changes are schema/data only — no UI impact.
+
+- **Article E-E-A-T** — `articleJsonLd()` in `src/lib/jsonld.ts` now emits `author.sameAs` (all directory listings), `author.hasCredential` (AMQ credential), `publisher.logo`, `keywords` (per-article, from translation files), `about: MedicalTherapy`, and a `SpeakableSpecification` targeting `h1`, `.article-excerpt`, and `.article-quick-answer`. The last two CSS selectors activate once Phase 3 Quick Answer boxes are added.
+- **HowTo schema** — `howToJsonLd()` in `src/lib/jsonld.ts`; bilingual `howToSteps` arrays in `messages/en.json` and `messages/fr.json` for the two procedural articles (`how-to-choose` and `amq-receipts`). The article `page.tsx` conditionally emits the schema when steps are present.
+- **Shared credential helper** — `amqCredential(locale)` extracted from `personJsonLd()` and reused in `articleAuthorPerson()` to avoid duplication.
+- **WebSite + SearchAction** — `websiteSearchJsonLd()` emitted in `src/app/[locale]/layout.tsx` on every page; targets the articles index search endpoint.
+
+### Adding keywords or HowTo steps to an article
+
+Each article in `messages/en.json` / `messages/fr.json` supports two optional keys:
+- `"keywords": ["...", "..."]` — comma-joined into the Article schema `keywords` field
+- `"howToSteps": [{ "name": "...", "text": "..." }, ...]` — emits a `HowTo` schema block alongside the article; add for any article structured as a how-to guide
 
 ---
 

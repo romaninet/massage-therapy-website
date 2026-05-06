@@ -430,6 +430,14 @@
       "heroImageAlt": "Choisir un massothérapeute à Gatineau — massothérapie professionnelle chez Olha Shelest",
       "ctaText": "Réservez votre première séance",
       "ctaSubtext": "Prête à vivre la différence ? Réservez avec Olha Shelest, massothérapeute agréée membre de l'AMQ à Gatineau.",
+      "keywords": ["comment choisir un massothérapeute", "massothérapeute agréé Gatineau", "massothérapeute AMQ Québec", "massothérapie Gatineau", "choisir massothérapeute"],
+      "howToSteps": [
+        { "name": "Vérifier les accréditations professionnelles", "text": "Recherchez l'appartenance à l'AMQ au Québec. L'adhésion à l'AMQ garantit une formation reconnue et une assurance responsabilité professionnelle. Le numéro de membre AMQ d'Olha Shelest est M-24-4471, vérifiable sur l'annuaire public à membres.rmqmasso.ca." },
+        { "name": "Définir vos objectifs thérapeutiques", "text": "Déterminez si vous avez besoin d'un travail clinique — comme la réhabilitation d'une blessure ou la gestion d'une douleur chronique — ou d'un soutien bien-être général. Cela vous permettra de choisir entre un spécialiste thérapeutique ou de relaxation." },
+        { "name": "Évaluer l'expérience et les spécialisations", "text": "Renseignez-vous sur l'expérience du thérapeute avec votre condition spécifique. Un thérapeute spécialisé en récupération sportive utilise des techniques différentes d'un spécialiste en relaxation ou en drainage lymphatique." },
+        { "name": "Confirmer les détails pratiques", "text": "Vérifiez l'emplacement, les disponibilités, la durée des séances et les modes de paiement avant de réserver. Confirmez si le thérapeute fournit des reçus AMQ pour le remboursement d'assurance." },
+        { "name": "Réserver une première séance et communiquer vos besoins", "text": "Arrivez avec des objectifs clairs. Un thérapeute qualifié effectuera une évaluation initiale, adaptera la pression et la technique à vos besoins, et conseillera sur la fréquence des séances." }
+      ],
       "sections": [
         {
           "heading": "Pourquoi le choix du massothérapeute est important",
@@ -497,6 +505,7 @@
       "heroImageAlt": "Massage en profondeur pour coureurs et athlètes à Gatineau — récupération sportive chez Olha Shelest",
       "ctaText": "Réservez votre séance de récupération",
       "ctaSubtext": "Entraînez-vous plus fort, récupérez plus intelligemment. Réservez avec Olha Shelest, massothérapeute agréée membre de l'AMQ à Gatineau.",
+      "keywords": ["massage en profondeur Gatineau", "massage sportif coureurs Ottawa", "massage pour athlètes", "massage récupération sportive", "massage coureurs Gatineau"],
       "sections": [
         {
           "heading": "La communauté des coureurs de l'Outaouais et le Marathon d'Ottawa",
@@ -561,6 +570,7 @@
       "heroImageAlt": "Massage thérapeutique vs massage de relaxation à Gatineau — massothérapie Olha Shelest",
       "ctaText": "Réservez votre séance",
       "ctaSubtext": "Vous ne savez pas quel type vous convient ? Mentionnez votre objectif lors de la réservation et Olha adaptera la séance à vos besoins.",
+      "keywords": ["massage thérapeutique versus massage de relaxation", "types de massage Gatineau", "massage thérapeutique Gatineau", "massage de relaxation Gatineau", "quel massage choisir"],
       "sections": [
         {
           "heading": "Deux types, deux objectifs très différents",
@@ -627,6 +637,7 @@
       "heroImageAlt": "Séance de massage drainage lymphatique à Gatineau",
       "ctaText": "Réservez une séance",
       "ctaSubtext": "Olha Shelest offre des massages thérapeutiques incluant des techniques de drainage lymphatique dans sa pratique à Gatineau. Chaque séance est adaptée à vos besoins spécifiques.",
+      "keywords": ["drainage lymphatique Gatineau", "massage drainage lymphatique", "bienfaits drainage lymphatique", "massage doux Gatineau", "lymphœdème massage Gatineau"],
       "sections": [
         {
           "heading": "Qu'est-ce que le massage drainage lymphatique ?",
@@ -705,6 +716,14 @@
       "heroImageAlt": "Reçu de massothérapie AMQ pour remboursement d'assurance à Gatineau",
       "ctaText": "Réservez votre séance",
       "ctaSubtext": "Olha Shelest est membre certifiée de l'AMQ. Chaque séance inclut un reçu officiel accepté par les assureurs canadiens.",
+      "keywords": ["reçu AMQ assurance massage", "remboursement massage assurance Québec", "avantages sociaux massothérapie Canada", "assurance collective massage", "remboursement massage Gatineau"],
+      "howToSteps": [
+        { "name": "Réserver avec un massothérapeute membre de l'AMQ", "text": "Seules les séances avec un membre de l'Association des massothérapeutes du Québec (AMQ) produisent des reçus acceptés par la plupart des assureurs collectifs canadiens. Vérifiez l'adhésion à membres.rmqmasso.ca. Le numéro AMQ d'Olha Shelest est M-24-4471." },
+        { "name": "Recevoir votre reçu AMQ après la séance", "text": "Le thérapeute fournit un reçu AMQ officiel indiquant son numéro de membre après chaque séance. Conservez ce reçu — il est obligatoire pour soumettre votre réclamation d'assurance." },
+        { "name": "Vérifier les détails de votre régime d'assurance", "text": "Connectez-vous au portail de votre régime d'avantages sociaux ou contactez votre service des ressources humaines pour confirmer que la massothérapie est couverte et connaître votre limite annuelle de remboursement." },
+        { "name": "Soumettre votre réclamation avec le reçu AMQ", "text": "Téléchargez le reçu sur le portail en ligne ou l'application mobile de votre assureur. La plupart des régimes collectifs canadiens remboursent 80 à 100 % des frais de séance jusqu'au maximum annuel. Aucune ordonnance médicale n'est requise." },
+        { "name": "Suivre votre limite de couverture annuelle", "text": "Conservez tous vos reçus tout au long de l'année pour suivre le solde de votre couverture restante. La plupart des régimes se renouvellent le 1er janvier ou à la date anniversaire de vos avantages sociaux." }
+      ],
       "sections": [
         {
           "heading": "Pourquoi les accréditations de votre thérapeute déterminent votre couverture",
