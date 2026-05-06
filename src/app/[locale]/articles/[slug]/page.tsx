@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, type Locale } from '@/lib/jsonld';
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
 import { ARTICLES, SITE } from '@/lib/config';
 import ArticleTemplate from '@/components/sections/ArticleTemplate';
@@ -71,6 +71,13 @@ export default async function ArticlePage({
   const excerpt = t(`${slug}.excerpt`);
   const articleUrl = `${SITE.url}/${locale}/articles/${slug}`;
 
+  const rawKeywords = t.raw(`${slug}.keywords`) as string[] | undefined;
+  const keywords = Array.isArray(rawKeywords) ? rawKeywords : undefined;
+
+  type HowToStep = { name: string; text: string };
+  const rawHowToSteps = t.raw(`${slug}.howToSteps`) as HowToStep[] | undefined;
+  const howToSteps = Array.isArray(rawHowToSteps) ? rawHowToSteps : undefined;
+
   return (
     <>
       <script
@@ -84,6 +91,7 @@ export default async function ArticlePage({
               image: article.heroImage,
               url: articleUrl,
               locale: lang,
+              keywords,
             })
           ),
         }}
@@ -103,6 +111,16 @@ export default async function ArticlePage({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqItems)) }}
+        />
+      )}
+      {howToSteps && howToSteps.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              howToJsonLd({ name: title, description: excerpt, steps: howToSteps, url: articleUrl })
+            ),
+          }}
         />
       )}
 

@@ -32,6 +32,30 @@ const DIRECTORY_URLS = [
   'https://www.yellowpages.ca/bus/Quebec/Gatineau/Olha-Shelest/105279173.html',
 ];
 
+function amqCredential(locale: Locale) {
+  const isFr = locale === 'fr';
+  return {
+    '@type': 'EducationalOccupationalCredential',
+    name: isFr ? 'Massothérapeute Professionnelle' : 'Registered Massage Therapist',
+    credentialCategory: isFr ? 'Certification professionnelle' : 'Professional Certification',
+    recognizedBy: {
+      '@type': 'Organization',
+      name: 'Association des Massothérapeutes du Québec (AMQ)',
+      url: BUSINESS.amqUrl,
+    },
+  };
+}
+
+function articleAuthorPerson(locale: Locale) {
+  return {
+    '@type': 'Person',
+    name: BUSINESS.name,
+    url: `${SITE.url}/${locale}/about`,
+    sameAs: DIRECTORY_URLS,
+    hasCredential: amqCredential(locale),
+  };
+}
+
 const businessEntity = {
   '@type': 'HealthAndBeautyBusiness',
   '@id': SITE.url,
@@ -135,16 +159,7 @@ export function personJsonLd(locale: Locale) {
     url: `${SITE.url}/${locale}/about`,
     image: `${SITE.url}${SITE.portraitImage}`,
     sameAs: DIRECTORY_URLS,
-    hasCredential: {
-      '@type': 'EducationalOccupationalCredential',
-      name: isFr ? 'Massothérapeute Professionnelle' : 'Registered Massage Therapist',
-      credentialCategory: isFr ? 'Certification professionnelle' : 'Professional Certification',
-      recognizedBy: {
-        '@type': 'Organization',
-        name: 'Association des Massothérapeutes du Québec (AMQ)',
-        url: BUSINESS.amqUrl,
-      },
-    },
+    hasCredential: amqCredential(locale),
     knowsAbout: isFr
       ? ['Massage thérapeutique', 'Massage en profondeur', 'Massage de relaxation', 'Drainage lymphatique',
          'Massage pour enfants', 'Massage en duo', 'Récupération sportive', 'Gestion du stress',
@@ -208,6 +223,7 @@ export function articleJsonLd(article: {
   image: string;
   url: string;
   locale: Locale;
+  keywords?: string[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -219,21 +235,48 @@ export function articleJsonLd(article: {
     inLanguage: article.locale === 'fr' ? 'fr-CA' : 'en-CA',
     url: article.url,
     image: `${SITE.url}${article.image}`,
-    author: {
-      '@type': 'Person',
-      name: BUSINESS.name,
-      url: `${SITE.url}/${article.locale}/about`,
-    },
+    ...(article.keywords && article.keywords.length > 0 && { keywords: article.keywords.join(', ') }),
+    about: { '@type': 'MedicalTherapy', name: 'Massage Therapy' },
+    author: articleAuthorPerson(article.locale),
     publisher: {
       '@type': 'HealthAndBeautyBusiness',
       '@id': SITE.url,
       name: BUSINESS.name,
       url: SITE.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE.url}/images/logo.png`,
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': article.url,
     },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.article-excerpt', '.article-quick-answer'],
+    },
+  };
+}
+
+export function howToJsonLd(params: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+  url: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: params.name,
+    description: params.description,
+    url: params.url,
+    step: params.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
   };
 }
 
@@ -294,5 +337,23 @@ export function servicesJsonLd(
         },
       },
     })),
+  };
+}
+
+export function websiteSearchJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    url: SITE.url,
+    name: SITE.siteNames.en,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE.url}/en/articles?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   };
 }

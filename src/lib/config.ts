@@ -1,6 +1,6 @@
 export const SITE = {
   url: 'https://www.shelestwellness.ca',
-  lastUpdated: new Date('2026-04-30'),
+  lastUpdated: new Date('2026-05-05'),
   heroBgImage: '/images/image1.jpg',
   ogImage: '/images/media-opengraph.jpg',
   portraitImage: '/images/olya-pic.jpg',
