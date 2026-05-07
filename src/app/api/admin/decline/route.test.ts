@@ -130,6 +130,20 @@ describe('POST /api/admin/decline', () => {
     expect(mockDeleteEvent).not.toHaveBeenCalled()
   })
 
+  it('returns 403 when Origin header does not match allowed origin (CSRF)', async () => {
+    mockGetServerSession.mockResolvedValue(ADMIN_SESSION)
+
+    const req = new NextRequest('http://localhost/api/admin/decline', {
+      method: 'POST',
+      body: JSON.stringify({ eventId: 'evt-pending' }),
+      headers: { Origin: 'https://evil.com' },
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(403)
+    expect(mockDeleteEvent).not.toHaveBeenCalled()
+  })
+
   it('returns 400 with not_pending error when event title does NOT start with [PENDING]', async () => {
     mockGetServerSession.mockResolvedValue(ADMIN_SESSION)
 

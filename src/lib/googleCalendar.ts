@@ -153,6 +153,25 @@ export async function deleteEvent(eventId: string): Promise<void> {
 }
 
 /**
+ * List all events between two Date objects.
+ */
+export async function listEventsInRange(timeMin: Date, timeMax: Date): Promise<CalendarEvent[]> {
+  const { calendar, calendarId } = getCalendarClient()
+
+  const response = await calendar.events.list({
+    calendarId,
+    timeMin: timeMin.toISOString(),
+    timeMax: timeMax.toISOString(),
+    timeZone: TIMEZONE,
+    singleEvents: true,
+    orderBy: 'startTime',
+  })
+
+  const items = response.data.items ?? []
+  return items.map(toCalendarEvent)
+}
+
+/**
  * Get a single event by ID. Returns null if not found.
  */
 export async function getEvent(eventId: string): Promise<CalendarEvent | null> {

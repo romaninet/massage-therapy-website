@@ -225,6 +225,41 @@ export async function sendBookingDeclineEmail(booking: BookingDetails): Promise<
   if (error) throw new Error(`sendBookingDeclineEmail failed: ${JSON.stringify(error)}`)
 }
 
+// ── sendBotAlertEmail (to Olha) ───────────────────────────────────────────────
+
+export async function sendBotAlertEmail(reason: 'honeypot' | 'timing', clientIp?: string): Promise<void> {
+  const subject = `⚠️ Bot detection alert — booking form`
+  const reasonText = reason === 'honeypot'
+    ? 'Honeypot field was filled in (automated form submission).'
+    : 'Form submitted too quickly (< 4 s after contact step loaded).'
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"></head>
+<body style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
+  <h2 style="color:#b91c1c;">⚠️ Bot detection alert</h2>
+  <p>A booking submission was blocked because it failed the bot protection check.</p>
+  <table style="border-collapse:collapse;width:100%;margin:16px 0;">
+    <tr><td style="padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f5f5f5;width:40%;">Reason</td><td style="padding:8px 12px;border:1px solid #ddd;">${reasonText}</td></tr>
+    ${clientIp ? `<tr><td style="padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f5f5f5;">IP Address</td><td style="padding:8px 12px;border:1px solid #ddd;">${clientIp}</td></tr>` : ''}
+    <tr><td style="padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f5f5f5;">Time</td><td style="padding:8px 12px;border:1px solid #ddd;">${new Date().toISOString()}</td></tr>
+  </table>
+  <p style="font-size:12px;color:#999;">No action required unless you see many of these. If attacks persist, enable rate limiting (see bookings_plan.md → Priority 2).</p>
+</body>
+</html>`
+
+  const resend = getResend()
+  const { error } = await resend.emails.send({
+    from: FROM_ADDRESS,
+    to: BOOKING.adminEmail,
+    subject,
+    html,
+  })
+
+  if (error) throw new Error(`sendBotAlertEmail failed: ${JSON.stringify(error)}`)
+}
+
 // ── sendBookingCancellationEmail (to client) ──────────────────────────────────
 
 export async function sendBookingCancellationEmail(booking: BookingDetails): Promise<void> {

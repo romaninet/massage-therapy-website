@@ -297,3 +297,43 @@ Full test matrix in bookings_plan.md → Testing Plan section.
 
 Flow diagrams
 Mermaid diagrams for all 5 flows are in bookings_plan.md → Flow Diagrams section.
+
+
+# Summary of changes made in `Booking Security & UX Hardening` session
+
+## UX improvements
+
+- **Book Now resets wizard**: Header's Book Now button now calls `router.push` with `?t=timestamp`. `page.tsx` passes `t` as `key` on the `<Suspense>` wrapper, forcing a full remount. Both desktop and mobile Book Now converted from `<Link>` to `<button onClick={handleBookNow}>`.
+- **Date picker keyboard input blocked**: `onKeyDown={(e) => e.preventDefault()}` on the date input — selection only via calendar picker.
+
+## Security additions
+
+### Priority 1 (implemented)
+- **HMAC token expiry (7 days)**: Token format changed from plain hex to `${issuedAt}.${hmac(eventId:issuedAt)}`. `verifyToken` now rejects tokens older than 7 days without a database. Exported `TOKEN_TTL_MS` constant. `src/lib/bookingTokens.ts`.
+- **Max 3 pending bookings per email**: `POST /api/booking/request` calls new `listEventsInRange()` to scan the next 90 days of calendar events, counts `[PENDING]` events matching the submitted email. ≥ 3 → `400 too_many_pending`. `src/lib/googleCalendar.ts` (added `listEventsInRange`).
+
+### Priority 2 (planned — see TODO.md)
+- Rate limiting per IP — not yet implemented. Requires Upstash Redis free tier. Documented in `TODO.md` as HIGH PRIORITY and in `bookings_plan.md → Security → Priority 2`.
+
+### Priority 3 (implemented)
+- **CSRF origin check**: `src/lib/csrfProtection.ts` — `verifySameOrigin(request)` checks `Origin` header against `NEXTAUTH_URL`. Wrong origin → `403`. Applied to `POST /api/admin/cancel` and `POST /api/admin/decline`.
+- **Bot alert emails**: `sendBotAlertEmail(reason, ip?)` added to `src/lib/bookingEmails.ts`. Called fire-and-forget (`.catch(() => {})`) when honeypot or timing check blocks a submission. Sends reason + IP to `BOOKING.adminEmail`.
+
+## New / modified files
+
+| File | Change |
+|---|---|
+| `src/lib/bookingTokens.ts` | New token format with expiry |
+| `src/lib/googleCalendar.ts` | Added `listEventsInRange(timeMin, timeMax)` |
+| `src/lib/bookingEmails.ts` | Added `sendBotAlertEmail(reason, ip?)` |
+| `src/lib/csrfProtection.ts` | New — `verifySameOrigin()` helper |
+| `src/app/api/booking/request/route.ts` | Max pending per email, bot alert calls |
+| `src/app/api/admin/cancel/route.ts` | CSRF check |
+| `src/app/api/admin/decline/route.ts` | CSRF check |
+| `src/app/[locale]/booking/page.tsx` | Accepts `searchParams`, passes `t` as Suspense key |
+| `src/components/layout/Header.tsx` | Book Now → `router.push` with timestamp |
+| `src/app/[locale]/booking/BookingWizard.tsx` | Honeypot field, `formStartedAt`, keyboard block on date |
+
+## Test count
+111 tests across 13 files (up from 100). New tests: token expiry/malformed, bot alert sent on detection, max pending per email (at/below threshold), CSRF wrong origin on cancel and decline.
+

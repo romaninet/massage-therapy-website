@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAdminSession } from '@/lib/adminAuth'
+import { verifySameOrigin } from '@/lib/csrfProtection'
 import { getEvent, deleteEvent, listEventsForDate } from '@/lib/googleCalendar'
 import { sendBookingCancellationEmail, BookingDetails } from '@/lib/bookingEmails'
 import { BOOKING } from '@/lib/config'
@@ -7,6 +8,10 @@ import { BOOKING } from '@/lib/config'
 export async function POST(req: NextRequest) {
   if (!BOOKING.showBookingsAdmin) {
     return NextResponse.json({ error: 'disabled' }, { status: 503 })
+  }
+
+  if (!verifySameOrigin(req)) {
+    return NextResponse.json({ error: 'forbidden' }, { status: 403 })
   }
 
   const { authorized } = await requireAdminSession()

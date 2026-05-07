@@ -24,6 +24,7 @@ vi.mock('@/lib/config', () => ({
 
 vi.mock('@/lib/googleCalendar', () => ({
   listEventsForDate: vi.fn(),
+  listEventsInRange: vi.fn(),
   createEvent: vi.fn(),
 }))
 
@@ -31,6 +32,7 @@ vi.mock('@/lib/bookingEmails', () => ({
   sendBookingRequestEmail: vi.fn(),
   sendBookingConfirmationEmail: vi.fn(),
   sendBookingDeclineEmail: vi.fn(),
+  sendBotAlertEmail: vi.fn(),
 }))
 
 vi.mock('@/lib/bookingSlots', () => ({
@@ -38,9 +40,9 @@ vi.mock('@/lib/bookingSlots', () => ({
 }))
 
 import { POST } from './route'
-import { listEventsForDate, createEvent } from '@/lib/googleCalendar'
+import { listEventsForDate, listEventsInRange, createEvent } from '@/lib/googleCalendar'
 import { getAvailableSlots } from '@/lib/bookingSlots'
-import { sendBookingRequestEmail } from '@/lib/bookingEmails'
+import { sendBookingRequestEmail, sendBotAlertEmail } from '@/lib/bookingEmails'
 
 const FUTURE_START = '2099-06-01T10:00:00.000Z'
 const FUTURE_DATE = '2099-06-01'
@@ -70,9 +72,11 @@ describe('POST /api/booking/request', () => {
     vi.clearAllMocks()
     showBookingsService = true
     vi.mocked(listEventsForDate).mockResolvedValue([])
+    vi.mocked(listEventsInRange).mockResolvedValue([])
     vi.mocked(getAvailableSlots).mockReturnValue([new Date(FUTURE_START)])
     vi.mocked(createEvent).mockResolvedValue('event-123')
     vi.mocked(sendBookingRequestEmail).mockResolvedValue(undefined)
+    vi.mocked(sendBotAlertEmail).mockResolvedValue(undefined)
   })
 
   it('1. Valid request, slot available → 200, calendar event created, email sent', async () => {
@@ -134,17 +138,49 @@ describe('POST /api/booking/request', () => {
     expect(res.status).toBe(503)
   })
 
-  it('8. Honeypot field filled → 400 bot_detected', async () => {
+  it('8. Honeypot field filled → 400 bot_detected, alert email sent', async () => {
     const res = await POST(makeRequest({ ...validBody, _hp: 'http://spam.com' }))
     expect(res.status).toBe(400)
     const data = await res.json()
     expect(data.error).toBe('bot_detected')
+    expect(vi.mocked(sendBotAlertEmail).mock.calls[0]?.[0]).toBe('honeypot')
   })
 
-  it('9. Form submitted too fast (< 4 s) → 400 bot_detected', async () => {
+  it('9. Form submitted too fast (< 4 s) → 400 bot_detected, alert email sent', async () => {
     const res = await POST(makeRequest({ ...validBody, _t: Date.now() - 1000 }))
     expect(res.status).toBe(400)
     const data = await res.json()
     expect(data.error).toBe('bot_detected')
+    expect(vi.mocked(sendBotAlertEmail).mock.calls[0]?.[0]).toBe('timing')
+  })
+
+  it('10. Same email already has 3 pending bookings → 400 too_many_pending', async () => {
+    const pendingEvents = Array.from({ length: 3 }, (_, i) => ({
+      id: `pending-${i}`,
+      title: '[PENDING] Therapeutic Massage 60min — Jane Doe',
+      start: new Date(FUTURE_START),
+      end: new Date(FUTURE_START),
+      description: JSON.stringify({ clientEmail: 'jane@example.com' }),
+    }))
+    vi.mocked(listEventsInRange).mockResolvedValue(pendingEvents)
+
+    const res = await POST(makeRequest(validBody))
+    expect(res.status).toBe(400)
+    const data = await res.json()
+    expect(data.error).toBe('too_many_pending')
+  })
+
+  it('11. Same email has 2 pending bookings → allowed (below threshold)', async () => {
+    const pendingEvents = Array.from({ length: 2 }, (_, i) => ({
+      id: `pending-${i}`,
+      title: '[PENDING] Therapeutic Massage 60min — Jane Doe',
+      start: new Date(FUTURE_START),
+      end: new Date(FUTURE_START),
+      description: JSON.stringify({ clientEmail: 'jane@example.com' }),
+    }))
+    vi.mocked(listEventsInRange).mockResolvedValue(pendingEvents)
+
+    const res = await POST(makeRequest(validBody))
+    expect(res.status).toBe(200)
   })
 })

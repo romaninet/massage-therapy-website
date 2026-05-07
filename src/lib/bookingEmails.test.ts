@@ -7,7 +7,6 @@ const mockSend = vi.fn().mockResolvedValue({ error: null })
 
 vi.mock('resend', () => {
   const ResendMock = vi.fn(function (this: unknown) {
-    // @ts-expect-error dynamic property on mock instance
     ;(this as { emails: { send: typeof mockSend } }).emails = { send: mockSend }
   })
   return { Resend: ResendMock }
@@ -26,6 +25,7 @@ import {
   sendBookingConfirmationEmail,
   sendBookingDeclineEmail,
   sendBookingCancellationEmail,
+  sendBotAlertEmail,
 } from './bookingEmails'
 
 // ── Fixtures ─────────────────────────────────────────────────────────────────
@@ -172,5 +172,23 @@ describe('French locale test', () => {
     const { subject, html } = getLastSentEmail()
     expect(subject).toContain('Massage en profondeur')
     expect(html).toContain('Massage en profondeur')
+  })
+})
+
+describe('sendBotAlertEmail', () => {
+  it('sends alert to admin email with honeypot reason', async () => {
+    await sendBotAlertEmail('honeypot', '1.2.3.4')
+    const { to, subject, html } = getLastSentEmail()
+    expect(to).toBe('shelestwellness@gmail.com')
+    expect(subject).toContain('Bot detection')
+    expect(html).toContain('Honeypot')
+    expect(html).toContain('1.2.3.4')
+  })
+
+  it('sends alert to admin email with timing reason', async () => {
+    await sendBotAlertEmail('timing')
+    const { subject, html } = getLastSentEmail()
+    expect(subject).toContain('Bot detection')
+    expect(html).toContain('quickly')
   })
 })

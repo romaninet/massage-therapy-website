@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
 import { BOOKING, SERVICES } from '@/lib/config'
-import { listEventsForDate, createEvent } from '@/lib/googleCalendar'
+import { listEventsForDate, listEventsInRange, createEvent } from '@/lib/googleCalendar'
 import { getAvailableSlots } from '@/lib/bookingSlots'
-import { sendBookingRequestEmail } from '@/lib/bookingEmails'
+import { sendBookingRequestEmail, sendBotAlertEmail } from '@/lib/bookingEmails'
+
+const MAX_PENDING_PER_EMAIL = 3
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -35,11 +37,15 @@ export async function POST(request: Request) {
 
   // Bot protection: honeypot must be empty
   if (_hp) {
+    const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? undefined
+    await sendBotAlertEmail('honeypot', ip).catch(() => {})
     return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }
 
   // Bot protection: form must have taken at least 4 seconds to fill
   if (!_t || Date.now() - _t < 4000) {
+    const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? undefined
+    await sendBotAlertEmail('timing', ip).catch(() => {})
     return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }
 
@@ -74,6 +80,23 @@ export async function POST(request: Request) {
   const sessionStart = new Date(startTime)
   if (isNaN(sessionStart.getTime())) {
     return NextResponse.json({ error: 'invalid_start_time' }, { status: 400 })
+  }
+
+  // Check max pending bookings per email (prevents abuse without rate limiting)
+  const now = new Date()
+  const ninetyDaysOut = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000)
+  const upcomingEvents = await listEventsInRange(now, ninetyDaysOut)
+  const pendingCount = upcomingEvents.filter((e) => {
+    if (!e.title.startsWith('[PENDING]')) return false
+    try {
+      const d = JSON.parse(e.description ?? '{}') as { clientEmail?: string }
+      return d.clientEmail?.toLowerCase() === (clientEmail as string).toLowerCase()
+    } catch {
+      return false
+    }
+  }).length
+  if (pendingCount >= MAX_PENDING_PER_EMAIL) {
+    return NextResponse.json({ error: 'too_many_pending' }, { status: 400 })
   }
 
   // Re-verify slot availability

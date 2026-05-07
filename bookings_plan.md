@@ -260,16 +260,35 @@ getAvailableSlots(date, serviceKey, durationMinutes):
 
 ---
 
-## Bot Protection (booking form)
+## Security
 
-The booking request endpoint uses two invisible server-side checks — no captcha, no user friction:
+### Priority 1 — Implemented
 
-| Check | How it works | Rejection |
+| Measure | Where | How |
 |---|---|---|
-| **Honeypot field** | Hidden `<input name="website">` with `display:none` + `tabIndex={-1}`. Real users never see it; bots that auto-fill all fields populate it. | `400 bot_detected` |
-| **Timing check** | Timestamp recorded when client reaches step 4 (contact form) is sent with the request. Submissions arriving < 4 s after the form appeared are rejected. Bots submit instantly; real humans take longer. | `400 bot_detected` |
+| **Honeypot field** | `POST /api/booking/request` | Hidden `<input name="website">` (`display:none`, `tabIndex={-1}`). Non-empty → `400 bot_detected` + alert email to Olha. |
+| **Timing check** | `POST /api/booking/request` | Timestamp sent from client when step 4 loads. Submissions < 4 s → `400 bot_detected` + alert email. |
+| **Max pending per email** | `POST /api/booking/request` | Scans upcoming events via `listEventsInRange`. If same email has ≥ 3 `[PENDING]` events → `400 too_many_pending`. Prevents abuse without rate limiting. |
+| **HMAC token expiry** | `GET /api/booking/confirm`, `GET /api/booking/decline` | Token format: `${issuedAt}.${hmac(eventId:issuedAt)}`. Tokens older than 7 days → `400 invalid_signature`. No database needed. |
+| **CSRF origin check** | `POST /api/admin/cancel`, `POST /api/admin/decline` | `Origin` header must match `NEXTAUTH_URL`. Wrong origin → `403 forbidden`. Absent origin (curl, server-side) is allowed. Implemented in `src/lib/csrfProtection.ts`. |
+| **Bot alert email** | `POST /api/booking/request` | When honeypot or timing check triggers, Olha receives an alert email with reason and IP. Fire-and-forget (`.catch(() => {})`). |
 
-Both checks fire before any calendar or email calls.
+### Priority 2 — Planned (see TODO.md)
+
+Rate limiting per IP on public booking endpoints. Not yet implemented — requires a persistent store (recommended: Upstash Redis free tier).
+
+| Endpoint | Limit |
+|---|---|
+| `POST /api/booking/request` | 5 requests / IP / hour |
+| `GET /api/booking/slots` | 30 requests / IP / minute |
+
+**Why it matters:** Without rate limiting, a bot using many emails or IPs can still flood the calendar and exhaust Resend's free-tier quota (100 emails/day). The existing defences stop naive single-email attacks; rate limiting stops volume attacks.
+
+**Implementation:** Add `@upstash/ratelimit` + `@upstash/redis`. New env vars: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
+
+### Priority 3 — Implemented
+
+CSRF protection and bot alert emails (see Priority 1 table above).
 
 ---
 
@@ -518,8 +537,10 @@ Mock `googleCalendar.ts` module. Test full API route logic without real Calendar
 | Service key not in SERVICES config | 400 |
 | Duration not valid for that service | 400 |
 | Slot no longer available (Calendar returns conflict) | 409 |
-| Honeypot field populated → bot detected | 400 bot_detected |
-| Form submitted < 4 s after step 4 loaded → bot detected | 400 bot_detected |
+| Honeypot field populated → bot detected + alert email sent | 400 bot_detected |
+| Form submitted < 4 s after step 4 loaded → bot detected + alert email sent | 400 bot_detected |
+| Same email has 3 pending bookings → too many pending | 400 too_many_pending |
+| Same email has 2 pending bookings → allowed | 200 |
 
 **GET `/api/booking/confirm`**
 
@@ -604,7 +625,7 @@ src/app/[locale]/booking/BookingWizard.test.tsx
 
 ## Implementation Status
 
-**✅ Complete** — all 10 tasks implemented on the `bookings` branch. 102 tests passing across 13 test files.
+**✅ Complete** — all 10 tasks implemented on the `bookings` branch. 111 tests passing across 13 test files.
 
 | Task | Status | Key files |
 |---|---|---|

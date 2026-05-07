@@ -159,6 +159,20 @@ describe('POST /api/admin/cancel', () => {
     expect(mockDeleteEvent).not.toHaveBeenCalled()
   })
 
+  it('returns 403 when Origin header does not match allowed origin (CSRF)', async () => {
+    mockGetServerSession.mockResolvedValue(ADMIN_SESSION)
+
+    const req = new NextRequest('http://localhost/api/admin/cancel', {
+      method: 'POST',
+      body: JSON.stringify({ eventId: 'evt-confirmed' }),
+      headers: { Origin: 'https://evil.com' },
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(403)
+    expect(mockDeleteEvent).not.toHaveBeenCalled()
+  })
+
   it('returns 400 with not_confirmed error when event title does NOT start with [CONFIRMED]', async () => {
     mockGetServerSession.mockResolvedValue(ADMIN_SESSION)
 

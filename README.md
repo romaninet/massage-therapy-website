@@ -10,7 +10,7 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 ```bash
 npm install
 npm run dev        # local dev server
-npm test           # run all unit and integration tests (Vitest — 102 tests)
+npm test           # run all unit and integration tests (Vitest — 111 tests)
 ANALYZE=true npm run build  # bundle analysis (opens HTML report in browser)
 ```
 
@@ -234,14 +234,23 @@ Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public
 
 `/admin` is excluded from `robots.txt` (`Disallow: /admin`) and is not in the sitemap.
 
-### Booking form bot protection
+### Booking security
 
-The booking request endpoint (`/api/booking/request`) uses two invisible defences — no captcha, no user friction:
+**Bot protection** (`/api/booking/request`) — three invisible defences, no captcha, no user friction:
 
-- **Honeypot field** — a hidden `<input name="website">` rendered with `display:none` and `tabIndex={-1}`. Real users never see or touch it; bots that auto-fill all fields will populate it. A non-empty value → `400 bot_detected`.
-- **Timing check** — the timestamp when the client reaches step 4 (the contact form) is sent with the request. Submissions arriving less than 4 seconds after the form appeared → `400 bot_detected`. Bots submit instantly; real humans take longer.
+| Defence | How it works |
+|---|---|
+| Honeypot field | Hidden `<input name="website">` (`display:none`, `tabIndex={-1}`). Bots fill it; real users never see it. Non-empty → `400 bot_detected` + alert email to Olha. |
+| Timing check | Timestamp recorded when step 4 loads is sent with the request. Submissions < 4 s after the form appeared → `400 bot_detected` + alert email. |
+| Max pending per email | If the same email already has 3 `[PENDING]` events on the calendar, the request is rejected → `400 too_many_pending`. |
 
-Both checks happen server-side in the API route before any calendar or email calls.
+**HMAC token expiry** — Accept/Decline links in Olha's emails expire after 7 days. The timestamp is embedded in the signed token so no database is needed to enforce this. After 7 days the link returns `400 invalid_signature`.
+
+**CSRF protection** — Admin POST routes (`/api/admin/cancel`, `/api/admin/decline`) check the `Origin` header. Requests from a different origin → `403 forbidden`. This prevents a malicious page from triggering admin actions if Olha is logged in and visits it. Absent `Origin` (curl, server-to-server) is allowed.
+
+**Alert emails** — When bot protection blocks a submission, Olha receives an alert email with the detected reason and IP address. No action is required unless alerts become frequent — in that case, implement rate limiting (see TODO.md).
+
+**Rate limiting (not yet implemented)** — See `TODO.md → [HIGH PRIORITY] Booking: Rate Limiting` for the plan. Upstash Redis is the recommended approach.
 
 ### Testing with a non-production calendar
 

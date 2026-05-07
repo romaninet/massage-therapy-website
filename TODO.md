@@ -1,5 +1,22 @@
 # TODO
 
+## [HIGH PRIORITY] Booking: Rate Limiting (Priority 2)
+
+Server-side rate limiting on public booking API endpoints to prevent abuse.
+See `bookings_plan.md → Security → Priority 2` for full implementation details.
+
+Currently the booking form has honeypot + timing bot protection and a max-3-pending-per-email limit, but a determined bot sending many requests from different emails or IPs could still flood the calendar and exhaust the Resend free-tier email quota.
+
+**What to implement:**
+- Max 5 booking requests per IP per hour on `POST /api/booking/request`
+- Max 30 requests per minute per IP on `GET /api/booking/slots`
+
+**Recommended approach:** [Upstash Redis](https://upstash.com) free tier + `@upstash/ratelimit` package (~5 min setup, works on Vercel free tier). Alternatively, Next.js middleware with an in-memory Map (zero cost but resets on cold starts).
+
+**New env vars needed:** `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (if using Upstash).
+
+---
+
 ## Blog / Articles Section
 
 ### Infrastructure ✅ Done
