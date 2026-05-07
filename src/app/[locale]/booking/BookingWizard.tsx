@@ -261,7 +261,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
         <StepIndicator current={step} />
 
         {/* Back button (steps 2–4) */}
-        {step > 1 && submitState !== 'success' && (
+        {step > 1 && (
           <button
             onClick={goBack}
             className="flex items-center gap-1 text-sm text-[#52B788] hover:text-[#2D6A4F] mb-6 transition-colors"
@@ -319,9 +319,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
                         </p>
                         <div className="flex flex-wrap gap-2" data-testid={`duration-options-${svc.key}`}>
                           {svc.tiers.map((tier) => {
-                            const mins = typeof tier.duration === 'string'
-                              ? parseInt(tier.duration, 10)
-                              : tier.duration;
+                            const mins = parseInt(String(tier.duration), 10);
                             return (
                               <button
                                 key={tier.duration}

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { BOOKING } from '@/lib/config';
@@ -36,5 +37,9 @@ export default async function BookingPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <BookingWizard locale={locale} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF9F5]" />}>
+      <BookingWizard locale={locale} />
+    </Suspense>
+  );
 }
