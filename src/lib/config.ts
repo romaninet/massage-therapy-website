@@ -209,3 +209,18 @@ export const BUSINESS = {
   ],
   geo: { latitude: 45.42998533558253, longitude: -75.72007407363735 },
 } as const;
+
+export const BOOKING = {
+  showBookingsService: true,       // false = booking page disabled site-wide
+  showBookingsAdmin: true,         // false = /admin route disabled
+  breakAfterSession: 30,           // minutes buffer between sessions
+  slotInterval: 30,                // minutes — granularity of bookable start times
+  cancellationNoticeHours: 12,     // minimum hours notice for client cancellation
+  availabilityEventTitle: 'available for massage',
+  adminEmail: 'shelestwellness@gmail.com',
+  calendarColors: {
+    pending:   '5',   // Banana (yellow)
+    confirmed: '10',  // Basil (dark green)
+    break:     '3',   // Grape (purple)
+  },
+} as const;
