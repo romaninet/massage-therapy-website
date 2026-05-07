@@ -193,3 +193,107 @@ Grid gap between form and contact info: gap-8 → gap-16 (doubled on mobile, int
 
 - React.memo — permanently skip for this codebase:
 	BotanicalDecor and ServiceIcon are only used by Server Components. React.memo is a no-op on server components. Don't suggest memoizing them.
+
+# Summary of changes made for new bookings functionality (Custom Booking System)
+
+## What was built
+
+A custom online booking system for shelestwellness.ca. Clients pick a service,
+duration, date, and time slot, then submit a request. Olha receives an email with
+Accept/Decline links. Payment is always in-person (cash or e-transfer).
+
+**Key principle: Google Calendar is the single source of truth — no database.**
+
+## New pages
+
+| Route | Description |
+|---|---|
+| `/[locale]/booking` | Public 4-step booking wizard (bilingual EN/FR) |
+| `/admin` | Olha's private dashboard — NOT in nav, NOT in sitemap |
+
+## New files
+
+| File | Purpose |
+|---|---|
+| `src/lib/googleCalendar.ts` | Google Calendar API client (service account) |
+| `src/lib/bookingSlots.ts` | Slot availability algorithm |
+| `src/lib/bookingTokens.ts` | HMAC sign/verify for Accept/Decline links |
+| `src/lib/bookingEmails.ts` | All 4 email templates (Resend) |
+| `src/lib/adminAuth.ts` | Session check helper for admin routes |
+| `src/app/[locale]/booking/page.tsx` | Booking page (server component) |
+| `src/app/[locale]/booking/BookingWizard.tsx` | 4-step booking wizard (client component) |
+| `src/app/admin/page.tsx` | Admin dashboard |
+| `src/app/admin/AdminDashboard.tsx` | Dashboard UI (client component) |
+| `src/app/admin/layout.tsx` | Auth protection — redirects if not Olha |
+| `src/app/admin/auth-error/page.tsx` | Access denied page |
+| `src/app/api/booking/slots/route.ts` | GET available time slots |
+| `src/app/api/booking/request/route.ts` | POST new booking request |
+| `src/app/api/booking/confirm/route.ts` | GET — Olha accepts (email link) |
+| `src/app/api/booking/decline/route.ts` | GET — Olha declines (email link) |
+| `src/app/api/admin/bookings/route.ts` | GET all bookings for dashboard |
+| `src/app/api/admin/cancel/route.ts` | POST cancel confirmed booking |
+| `src/app/api/admin/decline/route.ts` | POST decline pending from dashboard |
+| `src/app/api/auth/[...nextauth]/route.ts` | NextAuth Google OAuth handler |
+
+## Modified files
+
+- `src/lib/config.ts` — added `BOOKING` config block
+- `src/components/layout/Header.tsx` — "Book Now" CTA (conditional on `showBookingsService`)
+- `src/components/sections/HeroSection.tsx` — hero CTA href → `/booking` when enabled
+- `src/components/ServiceCard.tsx` — "Book this session" → `/booking?service=key`
+- `src/app/sitemap.ts` — `/booking` added (conditional), `/admin` excluded
+- `src/app/robots.ts` — `Disallow: /admin`
+- `messages/en.json` + `messages/fr.json` — added `booking` namespace
+- `vitest.config.ts` — added jsdom, `@/` alias, test-setup
+- `src/test-setup.ts` — `@testing-library/jest-dom` setup
+
+## Calendar event conventions
+
+| Color | Google colorId | Meaning |
+|---|---|---|
+| Gray (Graphite) | set by Olha | "available for massage" — availability blocks |
+| Yellow (Banana) | `'5'` | `[PENDING]` — awaiting confirmation |
+| Green (Basil) | `'10'` | `[CONFIRMED]` — accepted appointment |
+| Purple (Grape) | `'3'` | `[BREAK]` — buffer after each session |
+
+## BOOKING config block (src/lib/config.ts)
+
+```ts
+export const BOOKING = {
+  showBookingsService: true,       // false = /booking 404, nav link hidden, CTAs → /contact
+  showBookingsAdmin: true,         // false = /admin 404
+  breakAfterSession: 30,           // minutes buffer between sessions
+  slotInterval: 30,                // granularity of bookable start times
+  cancellationNoticeHours: 12,
+  availabilityEventTitle: 'available for massage',  // English only — Olha's calendar
+  adminEmail: 'shelestwellness@gmail.com',
+  calendarColors: { pending: '5', confirmed: '10', break: '3' },
+} as const
+Feature flags
+showBookingsService: false → /booking returns 404, "Book Now" nav hidden, hero CTA falls back to /contact, all /api/booking/* return 503, /booking removed from sitemap
+showBookingsAdmin: false → /admin returns 404, all /api/admin/* return 503
+Both flags are independent
+Security details
+HMAC tokens: BOOKING_TOKEN_SECRET (must be 32+ chars) signs eventId in Accept/Decline links. Uses timingSafeEqual for verification.
+Admin auth: NextAuth.js + Google OAuth restricted to BOOKING.adminEmail
+Confirm route re-checks for slot conflicts before accepting (prevents race conditions)
+Email is sent BEFORE deleting calendar events (prevents data loss on email failure)
+/admin excluded from sitemap and robots.txt
+New env vars required
+
+GOOGLE_SERVICE_ACCOUNT_EMAIL
+GOOGLE_PRIVATE_KEY
+GOOGLE_CALENDAR_ID
+BOOKING_TOKEN_SECRET        # 32+ chars, openssl rand -base64 32
+GOOGLE_OAUTH_CLIENT_ID
+GOOGLE_OAUTH_CLIENT_SECRET
+NEXTAUTH_SECRET             # 32+ chars, openssl rand -base64 32
+NEXTAUTH_URL=https://www.shelestwellness.ca
+See bookings_plan.md for full Google Cloud Console setup steps.
+
+Test coverage
+100 tests across 13 files. Run with npm test.
+Full test matrix in bookings_plan.md → Testing Plan section.
+
+Flow diagrams
+Mermaid diagrams for all 5 flows are in bookings_plan.md → Flow Diagrams section.
