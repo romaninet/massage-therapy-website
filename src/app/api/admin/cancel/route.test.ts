@@ -1,5 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { NextRequest } from 'next/server'
+
+let mockShowBookingsAdmin = true
 
 vi.mock('next-auth', () => ({
   default: vi.fn(),
@@ -17,9 +19,11 @@ vi.mock('@/lib/bookingEmails', () => ({
 }))
 
 vi.mock('@/lib/config', () => ({
-  BOOKING: {
-    showBookingsAdmin: true,
-    adminEmail: 'shelestwellness@gmail.com',
+  get BOOKING() {
+    return {
+      showBookingsAdmin: mockShowBookingsAdmin,
+      adminEmail: 'shelestwellness@gmail.com',
+    }
   },
 }))
 
@@ -36,6 +40,11 @@ const mockSendCancellationEmail = vi.mocked(sendBookingCancellationEmail)
 
 beforeEach(() => {
   vi.clearAllMocks()
+  mockShowBookingsAdmin = true
+})
+
+afterEach(() => {
+  mockShowBookingsAdmin = true
 })
 
 const ADMIN_SESSION = { user: { email: 'shelestwellness@gmail.com' }, expires: '' }
@@ -133,6 +142,46 @@ describe('POST /api/admin/cancel', () => {
 
     const res = await POST(req)
     expect(res.status).toBe(404)
+    expect(mockDeleteEvent).not.toHaveBeenCalled()
+  })
+
+  it('returns 503 when showBookingsAdmin=false', async () => {
+    mockShowBookingsAdmin = false
+    mockGetServerSession.mockResolvedValue(ADMIN_SESSION)
+
+    const req = new NextRequest('http://localhost/api/admin/cancel', {
+      method: 'POST',
+      body: JSON.stringify({ eventId: 'evt-confirmed' }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(503)
+    expect(mockDeleteEvent).not.toHaveBeenCalled()
+  })
+
+  it('returns 400 with not_confirmed error when event title does NOT start with [CONFIRMED]', async () => {
+    mockGetServerSession.mockResolvedValue(ADMIN_SESSION)
+
+    const pendingEvent = {
+      id: 'evt-pending',
+      title: '[PENDING] Deep Tissue Massage — Jane Doe',
+      start: new Date('2026-05-10T14:00:00.000Z'),
+      end: new Date('2026-05-10T15:00:00.000Z'),
+      description: bookingDescription,
+    }
+
+    mockGetEvent.mockResolvedValue(pendingEvent)
+
+    const req = new NextRequest('http://localhost/api/admin/cancel', {
+      method: 'POST',
+      body: JSON.stringify({ eventId: 'evt-pending' }),
+    })
+
+    const res = await POST(req)
+    const data = await res.json()
+
+    expect(res.status).toBe(400)
+    expect(data.error).toBe('not_confirmed')
     expect(mockDeleteEvent).not.toHaveBeenCalled()
   })
 })
