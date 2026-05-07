@@ -415,6 +415,24 @@
       }
     }
   },
+  "booking": {
+    "title": "Book Your Appointment",
+    "step1Title": "Select Service & Duration",
+    "step2Title": "Choose a Date",
+    "step3Title": "Choose a Time",
+    "step4Title": "Your Details",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "notes": "Notes (optional)",
+    "submit": "Request Appointment",
+    "successTitle": "Request Submitted!",
+    "successMessage": "We'll confirm your appointment shortly.",
+    "slotTaken": "This time slot was just taken. Please go back and choose another time.",
+    "back": "Back",
+    "next": "Next",
+    "min": "min"
+  },
   "articles": {
     "index": {
       "preTitle": "Massage Therapy Resources",
