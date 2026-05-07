@@ -106,6 +106,12 @@ describe('GET /api/booking/confirm', () => {
         colorId: '3',
       }),
     )
+
+    // Verify [BREAK] event description contains linkedEventId
+    const createEventCall = vi.mocked(createEvent).mock.calls[0]?.[0]
+    const breakDescription = createEventCall?.description ? JSON.parse(String(createEventCall.description)) : null
+    expect(breakDescription?.linkedEventId).toBe(EVENT_ID)
+
     expect(sendBookingConfirmationEmail).toHaveBeenCalledOnce()
   })
 

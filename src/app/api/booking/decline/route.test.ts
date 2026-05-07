@@ -101,4 +101,12 @@ describe('GET /api/booking/decline', () => {
     const data = JSON.parse(await res.text())
     expect(data.error).toBe('event_not_found')
   })
+
+  it('4. showBookingsService === false → 503', async () => {
+    showBookingsService = false
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    expect(res.status).toBe(503)
+    const data = JSON.parse(await res.text())
+    expect(data.error).toBe('booking_disabled')
+  })
 })
