@@ -27,18 +27,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function BookingPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ t?: string }>;
 }) {
   if (!BOOKING.showBookingsService) {
     notFound();
   }
 
   const { locale } = await params;
+  const { t } = await searchParams;
   setRequestLocale(locale);
 
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAF9F5]" />}>
+    <Suspense key={t} fallback={<div className="min-h-screen bg-[#FAF9F5]" />}>
       <BookingWizard locale={locale} />
     </Suspense>
   );
