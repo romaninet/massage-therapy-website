@@ -25,6 +25,7 @@ import {
   sendBookingRequestEmail,
   sendBookingConfirmationEmail,
   sendBookingDeclineEmail,
+  sendBookingCancellationEmail,
 } from './bookingEmails'
 
 // ── Fixtures ─────────────────────────────────────────────────────────────────
@@ -137,6 +138,30 @@ describe('sendBookingDeclineEmail', () => {
     await sendBookingDeclineEmail(booking)
     const { html } = getLastSentEmail()
     expect(html).toContain('/booking')
+  })
+})
+
+describe('sendBookingCancellationEmail', () => {
+  it('email is sent to client email address', async () => {
+    const booking = makeBooking({ clientEmail: 'jane@example.com' })
+    await sendBookingCancellationEmail(booking)
+    const { to } = getLastSentEmail()
+    expect(to).toBe('jane@example.com')
+  })
+
+  it('subject contains appointment date', async () => {
+    const booking = makeBooking()
+    await sendBookingCancellationEmail(booking)
+    const { subject } = getLastSentEmail()
+    expect(subject).toMatch(/May 14, 2026/)
+  })
+
+  it('body contains contact info for rebooking', async () => {
+    const booking = makeBooking()
+    await sendBookingCancellationEmail(booking)
+    const { html } = getLastSentEmail()
+    // BUSINESS.phone and BUSINESS.email should be in the HTML for rebooking
+    expect(html).toMatch(/Phone:|Email:/)
   })
 })
 
