@@ -34,6 +34,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'invalid_description' }, { status: 400 })
   }
 
+  const bookingDetails: BookingDetails = {
+    clientName: String(details.clientName ?? ''),
+    clientEmail: String(details.clientEmail ?? ''),
+    clientPhone: String(details.clientPhone ?? ''),
+    clientNotes: details.clientNotes ? String(details.clientNotes) : undefined,
+    serviceKey: String(details.serviceKey ?? ''),
+    serviceName: String(details.serviceName ?? ''),
+    durationMinutes: Number(details.durationMinutes ?? 0),
+    sessionStart: new Date(String(details.sessionStart ?? event.start.toISOString())),
+    sessionEnd: new Date(String(details.sessionEnd ?? event.end.toISOString())),
+    breakStart: new Date(String(details.breakStart ?? event.end.toISOString())),
+    breakEnd: new Date(String(details.breakEnd ?? event.end.toISOString())),
+    eventId,
+  }
+
+  await sendBookingCancellationEmail(bookingDetails)
+
   // Delete the confirmed event
   await deleteEvent(eventId)
 
@@ -53,23 +70,6 @@ export async function POST(req: NextRequest) {
       }
     }
   }
-
-  const bookingDetails: BookingDetails = {
-    clientName: String(details.clientName ?? ''),
-    clientEmail: String(details.clientEmail ?? ''),
-    clientPhone: String(details.clientPhone ?? ''),
-    clientNotes: details.clientNotes ? String(details.clientNotes) : undefined,
-    serviceKey: String(details.serviceKey ?? ''),
-    serviceName: String(details.serviceName ?? ''),
-    durationMinutes: Number(details.durationMinutes ?? 0),
-    sessionStart: new Date(String(details.sessionStart ?? event.start.toISOString())),
-    sessionEnd: new Date(String(details.sessionEnd ?? event.end.toISOString())),
-    breakStart: new Date(String(details.breakStart ?? event.end.toISOString())),
-    breakEnd: new Date(String(details.breakEnd ?? event.end.toISOString())),
-    eventId,
-  }
-
-  await sendBookingCancellationEmail(bookingDetails)
 
   return NextResponse.json({ success: true })
 }

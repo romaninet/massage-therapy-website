@@ -3,7 +3,7 @@ import { signToken, verifyToken } from './bookingTokens'
 
 describe('bookingTokens', () => {
   beforeEach(() => {
-    process.env.BOOKING_TOKEN_SECRET = 'test-secret-value'
+    process.env.BOOKING_TOKEN_SECRET = 'test-secret-value-that-is-long-enough-32chars'
   })
 
   it('sign then verify same eventId → true', () => {
@@ -31,15 +31,15 @@ describe('bookingTokens', () => {
   })
 
   it('sign with secret-A, change env to secret-B, verify → false (then restore env)', () => {
-    process.env.BOOKING_TOKEN_SECRET = 'secret-A'
+    process.env.BOOKING_TOKEN_SECRET = 'secret-A-that-is-long-enough-for-32-chars!!'
     const eventId = 'event-999'
     const sig = signToken(eventId)
 
-    process.env.BOOKING_TOKEN_SECRET = 'secret-B'
+    process.env.BOOKING_TOKEN_SECRET = 'secret-B-that-is-long-enough-for-32-chars!!'
     expect(verifyToken(eventId, sig)).toBe(false)
 
     // Restore
-    process.env.BOOKING_TOKEN_SECRET = 'secret-A'
+    process.env.BOOKING_TOKEN_SECRET = 'secret-A-that-is-long-enough-for-32-chars!!'
     expect(verifyToken(eventId, sig)).toBe(true)
   })
 })

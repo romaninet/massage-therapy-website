@@ -1,11 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 let showBookingsService: boolean = true
+let showBookingsAdmin: boolean = true
 
 vi.mock('@/lib/config', () => ({
   get BOOKING() {
     return {
       showBookingsService,
+      showBookingsAdmin,
       breakAfterSession: 30,
       slotInterval: 30,
       calendarColors: { pending: '5', confirmed: '10', break: '3' },
@@ -72,6 +74,7 @@ describe('GET /api/booking/decline', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     showBookingsService = true
+    showBookingsAdmin = true
     vi.mocked(verifyToken).mockReturnValue(true)
     vi.mocked(getEvent).mockResolvedValue(pendingEvent)
     vi.mocked(deleteEvent).mockResolvedValue(undefined)
@@ -102,8 +105,8 @@ describe('GET /api/booking/decline', () => {
     expect(data.error).toBe('event_not_found')
   })
 
-  it('4. showBookingsService === false → 503', async () => {
-    showBookingsService = false
+  it('4. showBookingsAdmin === false → 503', async () => {
+    showBookingsAdmin = false
     const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
     expect(res.status).toBe(503)
     const data = JSON.parse(await res.text())

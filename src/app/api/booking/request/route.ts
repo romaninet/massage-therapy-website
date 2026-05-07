@@ -9,7 +9,7 @@ function isValidEmail(email: string): boolean {
 }
 
 export async function POST(request: Request) {
-  if (BOOKING.showBookingsService === false) {
+  if (!BOOKING.showBookingsService) {
     return NextResponse.json({ error: 'booking_disabled' }, { status: 503 })
   }
 
@@ -39,6 +39,10 @@ export async function POST(request: Request) {
   // Validate email format
   if (!isValidEmail(clientEmail)) {
     return NextResponse.json({ error: 'invalid_email' }, { status: 400 })
+  }
+
+  if (clientNotes && clientNotes.length > 500) {
+    return NextResponse.json({ error: 'notes_too_long' }, { status: 400 })
   }
 
   // Validate service

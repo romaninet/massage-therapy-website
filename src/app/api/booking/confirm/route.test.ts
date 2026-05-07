@@ -1,11 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 let showBookingsService: boolean = true
+let showBookingsAdmin: boolean = true
 
 vi.mock('@/lib/config', () => ({
   get BOOKING() {
     return {
       showBookingsService,
+      showBookingsAdmin,
       breakAfterSession: 30,
       slotInterval: 30,
       calendarColors: { pending: '5', confirmed: '10', break: '3' },
@@ -80,6 +82,7 @@ describe('GET /api/booking/confirm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     showBookingsService = true
+    showBookingsAdmin = true
     vi.mocked(verifyToken).mockReturnValue(true)
     vi.mocked(getEvent).mockResolvedValue(pendingEvent)
     vi.mocked(listEventsForDate).mockResolvedValue([pendingEvent])

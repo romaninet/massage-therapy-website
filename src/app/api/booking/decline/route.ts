@@ -18,7 +18,7 @@ function jsonResponse(body: Record<string, unknown>, status: number): Response {
 }
 
 export async function GET(request: Request) {
-  if (BOOKING.showBookingsService === false) {
+  if (!BOOKING.showBookingsAdmin) {
     return jsonResponse({ error: 'booking_disabled' }, 503)
   }
 
@@ -54,9 +54,6 @@ export async function GET(request: Request) {
     return jsonResponse({ error: 'invalid_event_data' }, 500)
   }
 
-  // Delete event
-  await deleteEvent(eventId)
-
   // Build BookingDetails and send decline email
   const sessionStart = event.start
   const sessionEnd = event.end
@@ -80,6 +77,9 @@ export async function GET(request: Request) {
   }
 
   await sendBookingDeclineEmail(booking)
+
+  // Delete event
+  await deleteEvent(eventId)
 
   return htmlResponse(`<!DOCTYPE html>
 <html lang="en">

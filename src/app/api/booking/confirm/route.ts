@@ -18,7 +18,7 @@ function jsonResponse(body: Record<string, unknown>, status: number): Response {
 }
 
 export async function GET(request: Request) {
-  if (BOOKING.showBookingsService === false) {
+  if (!BOOKING.showBookingsAdmin) {
     return jsonResponse({ error: 'booking_disabled' }, 503)
   }
 

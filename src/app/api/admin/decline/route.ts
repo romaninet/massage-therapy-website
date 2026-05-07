@@ -34,8 +34,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'invalid_description' }, { status: 400 })
   }
 
-  await deleteEvent(eventId)
-
   const bookingDetails: BookingDetails = {
     clientName: String(details.clientName ?? ''),
     clientEmail: String(details.clientEmail ?? ''),
@@ -52,6 +50,8 @@ export async function POST(req: NextRequest) {
   }
 
   await sendBookingDeclineEmail(bookingDetails)
+
+  await deleteEvent(eventId)
 
   return NextResponse.json({ success: true })
 }

@@ -4,7 +4,7 @@ import { listEventsForDate } from '@/lib/googleCalendar'
 import { getAvailableSlots } from '@/lib/bookingSlots'
 
 export async function GET(request: Request) {
-  if (BOOKING.showBookingsService === false) {
+  if (!BOOKING.showBookingsService) {
     return NextResponse.json({ error: 'booking_disabled' }, { status: 503 })
   }
 
