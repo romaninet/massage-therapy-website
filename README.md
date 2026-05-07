@@ -178,6 +178,62 @@ No third-party captcha service is used — no cost, no user friction, no additio
 
 ---
 
+## Booking System
+
+The booking system lets clients pick a service, duration, date, and time slot, then submit a request. Olha receives an email with Accept/Decline links to confirm or decline the appointment.
+
+### How it works
+
+1. **Availability** — Olha creates events titled `"available for massage"` (case-insensitive) in her Google Calendar using the **Graphite (gray)** color. These blocks define when clients can book.
+2. **Slot generation** — the API reads those blocks and generates bookable time slots (30-minute granularity, with a 30-minute buffer between sessions).
+3. **Booking request** — the client submits the form; a pending event (yellow) is created on the calendar and a confirmation email is sent to Olha with Accept and Decline links.
+4. **Accept / Decline** — clicking Accept turns the calendar event green (confirmed) and emails the client. Clicking Decline removes the pending event and emails the client.
+5. **Google Calendar is the source of truth** — no database is used; all state is stored as calendar event colors and metadata.
+
+### Calendar event color conventions
+
+| Color | Meaning | `BOOKING.calendarColors` value |
+|---|---|---|
+| Gray (Graphite) | Available for massage — Olha marks these blocks herself | *(no value — event title drives detection)* |
+| Yellow (Banana) | Pending booking request | `'5'` |
+| Green (Basil) | Confirmed appointment | `'10'` |
+| Purple (Grape) | Break / blocked time | `'3'` |
+
+### Environment variables
+
+Add these to `.env.local` (and to Vercel project settings for production):
+
+```
+# Google Calendar integration
+GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@project.iam.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+GOOGLE_CALENDAR_ID=your-calendar-id@gmail.com
+
+# Booking token signing (Accept/Decline links)
+BOOKING_TOKEN_SECRET=a-long-random-secret-string
+
+# NextAuth (admin dashboard authentication)
+GOOGLE_OAUTH_CLIENT_ID=your-oauth-client-id.apps.googleusercontent.com
+GOOGLE_OAUTH_CLIENT_SECRET=your-oauth-client-secret
+NEXTAUTH_SECRET=a-long-random-secret-string
+NEXTAUTH_URL=https://www.shelestwellness.ca
+```
+
+### Feature flags (`BOOKING` in `src/lib/config.ts`)
+
+| Flag | Default | Effect |
+|---|---|---|
+| `showBookingsService` | `true` | Enables the `/booking` page and wires all "Book Now" / "Book this session" CTAs to `/booking`. When `false`, CTAs fall back to `/contact`. `/booking` route also disappears from the sitemap. |
+| `showBookingsAdmin` | `true` | Enables the `/admin` dashboard route. |
+
+### Admin dashboard
+
+Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public site — she bookmarks it directly). Login uses Google OAuth restricted to her Gmail account. The dashboard shows pending, confirmed, and upcoming appointments with Accept/Decline controls.
+
+`/admin` is excluded from `robots.txt` (`Disallow: /admin`) and is not in the sitemap.
+
+---
+
 ## Images
 
 Images are stored in `public/images/`. Paths referenced via `SITE` constants in `config.ts` can be swapped site-wide by changing the value there. Service images are managed per-service in the `SERVICES` array in `config.ts` (`SERVICES[n].image.src`).
@@ -275,6 +331,7 @@ The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes 
 | `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type (Therapeutic, Deep Tissue, Relaxation, Lymphatic Drainage, Children's, Couples) — includes service-specific FAQ section |
 | `/fees` | Pricing table grouped by service, with links to the services page |
 | `/contact` | Contact info, map, contact form |
+| `/booking` | Online booking flow — service & duration selection, date picker, time slot picker, client details form (enabled when `BOOKING.showBookingsService === true`) |
 | `/privacy-policy` | Privacy policy (not in main nav) |
 | `/massage-hull` | Local landing page — Hull residents and Ottawa federal workers (Place du Portage) |
 | `/massage-ottawa` | Local landing page — Ottawa cross-river angle via Portage bridge |

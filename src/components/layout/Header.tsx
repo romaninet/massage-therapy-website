@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
-import { NAV_LINKS } from '@/lib/config';
+import { NAV_LINKS, BOOKING } from '@/lib/config';
 
 export default function Header() {
   const t = useTranslations('nav');
@@ -113,8 +113,12 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher dark />
             <Link
-              href={`${prefix}/contact`}
-              className="px-5 py-2.5 border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded transition-colors hover:bg-white hover:text-forest"
+              href={BOOKING.showBookingsService ? `${prefix}/booking` : `${prefix}/contact`}
+              className={`px-5 py-2.5 text-sm tracking-wider uppercase font-medium rounded transition-colors ${
+                BOOKING.showBookingsService
+                  ? 'bg-sage text-white hover:opacity-90'
+                  : 'border border-white/30 text-white hover:bg-white hover:text-forest'
+              }`}
             >
               {t('bookNow')}
             </Link>
@@ -154,8 +158,12 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href={`${prefix}/contact`}
-            className="mt-4 py-3 text-center border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded hover:bg-white hover:text-forest transition-colors"
+            href={BOOKING.showBookingsService ? `${prefix}/booking` : `${prefix}/contact`}
+            className={`mt-4 py-3 text-center text-sm tracking-wider uppercase font-medium rounded transition-colors ${
+              BOOKING.showBookingsService
+                ? 'bg-sage text-white hover:opacity-90'
+                : 'border border-white/30 text-white hover:bg-white hover:text-forest'
+            }`}
           >
             {t('bookNow')}
           </Link>

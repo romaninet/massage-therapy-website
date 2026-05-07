@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { SITE, ARTICLES } from '@/lib/config';
+import { SITE, ARTICLES, BOOKING } from '@/lib/config';
 
 const pages = [
   { path: '', changeFrequency: 'monthly' as const, priority: 1.0, lastModified: SITE.lastUpdated },
@@ -8,6 +8,7 @@ const pages = [
   { path: '/fees', changeFrequency: 'monthly' as const, priority: 0.8, lastModified: SITE.lastUpdated },
   { path: '/articles', changeFrequency: 'weekly' as const, priority: 0.8, lastModified: SITE.lastUpdated },
   { path: '/contact', changeFrequency: 'monthly' as const, priority: 0.7, lastModified: SITE.lastUpdated },
+  ...(BOOKING.showBookingsService ? [{ path: '/booking', changeFrequency: 'monthly' as const, priority: 0.8, lastModified: SITE.lastUpdated }] : []),
   { path: '/privacy-policy', changeFrequency: 'yearly' as const, priority: 0.3, lastModified: SITE.lastUpdated },
   { path: '/massage-hull', changeFrequency: 'monthly' as const, priority: 0.8, lastModified: SITE.lastUpdated },
   { path: '/massage-ottawa', changeFrequency: 'monthly' as const, priority: 0.8, lastModified: SITE.lastUpdated },
