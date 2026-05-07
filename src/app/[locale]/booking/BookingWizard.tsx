@@ -359,6 +359,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
                 max={addDays(new Date(), 90)}
                 className="w-full text-center text-lg text-[#2D6A4F] border-b-2 border-[#52B788] pb-2 outline-none bg-transparent cursor-pointer"
                 data-testid="date-picker"
+                onKeyDown={(e) => e.preventDefault()}
                 onChange={(e) => {
                   if (e.target.value) handleDateSelect(e.target.value);
                 }}
