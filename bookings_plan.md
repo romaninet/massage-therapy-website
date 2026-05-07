@@ -260,6 +260,19 @@ getAvailableSlots(date, serviceKey, durationMinutes):
 
 ---
 
+## Bot Protection (booking form)
+
+The booking request endpoint uses two invisible server-side checks — no captcha, no user friction:
+
+| Check | How it works | Rejection |
+|---|---|---|
+| **Honeypot field** | Hidden `<input name="website">` with `display:none` + `tabIndex={-1}`. Real users never see it; bots that auto-fill all fields populate it. | `400 bot_detected` |
+| **Timing check** | Timestamp recorded when client reaches step 4 (contact form) is sent with the request. Submissions arriving < 4 s after the form appeared are rejected. Bots submit instantly; real humans take longer. | `400 bot_detected` |
+
+Both checks fire before any calendar or email calls.
+
+---
+
 ## Flow: Slot Availability Check (double-booking prevention)
 
 - Creating a [PENDING] event immediately blocks the slot for other clients
@@ -505,6 +518,8 @@ Mock `googleCalendar.ts` module. Test full API route logic without real Calendar
 | Service key not in SERVICES config | 400 |
 | Duration not valid for that service | 400 |
 | Slot no longer available (Calendar returns conflict) | 409 |
+| Honeypot field populated → bot detected | 400 bot_detected |
+| Form submitted < 4 s after step 4 loaded → bot detected | 400 bot_detected |
 
 **GET `/api/booking/confirm`**
 
@@ -589,7 +604,7 @@ src/app/[locale]/booking/BookingWizard.test.tsx
 
 ## Implementation Status
 
-**✅ Complete** — all 10 tasks implemented on the `bookings` branch. 100 tests passing across 13 test files.
+**✅ Complete** — all 10 tasks implemented on the `bookings` branch. 102 tests passing across 13 test files.
 
 | Task | Status | Key files |
 |---|---|---|

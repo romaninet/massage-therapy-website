@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 })
   }
 
-  const { date, service: serviceKey, duration, startTime, clientName, clientEmail, clientPhone, clientNotes } = body as {
+  const { date, service: serviceKey, duration, startTime, clientName, clientEmail, clientPhone, clientNotes, _hp, _t } = body as {
     date?: string
     service?: string
     duration?: number
@@ -29,6 +29,18 @@ export async function POST(request: Request) {
     clientEmail?: string
     clientPhone?: string
     clientNotes?: string
+    _hp?: string
+    _t?: number
+  }
+
+  // Bot protection: honeypot must be empty
+  if (_hp) {
+    return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
+  }
+
+  // Bot protection: form must have taken at least 4 seconds to fill
+  if (!_t || Date.now() - _t < 4000) {
+    return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }
 
   // Validate required fields

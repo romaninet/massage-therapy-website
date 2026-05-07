@@ -53,6 +53,8 @@ const validBody = {
   clientName: 'Jane Doe',
   clientEmail: 'jane@example.com',
   clientPhone: '613-555-0100',
+  _hp: '',
+  _t: Date.now() - 10000,
 }
 
 function makeRequest(body: unknown) {
@@ -130,5 +132,19 @@ describe('POST /api/booking/request', () => {
     showBookingsService = false
     const res = await POST(makeRequest(validBody))
     expect(res.status).toBe(503)
+  })
+
+  it('8. Honeypot field filled → 400 bot_detected', async () => {
+    const res = await POST(makeRequest({ ...validBody, _hp: 'http://spam.com' }))
+    expect(res.status).toBe(400)
+    const data = await res.json()
+    expect(data.error).toBe('bot_detected')
+  })
+
+  it('9. Form submitted too fast (< 4 s) → 400 bot_detected', async () => {
+    const res = await POST(makeRequest({ ...validBody, _t: Date.now() - 1000 }))
+    expect(res.status).toBe(400)
+    const data = await res.json()
+    expect(data.error).toBe('bot_detected')
   })
 })

@@ -97,6 +97,8 @@ export default function BookingWizard({ locale }: { locale: string }) {
   );
   const [contact, setContact] = useState<ContactDetails>({ name: '', email: '', phone: '', notes: '' });
   const [contactErrors, setContactErrors] = useState<Partial<Record<keyof ContactDetails, string>>>({});
+  const [honeypot, setHoneypot] = useState('');
+  const [formStartedAt, setFormStartedAt] = useState<number | null>(null);
 
   // Step 2: available dates (set of YYYY-MM-DD strings)
   const [availableDates, setAvailableDates] = useState<Set<string>>(new Set());
@@ -185,6 +187,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
   // --- Step 3 handler ---
   function handleTimeSelect(time: string) {
     setSelection((prev) => ({ ...prev, time }));
+    setFormStartedAt(Date.now());
     setStep(4);
   }
 
@@ -213,6 +216,8 @@ export default function BookingWizard({ locale }: { locale: string }) {
           time: selection.time,
           locale,
           ...contact,
+          _hp: honeypot,
+          _t: formStartedAt,
         }),
       });
       if (res.status === 409) {
@@ -445,6 +450,20 @@ export default function BookingWizard({ locale }: { locale: string }) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Honeypot — hidden from real users, bots fill it in */}
+              <div aria-hidden="true" style={{ display: 'none' }}>
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-[#2D6A4F] mb-1">{t('name')}</label>
                 <input

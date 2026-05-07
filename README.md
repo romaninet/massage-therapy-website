@@ -10,7 +10,7 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 ```bash
 npm install
 npm run dev        # local dev server
-npm test           # run all unit and integration tests (Vitest — 100 tests)
+npm test           # run all unit and integration tests (Vitest — 102 tests)
 ANALYZE=true npm run build  # bundle analysis (opens HTML report in browser)
 ```
 
@@ -233,6 +233,15 @@ NEXTAUTH_URL=https://www.shelestwellness.ca
 Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public site — she bookmarks it directly). Login uses Google OAuth restricted to her Gmail account. The dashboard shows pending and confirmed upcoming appointments, with Decline/Cancel controls, and a past bookings tab with date picker.
 
 `/admin` is excluded from `robots.txt` (`Disallow: /admin`) and is not in the sitemap.
+
+### Booking form bot protection
+
+The booking request endpoint (`/api/booking/request`) uses two invisible defences — no captcha, no user friction:
+
+- **Honeypot field** — a hidden `<input name="website">` rendered with `display:none` and `tabIndex={-1}`. Real users never see or touch it; bots that auto-fill all fields will populate it. A non-empty value → `400 bot_detected`.
+- **Timing check** — the timestamp when the client reaches step 4 (the contact form) is sent with the request. Submissions arriving less than 4 seconds after the form appeared → `400 bot_detected`. Bots submit instantly; real humans take longer.
+
+Both checks happen server-side in the API route before any calendar or email calls.
 
 ### Testing with a non-production calendar
 
