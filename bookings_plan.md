@@ -596,17 +596,173 @@ src/app/[locale]/booking/BookingWizard.test.tsx
 
 ---
 
-## Implementation Order
+## Implementation Status
 
-1. `src/lib/config.ts` — add BOOKING block
-2. `src/lib/googleCalendar.ts` — Calendar API client + helpers
-3. `src/lib/bookingSlots.ts` — slot algorithm
-4. `src/lib/bookingTokens.ts` — HMAC signing
-5. `src/lib/bookingEmails.ts` — email templates
-6. API routes (slots → request → confirm → decline → admin)
-7. NextAuth setup (`/api/auth/[...nextauth]`, `src/app/admin/layout.tsx`)
-8. Admin dashboard UI (`/admin/page.tsx`)
-9. Booking wizard UI (`/[locale]/booking/`)
-10. Navigation + sitemap updates
-11. i18n strings (en.json + fr.json)
-12. README update
+**✅ Complete** — all 10 tasks implemented on the `bookings` branch. 100 tests passing across 13 test files.
+
+| Task | Status | Key files |
+|---|---|---|
+| BOOKING config block | ✅ | `src/lib/config.ts` |
+| Google Calendar API client | ✅ | `src/lib/googleCalendar.ts` |
+| Slot availability algorithm | ✅ | `src/lib/bookingSlots.ts` + test |
+| HMAC token sign/verify | ✅ | `src/lib/bookingTokens.ts` + test |
+| Email templates | ✅ | `src/lib/bookingEmails.ts` + test |
+| Booking API routes | ✅ | `src/app/api/booking/` (4 routes + tests) |
+| Admin API + NextAuth | ✅ | `src/app/api/admin/` + `src/app/api/auth/` |
+| Admin dashboard UI | ✅ | `src/app/admin/` |
+| Booking wizard UI | ✅ | `src/app/[locale]/booking/` |
+| Nav + sitemap + README | ✅ | Header, sitemap, robots, README |
+
+---
+
+## Next Steps Before Going Live
+
+### 1. Google Service Account (for Calendar API)
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com) → select or create a project
+2. Enable **Google Calendar API** (APIs & Services → Library)
+3. Create a **Service Account** (IAM & Admin → Service Accounts) → give it any name
+4. Create a **key** for the service account → download JSON
+5. From the JSON: copy `client_email` → set as `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+6. From the JSON: copy `private_key` → set as `GOOGLE_PRIVATE_KEY` (include the full `-----BEGIN...-----END-----` block with literal `\n` sequences)
+7. In Google Calendar: open Settings → share Olha's calendar with the service account email → give **Editor** permission
+8. In Calendar Settings → copy the Calendar ID (looks like `xxxx@gmail.com` or `xxxx@group.calendar.google.com`) → set as `GOOGLE_CALENDAR_ID`
+
+### 2. Google OAuth (for /admin dashboard)
+
+1. In Google Cloud Console → Credentials → **Create OAuth 2.0 Client ID**
+2. Application type: **Web application**
+3. Authorized redirect URIs: add `https://www.shelestwellness.ca/api/auth/callback/google`
+4. Also add `http://localhost:3000/api/auth/callback/google` for local testing
+5. Copy **Client ID** → `GOOGLE_OAUTH_CLIENT_ID`
+6. Copy **Client Secret** → `GOOGLE_OAUTH_CLIENT_SECRET`
+
+### 3. Generate random secrets
+
+```bash
+# Run these in terminal — each generates a random 32-byte base64 string
+openssl rand -base64 32   # → BOOKING_TOKEN_SECRET (must be 32+ chars)
+openssl rand -base64 32   # → NEXTAUTH_SECRET
+```
+
+### 4. Add all env vars to Vercel
+
+In Vercel project settings → Environment Variables, add:
+
+```
+GOOGLE_SERVICE_ACCOUNT_EMAIL
+GOOGLE_PRIVATE_KEY
+GOOGLE_CALENDAR_ID
+BOOKING_TOKEN_SECRET
+GOOGLE_OAUTH_CLIENT_ID
+GOOGLE_OAUTH_CLIENT_SECRET
+NEXTAUTH_SECRET
+NEXTAUTH_URL=https://www.shelestwellness.ca
+```
+
+### 5. Olha's calendar setup
+
+- Create a test **"available for massage"** block in Google Calendar
+- Set the color to **Graphite (gray)**
+- Verify the booking page shows that date/time as available
+
+### 6. End-to-end test checklist
+
+- [ ] Create availability block in Calendar (gray)
+- [ ] Visit `/booking` → select service → pick date/time → submit request
+- [ ] Verify email arrives at `shelestwellness@gmail.com` with Accept/Decline links
+- [ ] Verify [PENDING] yellow event appears in Calendar
+- [ ] Click Accept → verify confirmation email sent to client, event turns green, purple BREAK event created
+- [ ] Test Decline → verify email sent, pending event removed
+- [ ] Open `/admin` → sign in with Google → verify dashboard shows booking
+- [ ] Test Cancel from dashboard → verify cancellation email + Calendar events removed
+- [ ] Submit two requests for same slot simultaneously → second Accept should return slot conflict error
+
+---
+
+## Flow Diagrams
+
+### Flow 1 — Client Books a Session
+
+```mermaid
+flowchart TD
+    A([Client visits /booking]) --> B[Step 1: Select service & duration]
+    B --> C[Step 2: Calendar — pick available date]
+    C --> D[GET /api/booking/slots\nfor each day in month]
+    D --> E[Step 3: Pick time slot]
+    E --> F[Step 4: Fill contact details\nname · email · phone · notes]
+    F --> G[POST /api/booking/request]
+    G --> H{Slot still\navailable?}
+    H -->|No| I[409 — slot taken\nGo back and re-pick]
+    H -->|Yes| J[Create PENDING event\n🟡 Yellow on Calendar]
+    J --> K[Send email to Olha\nwith Accept / Decline links]
+    K --> L([Client sees\n'Request submitted'])
+```
+
+### Flow 2 — Olha Accepts a Booking
+
+```mermaid
+flowchart TD
+    A([Olha clicks Accept in email]) --> B[GET /api/booking/confirm\n?eventId&sig]
+    B --> C{HMAC sig\nvalid?}
+    C -->|No| D([400 — Invalid link])
+    C -->|Yes| E{Event found\non Calendar?}
+    E -->|No| F([404 — Already handled])
+    E -->|Yes| G{Still\nPENDING?}
+    G -->|No| H([409 — Already handled])
+    G -->|Yes| I{Re-check:\nslot still free?}
+    I -->|Conflict| J([409 — Slot conflict\nPlease decline instead])
+    I -->|Clear| K[Update event → CONFIRMED\n🟢 Green on Calendar]
+    K --> L[Create BREAK event\n🟣 Purple on Calendar]
+    L --> M[Send confirmation email\nto client]
+    M --> N([Booking confirmed ✓])
+```
+
+### Flow 3 — Olha Declines a Booking
+
+```mermaid
+flowchart TD
+    A([Olha clicks Decline in email]) --> B[GET /api/booking/decline\n?eventId&sig]
+    B --> C{HMAC sig\nvalid?}
+    C -->|No| D([400 — Invalid link])
+    C -->|Yes| E{Event found?}
+    E -->|No| F([404 — Not found])
+    E -->|Yes| G[Send decline email\nto client]
+    G --> H[Delete PENDING event\nfrom Calendar]
+    H --> I([Request declined page])
+```
+
+### Flow 4 — Olha Cancels from Admin Dashboard
+
+```mermaid
+flowchart TD
+    A([Olha opens /admin]) --> B{Authenticated as\nshelestwellness@gmail.com?}
+    B -->|No| C([Redirect to\nGoogle sign-in])
+    B -->|Yes| D[Dashboard shows\nupcoming bookings]
+    D --> E[Clicks Cancel on a booking]
+    E --> F[Confirmation dialog:\n'Cancel this booking?']
+    F -->|Keep| D
+    F -->|Yes, cancel| G[POST /api/admin/cancel]
+    G --> H[Send cancellation email\nto client]
+    H --> I[Delete CONFIRMED event]
+    I --> J[Delete linked BREAK event]
+    J --> K([Dashboard refreshes])
+```
+
+### Flow 5 — Slot Availability Calculation
+
+```mermaid
+flowchart TD
+    A([GET /api/booking/slots\n?date · service · duration]) --> B[listEventsForDate\nfrom Google Calendar]
+    B --> C{Find blocks titled\n'available for massage'}
+    C -->|None| D([Return empty array])
+    C -->|Found| E[Find blocking events:\nPENDING · CONFIRMED · BREAK]
+    E --> F[Generate candidate start times\nevery 30 min within each window]
+    F --> G{For each candidate:\nstart + duration + break\nfits in window?}
+    G -->|No — overflow| H[Skip]
+    G -->|Yes| I{Overlaps any\nblocking event?}
+    I -->|Yes| H
+    I -->|No| J[Add to available slots]
+    J --> K([Return sorted slots array])
+    H --> F
+```

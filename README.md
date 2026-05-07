@@ -353,8 +353,22 @@ All routes are available under `/en/` and `/fr/` prefixes.
 The site is deployed on **Vercel**. Pushing to `main` triggers an automatic deployment.
 
 Make sure the following environment variables are set in Vercel project settings:
+
+**Existing:**
 - `RESEND_API_KEY`
 - `NEXT_PUBLIC_GA_ID` — Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`). When set, the GA4 tracking script is injected into every page via `src/app/[locale]/layout.tsx`. Omit or leave blank to disable tracking (useful for local development).
+
+**Booking system (required when `BOOKING.showBookingsService === true`):**
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` — service account email from Google Cloud Console
+- `GOOGLE_PRIVATE_KEY` — full private key from service account JSON (include `\n` escaped)
+- `GOOGLE_CALENDAR_ID` — Olha's Google Calendar ID
+- `BOOKING_TOKEN_SECRET` — random 32+ char secret for signing Accept/Decline links (`openssl rand -base64 32`)
+- `GOOGLE_OAUTH_CLIENT_ID` — OAuth client ID for `/admin` Google sign-in
+- `GOOGLE_OAUTH_CLIENT_SECRET` — OAuth client secret
+- `NEXTAUTH_SECRET` — random 32+ char secret for NextAuth sessions (`openssl rand -base64 32`)
+- `NEXTAUTH_URL` — `https://www.shelestwellness.ca`
+
+See `bookings_plan.md` for full step-by-step Google Cloud setup instructions.
 
 
 ## Redirects
