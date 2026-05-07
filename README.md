@@ -10,7 +10,7 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 ```bash
 npm install
 npm run dev        # local dev server
-npm test           # run validation unit tests (Vitest)
+npm test           # run all unit and integration tests (Vitest — 100 tests)
 ANALYZE=true npm run build  # bundle analysis (opens HTML report in browser)
 ```
 
@@ -184,11 +184,13 @@ The booking system lets clients pick a service, duration, date, and time slot, t
 
 ### How it works
 
-1. **Availability** — Olha creates events titled `"available for massage"` (case-insensitive) in her Google Calendar using the **Graphite (gray)** color. These blocks define when clients can book.
-2. **Slot generation** — the API reads those blocks and generates bookable time slots (30-minute granularity, with a 30-minute buffer between sessions).
-3. **Booking request** — the client submits the form; a pending event (yellow) is created on the calendar and a confirmation email is sent to Olha with Accept and Decline links.
-4. **Accept / Decline** — clicking Accept turns the calendar event green (confirmed) and emails the client. Clicking Decline removes the pending event and emails the client.
-5. **Google Calendar is the source of truth** — no database is used; all state is stored as calendar event colors and metadata.
+1. **Availability** — Olha creates events titled `"available for massage"` in her Google Calendar using the **Graphite (gray)** color. These blocks define when clients can book.
+2. **Slot generation** — the API reads those blocks and generates bookable start times (30-minute granularity, 30-minute buffer between sessions).
+3. **Booking request** — the client submits the form; a `[PENDING]` event (yellow) is created on the calendar and an email is sent to Olha with Accept/Decline links.
+4. **Accept** — Olha clicks Accept in email → re-checks for conflicts → event turns green (`[CONFIRMED]`) → purple `[BREAK]` event created → client receives confirmation email.
+5. **Decline** — Olha clicks Decline in email → pending event deleted → client notified. Olha can also decline pending requests from the `/admin` dashboard.
+6. **Cancel** — Olha cancels a confirmed booking from the `/admin` dashboard → confirmed event and break event deleted → client notified.
+7. **Google Calendar is the source of truth** — no database; all state is stored as calendar event titles, colors, and JSON in event descriptions.
 
 ### Calendar event color conventions
 
@@ -228,9 +230,15 @@ NEXTAUTH_URL=https://www.shelestwellness.ca
 
 ### Admin dashboard
 
-Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public site — she bookmarks it directly). Login uses Google OAuth restricted to her Gmail account. The dashboard shows pending, confirmed, and upcoming appointments with Accept/Decline controls.
+Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public site — she bookmarks it directly). Login uses Google OAuth restricted to her Gmail account. The dashboard shows pending and confirmed upcoming appointments, with Decline/Cancel controls, and a past bookings tab with date picker.
 
 `/admin` is excluded from `robots.txt` (`Disallow: /admin`) and is not in the sitemap.
+
+### Testing with a non-production calendar
+
+To avoid polluting Olha's real schedule during development, point `GOOGLE_CALENDAR_ID` at a dedicated test calendar in `.env.local` and in Vercel's **Preview** environment. Only the Vercel **Production** environment should use the real calendar ID.
+
+See **`bookings_plan.md` → Testing Environments** for the full step-by-step setup guide.
 
 ---
 

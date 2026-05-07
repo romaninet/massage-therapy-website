@@ -671,6 +671,104 @@ NEXTAUTH_URL=https://www.shelestwellness.ca
 
 ---
 
+## Testing Environments
+
+### Why a separate test calendar?
+
+Without a test calendar, every booking test creates real events in Olha's schedule,
+sends real emails to clients, and requires manual cleanup. A dedicated test calendar
+lets you run the full booking flow freely — create availability blocks, submit requests,
+accept/decline — without touching production data.
+
+Only `GOOGLE_CALENDAR_ID` needs to differ between environments. Everything else
+(service account, secrets, Resend) can be shared.
+
+---
+
+### Step 1 — Create a test Google Calendar
+
+1. Open Google Calendar (any Google account — Olha's is fine)
+2. In the left sidebar, click **`+`** next to "Other calendars" → **Create new calendar**
+3. Name it `Massage Booking TEST` (or any name — it's only visible to you)
+4. Click **Create calendar**
+5. Open the new calendar's **Settings** (gear icon → Settings → click the calendar name)
+6. Scroll to **"Integrate calendar"** → copy the **Calendar ID**
+   - Looks like `abc123xyz@group.calendar.google.com`
+7. Scroll to **"Share with specific people"** → add the service account email
+   (`GOOGLE_SERVICE_ACCOUNT_EMAIL`) with **"Make changes to events"** (Editor) permission
+
+---
+
+### Step 2 — Configure local dev to use the test calendar
+
+In your `.env.local` file (never committed), set:
+
+```
+GOOGLE_CALENDAR_ID=abc123xyz@group.calendar.google.com   ← test calendar ID
+```
+
+All other env vars (`GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`,
+`BOOKING_TOKEN_SECRET`, `NEXTAUTH_*`) stay the same as production.
+
+---
+
+### Step 3 — Configure Vercel Preview deployments (bookings branch, PRs)
+
+In **Vercel → Project Settings → Environment Variables**:
+
+1. Find `GOOGLE_CALENDAR_ID` (or add it if not there yet)
+2. Set its value to the **test calendar ID**
+3. Under **"Environments"**, check only **Preview** (uncheck Production)
+4. Add a second entry for `GOOGLE_CALENDAR_ID` with the **real calendar ID**
+   and check only **Production**
+
+Result:
+
+| Where code runs | `GOOGLE_CALENDAR_ID` used |
+|---|---|
+| `npm run dev` (your machine) | Test calendar (from `.env.local`) |
+| Any branch pushed to Vercel (Preview URL) | Test calendar (Vercel Preview env) |
+| `main` branch on `www.shelestwellness.ca` | Real calendar (Vercel Production env) |
+
+---
+
+### Step 4 — Optional: separate email for test bookings
+
+By default, all booking request emails still go to `BOOKING.adminEmail`
+(`shelestwellness@gmail.com`). During testing you can redirect them temporarily
+by adding an override in `.env.local`:
+
+```
+BOOKING_ADMIN_EMAIL_OVERRIDE=your-test-email@gmail.com
+```
+
+Then in `src/lib/bookingEmails.ts`, read:
+```ts
+const toEmail = process.env.BOOKING_ADMIN_EMAIL_OVERRIDE ?? BOOKING.adminEmail
+```
+
+This is optional — you can also just ignore/delete test emails from Olha's inbox.
+
+---
+
+### Step 5 — End-to-end test run on test calendar
+
+1. In the **test calendar**, create an `available for massage` block (gray color)
+   for any future date and time range
+2. Visit your local or Preview URL `/booking`
+3. Select a service, pick the date you just opened, submit a request
+4. Check Olha's inbox — Accept/Decline email should arrive
+5. Click **Accept** → verify:
+   - Calendar event turns green (`[CONFIRMED]`)
+   - Purple `[BREAK]` event appears immediately after
+   - Client receives confirmation email
+6. Test **Decline** with another request → verify pending event is deleted
+7. Open `/admin`, sign in, verify the dashboard shows the booking
+8. Test **Cancel** from the dashboard → verify cancellation email + events removed
+9. Clean up: delete any remaining test events from the test calendar
+
+---
+
 ## Flow Diagrams
 
 ### Flow 1 — Client Books a Session
