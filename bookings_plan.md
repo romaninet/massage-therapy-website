@@ -443,15 +443,6 @@ const valid = timingSafeEqual(Buffer.from(sig), Buffer.from(expected))
 
 ---
 
-## Open Questions / Setup Steps for Olha
-
-1. **Google Service Account** — create in Google Cloud Console, enable Calendar API, share Olha's calendar with service account email (Editor permission)
-2. **Calendar ID** — find in Google Calendar settings → add to `.env`
-3. **Color convention** — Olha sets "available for massage" blocks to Gray (Graphite) in her calendar
-4. **Admin URL** — `/admin` (Olha bookmarks this; it is not linked anywhere on the site)
-
----
-
 ## Testing Plan
 
 Existing test runner: **Vitest** (`npm test`). Follow same patterns as `src/lib/validation.test.ts`.
