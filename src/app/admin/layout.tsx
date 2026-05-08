@@ -10,7 +10,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   const session = await getServerSession()
   if (!session?.user?.email || session.user.email !== BOOKING.adminEmail) {
-    redirect('/api/auth/signin')
+    redirect('/api/auth/signin?callbackUrl=/admin')
   }
 
   return (

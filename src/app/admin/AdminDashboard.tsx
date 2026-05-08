@@ -202,7 +202,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
         <div className="flex items-center gap-4">
           {email && <span className="text-sm text-gray-500">{email}</span>}
           <button
-            onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}
+            onClick={() => signOut({ callbackUrl: '/' })}
             className="text-sm text-gray-500 hover:text-red-600 transition-colors"
           >
             Sign out
