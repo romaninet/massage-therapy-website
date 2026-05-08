@@ -131,7 +131,7 @@ describe('AdminDashboard', () => {
     expect(btn).toBeInTheDocument()
     await user.click(btn)
     expect(mockSignOut).toHaveBeenCalledOnce()
-    expect(mockSignOut).toHaveBeenCalledWith({ callbackUrl: '/api/auth/signin' })
+    expect(mockSignOut).toHaveBeenCalledWith({ callbackUrl: '/' })
   })
 
   // Test 8: Email prop is displayed in the header

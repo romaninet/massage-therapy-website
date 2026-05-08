@@ -4,6 +4,8 @@ import { sendBookingCancellationEmail } from '@/lib/bookingEmails'
 import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
 import { requireAdminAccess } from '@/lib/adminGuard'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: NextRequest) {
   const guardError = await requireAdminAccess(req)
   if (guardError) return guardError

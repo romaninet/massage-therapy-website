@@ -3,6 +3,178 @@
 import { useState, useEffect, useCallback } from 'react'
 import { signOut } from 'next-auth/react'
 
+// ── Availability tab types & helpers ──────────────────────────────────────────
+
+interface OpenBlock {
+  id: string
+  date: string       // YYYY-MM-DD Toronto
+  startTime: string  // HH:MM Toronto
+  endTime: string    // HH:MM Toronto
+}
+
+interface CalendarDay {
+  dateStr: string | null
+  blocks: OpenBlock[]
+}
+
+function getMonthTabs(): { key: string; label: string }[] {
+  const tabs = []
+  const now = new Date()
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1)
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    const label = d.toLocaleString('en-CA', { month: 'long', year: 'numeric' })
+    tabs.push({ key, label })
+  }
+  return tabs
+}
+
+function buildCalendarGrid(year: number, month: number, blocks: OpenBlock[]): CalendarDay[][] {
+  const byDay: Record<string, OpenBlock[]> = {}
+  for (const b of blocks) {
+    if (!byDay[b.date]) byDay[b.date] = []
+    byDay[b.date].push(b)
+  }
+
+  const firstDay = new Date(year, month - 1, 1)
+  const lastDay = new Date(year, month, 0)
+  // Monday-first: Sun(0)→6, Mon(1)→0, …
+  const startDow = (firstDay.getDay() + 6) % 7
+
+  const weeks: CalendarDay[][] = []
+  let week: CalendarDay[] = []
+
+  for (let i = 0; i < startDow; i++) week.push({ dateStr: null, blocks: [] })
+
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+    week.push({ dateStr, blocks: byDay[dateStr] ?? [] })
+    if (week.length === 7) { weeks.push(week); week = [] }
+  }
+
+  if (week.length > 0) {
+    while (week.length < 7) week.push({ dateStr: null, blocks: [] })
+    weeks.push(week)
+  }
+
+  return weeks
+}
+
+
+function AvailabilityTab() {
+  const monthTabs = getMonthTabs()
+  const [activeMonth, setActiveMonth] = useState(monthTabs[0].key)
+  const [blocks, setBlocks] = useState<OpenBlock[]>([])
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchBlocks = useCallback(async (month: string) => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch(`/api/admin/availability?month=${month}`)
+      if (!res.ok) throw new Error(`Failed to load availability (${res.status})`)
+      const data = await res.json()
+      setBlocks(data.blocks ?? [])
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => { fetchBlocks(activeMonth) }, [activeMonth, fetchBlocks])
+
+  const [year, mon] = activeMonth.split('-').map(Number)
+  const grid = buildCalendarGrid(year, mon, blocks)
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Toronto' })
+
+  const DOW_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+  return (
+    <div>
+      {/* Month sub-tabs */}
+      <div className="flex flex-wrap gap-1 mb-6">
+        {monthTabs.map(t => (
+          <button
+            key={t.key}
+            onClick={() => setActiveMonth(t.key)}
+            className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+              activeMonth === t.key
+                ? 'bg-[#2D6A4F] text-white'
+                : 'bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6]'
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && <p className="text-gray-500 text-sm py-8 text-center">Loading…</p>}
+      {error && <p className="text-red-600 text-sm py-4">{error}</p>}
+
+
+      {!loading && !error && (
+        <>
+          {blocks.length === 0 ? (
+            <p className="text-sm text-gray-400">No open blocks this month</p>
+          ) : (
+            <>
+              <p className="text-xs text-gray-400 mb-4">{blocks.length} open block{blocks.length !== 1 ? 's' : ''} this month</p>
+              {/* Calendar grid */}
+              <div className="overflow-x-auto">
+                <div className="min-w-[560px]">
+                  {/* Day-of-week header */}
+                  <div className="grid grid-cols-7 gap-1 mb-1">
+                    {DOW_LABELS.map(d => (
+                      <div key={d} className="text-center text-xs font-semibold text-gray-500 py-1">{d}</div>
+                    ))}
+                  </div>
+                  {/* Weeks */}
+                  {grid.map((week, wi) => (
+                    <div key={wi} className="grid grid-cols-7 gap-1 mb-1">
+                      {week.map((day, di) => {
+                        const isToday = day.dateStr === today
+                        const dayNum = day.dateStr ? Number(day.dateStr.slice(8)) : null
+                        return (
+                          <div
+                            key={di}
+                            className={`min-h-[64px] rounded p-1.5 text-xs ${
+                              !day.dateStr
+                                ? 'bg-transparent'
+                                : day.blocks.length > 0
+                                ? 'bg-[#F0F7F4] border border-[#52B788]/40'
+                                : 'bg-gray-50 border border-gray-100'
+                            } ${isToday ? 'ring-2 ring-[#2D6A4F]' : ''}`}
+                          >
+                            {dayNum !== null && (
+                              <span className={`block font-semibold mb-1 ${isToday ? 'text-[#2D6A4F]' : 'text-gray-600'}`}>
+                                {dayNum}
+                              </span>
+                            )}
+                            {day.blocks.map(b => (
+                              <div key={b.id} className="text-[10px] leading-tight text-[#2D6A4F] bg-[#52B788]/20 rounded px-1 py-0.5 mb-0.5">
+                                {b.startTime}–{b.endTime}
+                              </div>
+                            ))}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+// ── Booking types ─────────────────────────────────────────────────────────────
+
 interface Booking {
   eventId: string
   status: 'pending' | 'confirmed'
@@ -151,7 +323,7 @@ function BookingCard({ booking, onDecline, onCancel, readOnly }: BookingCardProp
 }
 
 export default function AdminDashboard({ email }: { email?: string }) {
-  const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming')
+  const [activeTab, setActiveTab] = useState<'upcoming' | 'past' | 'availability'>('upcoming')
   const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -212,17 +384,21 @@ export default function AdminDashboard({ email }: { email?: string }) {
 
       {/* Tabs */}
       <div className="flex border-b border-gray-200 mb-6">
-        {(['upcoming', 'past'] as const).map(tab => (
+        {([
+          { key: 'upcoming', label: 'Upcoming' },
+          { key: 'past', label: 'Past' },
+          { key: 'availability', label: 'Availability' },
+        ] as const).map(({ key, label }) => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-5 py-2.5 text-sm font-medium capitalize border-b-2 transition-colors ${
-              activeTab === tab
+            key={key}
+            onClick={() => setActiveTab(key)}
+            className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === key
                 ? 'border-[#2D6A4F] text-[#2D6A4F]'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
-            {tab === 'upcoming' ? 'Upcoming' : 'Past'}
+            {label}
           </button>
         ))}
       </div>
@@ -291,6 +467,8 @@ export default function AdminDashboard({ email }: { email?: string }) {
           )}
         </div>
       )}
+
+      {activeTab === 'availability' && <AvailabilityTab />}
     </div>
   )
 }

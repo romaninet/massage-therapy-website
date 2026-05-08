@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { requireAdminSession } from '@/lib/adminAuth'
 import { listEventsForDate } from '@/lib/googleCalendar'
 import { BOOKING } from '@/lib/config'
+import { requireAdminRead } from '@/lib/adminGuard'
+
+export const dynamic = 'force-dynamic'
 
 export interface BookingSummary {
   eventId: string
@@ -28,14 +30,8 @@ function dateRange(startDate: Date, days: number): string[] {
 }
 
 export async function GET(req: NextRequest) {
-  if (!BOOKING.showBookingsAdmin) {
-    return NextResponse.json({ error: 'disabled' }, { status: 503 })
-  }
-
-  const { authorized } = await requireAdminSession()
-  if (!authorized) {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
-  }
+  const guardError = await requireAdminRead()
+  if (guardError) return guardError
 
   const { searchParams } = new URL(req.url)
   const view = searchParams.get('view') ?? 'future'
