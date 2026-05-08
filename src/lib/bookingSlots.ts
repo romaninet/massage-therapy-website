@@ -45,6 +45,13 @@ export function getAvailableSlots(
   const DURATION_MS = durationMinutes * 60 * 1000
   const BREAK_MS = BOOKING.breakAfterSession * 60 * 1000
 
+  // Latest time a session of this duration can START across all availability windows.
+  // A [BREAK] that starts at or after this point is end-of-day: no slot could begin
+  // during it anyway, so it should not block the last valid slot.
+  const maxLastValidStartMs = availabilityWindows.length > 0
+    ? Math.max(...availabilityWindows.map((w) => w.end.getTime() - DURATION_MS))
+    : -Infinity
+
   const results: Date[] = []
 
   for (const window of availabilityWindows) {
@@ -58,11 +65,18 @@ export function getAvailableSlots(
       // Session must fit inside the window; break may extend past window end
       if (candidateMs + DURATION_MS > windowEnd) break
 
-      // Check overlap against blocking events
+      // Check overlap against blocking events.
+      // PENDING events have no sibling [BREAK] on the calendar, so extend their
+      // effective end by BREAK_MS so they block the same window a confirmed session would.
+      // [BREAK] events that start at or after maxLastValidStartMs are end-of-day:
+      // no session can start during them anyway, so they don't block the last slot.
       const sessionEnd = candidateMs + DURATION_MS
       const overlaps = blockingEvents.some((b) => {
         const bs = b.start.getTime()
-        const be = b.end.getTime()
+        if (b.title === '[BREAK]' && bs >= maxLastValidStartMs) return false
+        const be = b.title.startsWith('[PENDING]')
+          ? b.end.getTime() + BREAK_MS
+          : b.end.getTime()
         return candidateMs < be && sessionEnd > bs
       })
 

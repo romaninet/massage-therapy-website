@@ -102,6 +102,25 @@ describe('getAvailableSlots', () => {
     expect(slots).toHaveLength(0)
   })
 
+  // 6b. [PENDING] break window blocks slot starting at session end
+  it('blocks slot starting at PENDING session end (break window)', () => {
+    // PENDING 12:00–13:00. Effective blocking end = 13:00 + 30min = 13:30.
+    // 13:00 candidate: 13:00 < 13:30 && 14:00 > 12:00 → blocked
+    // 13:30 candidate: 13:30 < 13:30 → false → available
+    // 11:00 candidate: session 11:00–12:00; 11:00 < 13:30 && 12:00 > 12:00 → false → available
+    const events = [
+      makeEvent(AVAIL, d('10:00'), d('16:00')),
+      makeEvent('[PENDING] Test', d('12:00'), d('13:00')),
+    ]
+    const slots = getAvailableSlots(events, 60, DATE)
+    const times = slots.map((s) => s.toISOString())
+    expect(times).not.toContain(d('13:00').toISOString()) // blocked by PENDING break window
+    expect(times).not.toContain(d('12:30').toISOString()) // overlaps PENDING session
+    expect(times).not.toContain(d('11:30').toISOString()) // session 11:30–12:30 overlaps PENDING
+    expect(times).toContain(d('11:00').toISOString())     // session 11:00–12:00 ends exactly at PENDING start → clear
+    expect(times).toContain(d('13:30').toISOString())     // starts after PENDING break window ends
+  })
+
   // 7. Two availability blocks in one day → returns slots from both
   it('returns slots from two availability windows in the same day', () => {
     const events = [
@@ -166,6 +185,41 @@ describe('getAvailableSlots', () => {
     expect(slots).toHaveLength(2)
     expect(slots[0]).toEqual(d('10:30'))
     expect(slots[1]).toEqual(d('11:00'))
+  })
+
+  // 5b. End-of-day [BREAK] does not block the last slot
+  it('does not block the last slot when [BREAK] starts at the last valid session start', () => {
+    // Window 10:00–13:00. [CONFIRMED] 11:00–12:00, [BREAK] 12:00–12:30.
+    // maxLastValidStart = 13:00 - 60min = 12:00.
+    // [BREAK] starts at 12:00 >= 12:00 → end-of-day → skip.
+    // 12:00: not blocked by CONFIRMED (12:00 < 12:00 false) nor by BREAK (skipped) → available.
+    const events = [
+      makeEvent(AVAIL, d('10:00'), d('13:00')),
+      makeEvent('[CONFIRMED] Jane', d('11:00'), d('12:00')),
+      makeEvent('[BREAK]', d('12:00'), d('12:30')),
+    ]
+    const slots = getAvailableSlots(events, 60, DATE)
+    const times = slots.map((s) => s.toISOString())
+    expect(times).toContain(d('12:00').toISOString()) // last slot, end-of-day break doesn't block
+    expect(times).not.toContain(d('11:00').toISOString()) // blocked by CONFIRMED
+    expect(times).not.toContain(d('10:30').toISOString()) // blocked by CONFIRMED (10:30–11:30 overlaps 11:00–12:00)
+    expect(times).toContain(d('10:00').toISOString()) // clear
+  })
+
+  // 5c. Mid-day [BREAK] still blocks normally
+  it('still blocks a slot when [BREAK] is in the middle of the day', () => {
+    // Window 10:00–14:00. [BREAK] 11:00–11:30. maxLastValidStart = 13:00.
+    // [BREAK] at 11:00 < 13:00 → mid-day → blocks as normal.
+    const events = [
+      makeEvent(AVAIL, d('10:00'), d('14:00')),
+      makeEvent('[BREAK]', d('11:00'), d('11:30')),
+    ]
+    const slots = getAvailableSlots(events, 60, DATE)
+    const times = slots.map((s) => s.toISOString())
+    expect(times).not.toContain(d('10:30').toISOString()) // 10:30–11:30 overlaps BREAK 11:00–11:30
+    expect(times).not.toContain(d('11:00').toISOString()) // 11:00–12:00 overlaps BREAK
+    expect(times).toContain(d('10:00').toISOString())     // 10:00–11:00; 10:00<11:30 && 11:00>11:00 = false → clear
+    expect(times).toContain(d('11:30').toISOString())     // after break
   })
 
   // 13. Session boundary: slot included when session ends exactly at window end
