@@ -3,26 +3,13 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 let showBookingsService: boolean = true
 let showBookingsAdmin: boolean = true
 
-vi.mock('@/lib/config', () => ({
-  get BOOKING() {
-    return {
-      showBookingsService,
-      showBookingsAdmin,
-      breakAfterSession: 30,
-      slotInterval: 30,
-      calendarColors: { pending: '5', confirmed: '10', break: '3' },
-      availabilityEventTitle: 'available for massage',
-      adminEmail: 'admin@example.com',
-    }
-  },
-  SERVICES: [
-    {
-      key: 'therapeutic',
-      title: { en: 'Therapeutic Massage', fr: 'Massage thérapeutique' },
-      tiers: [{ duration: '60 min', price: 110 }, { duration: '90 min', price: 150 }],
-    },
-  ],
-}))
+vi.mock('@/lib/config', async () => {
+  const { MOCK_BOOKING_BASE, MOCK_SERVICES } = await import('@/test/mockConfig')
+  return {
+    get BOOKING() { return { ...MOCK_BOOKING_BASE, showBookingsService, showBookingsAdmin } },
+    SERVICES: MOCK_SERVICES,
+  }
+})
 
 vi.mock('@/lib/googleCalendar', () => ({
   listEventsForDate: vi.fn(),

@@ -41,13 +41,13 @@ export const BOOKING = {
   breakAfterSession: 30,           // minutes buffer between sessions
   slotInterval: 30,                // minutes — granularity of bookable start times
   cancellationNoticeHours: 12,     // minimum hours notice for client cancellation
-  availabilityEventTitle: 'available for massage', // exact title Olha uses in Calendar
+  availabilityEventTitle: 'open', // exact title Olha uses in Calendar
   adminEmail: 'shelestwellness@gmail.com',
   calendarColors: {
     pending:   '5',   // Banana (yellow)
     confirmed: '10',  // Basil (dark green)
     break:     '3',   // Grape (purple)
-    // "available for massage" blocks: Olha sets gray (Graphite = '8') manually
+    // "open" blocks: Olha sets gray (Graphite = '8') manually
   },
 } as const
 ```
@@ -78,8 +78,8 @@ Flags are independent — admin can be off while booking is live, or vice versa.
 
 ## Google Calendar Event Structure
 
-### "available for massage" (set manually by Olha)
-- **Title:** `available for massage`
+### "open" (set manually by Olha)
+- **Title:** `open`
 - **Color:** Gray (Graphite — Olha sets this herself)
 - **Description:** none needed
 - This defines the windows where bookings can be made
@@ -440,6 +440,13 @@ const valid = timingSafeEqual(Buffer.from(sig), Buffer.from(expected))
 | `src/lib/bookingTokens.ts` | HMAC sign/verify for confirm/decline links |
 | `src/lib/bookingSlots.ts` | Slot availability algorithm |
 | `src/lib/bookingEmails.ts` | All email templates (uses Resend) |
+| `src/lib/bookingEventParser.ts` | `parseEventDescription` + `bookingDetailsFromEvent` — shared across all 4 booking action routes |
+| `src/lib/adminGuard.ts` | `requireAdminAccess` — feature flag + CSRF + auth check in one call |
+| `src/lib/routeHelpers.ts` | `htmlResponse`, `jsonResponse`, `getClientIp` |
+| `src/lib/adminAuth.ts` | Session check helper |
+| `src/lib/csrfProtection.ts` | `verifySameOrigin` — Origin header check |
+| `src/test/mockConfig.ts` | Shared Vitest mock config (`MOCK_BOOKING_BASE`, `MOCK_SERVICES`) |
+| `src/test/fixtures.ts` | Shared test fixtures (`ADMIN_SESSION`, booking description, timestamps) |
 
 ---
 
@@ -689,7 +696,7 @@ NEXTAUTH_URL=https://www.shelestwellness.ca
 
 ### 5. Olha's calendar setup
 
-- Create a test **"available for massage"** block in Google Calendar
+- Create a test **"open"** block in Google Calendar
 - Set the color to **Graphite (gray)**
 - Verify the booking page shows that date/time as available
 
@@ -789,7 +796,7 @@ This is optional — you can also just ignore/delete test emails from Olha's inb
 
 ### Step 5 — End-to-end test run on test calendar
 
-1. In the **test calendar**, create an `available for massage` block (gray color)
+1. In the **test calendar**, create an `open` block (gray color)
    for any future date and time range
 2. Visit your local or Preview URL `/booking`
 3. Select a service, pick the date you just opened, submit a request
@@ -879,7 +886,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     A([GET /api/booking/slots\n?date · service · duration]) --> B[listEventsForDate\nfrom Google Calendar]
-    B --> C{Find blocks titled\n'available for massage'}
+    B --> C{Find blocks titled\n'open'}
     C -->|None| D([Return empty array])
     C -->|Found| E[Find blocking events:\nPENDING · CONFIRMED · BREAK]
     E --> F[Generate candidate start times\nevery 30 min within each window]

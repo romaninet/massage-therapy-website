@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth'
 import { redirect, notFound } from 'next/navigation'
 import { BOOKING } from '@/lib/config'
+import { dmSans } from '@/lib/fonts'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   if (!BOOKING.showBookingsAdmin) {
@@ -12,5 +13,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect('/api/auth/signin')
   }
 
-  return <>{children}</>
+  return (
+    <html lang="en" className={dmSans.variable}>
+      <body>{children}</body>
+    </html>
+  )
 }

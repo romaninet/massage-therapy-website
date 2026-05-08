@@ -184,7 +184,7 @@ The booking system lets clients pick a service, duration, date, and time slot, t
 
 ### How it works
 
-1. **Availability** — Olha creates events titled `"available for massage"` in her Google Calendar using the **Graphite (gray)** color. These blocks define when clients can book.
+1. **Availability** — Olha creates events titled `"open"` in her Google Calendar using the **Graphite (gray)** color. These blocks define when clients can book.
 2. **Slot generation** — the API reads those blocks and generates bookable start times (30-minute granularity, 30-minute buffer between sessions).
 3. **Booking request** — the client submits the form; a `[PENDING]` event (yellow) is created on the calendar and an email is sent to Olha with Accept/Decline links.
 4. **Accept** — Olha clicks Accept in email → re-checks for conflicts → event turns green (`[CONFIRMED]`) → purple `[BREAK]` event created → client receives confirmation email.

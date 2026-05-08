@@ -3,6 +3,7 @@ import { BOOKING, SERVICES } from '@/lib/config'
 import { listEventsForDate, listEventsInRange, createEvent } from '@/lib/googleCalendar'
 import { getAvailableSlots } from '@/lib/bookingSlots'
 import { sendBookingRequestEmail, sendBotAlertEmail } from '@/lib/bookingEmails'
+import { getClientIp } from '@/lib/routeHelpers'
 
 const MAX_PENDING_PER_EMAIL = 3
 
@@ -37,14 +38,14 @@ export async function POST(request: Request) {
 
   // Bot protection: honeypot must be empty
   if (_hp) {
-    const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? undefined
+    const ip = getClientIp(request)
     await sendBotAlertEmail('honeypot', ip).catch(() => {})
     return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }
 
   // Bot protection: form must have taken at least 4 seconds to fill
   if (!_t || Date.now() - _t < 4000) {
-    const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? undefined
+    const ip = getClientIp(request)
     await sendBotAlertEmail('timing', ip).catch(() => {})
     return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }

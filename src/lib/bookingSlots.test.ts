@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { getAvailableSlots } from './bookingSlots'
+import { BOOKING } from './config'
 import type { CalendarEvent } from './googleCalendar'
 
 // All times are on 2026-05-14 UTC for simplicity.
@@ -14,7 +15,7 @@ function makeEvent(title: string, start: Date, end: Date): CalendarEvent {
   return { id: String(++_id), title, start, end }
 }
 
-const AVAIL = 'available for massage'
+const AVAIL = BOOKING.availabilityEventTitle
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Test suite

@@ -30,6 +30,7 @@ import { getServerSession } from 'next-auth'
 import { getEvent, deleteEvent } from '@/lib/googleCalendar'
 import { sendBookingDeclineEmail } from '@/lib/bookingEmails'
 import { POST } from './route'
+import { ADMIN_SESSION, MOCK_BOOKING_DESCRIPTION, BOOKING_SESSION_START, BOOKING_SESSION_END } from '@/test/fixtures'
 
 const mockGetServerSession = vi.mocked(getServerSession)
 const mockGetEvent = vi.mocked(getEvent)
@@ -45,27 +46,12 @@ afterEach(() => {
   mockShowBookingsAdmin = true
 })
 
-const ADMIN_SESSION = { user: { email: 'shelestwellness@gmail.com' }, expires: '' }
-
-const bookingDescription = JSON.stringify({
-  clientName: 'Jane Doe',
-  clientEmail: 'jane@example.com',
-  clientPhone: '613-555-1234',
-  serviceKey: 'deepTissue',
-  serviceName: 'Deep Tissue Massage',
-  durationMinutes: 60,
-  sessionStart: '2026-05-10T14:00:00.000Z',
-  sessionEnd: '2026-05-10T15:00:00.000Z',
-  breakStart: '2026-05-10T15:00:00.000Z',
-  breakEnd: '2026-05-10T15:30:00.000Z',
-})
-
 const pendingEvent = {
   id: 'evt-pending',
   title: '[PENDING] Deep Tissue Massage — Jane Doe',
-  start: new Date('2026-05-10T14:00:00.000Z'),
-  end: new Date('2026-05-10T15:00:00.000Z'),
-  description: bookingDescription,
+  start: BOOKING_SESSION_START,
+  end: BOOKING_SESSION_END,
+  description: MOCK_BOOKING_DESCRIPTION,
 }
 
 describe('POST /api/admin/decline', () => {
@@ -150,9 +136,9 @@ describe('POST /api/admin/decline', () => {
     const confirmedEvent = {
       id: 'evt-confirmed',
       title: '[CONFIRMED] Deep Tissue Massage — Jane Doe',
-      start: new Date('2026-05-10T14:00:00.000Z'),
-      end: new Date('2026-05-10T15:00:00.000Z'),
-      description: bookingDescription,
+      start: BOOKING_SESSION_START,
+      end: BOOKING_SESSION_END,
+      description: MOCK_BOOKING_DESCRIPTION,
     }
 
     mockGetEvent.mockResolvedValue(confirmedEvent)

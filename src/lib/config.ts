@@ -216,7 +216,7 @@ export const BOOKING = {
   breakAfterSession: 30,           // minutes buffer between sessions
   slotInterval: 30,                // minutes — granularity of bookable start times
   cancellationNoticeHours: 12,     // minimum hours notice for client cancellation
-  availabilityEventTitle: 'available for massage',
+  availabilityEventTitle: 'open',
   adminEmail: 'shelestwellness@gmail.com',
   calendarColors: {
     pending:   '5',   // Banana (yellow)

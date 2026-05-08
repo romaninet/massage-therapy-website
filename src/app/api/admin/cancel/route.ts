@@ -1,23 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { requireAdminSession } from '@/lib/adminAuth'
-import { verifySameOrigin } from '@/lib/csrfProtection'
 import { getEvent, deleteEvent, listEventsForDate } from '@/lib/googleCalendar'
-import { sendBookingCancellationEmail, BookingDetails } from '@/lib/bookingEmails'
-import { BOOKING } from '@/lib/config'
+import { sendBookingCancellationEmail } from '@/lib/bookingEmails'
+import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
+import { requireAdminAccess } from '@/lib/adminGuard'
 
 export async function POST(req: NextRequest) {
-  if (!BOOKING.showBookingsAdmin) {
-    return NextResponse.json({ error: 'disabled' }, { status: 503 })
-  }
-
-  if (!verifySameOrigin(req)) {
-    return NextResponse.json({ error: 'forbidden' }, { status: 403 })
-  }
-
-  const { authorized } = await requireAdminSession()
-  if (!authorized) {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
-  }
+  const guardError = await requireAdminAccess(req)
+  if (guardError) return guardError
 
   const { eventId } = await req.json()
 
@@ -30,29 +19,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'not_confirmed' }, { status: 400 })
   }
 
-  let details: Record<string, unknown> = {}
+  let details: Record<string, unknown>
   try {
-    if (event.description) {
-      details = JSON.parse(event.description)
-    }
+    details = parseEventDescription(event.description)
   } catch {
     return NextResponse.json({ error: 'invalid_description' }, { status: 400 })
   }
 
-  const bookingDetails: BookingDetails = {
-    clientName: String(details.clientName ?? ''),
-    clientEmail: String(details.clientEmail ?? ''),
-    clientPhone: String(details.clientPhone ?? ''),
-    clientNotes: details.clientNotes ? String(details.clientNotes) : undefined,
-    serviceKey: String(details.serviceKey ?? ''),
-    serviceName: String(details.serviceName ?? ''),
-    durationMinutes: Number(details.durationMinutes ?? 0),
-    sessionStart: new Date(String(details.sessionStart ?? event.start.toISOString())),
-    sessionEnd: new Date(String(details.sessionEnd ?? event.end.toISOString())),
-    breakStart: new Date(String(details.breakStart ?? event.end.toISOString())),
-    breakEnd: new Date(String(details.breakEnd ?? event.end.toISOString())),
-    eventId,
-  }
+  const bookingDetails = bookingDetailsFromEvent(eventId, event, details)
 
   await sendBookingCancellationEmail(bookingDetails)
 

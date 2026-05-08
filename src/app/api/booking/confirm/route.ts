@@ -1,21 +1,9 @@
 import { BOOKING } from '@/lib/config'
 import { listEventsForDate, getEvent, updateEvent, createEvent } from '@/lib/googleCalendar'
 import { verifyToken } from '@/lib/bookingTokens'
-import { sendBookingConfirmationEmail, type BookingDetails } from '@/lib/bookingEmails'
-
-function htmlResponse(body: string, status = 200): Response {
-  return new Response(body, {
-    status,
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
-  })
-}
-
-function jsonResponse(body: Record<string, unknown>, status: number): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  })
-}
+import { sendBookingConfirmationEmail } from '@/lib/bookingEmails'
+import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
+import { htmlResponse, jsonResponse } from '@/lib/routeHelpers'
 
 export async function GET(request: Request) {
   if (!BOOKING.showBookingsAdmin) {
@@ -46,17 +34,15 @@ export async function GET(request: Request) {
     return jsonResponse({ error: 'already_handled' }, 409)
   }
 
-  // Parse booking details from description
   let bookingData: Record<string, unknown>
   try {
-    bookingData = JSON.parse(event.description ?? '{}')
+    bookingData = parseEventDescription(event.description)
   } catch {
     return jsonResponse({ error: 'invalid_event_data' }, 500)
   }
 
   const sessionStart = event.start
   const sessionEnd = event.end
-  const durationMinutes = Number(bookingData.durationMinutes)
   const dateStr = sessionStart.toISOString().slice(0, 10)
 
   // Re-check slot: list events, exclude this event, check for CONFIRMED/BREAK conflicts
@@ -92,21 +78,7 @@ export async function GET(request: Request) {
     description: JSON.stringify({ type: 'break', linkedEventId: eventId }),
   })
 
-  // Build BookingDetails and send confirmation email
-  const booking: BookingDetails = {
-    clientName: String(bookingData.clientName ?? ''),
-    clientEmail: String(bookingData.clientEmail ?? ''),
-    clientPhone: String(bookingData.clientPhone ?? ''),
-    clientNotes: bookingData.clientNotes ? String(bookingData.clientNotes) : undefined,
-    serviceKey: String(bookingData.serviceKey ?? ''),
-    serviceName: String(bookingData.serviceName ?? ''),
-    durationMinutes,
-    sessionStart,
-    sessionEnd,
-    breakStart,
-    breakEnd,
-    eventId,
-  }
+  const booking = bookingDetailsFromEvent(eventId, event, bookingData)
 
   await sendBookingConfirmationEmail(booking)
 

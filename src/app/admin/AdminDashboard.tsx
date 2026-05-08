@@ -165,7 +165,7 @@ export default function AdminDashboard() {
       const res = await fetch(`/api/admin/bookings?${params}`)
       if (!res.ok) throw new Error(`Failed to load bookings (${res.status})`)
       const data = await res.json()
-      setBookings(data)
+      setBookings(data.bookings ?? data)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {

@@ -251,7 +251,7 @@ Accept/Decline links. Payment is always in-person (cash or e-transfer).
 
 | Color | Google colorId | Meaning |
 |---|---|---|
-| Gray (Graphite) | set by Olha | "available for massage" — availability blocks |
+| Gray (Graphite) | set by Olha | "open" — availability blocks |
 | Yellow (Banana) | `'5'` | `[PENDING]` — awaiting confirmation |
 | Green (Basil) | `'10'` | `[CONFIRMED]` — accepted appointment |
 | Purple (Grape) | `'3'` | `[BREAK]` — buffer after each session |
@@ -265,7 +265,7 @@ export const BOOKING = {
   breakAfterSession: 30,           // minutes buffer between sessions
   slotInterval: 30,                // granularity of bookable start times
   cancellationNoticeHours: 12,
-  availabilityEventTitle: 'available for massage',  // English only — Olha's calendar
+  availabilityEventTitle: 'open',  // English only — Olha's calendar
   adminEmail: 'shelestwellness@gmail.com',
   calendarColors: { pending: '5', confirmed: '10', break: '3' },
 } as const
@@ -336,4 +336,39 @@ Mermaid diagrams for all 5 flows are in bookings_plan.md → Flow Diagrams secti
 
 ## Test count
 111 tests across 13 files (up from 100). New tests: token expiry/malformed, bot alert sent on detection, max pending per email (at/below threshold), CSRF wrong origin on cancel and decline.
+
+# Summary of changes made in `Bug fixes, rename "open", and code quality refactoring`
+
+## Bug fixes
+- **Admin layout** — `src/app/admin/layout.tsx` now renders `<html>/<body>` tags. The `/admin` route is outside the `[locale]` group which provides those tags, so it was missing them.
+- **Admin dashboard data** — `GET /api/admin/bookings` returns `{ bookings: [...] }` but the client was setting state to the whole object. Fixed with `data.bookings ?? data` in `AdminDashboard.tsx`.
+
+## Availability event title renamed
+- `BOOKING.availabilityEventTitle` changed from `'available for massage'` to `'open'` in `src/lib/config.ts`.
+- Updated everywhere: `CLAUDE.md`, `bookings_plan.md`, `README.md`, and all test files. Existing Google Calendar events must be renamed manually.
+
+## Code quality — shared utilities extracted
+
+### New lib files
+| File | Exports |
+|---|---|
+| `src/lib/routeHelpers.ts` | `htmlResponse`, `jsonResponse`, `getClientIp` |
+| `src/lib/bookingEventParser.ts` | `parseEventDescription`, `bookingDetailsFromEvent` |
+| `src/lib/adminGuard.ts` | `requireAdminAccess` (feature flag + CSRF + session auth in one call) |
+
+### New test utilities
+| File | Exports |
+|---|---|
+| `src/test/mockConfig.ts` | `MOCK_BOOKING_BASE`, `MOCK_SERVICES` — shared Vitest mock for `@/lib/config` |
+| `src/test/fixtures.ts` | `ADMIN_SESSION`, `MOCK_BOOKING_DESCRIPTION`, `BOOKING_SESSION_START/END/BREAK_END` |
+
+### Routes simplified
+- `booking/confirm/route.ts` and `booking/decline/route.ts` — removed duplicate `htmlResponse`/`jsonResponse` helpers and inline `BookingDetails` construction
+- `admin/cancel/route.ts` and `admin/decline/route.ts` — 12-line guard + 14-line object construction replaced with 2-line calls to `requireAdminAccess` and `bookingDetailsFromEvent`
+- `booking/request/route.ts` — inline IP extraction replaced with `getClientIp(request)`
+
+### Test files simplified
+- 4 route test files now use async `vi.mock` factory importing from `src/test/mockConfig.ts`
+- 2 admin test files now import `ADMIN_SESSION`, `MOCK_BOOKING_DESCRIPTION`, and session dates from `src/test/fixtures.ts`
+- `bookingSlots.test.ts` — `const AVAIL` now derives from real `BOOKING.availabilityEventTitle` instead of a hardcoded string
 
