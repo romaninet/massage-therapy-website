@@ -35,6 +35,7 @@ Here are some details about Olha Shelest and her self-employment business:
 
  - When in doubt or when you need an additional context for better results, state it clearly and ask relevant questions that will help you to get the best results before you continue.
  - Take all the time that you need. The priority is always for correct response, rather than quick results.
+ - if the currect change or few recent changes justify an update of *.md files like architecture or README, then update them
 
 ## UI, UX and Design guidelines
 

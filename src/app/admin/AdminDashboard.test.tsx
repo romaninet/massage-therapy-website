@@ -1,7 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import AdminDashboard from './AdminDashboard'
+
+const { mockSignOut } = vi.hoisted(() => ({ mockSignOut: vi.fn() }))
+vi.mock('next-auth/react', () => ({ signOut: mockSignOut }))
 
 const pendingBooking = {
   eventId: 'evt-pending-1',
@@ -40,6 +43,7 @@ function makeFetch(data: unknown, ok = true) {
 
 beforeEach(() => {
   global.fetch = makeFetch([pendingBooking, confirmedBooking])
+  mockSignOut.mockReset()
 })
 
 afterEach(() => {
@@ -50,8 +54,10 @@ afterEach(() => {
 describe('AdminDashboard', () => {
   it('renders Upcoming and Past tabs', async () => {
     render(<AdminDashboard />)
-    expect(screen.getByText('Upcoming')).toBeInTheDocument()
-    expect(screen.getByText('Past')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText('Upcoming')).toBeInTheDocument()
+      expect(screen.getByText('Past')).toBeInTheDocument()
+    })
   })
 
   // Test 2: Future tab shows Pending Requests and Confirmed Bookings sections
@@ -117,7 +123,26 @@ describe('AdminDashboard', () => {
     }))
   })
 
-  // Test 7: Clicking Cancel Booking shows confirmation dialog, then calls API on confirm
+  // Test 7: Sign out button is rendered and calls signOut on click
+  it('renders Sign out button and calls signOut when clicked', async () => {
+    const user = userEvent.setup()
+    render(<AdminDashboard email="olha@example.com" />)
+    const btn = screen.getByText('Sign out')
+    expect(btn).toBeInTheDocument()
+    await user.click(btn)
+    expect(mockSignOut).toHaveBeenCalledOnce()
+    expect(mockSignOut).toHaveBeenCalledWith({ callbackUrl: '/api/auth/signin' })
+  })
+
+  // Test 8: Email prop is displayed in the header
+  it('displays the email address passed as prop', async () => {
+    render(<AdminDashboard email="olha@example.com" />)
+    await waitFor(() => {
+      expect(screen.getByText('olha@example.com')).toBeInTheDocument()
+    })
+  })
+
+  // Test 9: Clicking Cancel Booking shows confirmation dialog, then calls API on confirm
   it('clicking Cancel Booking shows dialog then calls /api/admin/cancel on confirm', async () => {
     const user = userEvent.setup()
     const mockFetch = vi.fn()

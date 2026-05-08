@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { signOut } from 'next-auth/react'
 
 interface Booking {
   eventId: string
@@ -149,7 +150,7 @@ function BookingCard({ booking, onDecline, onCancel, readOnly }: BookingCardProp
   )
 }
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ email }: { email?: string }) {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming')
   const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(false)
@@ -195,6 +196,20 @@ export default function AdminDashboard() {
 
   return (
     <div>
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-[#2D6A4F]">Booking Dashboard</h1>
+        <div className="flex items-center gap-4">
+          {email && <span className="text-sm text-gray-500">{email}</span>}
+          <button
+            onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}
+            className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+          >
+            Sign out
+          </button>
+        </div>
+      </div>
+
       {/* Tabs */}
       <div className="flex border-b border-gray-200 mb-6">
         {(['upcoming', 'past'] as const).map(tab => (
