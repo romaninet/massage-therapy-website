@@ -212,12 +212,13 @@ function todayString(): string {
 
 interface BookingCardProps {
   booking: Booking
+  onAccept?: (eventId: string) => void
   onDecline?: (eventId: string) => void
   onCancel?: (eventId: string) => void
   readOnly?: boolean
 }
 
-function BookingCard({ booking, onDecline, onCancel, readOnly }: BookingCardProps) {
+function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: BookingCardProps) {
   const [confirming, setConfirming] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -225,6 +226,22 @@ function BookingCard({ booking, onDecline, onCancel, readOnly }: BookingCardProp
     booking.status === 'pending'
       ? 'border-l-4 border-yellow-400'
       : 'border-l-4 border-green-600'
+
+  const handleAccept = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/admin/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId: booking.eventId }),
+      })
+      if (res.ok) {
+        onAccept?.(booking.eventId)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleDecline = async () => {
     setLoading(true)
@@ -279,13 +296,22 @@ function BookingCard({ booking, onDecline, onCancel, readOnly }: BookingCardProp
         {!readOnly && (
           <div className="flex-shrink-0">
             {booking.status === 'pending' && (
-              <button
-                onClick={handleDecline}
-                disabled={loading}
-                className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded"
-              >
-                {loading ? 'Declining…' : 'Decline'}
-              </button>
+              <div className="flex flex-col gap-2 items-end">
+                <button
+                  onClick={handleAccept}
+                  disabled={loading}
+                  className="bg-green-700 hover:bg-green-800 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded w-full"
+                >
+                  {loading ? 'Accepting…' : 'Accept'}
+                </button>
+                <button
+                  onClick={handleDecline}
+                  disabled={loading}
+                  className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded w-full"
+                >
+                  {loading ? 'Declining…' : 'Decline'}
+                </button>
+              </div>
             )}
             {booking.status === 'confirmed' && !confirming && (
               <button
@@ -364,6 +390,12 @@ export default function AdminDashboard({ email }: { email?: string }) {
     setBookings(prev => prev.filter(b => b.eventId !== eventId))
   }
 
+  const handleAccepted = (eventId: string) => {
+    setBookings(prev =>
+      prev.map(b => b.eventId === eventId ? { ...b, status: 'confirmed' as const } : b)
+    )
+  }
+
   const pending = bookings.filter(b => b.status === 'pending')
   const confirmed = bookings.filter(b => b.status === 'confirmed')
 
@@ -433,7 +465,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
             ) : (
               <div className="space-y-3">
                 {pending.map(b => (
-                  <BookingCard key={b.eventId} booking={b} onDecline={removeBooking} />
+                  <BookingCard key={b.eventId} booking={b} onAccept={handleAccepted} onDecline={removeBooking} />
                 ))}
               </div>
             )}

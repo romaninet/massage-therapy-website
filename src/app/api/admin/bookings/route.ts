@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
     startDate.setDate(startDate.getDate() - 30)
     dates = dateRange(startDate, 31)
   } else {
-    dates = dateRange(today, 30)
+    dates = dateRange(today, 60)
   }
 
   const bookings: BookingSummary[] = []

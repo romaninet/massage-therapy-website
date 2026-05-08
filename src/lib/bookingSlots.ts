@@ -55,8 +55,8 @@ export function getAvailableSlots(
     let candidateMs = Math.ceil(windowStart / SLOT_MS) * SLOT_MS
 
     while (candidateMs < windowEnd) {
-      // Session + break must both fit inside the window
-      if (candidateMs + DURATION_MS + BREAK_MS > windowEnd) break
+      // Session must fit inside the window; break may extend past window end
+      if (candidateMs + DURATION_MS > windowEnd) break
 
       // Check overlap against blocking events
       const sessionEnd = candidateMs + DURATION_MS
@@ -74,5 +74,13 @@ export function getAvailableSlots(
     }
   }
 
-  return results.sort((a, b) => a.getTime() - b.getTime())
+  const seen = new Set<number>()
+  return results
+    .filter((d) => {
+      const ms = d.getTime()
+      if (seen.has(ms)) return false
+      seen.add(ms)
+      return true
+    })
+    .sort((a, b) => a.getTime() - b.getTime())
 }
