@@ -66,18 +66,26 @@ export function getAvailableSlots(
       if (candidateMs + DURATION_MS > windowEnd) break
 
       // Check overlap against blocking events.
-      // PENDING events have no sibling [BREAK] on the calendar, so extend their
-      // effective end by BREAK_MS so they block the same window a confirmed session would.
-      // [BREAK] events that start at or after maxLastValidStartMs are end-of-day:
-      // no session can start during them anyway, so they don't block the last slot.
+      // Two symmetrical rules:
+      //   (a) PENDING events extend their effective end by BREAK_MS — they have no
+      //       sibling [BREAK] on the calendar yet, so we synthesise the buffer.
+      //   (b) When checking against a session event (PENDING/CONFIRMED) we use
+      //       sessionEnd+BREAK_MS on the right side, so a candidate whose break
+      //       would overlap the next session is correctly blocked.
+      //   (c) [BREAK] events that start at or after maxLastValidStartMs are end-of-day:
+      //       no further slot could begin during them, so they don't block the last slot.
       const sessionEnd = candidateMs + DURATION_MS
+      const sessionEndWithBreak = sessionEnd + BREAK_MS
       const overlaps = blockingEvents.some((b) => {
         const bs = b.start.getTime()
         if (b.title === '[BREAK]' && bs >= maxLastValidStartMs) return false
+        const isSession = b.title.startsWith('[PENDING]') || b.title.startsWith('[CONFIRMED]')
         const be = b.title.startsWith('[PENDING]')
           ? b.end.getTime() + BREAK_MS
           : b.end.getTime()
-        return candidateMs < be && sessionEnd > bs
+        // For session events use extended right boundary so our break is also accounted for
+        const effectiveEnd = isSession ? sessionEndWithBreak : sessionEnd
+        return candidateMs < be && effectiveEnd > bs
       })
 
       if (!overlaps) {
