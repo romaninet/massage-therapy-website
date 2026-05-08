@@ -43,6 +43,7 @@ export function getAvailableSlots(
 
   const SLOT_MS = BOOKING.slotInterval * 60 * 1000
   const DURATION_MS = durationMinutes * 60 * 1000
+  const BREAK_MS = BOOKING.breakAfterSession * 60 * 1000
 
   const results: Date[] = []
 
@@ -54,8 +55,8 @@ export function getAvailableSlots(
     let candidateMs = Math.ceil(windowStart / SLOT_MS) * SLOT_MS
 
     while (candidateMs < windowEnd) {
-      // Session must fit inside the window; break may extend past it (no next client anyway)
-      if (candidateMs + DURATION_MS > windowEnd) break
+      // Session + break must both fit inside the window
+      if (candidateMs + DURATION_MS + BREAK_MS > windowEnd) break
 
       // Check overlap against blocking events
       const sessionEnd = candidateMs + DURATION_MS

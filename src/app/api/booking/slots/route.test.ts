@@ -47,7 +47,7 @@ describe('GET /api/booking/slots', () => {
     const res = await GET(req)
     expect(res.status).toBe(200)
     const data = await res.json()
-    expect(data.slots).toEqual([slot.toISOString()])
+    expect(data.slots).toEqual([{ time: expect.any(String), iso: slot.toISOString(), available: true }])
   })
 
   it('2. Past date → 400', async () => {

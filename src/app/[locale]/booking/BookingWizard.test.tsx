@@ -69,8 +69,9 @@ describe('BookingWizard', () => {
     fireEvent.click(screen.getByTestId('duration-btn-therapeutic-60'));
     await waitFor(() => expect(screen.getByTestId('date-picker')).toBeInTheDocument());
 
-    // Select a date
+    // Select a date and confirm
     fireEvent.change(screen.getByTestId('date-picker'), { target: { value: '2026-06-01' } });
+    fireEvent.click(screen.getByTestId('date-confirm'));
 
     await waitFor(() => {
       expect(screen.getByTestId('time-slots')).toBeInTheDocument();
@@ -95,6 +96,7 @@ describe('BookingWizard', () => {
     fireEvent.click(screen.getByTestId('duration-btn-therapeutic-60'));
     await waitFor(() => expect(screen.getByTestId('date-picker')).toBeInTheDocument());
     fireEvent.change(screen.getByTestId('date-picker'), { target: { value: '2026-06-01' } });
+    fireEvent.click(screen.getByTestId('date-confirm'));
 
     await waitFor(() => {
       expect(screen.getByTestId('time-slot-09:00')).toBeInTheDocument();
@@ -116,6 +118,7 @@ describe('BookingWizard', () => {
     fireEvent.click(screen.getByTestId('duration-btn-therapeutic-60'));
     await waitFor(() => expect(screen.getByTestId('date-picker')).toBeInTheDocument());
     fireEvent.change(screen.getByTestId('date-picker'), { target: { value: '2026-06-01' } });
+    fireEvent.click(screen.getByTestId('date-confirm'));
     await waitFor(() => expect(screen.getByTestId('time-slot-10:00')).toBeInTheDocument());
     fireEvent.click(screen.getByTestId('time-slot-10:00'));
 
@@ -144,10 +147,11 @@ describe('BookingWizard', () => {
 
     // Override fetch for time slots and post
     global.fetch = vi.fn()
-      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ slots: [{ time: '10:00', available: true }] }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ slots: [{ time: '10:00', iso: '2026-06-01T14:00:00.000Z', available: true }] }) })
       .mockImplementationOnce(postMock);
 
     fireEvent.change(screen.getByTestId('date-picker'), { target: { value: '2026-06-01' } });
+    fireEvent.click(screen.getByTestId('date-confirm'));
     await waitFor(() => expect(screen.getByTestId('time-slot-10:00')).toBeInTheDocument());
     fireEvent.click(screen.getByTestId('time-slot-10:00'));
 
@@ -168,13 +172,13 @@ describe('BookingWizard', () => {
       );
       const body = JSON.parse(postMock.mock.calls[0][1].body);
       expect(body).toMatchObject({
-        serviceKey: 'therapeutic',
+        service: 'therapeutic',
         duration: 60,
         date: '2026-06-01',
-        time: '10:00',
-        name: 'Jane Doe',
-        email: 'jane@example.com',
-        phone: '555-555-5555',
+        startTime: '2026-06-01T14:00:00.000Z',
+        clientName: 'Jane Doe',
+        clientEmail: 'jane@example.com',
+        clientPhone: '555-555-5555',
       });
     });
   });
