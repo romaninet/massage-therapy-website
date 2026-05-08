@@ -11,7 +11,7 @@ import { BOOKING } from './config'
  * For each availability window, candidate slots are generated every
  * BOOKING.slotInterval minutes starting at the window start. A candidate is
  * included only when:
- *   - candidate + durationMinutes + BOOKING.breakAfterSession <= window.end
+ *   - candidate + durationMinutes <= window.end  (session fits; break may extend past window)
  *   - no blocking event overlaps the candidate session time
  *
  * @param events        All calendar events for the target date.
@@ -24,13 +24,16 @@ export function getAvailableSlots(
   durationMinutes: number,
   targetDate: Date,
 ): Date[] {
-  // Scope: only care about events on the target calendar date (UTC date string)
+  // Scope: only care about events on the target calendar date in Toronto timezone.
+  // Cannot use UTC dates — a 22:00 Toronto block starts on the next UTC date.
   const targetDateStr = targetDate.toISOString().slice(0, 10)
+  const torontoDate = (d: Date) =>
+    d.toLocaleDateString('en-CA', { timeZone: 'America/Toronto' })
 
   const availabilityWindows = events.filter(
     (e) =>
       e.title === BOOKING.availabilityEventTitle &&
-      e.start.toISOString().slice(0, 10) === targetDateStr,
+      torontoDate(e.start) === targetDateStr,
   )
 
   const blockingEvents = events.filter((e) => {
@@ -39,7 +42,6 @@ export function getAvailableSlots(
   })
 
   const SLOT_MS = BOOKING.slotInterval * 60 * 1000
-  const BREAK_MS = BOOKING.breakAfterSession * 60 * 1000
   const DURATION_MS = durationMinutes * 60 * 1000
 
   const results: Date[] = []
@@ -48,13 +50,12 @@ export function getAvailableSlots(
     const windowStart = window.start.getTime()
     const windowEnd = window.end.getTime()
 
-    let candidateMs = windowStart
+    // Snap to the next :00 or :30 boundary (multiples of slotInterval from Unix epoch)
+    let candidateMs = Math.ceil(windowStart / SLOT_MS) * SLOT_MS
 
     while (candidateMs < windowEnd) {
-      const requiredEnd = candidateMs + DURATION_MS + BREAK_MS
-
-      // Must fit entirely within the availability window
-      if (requiredEnd > windowEnd) break
+      // Session must fit inside the window; break may extend past it (no next client anyway)
+      if (candidateMs + DURATION_MS > windowEnd) break
 
       // Check overlap against blocking events
       const sessionEnd = candidateMs + DURATION_MS

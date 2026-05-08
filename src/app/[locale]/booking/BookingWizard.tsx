@@ -6,14 +6,16 @@ import { useSearchParams } from 'next/navigation';
 import { SERVICES } from '@/lib/config';
 import { CheckCircle, ChevronLeft, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DatePickerInput } from '@/components/ui/DatePickerInput';
 
 type Step = 1 | 2 | 3 | 4;
 
 interface Selection {
   serviceKey: string;
   duration: number;
-  date: string;   // YYYY-MM-DD
-  time: string;   // HH:MM
+  date: string;    // YYYY-MM-DD
+  time: string;    // HH:MM Toronto (display)
+  timeIso: string; // UTC ISO (submission)
 }
 
 interface ContactDetails {
@@ -24,7 +26,8 @@ interface ContactDetails {
 }
 
 interface TimeSlot {
-  time: string;   // HH:MM
+  time: string;   // HH:MM Toronto
+  iso: string;    // UTC ISO for submission
   available: boolean;
 }
 
@@ -179,14 +182,17 @@ export default function BookingWizard({ locale }: { locale: string }) {
   }
 
   // --- Step 2 handler ---
-  function handleDateSelect(date: string) {
+  function handleDateChange(date: string) {
     setSelection((prev) => ({ ...prev, date, time: undefined }));
-    setStep(3);
+  }
+
+  function handleDateConfirm() {
+    if (selection.date) setStep(3);
   }
 
   // --- Step 3 handler ---
-  function handleTimeSelect(time: string) {
-    setSelection((prev) => ({ ...prev, time }));
+  function handleTimeSelect(slot: TimeSlot) {
+    setSelection((prev) => ({ ...prev, time: slot.time, timeIso: slot.iso }));
     setFormStartedAt(Date.now());
     setStep(4);
   }
@@ -210,12 +216,14 @@ export default function BookingWizard({ locale }: { locale: string }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          serviceKey: selection.serviceKey,
+          service: selection.serviceKey,
           duration: selection.duration,
           date: selection.date,
-          time: selection.time,
-          locale,
-          ...contact,
+          startTime: selection.timeIso,
+          clientName: contact.name,
+          clientEmail: contact.email,
+          clientPhone: contact.phone,
+          clientNotes: contact.notes,
           _hp: honeypot,
           _t: formStartedAt,
         }),
@@ -358,17 +366,23 @@ export default function BookingWizard({ locale }: { locale: string }) {
               </div>
             )}
             <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-              <input
-                type="date"
+              <DatePickerInput
+                value={selection.date ?? ''}
                 min={new Date().toISOString().slice(0, 10)}
                 max={addDays(new Date(), 90)}
                 className="w-full text-center text-lg text-[#2D6A4F] border-b-2 border-[#52B788] pb-2 outline-none bg-transparent cursor-pointer"
                 data-testid="date-picker"
-                onKeyDown={(e) => e.preventDefault()}
-                onChange={(e) => {
-                  if (e.target.value) handleDateSelect(e.target.value);
-                }}
+                onChange={handleDateChange}
               />
+              {selection.date && (
+                <Button
+                  onClick={handleDateConfirm}
+                  className="mt-6 w-full bg-[#2D6A4F] hover:bg-[#245c44] text-white py-5 text-sm font-medium tracking-wider uppercase"
+                  data-testid="date-confirm"
+                >
+                  {t('next')}
+                </Button>
+              )}
               {!loadingDates && availableDates.size > 0 && (
                 <p className="text-xs text-center text-[#52B788] mt-4">
                   {availableDates.size} dates available in the next 30 days
@@ -403,7 +417,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
                   .map((slot) => (
                     <button
                       key={slot.time}
-                      onClick={() => handleTimeSelect(slot.time)}
+                      onClick={() => handleTimeSelect(slot)}
                       className={`px-5 py-2.5 rounded-full text-sm font-medium border-2 transition-colors ${
                         selection.time === slot.time
                           ? 'bg-[#2D6A4F] border-[#2D6A4F] text-white'

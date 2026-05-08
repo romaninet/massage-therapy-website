@@ -47,5 +47,15 @@ export async function GET(request: Request) {
   const events = await listEventsForDate(date)
   const slots = getAvailableSlots(events, durationMinutes, targetDate)
 
-  return NextResponse.json({ slots: slots.map((s) => s.toISOString()) })
+  const toHHMM = (d: Date) =>
+    d.toLocaleTimeString('en-CA', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'America/Toronto',
+    })
+
+  return NextResponse.json({
+    slots: slots.map((s) => ({ time: toHHMM(s), iso: s.toISOString(), available: true })),
+  })
 }

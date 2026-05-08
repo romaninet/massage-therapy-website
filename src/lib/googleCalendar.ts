@@ -66,18 +66,33 @@ function toCalendarEvent(event: {
  * List all events for a specific date (midnight-to-midnight in America/Toronto timezone).
  * @param date - Format: 'YYYY-MM-DD'
  */
+/** Returns the UTC Date corresponding to midnight on `dateStr` in Toronto time. */
+function torontoMidnightUTC(dateStr: string): Date {
+  // Probe noon UTC — always falls on the same Toronto calendar day (Toronto is UTC-4/UTC-5).
+  const probeUTC = new Date(`${dateStr}T12:00:00Z`)
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: TIMEZONE,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).formatToParts(probeUTC)
+  const hours = parseInt(parts.find((p) => p.type === 'hour')!.value, 10)
+  const minutes = parseInt(parts.find((p) => p.type === 'minute')!.value, 10)
+  // noon UTC minus (hours:minutes past midnight in Toronto) = Toronto midnight in UTC
+  return new Date(probeUTC.getTime() - (hours * 60 + minutes) * 60_000)
+}
+
 export async function listEventsForDate(date: string): Promise<CalendarEvent[]> {
   const { calendar, calendarId } = getCalendarClient()
 
-  // Build midnight-to-midnight bounds. We pass a naive local datetime string
-  // combined with timeZone on the request so the API interprets them in Toronto time.
-  const timeMin = `${date}T00:00:00`
-  const timeMax = `${date}T23:59:59`
+  // Use exact Toronto midnight-to-midnight bounds (accounts for EDT/EST automatically).
+  const [y, m, d] = date.split('-').map(Number)
+  const nextDate = new Date(Date.UTC(y, m - 1, d + 1)).toISOString().slice(0, 10)
 
   const response = await calendar.events.list({
     calendarId,
-    timeMin: new Date(timeMin).toISOString(),
-    timeMax: new Date(timeMax).toISOString(),
+    timeMin: torontoMidnightUTC(date).toISOString(),
+    timeMax: torontoMidnightUTC(nextDate).toISOString(),
     timeZone: TIMEZONE,
     singleEvents: true,
     orderBy: 'startTime',

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { signOut } from 'next-auth/react'
+import { DatePickerInput } from '@/components/ui/DatePickerInput'
 
 // ── Availability tab types & helpers ──────────────────────────────────────────
 
@@ -407,10 +408,9 @@ export default function AdminDashboard({ email }: { email?: string }) {
       {activeTab === 'past' && (
         <div className="mb-5 flex items-center gap-3">
           <label className="text-sm text-gray-600 font-medium">Show bookings up to:</label>
-          <input
-            type="date"
+          <DatePickerInput
             value={pastDate}
-            onChange={e => handleDateChange(e.target.value)}
+            onChange={handleDateChange}
             className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]"
           />
         </div>
