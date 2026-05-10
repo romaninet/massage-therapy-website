@@ -66,29 +66,32 @@ afterEach(() => {
 })
 
 describe('AdminDashboard', () => {
-  it('renders Upcoming and Past tabs', async () => {
+  it('renders all four tabs', async () => {
     render(<AdminDashboard />)
     await waitFor(() => {
-      expect(screen.getByText('Upcoming')).toBeInTheDocument()
+      expect(screen.getByText('Pending')).toBeInTheDocument()
+      expect(screen.getByText('Confirmed')).toBeInTheDocument()
       expect(screen.getByText('Past')).toBeInTheDocument()
+      expect(screen.getByText('Availability')).toBeInTheDocument()
     })
   })
 
-  it('shows Pending Requests and Confirmed Bookings sections on Upcoming tab', async () => {
+  it('shows Pending and Confirmed tab buttons', async () => {
     render(<AdminDashboard />)
     await waitFor(() => {
-      expect(screen.getByText('Pending Requests')).toBeInTheDocument()
-      expect(screen.getByText('Confirmed Bookings')).toBeInTheDocument()
+      expect(screen.getByText('Pending')).toBeInTheDocument()
+      expect(screen.getByText('Confirmed')).toBeInTheDocument()
     })
   })
 
-  it('Past tab is visible and has a date input', async () => {
+  it('Past tab is visible and has month/year selects', async () => {
     const user = userEvent.setup()
     render(<AdminDashboard />)
     await user.click(screen.getByText('Past'))
     await waitFor(() => {
-      const dateInput = document.querySelector('input[type="date"]')
-      expect(dateInput).toBeInTheDocument()
+      expect(screen.getByText('Period:')).toBeInTheDocument()
+      const selects = document.querySelectorAll('select')
+      expect(selects.length).toBeGreaterThanOrEqual(2)
     })
   })
 
@@ -102,7 +105,9 @@ describe('AdminDashboard', () => {
   })
 
   it('confirmed card shows client name, service, and Cancel Booking button', async () => {
+    const user = userEvent.setup()
     render(<AdminDashboard />)
+    await user.click(screen.getByText('Confirmed'))
     await waitFor(() => {
       expect(screen.getByText('Bob Tremblay')).toBeInTheDocument()
     })
@@ -151,6 +156,7 @@ describe('AdminDashboard', () => {
     global.fetch = makeUrlFetch([confirmedBooking])
 
     render(<AdminDashboard />)
+    await user.click(screen.getByText('Confirmed'))
     await waitFor(() => expect(screen.getByText('Bob Tremblay')).toBeInTheDocument())
 
     await user.click(screen.getByText('Cancel Booking'))
