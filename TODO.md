@@ -137,7 +137,6 @@ After creating each, log it in [README.md](README.md) under "Backlinks & Directo
 - couples massage bookings should probably have a message saying that it must be booked with contact form
 - when cancelling booking -suggest other days
 - change the booking flow (present days)
-- translate admin to EN/FR
 - last screen on bookings, press on language -goes away
 
 

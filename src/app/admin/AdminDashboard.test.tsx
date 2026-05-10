@@ -59,9 +59,11 @@ function makeUrlFetch(
 beforeEach(() => {
   global.fetch = makeUrlFetch()
   mockSignOut.mockReset()
+  localStorage.setItem('adminLocale', 'en')
 })
 
 afterEach(() => {
+  localStorage.removeItem('adminLocale')
   vi.restoreAllMocks()
 })
 
@@ -69,25 +71,25 @@ describe('AdminDashboard', () => {
   it('renders all four tabs', async () => {
     render(<AdminDashboard />)
     await waitFor(() => {
-      expect(screen.getByText('Pending')).toBeInTheDocument()
-      expect(screen.getByText('Confirmed')).toBeInTheDocument()
-      expect(screen.getByText('Past')).toBeInTheDocument()
-      expect(screen.getByText('Availability')).toBeInTheDocument()
+      expect(screen.getByTestId('tab-pending')).toBeInTheDocument()
+      expect(screen.getByTestId('tab-confirmed')).toBeInTheDocument()
+      expect(screen.getByTestId('tab-past')).toBeInTheDocument()
+      expect(screen.getByTestId('tab-availability')).toBeInTheDocument()
     })
   })
 
   it('shows Pending and Confirmed tab buttons', async () => {
     render(<AdminDashboard />)
     await waitFor(() => {
-      expect(screen.getByText('Pending')).toBeInTheDocument()
-      expect(screen.getByText('Confirmed')).toBeInTheDocument()
+      expect(screen.getByTestId('tab-pending')).toBeInTheDocument()
+      expect(screen.getByTestId('tab-confirmed')).toBeInTheDocument()
     })
   })
 
   it('Past tab is visible and has month/year selects', async () => {
     const user = userEvent.setup()
     render(<AdminDashboard />)
-    await user.click(screen.getByText('Past'))
+    await user.click(screen.getByTestId('tab-past'))
     await waitFor(() => {
       expect(screen.getByText('Period:')).toBeInTheDocument()
       const selects = document.querySelectorAll('select')
@@ -107,7 +109,7 @@ describe('AdminDashboard', () => {
   it('confirmed card shows client name, service, and Cancel Booking button', async () => {
     const user = userEvent.setup()
     render(<AdminDashboard />)
-    await user.click(screen.getByText('Confirmed'))
+    await user.click(screen.getByTestId('tab-confirmed'))
     await waitFor(() => {
       expect(screen.getByText('Bob Tremblay')).toBeInTheDocument()
     })
@@ -162,7 +164,7 @@ describe('AdminDashboard', () => {
     global.fetch = makeUrlFetch([confirmedBooking])
 
     render(<AdminDashboard />)
-    await user.click(screen.getByText('Confirmed'))
+    await user.click(screen.getByTestId('tab-confirmed'))
     await waitFor(() => expect(screen.getByText('Bob Tremblay')).toBeInTheDocument())
 
     await user.click(screen.getByText('Cancel Booking'))
@@ -342,7 +344,7 @@ describe('AdminDashboard', () => {
   describe('Availability tab — add-block form validation', () => {
     async function openAddFormOnFutureDay(user: ReturnType<typeof userEvent.setup>) {
       // Switch to Availability tab, go to next month (all days are future)
-      await user.click(screen.getByText('Availability'))
+      await user.click(screen.getByTestId('tab-availability'))
       await user.click(screen.getByText('Next →'))
       // Wait for the calendar to render, then click day 15
       await waitFor(() => expect(screen.getAllByText('15')[0]).toBeInTheDocument())
@@ -422,7 +424,7 @@ describe('AdminDashboard', () => {
     }
 
     async function openDayWithBlock(user: ReturnType<typeof userEvent.setup>) {
-      await user.click(screen.getByText('Availability'))
+      await user.click(screen.getByTestId('tab-availability'))
       await user.click(screen.getByText('Next →'))
       await waitFor(() => expect(screen.getAllByText('15')[0]).toBeInTheDocument())
       await user.click(screen.getAllByText('15')[0])

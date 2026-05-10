@@ -920,6 +920,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
       {/* Tabs */}
       <div className="flex border-b border-gray-200 mb-6 gap-px flex-wrap">
         <button
+          data-testid="tab-pending"
           onClick={() => setActiveTab('pending')}
           className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors rounded-t-md flex items-center gap-2 ${
             activeTab === 'pending'
@@ -935,6 +936,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
           )}
         </button>
         <button
+          data-testid="tab-confirmed"
           onClick={() => setActiveTab('confirmed')}
           className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors rounded-t-md flex items-center gap-2 ${
             activeTab === 'confirmed'
@@ -955,6 +957,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
         ] as const).map(({ key, label }) => (
           <button
             key={key}
+            data-testid={`tab-${key}`}
             onClick={() => setActiveTab(key)}
             className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors rounded-t-md ${
               activeTab === key
