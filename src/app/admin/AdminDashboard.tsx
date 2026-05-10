@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { signOut } from 'next-auth/react'
 import { DatePickerInput } from '@/components/ui/DatePickerInput'
 
@@ -18,16 +18,20 @@ interface CalendarDay {
   blocks: OpenBlock[]
 }
 
-function getMonthTabs(): { key: string; label: string }[] {
-  const tabs = []
+function currentMonthKey(): string {
   const now = new Date()
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() + i, 1)
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-    const label = d.toLocaleString('en-CA', { month: 'long', year: 'numeric' })
-    tabs.push({ key, label })
-  }
-  return tabs
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+}
+
+function addMonths(key: string, n: number): string {
+  const [y, m] = key.split('-').map(Number)
+  const d = new Date(y, m - 1 + n, 1)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+}
+
+function monthLabel(key: string): string {
+  const [y, m] = key.split('-').map(Number)
+  return new Date(y, m - 1, 1).toLocaleString('en-CA', { month: 'long', year: 'numeric' })
 }
 
 function buildCalendarGrid(year: number, month: number, blocks: OpenBlock[]): CalendarDay[][] {
@@ -63,21 +67,31 @@ function buildCalendarGrid(year: number, month: number, blocks: OpenBlock[]): Ca
 
 
 function AvailabilityTab() {
-  const monthTabs = getMonthTabs()
-  const [activeMonth, setActiveMonth] = useState(monthTabs[0].key)
-  const [blocks, setBlocks] = useState<OpenBlock[]>([])
+  const MIN_MONTH = currentMonthKey()
+  const MAX_MONTH = addMonths(MIN_MONTH, 12)
 
+  const [activeMonth, setActiveMonth] = useState(MIN_MONTH)
+  const [blocks, setBlocks] = useState<OpenBlock[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [lastFetched, setLastFetched] = useState<Date | null>(null)
+  const cacheRef = useRef<Map<string, OpenBlock[]>>(new Map())
 
-  const fetchBlocks = useCallback(async (month: string) => {
+  const fetchBlocks = useCallback(async (month: string, forceRefresh = false) => {
+    if (!forceRefresh && cacheRef.current.has(month)) {
+      setBlocks(cacheRef.current.get(month)!)
+      return
+    }
     setLoading(true)
     setError(null)
     try {
       const res = await fetch(`/api/admin/availability?month=${month}`)
       if (!res.ok) throw new Error(`Failed to load availability (${res.status})`)
       const data = await res.json()
-      setBlocks(data.blocks ?? [])
+      const b = data.blocks ?? []
+      cacheRef.current.set(month, b)
+      setBlocks(b)
+      setLastFetched(new Date())
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
@@ -90,26 +104,45 @@ function AvailabilityTab() {
   const [year, mon] = activeMonth.split('-').map(Number)
   const grid = buildCalendarGrid(year, mon, blocks)
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Toronto' })
-
   const DOW_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+  const canGoPrev = activeMonth > MIN_MONTH
+  const canGoNext = activeMonth < MAX_MONTH
 
   return (
     <div>
-      {/* Month sub-tabs */}
-      <div className="flex flex-wrap gap-1 mb-6">
-        {monthTabs.map(t => (
-          <button
-            key={t.key}
-            onClick={() => setActiveMonth(t.key)}
-            className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-              activeMonth === t.key
-                ? 'bg-[#2D6A4F] text-white'
-                : 'bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6]'
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
+      {/* Month navigation */}
+      <div className="flex items-center gap-3 mb-6">
+        <button
+          onClick={() => setActiveMonth(m => addMonths(m, -1))}
+          disabled={!canGoPrev || loading}
+          className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          ← Prev
+        </button>
+        <span className="text-base font-semibold text-[#2D6A4F] min-w-[160px] text-center">
+          {monthLabel(activeMonth)}
+        </span>
+        <button
+          onClick={() => setActiveMonth(m => addMonths(m, 1))}
+          disabled={!canGoNext || loading}
+          className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          Next →
+        </button>
+        <button
+          onClick={() => fetchBlocks(activeMonth, true)}
+          disabled={loading}
+          className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          title="Fetch fresh data from calendar"
+        >
+          ↺ Refresh
+        </button>
+        {lastFetched && !loading && (
+          <span className="text-xs text-gray-400">
+            Updated {lastFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+          </span>
+        )}
       </div>
 
       {loading && (
@@ -123,7 +156,6 @@ function AvailabilityTab() {
       )}
       {error && <p className="text-red-600 text-sm py-4">{error}</p>}
 
-
       {!loading && !error && (
         <>
           {blocks.length === 0 ? (
@@ -131,16 +163,13 @@ function AvailabilityTab() {
           ) : (
             <>
               <p className="text-xs text-gray-400 mb-4">{blocks.length} open block{blocks.length !== 1 ? 's' : ''} this month</p>
-              {/* Calendar grid */}
               <div className="overflow-x-auto">
                 <div className="min-w-[560px]">
-                  {/* Day-of-week header */}
                   <div className="grid grid-cols-7 gap-1 mb-1">
                     {DOW_LABELS.map(d => (
                       <div key={d} className="text-center text-xs font-semibold text-gray-500 py-1">{d}</div>
                     ))}
                   </div>
-                  {/* Weeks */}
                   {grid.map((week, wi) => (
                     <div key={wi} className="grid grid-cols-7 gap-1 mb-1">
                       {week.map((day, di) => {
