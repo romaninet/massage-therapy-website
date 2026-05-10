@@ -284,6 +284,12 @@ export async function getEvent(eventId: string): Promise<CalendarEvent | null> {
     const response = await calendar.events.get({ calendarId, eventId })
 
     const ms = elapsed(t0)
+
+    if (response.data.status === 'cancelled') {
+      gcalLog('getEvent', `event is cancelled (deleted)`, { eventId })
+      return null
+    }
+
     const ev = toCalendarEvent(response.data)
 
     if (ms > SLOW_MS) gcalWarn('getEvent', `slow response ${ms}ms`, { eventId, title: ev.title })

@@ -2,7 +2,7 @@ import { Resend } from 'resend'
 import { BUSINESS, BOOKING, SITE } from './config'
 import { signToken } from './bookingTokens'
 
-const FROM_ADDRESS = `Olha Shelest Massage <booking@shelestwellness.ca>`
+const FROM_ADDRESS = `Massage Booking Request <massage@shelestwellness.ca>`
 
 export interface BookingDetails {
   clientName: string
@@ -36,9 +36,9 @@ function formatDate(d: Date): string {
 function formatTime(d: Date): string {
   return new Intl.DateTimeFormat('en-CA', {
     timeZone: TZ,
-    hour: 'numeric',
+    hour: '2-digit',
     minute: '2-digit',
-    hour12: true,
+    hour12: false,
   }).format(d)
 }
 
@@ -50,7 +50,7 @@ function getResend(): Resend {
 
 // ── sendBookingRequestEmail (to Olha) ─────────────────────────────────────────
 
-export async function sendBookingRequestEmail(booking: BookingDetails): Promise<void> {
+export async function sendBookingRequestEmail(booking: BookingDetails, baseUrl?: string): Promise<void> {
   const {
     clientName, clientEmail, clientPhone, clientNotes,
     serviceName, durationMinutes,
@@ -62,49 +62,69 @@ export async function sendBookingRequestEmail(booking: BookingDetails): Promise<
   const date = formatDate(sessionStart)
   const subject = `New Booking Request — ${clientName}, ${serviceName} ${durationMinutes}min, ${date}`
 
-  const acceptUrl = `${SITE.url}/api/booking/confirm?eventId=${encodeURIComponent(eventId)}&sig=${signToken(eventId)}`
-  const declineUrl = `${SITE.url}/api/booking/decline?eventId=${encodeURIComponent(eventId)}&sig=${signToken(eventId)}`
+  const origin = baseUrl ?? SITE.url
+  const acceptUrl = `${origin}/api/booking/confirm?eventId=${encodeURIComponent(eventId)}&sig=${signToken(eventId)}`
+  const declineUrl = `${origin}/api/booking/decline?eventId=${encodeURIComponent(eventId)}&sig=${signToken(eventId)}`
 
   const breakDuration = BOOKING.breakAfterSession
 
   const html = `
-<!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><style>
-  body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-  td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
-  td:first-child { font-weight: bold; width: 40%; background: #f5f5f5; }
-  .btn { display: inline-block; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 16px; margin: 8px; }
-  .accept { background: #2D6A4F; color: #fff; }
-  .decline { background: #b91c1c; color: #fff; }
-  h2 { color: #2D6A4F; }
-</style></head>
-<body>
-  <h2>New Booking Request</h2>
-  <table>
-    <tr><td>Client Name</td><td>${clientName}</td></tr>
-    <tr><td>Phone</td><td>${clientPhone}</td></tr>
-    <tr><td>Email</td><td>${clientEmail}</td></tr>
-    <tr><td>Service</td><td>${serviceName}</td></tr>
-    <tr><td>Duration</td><td>${durationMinutes} min</td></tr>
-    <tr><td>Session Start</td><td>${formatTime(sessionStart)}</td></tr>
-    <tr><td>Session End</td><td>${formatTime(sessionEnd)}</td></tr>
-    <tr><td>Session Duration</td><td>${durationMinutes} min</td></tr>
-    <tr><td>Break Start</td><td>${formatTime(breakStart)}</td></tr>
-    <tr><td>Break End</td><td>${formatTime(breakEnd)}</td></tr>
-    <tr><td>Break Duration</td><td>${breakDuration} min</td></tr>
-    ${clientNotes ? `<tr><td>Client Notes</td><td>${clientNotes}</td></tr>` : ''}
-  </table>
-  <p style="margin-top: 24px; text-align: center;">
-    <a class="btn accept" href="${acceptUrl}">Accept Booking</a>
-    <a class="btn decline" href="${declineUrl}">Decline Booking</a>
-  </p>
-  <hr style="margin-top:32px; border:none; border-top:1px solid #eee;" />
-  <p style="font-size:12px; color:#999;">Accept URL: <a href="${acceptUrl}">${acceptUrl}</a></p>
-  <p style="font-size:12px; color:#999;">Decline URL: <a href="${declineUrl}">${declineUrl}</a></p>
-</body>
-</html>`
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #FAF9F5; border: 1px solid #d4e6dc; border-radius: 8px;">
+      <div style="background: #2D6A4F; padding: 24px 32px; border-radius: 6px 6px 0 0; margin: -32px -32px 32px -32px;">
+        <h1 style="color: white; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: 0.5px;">
+          New Massage Booking Request
+        </h1>
+        <p style="color: rgba(255,255,255,0.6); margin: 6px 0 0; font-size: 13px; font-family: sans-serif;">
+          Olha Shelest — Massage Therapy
+        </p>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 14px;">
+        <tr>
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; width: 140px; vertical-align: top;">Client Name</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${clientName}</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Phone</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${clientPhone}</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Email</td>
+          <td style="padding: 10px 0;"><a href="mailto:${clientEmail}" style="color: #2D6A4F;">${clientEmail}</a></td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Service</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${serviceName}</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Duration</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${durationMinutes} min</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Date</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${date}</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Session</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${formatTime(sessionStart)} – ${formatTime(sessionEnd)}</td>
+        </tr>
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Break</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${formatTime(breakStart)} – ${formatTime(breakEnd)} (${breakDuration} min)</td>
+        </tr>
+        ${clientNotes ? `
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Notes</td>
+          <td style="padding: 10px 0; color: #1a2e25; white-space: pre-wrap;">${clientNotes}</td>
+        </tr>` : ''}
+      </table>
+      <div style="margin-top: 24px; text-align: center;">
+        <a href="${acceptUrl}" style="display: inline-block; padding: 12px 28px; background: #2D6A4F; color: #fff; text-decoration: none; font-family: sans-serif; font-size: 15px; font-weight: 600; border-radius: 4px; margin: 0 8px;">Accept Booking</a>
+        <a href="${declineUrl}" style="display: inline-block; padding: 12px 28px; background: #b91c1c; color: #fff; text-decoration: none; font-family: sans-serif; font-size: 15px; font-weight: 600; border-radius: 4px; margin: 0 8px;">Decline Booking</a>
+      </div>
+      <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #d4e6dc; font-family: sans-serif; font-size: 12px; color: #999;">
+        Sent from the booking form at ${SITE.url}
+      </div>
+    </div>`
 
   const resend = getResend()
   const { error } = await resend.emails.send({

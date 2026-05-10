@@ -3,7 +3,7 @@ import { getEvent, deleteEvent } from '@/lib/googleCalendar'
 import { verifyToken } from '@/lib/bookingTokens'
 import { sendBookingDeclineEmail } from '@/lib/bookingEmails'
 import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
-import { htmlResponse, jsonResponse } from '@/lib/routeHelpers'
+import { htmlResponse, jsonResponse, confirmationPage, alreadyHandledPage, successPage } from '@/lib/routeHelpers'
 
 export async function GET(request: Request) {
   if (!BOOKING.showBookingsAdmin) {
@@ -13,6 +13,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const eventId = searchParams.get('eventId')
   const sig = searchParams.get('sig')
+  const confirmed = searchParams.get('confirmed') === '1'
 
   if (!eventId || !sig) {
     return jsonResponse({ error: 'missing_params' }, 400)
@@ -26,12 +27,12 @@ export async function GET(request: Request) {
   // Get event
   const event = await getEvent(eventId)
   if (!event) {
-    return jsonResponse({ error: 'event_not_found' }, 404)
+    return htmlResponse(alreadyHandledPage())
   }
 
   // Must be PENDING
   if (!event.title.startsWith('[PENDING]')) {
-    return jsonResponse({ error: 'already_handled' }, 409)
+    return htmlResponse(alreadyHandledPage())
   }
 
   let bookingData: Record<string, unknown>
@@ -41,6 +42,16 @@ export async function GET(request: Request) {
     return jsonResponse({ error: 'invalid_event_data' }, 500)
   }
 
+  // Show confirmation page before taking action
+  if (!confirmed) {
+    const actionUrl = `${request.url}&confirmed=1`
+    const clientName = String(bookingData.clientName ?? 'this client')
+    const serviceName = String(bookingData.serviceName ?? '')
+    const durationMinutes = bookingData.durationMinutes ?? ''
+    const startTime = event.start ? new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(event.start) : ''
+    return htmlResponse(confirmationPage('decline', clientName, serviceName, durationMinutes, startTime, actionUrl))
+  }
+
   const booking = bookingDetailsFromEvent(eventId, event, bookingData)
 
   await sendBookingDeclineEmail(booking)
@@ -48,12 +59,5 @@ export async function GET(request: Request) {
   // Delete event
   await deleteEvent(eventId)
 
-  return htmlResponse(`<!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><title>Request Declined</title></head>
-<body style="font-family:Arial,sans-serif;max-width:600px;margin:40px auto;padding:0 20px;color:#333;">
-  <h1 style="color:#b91c1c;">Request declined</h1>
-  <p>Client has been notified.</p>
-</body>
-</html>`)
+  return htmlResponse(successPage('decline', booking.clientName))
 }

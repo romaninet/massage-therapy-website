@@ -141,6 +141,10 @@ export async function POST(request: Request) {
     description,
   })
 
+  const proto = request.headers.get('x-forwarded-proto') ?? 'http'
+  const host = request.headers.get('host') ?? 'localhost:3000'
+  const baseUrl = `${proto}://${host}`
+
   await sendBookingRequestEmail({
     clientName,
     clientEmail,
@@ -154,7 +158,7 @@ export async function POST(request: Request) {
     breakStart,
     breakEnd,
     eventId,
-  })
+  }, baseUrl)
 
   return NextResponse.json({ success: true })
 }
