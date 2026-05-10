@@ -691,19 +691,33 @@ export default function AdminDashboard({ email }: { email?: string }) {
   const [pastYear, setPastYear] = useState(CURRENT_YEAR)
   const [pastMonthNum, setPastMonthNum] = useState(CURRENT_MONTH)
   const [detailsBooking, setDetailsBooking] = useState<Booking | null>(null)
+  const [lastPastFetched, setLastPastFetched] = useState<Date | null>(null)
+  const pastCacheRef = useRef<Map<string, Booking[]>>(new Map())
 
   const pastMonthKey = `${pastYear}-${String(pastMonthNum).padStart(2, '0')}`
 
-  const fetchBookings = useCallback(async (view: 'future' | 'past', month?: string) => {
+  const fetchBookings = useCallback(async (view: 'future' | 'past', month?: string, forceRefresh = false) => {
+    const cacheKey = view === 'past' && month ? month : '__future__'
+
+    if (!forceRefresh && view === 'past' && pastCacheRef.current.has(cacheKey)) {
+      setBookings(pastCacheRef.current.get(cacheKey)!)
+      return
+    }
+
     setLoading(true)
     setError(null)
     try {
       const params = new URLSearchParams({ view })
       if (month) params.set('month', month)
-      const res = await fetch(`/api/admin/bookings?${params}`)
+      const res = await fetch(`/api/admin/bookings?${params}`, { cache: 'no-store' })
       if (!res.ok) throw new Error(`Failed to load bookings (${res.status})`)
       const data = await res.json()
-      setBookings(data.bookings ?? data)
+      const fetched: Booking[] = data.bookings ?? data
+      setBookings(fetched)
+      if (view === 'past' && month) {
+        pastCacheRef.current.set(cacheKey, fetched)
+        setLastPastFetched(new Date())
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
@@ -785,7 +799,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
 
       {/* Past month/year picker */}
       {activeTab === 'past' && (
-        <div className="mb-5 flex items-center gap-2">
+        <div className="mb-5 flex items-center gap-2 flex-wrap">
           <label className="text-sm text-gray-600 font-medium">Period:</label>
           <select
             value={pastMonthNum}
@@ -811,6 +825,19 @@ export default function AdminDashboard({ email }: { email?: string }) {
               <option key={y} value={y}>{y}</option>
             ))}
           </select>
+          <button
+            onClick={() => fetchBookings('past', pastMonthKey, true)}
+            disabled={loading}
+            className="ml-2 px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            title="Fetch fresh data from calendar"
+          >
+            ↺ Refresh
+          </button>
+          {lastPastFetched && !loading && (
+            <span className="text-xs text-gray-400">
+              Updated {lastPastFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          )}
         </div>
       )}
 

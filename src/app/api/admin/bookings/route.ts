@@ -27,7 +27,8 @@ export async function GET(req: NextRequest) {
   const view = searchParams.get('view') ?? 'future'
   const dateParam = searchParams.get('date')
 
-  const today = new Date()
+  const now = new Date()
+  const today = new Date(now)
   today.setHours(0, 0, 0, 0)
 
   let start: Date
@@ -52,6 +53,8 @@ export async function GET(req: NextRequest) {
       start.setDate(start.getDate() - 30)
       start.setHours(0, 0, 0, 0)
     }
+    // Cap at current moment — for current month, never include ongoing or future sessions
+    if (end > now) end = now
   } else {
     start = today
     end = new Date(today)
@@ -67,6 +70,8 @@ export async function GET(req: NextRequest) {
 
     if (view === 'future' && !isPending && !isConfirmed) continue
     if (view === 'past' && !isConfirmed) continue
+    // For current month: only include sessions whose end time has already passed
+    if (view === 'past' && event.end > now) continue
 
     let details: Record<string, unknown> = {}
     try {
