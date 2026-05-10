@@ -6,6 +6,22 @@ import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEve
 import { htmlResponse, jsonResponse } from '@/lib/routeHelpers'
 
 export async function GET(request: Request) {
+  try {
+    return await handleConfirm(request)
+  } catch (err) {
+    console.error('[booking/confirm] unhandled error:', err)
+    return htmlResponse(`<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Error</title></head>
+<body style="font-family:Arial,sans-serif;max-width:600px;margin:40px auto;padding:0 20px;color:#333;">
+  <h1 style="color:#b91c1c;">Something went wrong</h1>
+  <p>Could not process the booking confirmation. Please try again or use the admin dashboard.</p>
+</body>
+</html>`, 500)
+  }
+}
+
+async function handleConfirm(request: Request): Promise<Response> {
   if (!BOOKING.showBookingsAdmin) {
     return jsonResponse({ error: 'booking_disabled' }, 503)
   }

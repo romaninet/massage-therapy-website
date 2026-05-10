@@ -18,6 +18,32 @@ export interface CreateEventParams {
 }
 
 const TIMEZONE = 'America/Toronto'
+const SLOW_MS = 2000
+
+function gcalLog(fn: string, msg: string, extra?: Record<string, unknown>) {
+  const parts = [`[gcal] ${fn}: ${msg}`]
+  if (extra) parts.push(JSON.stringify(extra))
+  console.log(parts.join(' '))
+}
+
+function gcalWarn(fn: string, msg: string, extra?: Record<string, unknown>) {
+  const parts = [`[gcal][WARN] ${fn}: ${msg}`]
+  if (extra) parts.push(JSON.stringify(extra))
+  console.warn(parts.join(' '))
+}
+
+function gcalError(fn: string, msg: string, err: unknown) {
+  const e = err as { status?: unknown; code?: unknown; message?: unknown }
+  console.error(`[gcal][ERROR] ${fn}: ${msg}`, {
+    status: e.status,
+    code: e.code,
+    message: e.message,
+  })
+}
+
+function elapsed(start: number): number {
+  return Math.round(Date.now() - start)
+}
 
 function getCalendarClient() {
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
@@ -62,10 +88,6 @@ function toCalendarEvent(event: {
   }
 }
 
-/**
- * List all events for a specific date (midnight-to-midnight in America/Toronto timezone).
- * @param date - Format: 'YYYY-MM-DD'
- */
 /** Returns the UTC Date corresponding to midnight on `dateStr` in Toronto time. */
 function torontoMidnightUTC(dateStr: string): Date {
   // Probe noon UTC — always falls on the same Toronto calendar day (Toronto is UTC-4/UTC-5).
@@ -84,131 +106,196 @@ function torontoMidnightUTC(dateStr: string): Date {
 
 export async function listEventsForDate(date: string): Promise<CalendarEvent[]> {
   const { calendar, calendarId } = getCalendarClient()
+  const t0 = Date.now()
 
-  // Use exact Toronto midnight-to-midnight bounds (accounts for EDT/EST automatically).
+  const timeMin = torontoMidnightUTC(date).toISOString()
   const [y, m, d] = date.split('-').map(Number)
   const nextDate = new Date(Date.UTC(y, m - 1, d + 1)).toISOString().slice(0, 10)
+  const timeMax = torontoMidnightUTC(nextDate).toISOString()
 
-  const response = await calendar.events.list({
-    calendarId,
-    timeMin: torontoMidnightUTC(date).toISOString(),
-    timeMax: torontoMidnightUTC(nextDate).toISOString(),
-    timeZone: TIMEZONE,
-    singleEvents: true,
-    orderBy: 'startTime',
-  })
+  gcalLog('listEventsForDate', 'calling events.list', { date, timeMin, timeMax })
 
-  const items = response.data.items ?? []
-  return items.map(toCalendarEvent)
+  try {
+    const response = await calendar.events.list({
+      calendarId,
+      timeMin,
+      timeMax,
+      timeZone: TIMEZONE,
+      singleEvents: true,
+      orderBy: 'startTime',
+    })
+
+    const ms = elapsed(t0)
+    const items = response.data.items ?? []
+
+    if (ms > SLOW_MS) gcalWarn('listEventsForDate', `slow response ${ms}ms`, { date, count: items.length })
+    else gcalLog('listEventsForDate', `done in ${ms}ms`, { date, count: items.length })
+
+    return items.map(toCalendarEvent)
+  } catch (err) {
+    gcalError('listEventsForDate', `failed after ${elapsed(t0)}ms`, err)
+    throw err
+  }
 }
 
-/**
- * Create a new calendar event.
- * @returns The created event's ID.
- */
 export async function createEvent(params: CreateEventParams): Promise<string> {
   const { calendar, calendarId } = getCalendarClient()
+  const t0 = Date.now()
 
-  const response = await calendar.events.insert({
-    calendarId,
-    requestBody: {
-      summary: params.title,
-      start: {
-        dateTime: params.start.toISOString(),
-        timeZone: TIMEZONE,
-      },
-      end: {
-        dateTime: params.end.toISOString(),
-        timeZone: TIMEZONE,
-      },
-      colorId: params.colorId,
-      description: params.description,
-    },
+  gcalLog('createEvent', 'calling events.insert', {
+    title: params.title,
+    start: params.start.toISOString(),
+    end: params.end.toISOString(),
   })
 
-  return response.data.id ?? ''
+  try {
+    const response = await calendar.events.insert({
+      calendarId,
+      requestBody: {
+        summary: params.title,
+        start: { dateTime: params.start.toISOString(), timeZone: TIMEZONE },
+        end: { dateTime: params.end.toISOString(), timeZone: TIMEZONE },
+        colorId: params.colorId,
+        description: params.description,
+      },
+    })
+
+    const ms = elapsed(t0)
+    const id = response.data.id ?? ''
+
+    if (ms > SLOW_MS) gcalWarn('createEvent', `slow response ${ms}ms`, { id, title: params.title })
+    else gcalLog('createEvent', `done in ${ms}ms`, { id, title: params.title })
+
+    return id
+  } catch (err) {
+    gcalError('createEvent', `failed after ${elapsed(t0)}ms`, err)
+    throw err
+  }
 }
 
-/**
- * Update an existing event (patch — partial update).
- */
 export async function updateEvent(
   eventId: string,
   params: Partial<CreateEventParams>
 ): Promise<void> {
   const { calendar, calendarId } = getCalendarClient()
+  const t0 = Date.now()
 
-  await calendar.events.patch({
-    calendarId,
+  gcalLog('updateEvent', 'calling events.patch', {
     eventId,
-    requestBody: {
-      ...(params.title !== undefined && { summary: params.title }),
-      ...(params.start !== undefined && {
-        start: { dateTime: params.start.toISOString(), timeZone: TIMEZONE },
-      }),
-      ...(params.end !== undefined && {
-        end: { dateTime: params.end.toISOString(), timeZone: TIMEZONE },
-      }),
-      ...(params.colorId !== undefined && { colorId: params.colorId }),
-      ...(params.description !== undefined && { description: params.description }),
-    },
+    title: params.title,
+    colorId: params.colorId,
   })
-}
-
-/**
- * Delete an event by ID.
- */
-export async function deleteEvent(eventId: string): Promise<void> {
-  const { calendar, calendarId } = getCalendarClient()
-
-  await calendar.events.delete({
-    calendarId,
-    eventId,
-  })
-}
-
-/**
- * List all events between two Date objects (handles pagination).
- */
-export async function listEventsInRange(timeMin: Date, timeMax: Date): Promise<CalendarEvent[]> {
-  const { calendar, calendarId } = getCalendarClient()
-
-  const allItems: Array<Parameters<typeof toCalendarEvent>[0]> = []
-  let pageToken: string | undefined
-
-  do {
-    const response = await calendar.events.list({
-      calendarId,
-      timeMin: timeMin.toISOString(),
-      timeMax: timeMax.toISOString(),
-      timeZone: TIMEZONE,
-      singleEvents: true,
-      orderBy: 'startTime',
-      maxResults: 250,
-      pageToken,
-    })
-    allItems.push(...(response.data.items ?? []))
-    pageToken = response.data.nextPageToken ?? undefined
-  } while (pageToken)
-
-  return allItems.map(toCalendarEvent)
-}
-
-/**
- * Get a single event by ID. Returns null if not found.
- */
-export async function getEvent(eventId: string): Promise<CalendarEvent | null> {
-  const { calendar, calendarId } = getCalendarClient()
 
   try {
-    const response = await calendar.events.get({
+    await calendar.events.patch({
       calendarId,
       eventId,
+      requestBody: {
+        ...(params.title !== undefined && { summary: params.title }),
+        ...(params.start !== undefined && {
+          start: { dateTime: params.start.toISOString(), timeZone: TIMEZONE },
+        }),
+        ...(params.end !== undefined && {
+          end: { dateTime: params.end.toISOString(), timeZone: TIMEZONE },
+        }),
+        ...(params.colorId !== undefined && { colorId: params.colorId }),
+        ...(params.description !== undefined && { description: params.description }),
+      },
     })
-    return toCalendarEvent(response.data)
+
+    const ms = elapsed(t0)
+    if (ms > SLOW_MS) gcalWarn('updateEvent', `slow response ${ms}ms`, { eventId })
+    else gcalLog('updateEvent', `done in ${ms}ms`, { eventId })
+  } catch (err) {
+    gcalError('updateEvent', `failed after ${elapsed(t0)}ms`, err)
+    throw err
+  }
+}
+
+export async function deleteEvent(eventId: string): Promise<void> {
+  const { calendar, calendarId } = getCalendarClient()
+  const t0 = Date.now()
+
+  gcalLog('deleteEvent', 'calling events.delete', { eventId })
+
+  try {
+    await calendar.events.delete({ calendarId, eventId })
+
+    const ms = elapsed(t0)
+    if (ms > SLOW_MS) gcalWarn('deleteEvent', `slow response ${ms}ms`, { eventId })
+    else gcalLog('deleteEvent', `done in ${ms}ms`, { eventId })
+  } catch (err) {
+    gcalError('deleteEvent', `failed after ${elapsed(t0)}ms`, err)
+    throw err
+  }
+}
+
+export async function listEventsInRange(timeMin: Date, timeMax: Date): Promise<CalendarEvent[]> {
+  const { calendar, calendarId } = getCalendarClient()
+  const t0 = Date.now()
+
+  gcalLog('listEventsInRange', 'calling events.list', {
+    timeMin: timeMin.toISOString(),
+    timeMax: timeMax.toISOString(),
+  })
+
+  try {
+    const allItems: Array<Parameters<typeof toCalendarEvent>[0]> = []
+    let pageToken: string | undefined
+    let page = 0
+
+    do {
+      page++
+      const response = await calendar.events.list({
+        calendarId,
+        timeMin: timeMin.toISOString(),
+        timeMax: timeMax.toISOString(),
+        timeZone: TIMEZONE,
+        singleEvents: true,
+        orderBy: 'startTime',
+        maxResults: 250,
+        pageToken,
+      })
+      allItems.push(...(response.data.items ?? []))
+      pageToken = response.data.nextPageToken ?? undefined
+      if (pageToken) gcalLog('listEventsInRange', `fetched page ${page}, continuing (nextPageToken present)`)
+    } while (pageToken)
+
+    const ms = elapsed(t0)
+    if (ms > SLOW_MS) gcalWarn('listEventsInRange', `slow response ${ms}ms`, { pages: page, count: allItems.length })
+    else gcalLog('listEventsInRange', `done in ${ms}ms`, { pages: page, count: allItems.length })
+
+    return allItems.map(toCalendarEvent)
+  } catch (err) {
+    gcalError('listEventsInRange', `failed after ${elapsed(t0)}ms`, err)
+    throw err
+  }
+}
+
+/** Get a single event by ID. Returns null if not found. */
+export async function getEvent(eventId: string): Promise<CalendarEvent | null> {
+  const { calendar, calendarId } = getCalendarClient()
+  const t0 = Date.now()
+
+  gcalLog('getEvent', 'calling events.get', { eventId })
+
+  try {
+    const response = await calendar.events.get({ calendarId, eventId })
+
+    const ms = elapsed(t0)
+    const ev = toCalendarEvent(response.data)
+
+    if (ms > SLOW_MS) gcalWarn('getEvent', `slow response ${ms}ms`, { eventId, title: ev.title })
+    else gcalLog('getEvent', `done in ${ms}ms`, { eventId, title: ev.title })
+
+    return ev
   } catch (err: unknown) {
-    const status = (err as { code?: number })?.code
-    if (status === 404) return null
+    const e = err as { code?: unknown; status?: unknown }
+    if (e.status === 404 || e.code === 404 || e.code === '404') {
+      gcalLog('getEvent', `event not found`, { eventId })
+      return null
+    }
+    gcalError('getEvent', `failed after ${elapsed(t0)}ms`, err)
     throw err
   }
 }

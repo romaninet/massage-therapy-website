@@ -97,6 +97,7 @@ export async function POST(request: Request) {
     }
   }).length
   if (pendingCount >= MAX_PENDING_PER_EMAIL) {
+    console.warn(`[booking/request] BLOCKED too_many_pending: ${clientEmail} has ${pendingCount} pending bookings (limit ${MAX_PENDING_PER_EMAIL})`)
     return NextResponse.json({ error: 'too_many_pending' }, { status: 400 })
   }
 
