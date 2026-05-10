@@ -21,11 +21,7 @@ const TIMEZONE = 'America/Toronto'
 const SLOW_MS = 2000
 const EVENT_FIELDS = 'items(id,summary,start/dateTime,end/dateTime,colorId,description),nextPageToken'
 
-function gcalLog(fn: string, msg: string, extra?: Record<string, unknown>) {
-  const parts = [`[gcal] ${fn}: ${msg}`]
-  if (extra) parts.push(JSON.stringify(extra))
-  console.log(parts.join(' '))
-}
+function gcalLog(_fn: string, _msg: string, _extra?: Record<string, unknown>) {}
 
 function gcalWarn(fn: string, msg: string, extra?: Record<string, unknown>) {
   const parts = [`[gcal][WARN] ${fn}: ${msg}`]
