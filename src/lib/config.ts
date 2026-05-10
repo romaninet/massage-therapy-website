@@ -222,7 +222,7 @@ export const BOOKING = {
     pending:      '5',   // Banana (yellow)
     confirmed:    '10',  // Basil (dark green)
     break:        '3',   // Grape (purple)
-    availability: '2',   // Sage (green)
+    availability: '8',   // Graphite
   },
   eventTitles: {
     pending:   '[PENDING]',
