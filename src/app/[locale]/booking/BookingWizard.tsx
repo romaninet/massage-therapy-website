@@ -253,6 +253,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
         nameInvalid: cf('validation.nameInvalid'),
         emailRequired: cf('validation.emailRequired'),
         emailInvalid: cf('validation.emailInvalid'),
+        phoneRequired: cf('validation.phoneRequired'),
         phoneInvalid: cf('validation.phoneInvalid'),
       }),
     };
@@ -549,7 +550,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
               <FormField
                 label={cf('phone')} name="phone" type="tel" value={contact.phone}
                 onChange={handleContactChange} onBlur={handlePhoneBlur}
-                placeholder={cf('phonePlaceholder')} autoComplete="tel" maxLength={17}
+                placeholder={t('phonePlaceholder')} autoComplete="tel" maxLength={17}
                 error={contactErrors.phone} data-testid="input-phone"
               />
 

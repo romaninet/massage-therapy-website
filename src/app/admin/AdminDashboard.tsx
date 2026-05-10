@@ -453,6 +453,7 @@ interface Booking {
   clientEmail: string
   clientPhone: string
   clientNotes?: string
+  preferredLanguage?: string
   serviceName: string
   durationMinutes: number
   sessionStart: string
@@ -550,7 +551,14 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-[#2D6A4F]">{booking.clientName}</p>
-          <p className="text-sm text-gray-600">{booking.clientEmail} · {booking.clientPhone}</p>
+          <p className="text-sm text-gray-600">
+            {booking.clientEmail} · {booking.clientPhone}
+            {booking.preferredLanguage && (
+              <span className="ml-2 inline-block px-1.5 py-0.5 text-xs rounded bg-[#2D6A4F]/10 text-[#2D6A4F] font-medium uppercase">
+                {booking.preferredLanguage}
+              </span>
+            )}
+          </p>
           <p className="text-sm text-gray-700 mt-1">
             {booking.serviceName} · {booking.durationMinutes} min
           </p>

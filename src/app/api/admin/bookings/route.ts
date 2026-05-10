@@ -12,6 +12,7 @@ export interface BookingSummary {
   clientEmail: string
   clientPhone: string
   clientNotes?: string
+  preferredLanguage?: string
   serviceName: string
   durationMinutes: number
   sessionStart: string
@@ -94,6 +95,7 @@ export async function GET(req: NextRequest) {
       clientEmail: String(details.clientEmail ?? ''),
       clientPhone: String(details.clientPhone ?? ''),
       clientNotes: details.clientNotes ? String(details.clientNotes) : undefined,
+      preferredLanguage: details.preferredLanguage ? String(details.preferredLanguage) : undefined,
       serviceName: String(details.serviceName ?? ''),
       durationMinutes: Number(details.durationMinutes ?? 0),
       sessionStart: event.start.toISOString(),

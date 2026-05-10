@@ -157,6 +157,7 @@
         "nameInvalid": "Veuillez entrer un nom valide (lettres uniquement)",
         "emailRequired": "L'adresse courriel est requise",
         "emailInvalid": "Veuillez entrer une adresse courriel valide",
+        "phoneRequired": "Le numéro de téléphone est requis",
         "phoneInvalid": "Veuillez entrer un numéro de téléphone valide",
         "messageRequired": "Le message est requis",
         "messageTooShort": "Le message doit contenir au moins 10 caractères"
@@ -432,6 +433,7 @@
     "back": "Retour",
     "next": "Suivant",
     "min": "min",
+    "phonePlaceholder": "ex. (819) 555-0123",
     "validation": {
       "langRequired": "Veuillez sélectionner une langue préférée"
     }
