@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { signOut } from 'next-auth/react'
-import { DatePickerInput } from '@/components/ui/DatePickerInput'
 
 // ── Availability tab types & helpers ──────────────────────────────────────────
 
@@ -476,10 +475,6 @@ function formatTime(iso: string): string {
   return new Date(iso).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })
 }
 
-function todayString(): string {
-  return new Date().toISOString().slice(0, 10)
-}
-
 interface BookingCardProps {
   booking: Booking
   onAccept?: (eventId: string) => void
@@ -619,19 +614,92 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
   )
 }
 
+const NOW = new Date()
+const CURRENT_YEAR = NOW.getFullYear()
+const CURRENT_MONTH = NOW.getMonth() + 1 // 1-based
+
+const YEAR_OPTIONS = Array.from({ length: 8 }, (_, i) => CURRENT_YEAR - i)
+const ALL_MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-5">
+          <h3 className="text-base font-semibold text-[#2D6A4F]">Booking Details</h3>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl leading-none">×</button>
+        </div>
+        <dl className="space-y-3 text-sm">
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Client</dt>
+            <dd className="text-gray-800 font-medium mt-0.5">{booking.clientName}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Email</dt>
+            <dd className="text-gray-700 mt-0.5">{booking.clientEmail}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Phone</dt>
+            <dd className="text-gray-700 mt-0.5">{booking.clientPhone}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Date & Time</dt>
+            <dd className="text-gray-700 mt-0.5">{formatDateTime(booking.sessionStart)} – {formatTime(booking.sessionEnd)}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Service</dt>
+            <dd className="text-gray-700 mt-0.5">{booking.serviceName}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Duration</dt>
+            <dd className="text-gray-700 mt-0.5">{booking.durationMinutes} min</dd>
+          </div>
+          {booking.clientNotes && (
+            <div>
+              <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Notes</dt>
+              <dd className="text-gray-700 mt-0.5 italic">"{booking.clientNotes}"</dd>
+            </div>
+          )}
+          <div>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Status</dt>
+            <dd className="mt-0.5">
+              <span className="inline-block px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800 font-medium capitalize">
+                {booking.status}
+              </span>
+            </dd>
+          </div>
+        </dl>
+        <button
+          onClick={onClose}
+          className="mt-6 w-full text-sm px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 transition-colors"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export default function AdminDashboard({ email }: { email?: string }) {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past' | 'availability'>('upcoming')
   const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [pastDate, setPastDate] = useState(todayString())
+  const [pastYear, setPastYear] = useState(CURRENT_YEAR)
+  const [pastMonthNum, setPastMonthNum] = useState(CURRENT_MONTH)
+  const [detailsBooking, setDetailsBooking] = useState<Booking | null>(null)
 
-  const fetchBookings = useCallback(async (view: 'future' | 'past', date?: string) => {
+  const pastMonthKey = `${pastYear}-${String(pastMonthNum).padStart(2, '0')}`
+
+  const fetchBookings = useCallback(async (view: 'future' | 'past', month?: string) => {
     setLoading(true)
     setError(null)
     try {
       const params = new URLSearchParams({ view })
-      if (date) params.set('date', date)
+      if (month) params.set('month', month)
       const res = await fetch(`/api/admin/bookings?${params}`)
       if (!res.ok) throw new Error(`Failed to load bookings (${res.status})`)
       const data = await res.json()
@@ -646,14 +714,23 @@ export default function AdminDashboard({ email }: { email?: string }) {
   useEffect(() => {
     if (activeTab === 'upcoming') {
       fetchBookings('future')
-    } else {
-      fetchBookings('past', pastDate)
+    } else if (activeTab === 'past') {
+      fetchBookings('past', pastMonthKey)
     }
   }, [activeTab, fetchBookings])
 
-  const handleDateChange = (date: string) => {
-    setPastDate(date)
-    fetchBookings('past', date)
+  const handleYearChange = (year: number) => {
+    const clampedMonth = year === CURRENT_YEAR ? Math.min(pastMonthNum, CURRENT_MONTH) : pastMonthNum
+    setPastYear(year)
+    setPastMonthNum(clampedMonth)
+    const key = `${year}-${String(clampedMonth).padStart(2, '0')}`
+    fetchBookings('past', key)
+  }
+
+  const handleMonthNumChange = (month: number) => {
+    setPastMonthNum(month)
+    const key = `${pastYear}-${String(month).padStart(2, '0')}`
+    fetchBookings('past', key)
   }
 
   const removeBooking = (eventId: string) => {
@@ -706,15 +783,34 @@ export default function AdminDashboard({ email }: { email?: string }) {
         ))}
       </div>
 
-      {/* Past date picker */}
+      {/* Past month/year picker */}
       {activeTab === 'past' && (
-        <div className="mb-5 flex items-center gap-3">
-          <label className="text-sm text-gray-600 font-medium">Show bookings up to:</label>
-          <DatePickerInput
-            value={pastDate}
-            onChange={handleDateChange}
-            className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]"
-          />
+        <div className="mb-5 flex items-center gap-2">
+          <label className="text-sm text-gray-600 font-medium">Period:</label>
+          <select
+            value={pastMonthNum}
+            onChange={e => handleMonthNumChange(Number(e.target.value))}
+            className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+          >
+            {ALL_MONTHS.map((name, i) => {
+              const monthNum = i + 1
+              const isFuture = pastYear === CURRENT_YEAR && monthNum > CURRENT_MONTH
+              return (
+                <option key={monthNum} value={monthNum} disabled={isFuture}>
+                  {name}
+                </option>
+              )
+            })}
+          </select>
+          <select
+            value={pastYear}
+            onChange={e => handleYearChange(Number(e.target.value))}
+            className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+          >
+            {YEAR_OPTIONS.map(y => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
         </div>
       )}
 
@@ -765,15 +861,32 @@ export default function AdminDashboard({ email }: { email?: string }) {
       {!loading && !error && activeTab === 'past' && (
         <div>
           {bookings.length === 0 ? (
-            <p className="text-sm text-gray-400">No bookings found</p>
+            <p className="text-sm text-gray-400">No bookings found for this month</p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {bookings.map(b => (
-                <BookingCard key={b.eventId} booking={b} readOnly />
+                <div key={b.eventId} className="flex items-center justify-between gap-4 bg-[#F0F7F4] rounded-lg px-4 py-3 border-l-4 border-green-600">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-[#2D6A4F] text-sm">{b.clientName}</p>
+                    <p className="text-xs text-gray-600 mt-0.5">
+                      {formatDateTime(b.sessionStart)} · {b.serviceName} · {b.durationMinutes} min
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setDetailsBooking(b)}
+                    className="flex-shrink-0 text-xs px-3 py-1.5 rounded border border-[#2D6A4F]/30 text-[#2D6A4F] hover:bg-[#2D6A4F] hover:text-white transition-colors font-medium"
+                  >
+                    Details
+                  </button>
+                </div>
               ))}
             </div>
           )}
         </div>
+      )}
+
+      {detailsBooking && (
+        <PastBookingDetails booking={detailsBooking} onClose={() => setDetailsBooking(null)} />
       )}
 
       {/* Always mounted so the fetch starts on page load — hidden until tab is active */}

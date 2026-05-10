@@ -34,11 +34,24 @@ export async function GET(req: NextRequest) {
   let end: Date
 
   if (view === 'past') {
-    end = dateParam ? new Date(dateParam) : new Date(today)
-    end.setHours(23, 59, 59, 999)
-    start = new Date(end)
-    start.setDate(start.getDate() - 30)
-    start.setHours(0, 0, 0, 0)
+    const monthParam = searchParams.get('month') // YYYY-MM
+    if (monthParam && /^\d{4}-\d{2}$/.test(monthParam)) {
+      const [y, m] = monthParam.split('-').map(Number)
+      start = new Date(y, m - 1, 1, 0, 0, 0, 0)
+      end = new Date(y, m, 0, 23, 59, 59, 999) // last day of month
+    } else if (dateParam) {
+      end = new Date(dateParam)
+      end.setHours(23, 59, 59, 999)
+      start = new Date(end)
+      start.setDate(start.getDate() - 30)
+      start.setHours(0, 0, 0, 0)
+    } else {
+      end = new Date(today)
+      end.setHours(23, 59, 59, 999)
+      start = new Date(end)
+      start.setDate(start.getDate() - 30)
+      start.setHours(0, 0, 0, 0)
+    }
   } else {
     start = today
     end = new Date(today)
