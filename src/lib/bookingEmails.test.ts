@@ -85,18 +85,18 @@ describe('sendBookingRequestEmail', () => {
     const booking = makeBooking()
     await sendBookingRequestEmail(booking)
     const { html } = getLastSentEmail()
-    expect(html).toContain('2:00')  // session start
-    expect(html).toContain('3:00')  // session end
-    expect(html).toContain('60')    // duration in minutes
+    expect(html).toContain('14:00')  // session start (24h)
+    expect(html).toContain('15:00')  // session end (24h)
+    expect(html).toContain('60')     // duration in minutes
   })
 
   it('body contains break start, break end, and break duration', async () => {
     const booking = makeBooking()
     await sendBookingRequestEmail(booking)
     const { html } = getLastSentEmail()
-    expect(html).toContain('3:00')  // break start (same as session end)
-    expect(html).toContain('3:30')  // break end
-    expect(html).toContain('30')    // break duration (BOOKING.breakAfterSession)
+    expect(html).toContain('15:00')  // break start (same as session end, 24h)
+    expect(html).toContain('15:30')  // break end (24h)
+    expect(html).toContain('30')     // break duration (BOOKING.breakAfterSession)
   })
 
   it('body contains client name, phone, email, and serviceName', async () => {
@@ -126,8 +126,8 @@ describe('sendBookingConfirmationEmail', () => {
     await sendBookingConfirmationEmail(booking)
     const { html } = getLastSentEmail()
     expect(html).toMatch(/May 14, 2026/)
-    expect(html).toContain('2:00')  // session start
-    expect(html).toContain('3:00')  // session end
+    expect(html).toContain('14:00')  // session start (24h)
+    expect(html).toContain('15:00')  // session end (24h)
     expect(html).toContain('148 Rue Eddy')
   })
 })
@@ -156,12 +156,16 @@ describe('sendBookingCancellationEmail', () => {
     expect(subject).toMatch(/May 14, 2026/)
   })
 
-  it('body contains contact info for rebooking', async () => {
+  it('body contains booking link, phone, and email for rebooking', async () => {
     const booking = makeBooking()
     await sendBookingCancellationEmail(booking)
     const { html } = getLastSentEmail()
-    // BUSINESS.phone and BUSINESS.email should be in the HTML for rebooking
-    expect(html).toMatch(/Phone:|Email:/)
+    expect(html).toContain('/booking')
+    expect(html).toContain('Book a new appointment')
+    expect(html).toContain('Phone:')
+    expect(html).toContain('Email:')
+    // booking link must appear before phone
+    expect(html.indexOf('/booking')).toBeLessThan(html.indexOf('Phone:'))
   })
 })
 
@@ -172,6 +176,43 @@ describe('French locale test', () => {
     const { subject, html } = getLastSentEmail()
     expect(subject).toContain('Massage en profondeur')
     expect(html).toContain('Massage en profondeur')
+  })
+
+  it('confirmation email subject is in French when preferredLanguage is fr', async () => {
+    const booking = makeBooking({ preferredLanguage: 'fr' })
+    await sendBookingConfirmationEmail(booking)
+    const { subject } = getLastSentEmail()
+    expect(subject).toContain('confirmé')
+    expect(subject).toMatch(/mai 14, 2026|14 mai 2026/)
+  })
+
+  it('confirmation email body is in French when preferredLanguage is fr', async () => {
+    const booking = makeBooking({ preferredLanguage: 'fr' })
+    await sendBookingConfirmationEmail(booking)
+    const { html } = getLastSentEmail()
+    expect(html).toContain('Votre rendez-vous est confirmé')
+    expect(html).toContain('Bonjour')
+    expect(html).toContain('Durée')
+    expect(html).toContain('Paiement')
+  })
+
+  it('decline email subject is in French when preferredLanguage is fr', async () => {
+    const booking = makeBooking({ preferredLanguage: 'fr' })
+    await sendBookingDeclineEmail(booking)
+    const { subject, html } = getLastSentEmail()
+    expect(subject).toContain('réservation')
+    expect(html).toContain('Mise à jour')
+  })
+
+  it('cancellation email subject and body are in French when preferredLanguage is fr', async () => {
+    const booking = makeBooking({ preferredLanguage: 'fr' })
+    await sendBookingCancellationEmail(booking)
+    const { subject, html } = getLastSentEmail()
+    expect(subject).toContain('annulé')
+    expect(html).toContain('Annulation de rendez-vous')
+    expect(html).toContain('Réserver un nouveau rendez-vous')
+    expect(html).toContain('Téléphone:')
+    expect(html).toContain('Courriel:')
   })
 })
 

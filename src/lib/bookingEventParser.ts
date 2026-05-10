@@ -27,6 +27,7 @@ export function bookingDetailsFromEvent(
     clientEmail: String(data.clientEmail ?? ''),
     clientPhone: String(data.clientPhone ?? ''),
     clientNotes: data.clientNotes ? String(data.clientNotes) : undefined,
+    preferredLanguage: data.preferredLanguage ? String(data.preferredLanguage) : undefined,
     serviceKey: String(data.serviceKey ?? ''),
     serviceName: String(data.serviceName ?? ''),
     durationMinutes: Number(data.durationMinutes ?? 0),

@@ -1,6 +1,8 @@
 import { Resend } from 'resend'
 import { BUSINESS, BOOKING, SITE } from './config'
 import { signToken } from './bookingTokens'
+import enMessages from '../../messages/en.json'
+import frMessages from '../../messages/fr.json'
 
 const FROM_ADDRESS = `Massage Booking Request <massage@shelestwellness.ca>`
 
@@ -20,12 +22,27 @@ export interface BookingDetails {
   eventId: string
 }
 
+// ── i18n helpers ──────────────────────────────────────────────────────────────
+
+type EmailMessages = typeof enMessages.bookingEmail
+
+function getEmailMessages(lang?: string): EmailMessages {
+  return lang === 'fr' ? frMessages.bookingEmail : enMessages.bookingEmail
+}
+
+function fill(template: string, vars: Record<string, string>): string {
+  return Object.entries(vars).reduce(
+    (s, [k, v]) => s.replaceAll(`{${k}}`, v),
+    template
+  )
+}
+
 // ── Formatting helpers ────────────────────────────────────────────────────────
 
 const TZ = 'America/Toronto'
 
-function formatDate(d: Date): string {
-  return new Intl.DateTimeFormat('en-CA', {
+function formatDate(d: Date, locale = 'en-CA'): string {
+  return new Intl.DateTimeFormat(locale, {
     timeZone: TZ,
     weekday: 'long',
     year: 'numeric',
@@ -41,6 +58,10 @@ function formatTime(d: Date): string {
     minute: '2-digit',
     hour12: false,
   }).format(d)
+}
+
+function langToLocale(lang?: string): string {
+  return lang === 'fr' ? 'fr-CA' : 'en-CA'
 }
 
 // ── Shared Resend instance ────────────────────────────────────────────────────
@@ -147,21 +168,26 @@ export async function sendBookingRequestEmail(booking: BookingDetails, baseUrl?:
 
 export async function sendBookingConfirmationEmail(booking: BookingDetails): Promise<void> {
   const {
-    clientName, clientEmail,
+    clientName, clientEmail, preferredLanguage,
     serviceName, durationMinutes,
     sessionStart, sessionEnd,
   } = booking
 
-  const date = formatDate(sessionStart)
+  const locale = langToLocale(preferredLanguage)
+  const t = getEmailMessages(preferredLanguage)
+  const c = t.confirmation
+  const s = t.shared
+
+  const date = formatDate(sessionStart, locale)
   const startTime = formatTime(sessionStart)
   const endTime = formatTime(sessionEnd)
-  const subject = `Your appointment is confirmed — ${date} at ${startTime}`
-
   const fullAddress = `${BUSINESS.address}, ${BUSINESS.city}`
+
+  const subject = fill(c.subject, { date, time: startTime })
 
   const html = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${preferredLanguage ?? 'en'}">
 <head><meta charset="UTF-8"><style>
   body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
   table { border-collapse: collapse; width: 100%; margin: 16px 0; }
@@ -171,29 +197,31 @@ export async function sendBookingConfirmationEmail(booking: BookingDetails): Pro
   .notice { background: #f0f7f4; padding: 12px 16px; border-left: 4px solid #2D6A4F; margin: 16px 0; font-size: 14px; }
 </style></head>
 <body>
-  <h2>Your Appointment is Confirmed</h2>
-  <p>Hi ${clientName}, your massage appointment has been confirmed. Here are the details:</p>
+  <h2>${c.heading}</h2>
+  <p>${fill(c.greeting, { name: clientName })}</p>
   <table>
-    <tr><td>Service</td><td>${serviceName}</td></tr>
-    <tr><td>Duration</td><td>${durationMinutes} min</td></tr>
-    <tr><td>Date</td><td>${date}</td></tr>
-    <tr><td>Start Time</td><td>${startTime}</td></tr>
-    <tr><td>End Time</td><td>${endTime}</td></tr>
-    <tr><td>Location</td><td>${fullAddress}</td></tr>
+    <tr><td>${c.labelService}</td><td>${serviceName}</td></tr>
+    <tr><td>${c.labelDuration}</td><td>${durationMinutes} min</td></tr>
+    <tr><td>${c.labelDate}</td><td>${date}</td></tr>
+    <tr><td>${c.labelStartTime}</td><td>${startTime}</td></tr>
+    <tr><td>${c.labelEndTime}</td><td>${endTime}</td></tr>
+    <tr><td>${c.labelLocation}</td><td>${fullAddress}</td></tr>
   </table>
-  <h3 style="color:#2D6A4F;">Payment</h3>
-  <p>Payment is due at the time of your appointment. Accepted methods:</p>
+  <h3 style="color:#2D6A4F;">${c.paymentTitle}</h3>
+  <p>${c.paymentText}</p>
   <ul>
-    <li>Cash</li>
-    <li>Interac e-Transfer</li>
+    <li>${c.paymentCash}</li>
+    <li>${c.paymentEtransfer}</li>
   </ul>
   <div class="notice">
-    <strong>Cancellation Policy:</strong> Please provide at least ${BOOKING.cancellationNoticeHours} hours notice if you need to cancel or reschedule.
-    To cancel, contact us at <a href="tel:${BUSINESS.phoneTel}">${BUSINESS.phone}</a> or
-    <a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a>.
+    <strong>${c.cancellationLabel}:</strong> ${fill(c.cancellationText, {
+      hours: String(BOOKING.cancellationNoticeHours),
+      phone: BUSINESS.phone,
+      email: BUSINESS.email,
+    })}
   </div>
-  <p>We look forward to seeing you!</p>
-  <p>— Olha Shelest<br>${BUSINESS.phone}<br><a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></p>
+  <p>${c.closing}</p>
+  <p>${s.signature}<br>${BUSINESS.phone}<br><a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></p>
 </body>
 </html>`
 
@@ -211,32 +239,37 @@ export async function sendBookingConfirmationEmail(booking: BookingDetails): Pro
 // ── sendBookingDeclineEmail (to client) ───────────────────────────────────────
 
 export async function sendBookingDeclineEmail(booking: BookingDetails): Promise<void> {
-  const { clientName, clientEmail, sessionStart } = booking
+  const { clientName, clientEmail, preferredLanguage, sessionStart } = booking
 
-  const date = formatDate(sessionStart)
-  const subject = `Booking Request — Update`
-  const bookingUrl = `${SITE.url}/booking`
+  const locale = langToLocale(preferredLanguage)
+  const t = getEmailMessages(preferredLanguage)
+  const d = t.decline
+  const s = t.shared
+
+  const date = formatDate(sessionStart, locale)
+  const subject = d.subject
+  const bookingUrl = `${SITE.url}/${preferredLanguage === 'fr' ? 'fr' : 'en'}/booking`
 
   const html = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${preferredLanguage ?? 'en'}">
 <head><meta charset="UTF-8"><style>
   body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
   h2 { color: #2D6A4F; }
 </style></head>
 <body>
-  <h2>Booking Request Update</h2>
-  <p>Hi ${clientName},</p>
-  <p>Thank you for your booking request for <strong>${date}</strong>. Unfortunately, that time slot is no longer available.</p>
-  <p>We apologize for any inconvenience. Please visit our booking page to select another available time:</p>
+  <h2>${d.heading}</h2>
+  <p>${clientName},</p>
+  <p>${fill(d.intro, { date })}</p>
+  <p>${d.apology}</p>
   <p><a href="${bookingUrl}" style="color:#2D6A4F;">${bookingUrl}</a></p>
-  <p>You are also welcome to reach us directly:</p>
+  <p>${s.contactIntro}</p>
   <ul>
-    <li>Phone: <a href="tel:${BUSINESS.phoneTel}">${BUSINESS.phone}</a></li>
-    <li>Email: <a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></li>
+    <li>${s.labelPhone}: <a href="tel:${BUSINESS.phoneTel}">${BUSINESS.phone}</a></li>
+    <li>${s.labelEmail}: <a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></li>
   </ul>
-  <p>We hope to find a time that works for you soon.</p>
-  <p>— Olha Shelest</p>
+  <p>${d.closing}</p>
+  <p>${s.signature}</p>
 </body>
 </html>`
 
@@ -289,29 +322,36 @@ export async function sendBotAlertEmail(reason: 'honeypot' | 'timing', clientIp?
 // ── sendBookingCancellationEmail (to client) ──────────────────────────────────
 
 export async function sendBookingCancellationEmail(booking: BookingDetails): Promise<void> {
-  const { clientName, clientEmail, sessionStart } = booking
+  const { clientName, clientEmail, preferredLanguage, sessionStart } = booking
 
-  const date = formatDate(sessionStart)
-  const subject = `Your appointment on ${date} has been cancelled`
+  const locale = langToLocale(preferredLanguage)
+  const t = getEmailMessages(preferredLanguage)
+  const c = t.cancellation
+  const s = t.shared
+
+  const date = formatDate(sessionStart, locale)
+  const subject = fill(c.subject, { date })
+  const bookingUrl = `${SITE.url}/${preferredLanguage === 'fr' ? 'fr' : 'en'}/booking`
 
   const html = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${preferredLanguage ?? 'en'}">
 <head><meta charset="UTF-8"><style>
   body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
   h2 { color: #2D6A4F; }
 </style></head>
 <body>
-  <h2>Appointment Cancellation</h2>
-  <p>Hi ${clientName},</p>
-  <p>Your massage appointment scheduled for <strong>${date}</strong> has been cancelled.</p>
-  <p>We apologize for the inconvenience. To rebook, please contact us:</p>
+  <h2>${c.heading}</h2>
+  <p>${clientName},</p>
+  <p>${fill(c.intro, { date })}</p>
+  <p>${c.apology}</p>
   <ul>
-    <li>Phone: <a href="tel:${BUSINESS.phoneTel}">${BUSINESS.phone}</a></li>
-    <li>Email: <a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></li>
+    <li><a href="${bookingUrl}" style="color:#2D6A4F;">${s.labelBooking}</a></li>
+    <li>${s.labelPhone}: <a href="tel:${BUSINESS.phoneTel}">${BUSINESS.phone}</a></li>
+    <li>${s.labelEmail}: <a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></li>
   </ul>
-  <p>We look forward to seeing you at a new time.</p>
-  <p>— Olha Shelest</p>
+  <p>${c.closing}</p>
+  <p>${s.signature}</p>
 </body>
 </html>`
 
