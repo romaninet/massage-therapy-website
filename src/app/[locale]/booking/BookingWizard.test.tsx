@@ -122,9 +122,11 @@ describe('BookingWizard', () => {
     await waitFor(() => expect(screen.getByTestId('time-slot-10:00')).toBeInTheDocument());
     fireEvent.click(screen.getByTestId('time-slot-10:00'));
 
-    expect(screen.getByTestId('input-name')).toBeInTheDocument();
-    expect(screen.getByTestId('input-email')).toBeInTheDocument();
-    expect(screen.getByTestId('input-phone')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('input-name')).toBeInTheDocument();
+      expect(screen.getByTestId('input-email')).toBeInTheDocument();
+      expect(screen.getByTestId('input-phone')).toBeInTheDocument();
+    });
   });
 
   it('8. submitting form calls POST /api/booking/request with correct data', async () => {
@@ -155,12 +157,13 @@ describe('BookingWizard', () => {
     await waitFor(() => expect(screen.getByTestId('time-slot-10:00')).toBeInTheDocument());
     fireEvent.click(screen.getByTestId('time-slot-10:00'));
 
+    await waitFor(() => expect(screen.getByTestId('input-name')).toBeInTheDocument());
     fireEvent.change(screen.getByTestId('input-name'), { target: { value: 'Jane Doe' } });
     fireEvent.change(screen.getByTestId('input-email'), { target: { value: 'jane@example.com' } });
     fireEvent.change(screen.getByTestId('input-phone'), { target: { value: '555-555-5555' } });
 
     global.fetch = postMock;
-    fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => {
       expect(postMock).toHaveBeenCalledWith(

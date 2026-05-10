@@ -489,6 +489,7 @@ interface BookingCardProps {
 function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: BookingCardProps) {
   const [pendingAction, setPendingAction] = useState<'accept' | 'decline' | 'cancel' | null>(null)
   const [loading, setLoading] = useState(false)
+  const [actionError, setActionError] = useState<string | null>(null)
 
   const borderClass =
     booking.status === 'pending'
@@ -497,6 +498,7 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
 
   const handleAccept = async () => {
     setLoading(true)
+    setActionError(null)
     try {
       const res = await fetch('/api/admin/confirm', {
         method: 'POST',
@@ -506,6 +508,13 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
       if (res.ok) {
         setPendingAction(null)
         onAccept?.(booking.eventId)
+      } else {
+        const data = await res.json().catch(() => ({}))
+        if (data.error === 'slot_conflict') {
+          setActionError('This time slot is no longer available — another booking conflicts with this one. Please refresh and try again.')
+        } else {
+          setActionError('Something went wrong. Please refresh and try again.')
+        }
       }
     } finally {
       setLoading(false)
@@ -612,9 +621,14 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                   <p className="text-sm text-gray-500 mb-5">
                     {booking.clientName} — {booking.serviceName}
                   </p>
+                  {actionError && (
+                    <p className="text-red-600 text-sm mb-4 bg-red-50 border border-red-200 rounded px-3 py-2">
+                      {actionError}
+                    </p>
+                  )}
                   <div className="flex gap-3 justify-end">
                     <button
-                      onClick={() => setPendingAction(null)}
+                      onClick={() => { setPendingAction(null); setActionError(null) }}
                       disabled={loading}
                       className="text-sm px-4 py-1.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-50 transition-colors"
                     >

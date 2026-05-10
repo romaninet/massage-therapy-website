@@ -3,7 +3,7 @@ import { listEventsForDate, getEvent, updateEvent, createEvent } from '@/lib/goo
 import { verifyToken } from '@/lib/bookingTokens'
 import { sendBookingConfirmationEmail } from '@/lib/bookingEmails'
 import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
-import { htmlResponse, jsonResponse, confirmationPage, successPage } from '@/lib/routeHelpers'
+import { htmlResponse, jsonResponse, confirmationPage, successPage, slotConflictPage } from '@/lib/routeHelpers'
 import { requireAdminSession } from '@/lib/adminAuth'
 
 export async function GET(request: Request) {
@@ -83,7 +83,9 @@ async function handleConfirm(request: Request): Promise<Response> {
   const sessionEnd = event.end
   const dateStr = sessionStart.toISOString().slice(0, 10)
 
-  // Re-check slot: list events, exclude this event, check for CONFIRMED/BREAK conflicts
+  // Re-check slot: list events, exclude this event, check for CONFIRMED/BREAK conflicts.
+  // Extend effective end by breakAfterSession so the break we're about to create is also checked.
+  const effectiveEnd = new Date(sessionEnd.getTime() + BOOKING.breakAfterSession * 60 * 1000)
   const events = await listEventsForDate(dateStr)
   const otherEvents = events.filter((e) => e.id !== eventId)
   const conflictingEvents = otherEvents.filter((e) => {
@@ -91,12 +93,12 @@ async function handleConfirm(request: Request): Promise<Response> {
     const es = e.start.getTime()
     const ee = e.end.getTime()
     const ss = sessionStart.getTime()
-    const se = sessionEnd.getTime()
+    const se = effectiveEnd.getTime()
     return ss < ee && se > es
   })
 
   if (conflictingEvents.length > 0) {
-    return jsonResponse({ error: 'slot_conflict' }, 409)
+    return htmlResponse(slotConflictPage(), 409)
   }
 
   // Update event to CONFIRMED

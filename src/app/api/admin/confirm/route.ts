@@ -33,12 +33,14 @@ export async function POST(req: NextRequest) {
   const sessionEnd = event.end
   const dateStr = sessionStart.toISOString().slice(0, 10)
 
-  // Re-check for slot conflicts before confirming
+  // Re-check for slot conflicts before confirming.
+  // Extend effective end by breakAfterSession so the break we're about to create is also checked.
+  const effectiveEnd = new Date(sessionEnd.getTime() + BOOKING.breakAfterSession * 60 * 1000)
   const dayEvents = await listEventsForDate(dateStr)
   const conflict = dayEvents.some((e) => {
     if (e.id === eventId) return false
     if (!e.title.startsWith(BOOKING.eventTitles.confirmed) && !e.title.startsWith(BOOKING.eventTitles.break)) return false
-    return sessionStart.getTime() < e.end.getTime() && sessionEnd.getTime() > e.start.getTime()
+    return sessionStart.getTime() < e.end.getTime() && effectiveEnd.getTime() > e.start.getTime()
   })
 
   if (conflict) {

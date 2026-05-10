@@ -139,6 +139,6 @@ After creating each, log it in [README.md](README.md) under "Backlinks & Directo
 - change the booking flow (present days)
 - translate admin to EN/FR
 - last screen on bookings, press on language -goes away
-- when preccing accept -must do another real time timeslot test and decline if doesnt fit
+
 
 

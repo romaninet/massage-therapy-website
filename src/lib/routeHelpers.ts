@@ -113,6 +113,18 @@ export function alreadyHandledPage(): string {
     </div>`)
 }
 
+export function slotConflictPage(): string {
+  return PAGE_SHELL('Booking Conflict', `
+    <div style="background:#b91c1c;padding:24px 32px;">
+      <h1 style="color:#fff;margin:0;font-size:20px;font-weight:600;">Time Slot No Longer Available</h1>
+      <p style="color:rgba(255,255,255,0.65);margin:6px 0 0;font-size:13px;font-family:sans-serif;">Olha Shelest — Massage Therapy</p>
+    </div>
+    <div style="padding:28px 32px;font-family:sans-serif;font-size:15px;">
+      <p style="margin:0 0 16px;">This booking cannot be confirmed because another appointment was already confirmed for the same time slot.</p>
+      <p style="margin:0;color:#5a7a6a;">Please use the <a href="/admin" style="color:#2D6A4F;">admin dashboard</a> to review pending bookings and resolve the conflict.</p>
+    </div>`)
+}
+
 export function htmlResponse(body: string, status = 200): Response {
   return new Response(body, {
     status,

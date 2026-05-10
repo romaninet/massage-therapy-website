@@ -158,8 +158,9 @@ describe('GET /api/booking/confirm', () => {
 
     const res = await GET(makeRequest(EVENT_ID, 'valid-sig', true))
     expect(res.status).toBe(409)
-    const data = JSON.parse(await res.text())
-    expect(data.error).toBe('slot_conflict')
+    const body = await res.text()
+    expect(res.headers.get('content-type')).toMatch(/text\/html/)
+    expect(body).toContain('Time Slot No Longer Available')
   })
 
   it('6. Break event created with correct duration (BOOKING.breakAfterSession = 30 min)', async () => {
