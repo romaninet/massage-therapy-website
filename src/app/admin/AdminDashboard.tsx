@@ -469,11 +469,12 @@ function formatDateTime(iso: string): string {
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   })
 }
 
 function formatTime(iso: string): string {
-  return new Date(iso).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })
+  return new Date(iso).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit', hour12: false })
 }
 
 interface BookingCardProps {
@@ -486,6 +487,7 @@ interface BookingCardProps {
 
 function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: BookingCardProps) {
   const [confirming, setConfirming] = useState(false)
+  const [pendingAction, setPendingAction] = useState<'accept' | 'decline' | null>(null)
   const [loading, setLoading] = useState(false)
 
   const borderClass =
@@ -502,6 +504,7 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
         body: JSON.stringify({ eventId: booking.eventId }),
       })
       if (res.ok) {
+        setPendingAction(null)
         onAccept?.(booking.eventId)
       }
     } finally {
@@ -518,6 +521,7 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
         body: JSON.stringify({ eventId: booking.eventId }),
       })
       if (res.ok) {
+        setPendingAction(null)
         onDecline?.(booking.eventId)
       }
     } finally {
@@ -564,19 +568,55 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
             {booking.status === 'pending' && (
               <div className="flex flex-col gap-2 items-end">
                 <button
-                  onClick={handleAccept}
+                  onClick={() => setPendingAction('accept')}
                   disabled={loading}
                   className="bg-green-700 hover:bg-green-800 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded w-full"
                 >
-                  {loading ? 'Accepting…' : 'Accept'}
+                  Accept
                 </button>
                 <button
-                  onClick={handleDecline}
+                  onClick={() => setPendingAction('decline')}
                   disabled={loading}
                   className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded w-full"
                 >
-                  {loading ? 'Declining…' : 'Decline'}
+                  Decline
                 </button>
+              </div>
+            )}
+
+            {pendingAction && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
+                  <p className="text-sm font-semibold text-gray-800 mb-1">
+                    {pendingAction === 'accept' ? 'Accept booking?' : 'Decline booking?'}
+                  </p>
+                  <p className="text-sm text-gray-500 mb-5">
+                    {booking.clientName} — {booking.serviceName}
+                  </p>
+                  <div className="flex gap-3 justify-end">
+                    <button
+                      onClick={() => setPendingAction(null)}
+                      disabled={loading}
+                      className="text-sm px-4 py-1.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={pendingAction === 'accept' ? handleAccept : handleDecline}
+                      disabled={loading}
+                      data-testid={`confirm-${pendingAction}`}
+                      className={`text-sm px-4 py-1.5 rounded disabled:opacity-50 text-white transition-colors ${
+                        pendingAction === 'accept'
+                          ? 'bg-green-700 hover:bg-green-800'
+                          : 'bg-red-600 hover:bg-red-700'
+                      }`}
+                    >
+                      {loading
+                        ? pendingAction === 'accept' ? 'Accepting…' : 'Declining…'
+                        : pendingAction === 'accept' ? 'Yes, accept' : 'Yes, decline'}
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
             {booking.status === 'confirmed' && !confirming && (
@@ -684,7 +724,7 @@ function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: (
   )
 }
 
-// ── Helpers for upcoming month filter ─────────────────────────────────────────
+// ── Helpers for confirmed month filter ───────────────────────────────────────
 
 function monthsFromBookings(list: Booking[]): string[] {
   return [...new Set(list.map(b => b.sessionStart.slice(0, 7)))].sort()
@@ -808,36 +848,21 @@ export default function AdminDashboard({ email }: { email?: string }) {
   }, [activeTab, fetchUpcoming, fetchPast]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Derived lists ─────────────────────────────────────────────────────────
-  const pending   = upcomingBookings.filter(b => b.status === 'pending')
+  const now = new Date()
+  const pending   = upcomingBookings.filter(b => b.status === 'pending' && new Date(b.sessionStart) > now)
   const confirmed = upcomingBookings.filter(b => b.status === 'confirmed')
 
-  const LIMIT = BOOKING.upcomingPageSize
+  // Pending pagination
+  const PENDING_PAGE_SIZE = BOOKING.pendingPageSize
+  const [pendingPage, setPendingPage] = useState(0)
+  const pendingTotalPages = Math.ceil(pending.length / PENDING_PAGE_SIZE)
+  const pendingPageItems = pending.slice(pendingPage * PENDING_PAGE_SIZE, (pendingPage + 1) * PENDING_PAGE_SIZE)
 
-  // Pending month filter
-  const pendingNeedsFilter = pending.length > LIMIT
-  const pendingMonths = pendingNeedsFilter ? monthsFromBookings(pending) : []
-  const [pendingFilterYear, setPendingFilterYear] = useState(CURRENT_YEAR)
-  const [pendingFilterMonth, setPendingFilterMonth] = useState(CURRENT_MONTH)
-  useEffect(() => {
-    if (!pendingNeedsFilter) return
-    const d = defaultMonth(monthsFromBookings(pending))
-    setPendingFilterYear(d.year)
-    setPendingFilterMonth(d.month)
-  }, [upcomingBookings]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const pendingYears = [...new Set(pendingMonths.map(m => Number(m.slice(0, 4))))].sort()
-  const pendingAvailableMonths = pendingMonths
-    .filter(m => m.startsWith(`${pendingFilterYear}-`))
-    .map(m => Number(m.slice(5)))
-
-  const handlePendingYearChange = (y: number) => {
-    setPendingFilterYear(y)
-    const first = pendingMonths.find(m => m.startsWith(`${y}-`))
-    if (first) setPendingFilterMonth(Number(first.slice(5)))
-  }
+  // Reset to page 0 when bookings reload
+  useEffect(() => { setPendingPage(0) }, [upcomingBookings])
 
   // Confirmed month filter
-  const confirmedNeedsFilter = confirmed.length > LIMIT
+  const confirmedNeedsFilter = confirmed.length > BOOKING.pendingPageSize
   const confirmedMonths = confirmedNeedsFilter ? monthsFromBookings(confirmed) : []
   const [confirmedFilterYear, setConfirmedFilterYear] = useState(CURRENT_YEAR)
   const [confirmedFilterMonth, setConfirmedFilterMonth] = useState(CURRENT_MONTH)
@@ -969,27 +994,10 @@ export default function AdminDashboard({ email }: { email?: string }) {
       {activeTab === 'pending' && (
         <div>
           <div className="flex items-center gap-3 mb-6 flex-wrap">
-            {pendingNeedsFilter && !upcomingLoading && (
-              <>
-                <label className="text-sm text-gray-600 font-medium">Month:</label>
-                <select
-                  value={pendingFilterMonth}
-                  onChange={e => setPendingFilterMonth(Number(e.target.value))}
-                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
-                >
-                  {pendingAvailableMonths.map(mn => (
-                    <option key={mn} value={mn}>{ALL_MONTHS[mn - 1]}</option>
-                  ))}
-                </select>
-                <select
-                  value={pendingFilterYear}
-                  onChange={e => handlePendingYearChange(Number(e.target.value))}
-                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
-                >
-                  {pendingYears.map(y => <option key={y} value={y}>{y}</option>)}
-                </select>
-                <span className="text-xs text-gray-400">{pending.length} total</span>
-              </>
+            {!upcomingLoading && pending.length > 0 && (
+              <span className="text-sm text-gray-500">
+                {pending.length} pending request{pending.length !== 1 ? 's' : ''}
+              </span>
             )}
             <button
               onClick={fetchUpcoming}
@@ -1006,15 +1014,44 @@ export default function AdminDashboard({ email }: { email?: string }) {
           </div>
           {upcomingLoading ? <Spinner /> : upcomingError ? (
             <p className="text-red-600 text-sm py-4">{upcomingError}</p>
+          ) : pending.length === 0 ? (
+            <p className="text-sm text-gray-400">No pending requests</p>
           ) : (
-            <UpcomingList
-              list={pending}
-              filterYear={pendingNeedsFilter ? pendingFilterYear : undefined}
-              filterMonth={pendingNeedsFilter ? pendingFilterMonth : undefined}
-              onAccept={handleAccepted}
-              onDecline={removeUpcoming}
-              emptyMessage="No pending requests"
-            />
+            <>
+              <div className="space-y-3 mb-4">
+                {pendingPageItems.map(b => (
+                  <BookingCard
+                    key={b.eventId}
+                    booking={b}
+                    onAccept={handleAccepted}
+                    onDecline={removeUpcoming}
+                  />
+                ))}
+              </div>
+              {pendingTotalPages > 1 && (
+                <div className="flex items-center gap-2 justify-center mt-2">
+                  <button
+                    data-testid="pending-prev"
+                    onClick={() => setPendingPage(p => p - 1)}
+                    disabled={pendingPage === 0}
+                    className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  >
+                    ← Prev
+                  </button>
+                  <span data-testid="pending-page-label" className="text-sm text-gray-500">
+                    Page {pendingPage + 1} of {pendingTotalPages}
+                  </span>
+                  <button
+                    data-testid="pending-next"
+                    onClick={() => setPendingPage(p => p + 1)}
+                    disabled={pendingPage >= pendingTotalPages - 1}
+                    className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Next →
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}

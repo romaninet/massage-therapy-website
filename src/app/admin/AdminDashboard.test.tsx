@@ -14,9 +14,9 @@ const pendingBooking = {
   clientPhone: '819-555-0001',
   serviceName: 'Deep Tissue Massage',
   durationMinutes: 60,
-  sessionStart: '2026-05-10T10:00:00.000Z',
-  sessionEnd: '2026-05-10T11:00:00.000Z',
-  breakEnd: '2026-05-10T11:15:00.000Z',
+  sessionStart: '2030-06-15T10:00:00.000Z',
+  sessionEnd: '2030-06-15T11:00:00.000Z',
+  breakEnd: '2030-06-15T11:15:00.000Z',
   clientNotes: 'Please focus on the back',
 }
 
@@ -115,7 +115,7 @@ describe('AdminDashboard', () => {
     expect(screen.getByText('Cancel Booking')).toBeInTheDocument()
   })
 
-  it('clicking Decline calls /api/admin/decline and removes the card', async () => {
+  it('clicking Decline shows confirmation dialog then calls /api/admin/decline and removes the card', async () => {
     const user = userEvent.setup()
     global.fetch = makeUrlFetch([pendingBooking, confirmedBooking])
 
@@ -123,6 +123,12 @@ describe('AdminDashboard', () => {
     await waitFor(() => expect(screen.getByText('Alice Martin')).toBeInTheDocument())
 
     await user.click(screen.getByText('Decline'))
+
+    await waitFor(() => {
+      expect(screen.getByText('Decline booking?')).toBeInTheDocument()
+    })
+
+    await user.click(screen.getByTestId('confirm-decline'))
 
     await waitFor(() => {
       expect(screen.queryByText('Alice Martin')).not.toBeInTheDocument()
@@ -174,6 +180,160 @@ describe('AdminDashboard', () => {
       method: 'POST',
       body: JSON.stringify({ eventId: 'evt-confirmed-1' }),
     }))
+  })
+
+  describe('Pending tab — pagination', () => {
+    function makeFuturePending(i: number) {
+      const day = String(i).padStart(2, '0')
+      return {
+        eventId: `evt-pending-${i}`,
+        status: 'pending' as const,
+        clientName: `Client ${i}`,
+        clientEmail: `client${i}@example.com`,
+        clientPhone: `819-555-${String(i).padStart(4, '0')}`,
+        serviceName: 'Deep Tissue Massage',
+        durationMinutes: 60,
+        sessionStart: `2030-06-${day}T10:00:00.000Z`,
+        sessionEnd:   `2030-06-${day}T11:00:00.000Z`,
+        breakEnd:     `2030-06-${day}T11:15:00.000Z`,
+      }
+    }
+
+    it('shows all pending when count does not exceed page size', async () => {
+      const bookings = Array.from({ length: 5 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByText('Client 1')).toBeInTheDocument())
+      for (let i = 1; i <= 5; i++) {
+        expect(screen.getByText(`Client ${i}`)).toBeInTheDocument()
+      }
+      expect(screen.queryByTestId('pending-prev')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('pending-next')).not.toBeInTheDocument()
+    })
+
+    it('shows pagination controls when count exceeds page size', async () => {
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByText('Client 1')).toBeInTheDocument())
+      expect(screen.getByTestId('pending-prev')).toBeInTheDocument()
+      expect(screen.getByTestId('pending-next')).toBeInTheDocument()
+      expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 1 of 2')
+    })
+
+    it('shows total pending count', async () => {
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByText('11 pending requests')).toBeInTheDocument())
+    })
+
+    it('first page shows only first 10 items', async () => {
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByText('Client 1')).toBeInTheDocument())
+      for (let i = 1; i <= 10; i++) {
+        expect(screen.getByText(`Client ${i}`)).toBeInTheDocument()
+      }
+      expect(screen.queryByText('Client 11')).not.toBeInTheDocument()
+    })
+
+    it('Prev is disabled on first page', async () => {
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByTestId('pending-prev')).toBeInTheDocument())
+      expect(screen.getByTestId('pending-prev')).toBeDisabled()
+      expect(screen.getByTestId('pending-next')).not.toBeDisabled()
+    })
+
+    it('clicking Next shows second page', async () => {
+      const user = userEvent.setup()
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByTestId('pending-next')).toBeInTheDocument())
+      await user.click(screen.getByTestId('pending-next'))
+
+      await waitFor(() => expect(screen.getByText('Client 11')).toBeInTheDocument())
+      expect(screen.queryByText('Client 1')).not.toBeInTheDocument()
+      expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 2 of 2')
+    })
+
+    it('Next is disabled on last page', async () => {
+      const user = userEvent.setup()
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByTestId('pending-next')).toBeInTheDocument())
+      await user.click(screen.getByTestId('pending-next'))
+
+      await waitFor(() => expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 2 of 2'))
+      expect(screen.getByTestId('pending-next')).toBeDisabled()
+      expect(screen.getByTestId('pending-prev')).not.toBeDisabled()
+    })
+
+    it('clicking Prev goes back to first page', async () => {
+      const user = userEvent.setup()
+      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      global.fetch = makeUrlFetch(bookings)
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByTestId('pending-next')).toBeInTheDocument())
+      await user.click(screen.getByTestId('pending-next'))
+      await waitFor(() => expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 2 of 2'))
+
+      await user.click(screen.getByTestId('pending-prev'))
+
+      await waitFor(() => expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 1 of 2'))
+      expect(screen.getByText('Client 1')).toBeInTheDocument()
+      expect(screen.queryByText('Client 11')).not.toBeInTheDocument()
+    })
+
+    it('filters out pending bookings with sessionStart in the past', async () => {
+      const pastPending = {
+        eventId: 'evt-past-pending',
+        status: 'pending' as const,
+        clientName: 'Past Client',
+        clientEmail: 'past@example.com',
+        clientPhone: '819-000-0000',
+        serviceName: 'Relaxation Massage',
+        durationMinutes: 60,
+        sessionStart: '2020-01-01T10:00:00.000Z',
+        sessionEnd:   '2020-01-01T11:00:00.000Z',
+        breakEnd:     '2020-01-01T11:15:00.000Z',
+      }
+      global.fetch = makeUrlFetch([pastPending, makeFuturePending(1)])
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByText('Client 1')).toBeInTheDocument())
+      expect(screen.queryByText('Past Client')).not.toBeInTheDocument()
+    })
+
+    it('shows singular "pending request" when count is 1', async () => {
+      global.fetch = makeUrlFetch([makeFuturePending(1)])
+
+      render(<AdminDashboard />)
+
+      await waitFor(() => expect(screen.getByText('1 pending request')).toBeInTheDocument())
+    })
   })
 
   describe('Availability tab — add-block form validation', () => {

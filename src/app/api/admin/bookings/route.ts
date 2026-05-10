@@ -56,9 +56,16 @@ export async function GET(req: NextRequest) {
     // Cap at current moment — for current month, never include ongoing or future sessions
     if (end > now) end = now
   } else {
-    start = today
-    end = new Date(today)
-    end.setDate(end.getDate() + 60)
+    const monthParam = searchParams.get('month')
+    if (monthParam && /^\d{4}-\d{2}$/.test(monthParam)) {
+      const [y, m] = monthParam.split('-').map(Number)
+      start = new Date(y, m - 1, 1, 0, 0, 0, 0)
+      end = new Date(y, m, 0, 23, 59, 59, 999)
+    } else {
+      start = today
+      end = new Date(today)
+      end.setDate(end.getDate() + 365)
+    }
   }
 
   const events = await listEventsInRange(start, end)
