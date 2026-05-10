@@ -131,3 +131,13 @@ The following directories are worth creating when time allows. Use the canonical
 | Annuaire-Sante.ca | annuaire-sante.ca | Lower | Quebec health practitioner directory |
 
 After creating each, log it in [README.md](README.md) under "Backlinks & Directory Listings" with the date.
+
+# Improvements for bookings
+
+- couples massage bookings should probably have a message saying that it must be booked with contact form
+- when cancelling booking -suggest other days
+- change the booking flow (present days)
+- translate admin to EN/FR
+- last screen on bookings, press on language -goes away
+- when preccing accept -must do another real time timeslot test and decline if doesnt fit
+- email template

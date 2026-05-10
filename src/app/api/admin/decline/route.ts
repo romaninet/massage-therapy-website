@@ -3,6 +3,7 @@ import { getEvent, deleteEvent } from '@/lib/googleCalendar'
 import { sendBookingDeclineEmail } from '@/lib/bookingEmails'
 import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
 import { requireAdminAccess } from '@/lib/adminGuard'
+import { BOOKING } from '@/lib/config'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'not_found' }, { status: 404 })
   }
 
-  if (!event.title.startsWith('[PENDING]')) {
+  if (!event.title.startsWith(BOOKING.eventTitles.pending)) {
     return NextResponse.json({ error: 'not_pending' }, { status: 400 })
   }
 

@@ -46,7 +46,7 @@ async function handleConfirm(request: Request): Promise<Response> {
   }
 
   // Must be PENDING
-  if (!event.title.startsWith('[PENDING]')) {
+  if (!event.title.startsWith(BOOKING.eventTitles.pending)) {
     return jsonResponse({ error: 'already_handled' }, 409)
   }
 
@@ -65,7 +65,7 @@ async function handleConfirm(request: Request): Promise<Response> {
   const events = await listEventsForDate(dateStr)
   const otherEvents = events.filter((e) => e.id !== eventId)
   const conflictingEvents = otherEvents.filter((e) => {
-    if (!e.title.startsWith('[CONFIRMED]') && !e.title.startsWith('[BREAK]')) return false
+    if (!e.title.startsWith(BOOKING.eventTitles.confirmed) && !e.title.startsWith(BOOKING.eventTitles.break)) return false
     const es = e.start.getTime()
     const ee = e.end.getTime()
     const ss = sessionStart.getTime()
@@ -79,15 +79,15 @@ async function handleConfirm(request: Request): Promise<Response> {
 
   // Update event to CONFIRMED
   await updateEvent(eventId, {
-    title: event.title.replace('[PENDING]', '[CONFIRMED]'),
+    title: event.title.replace(BOOKING.eventTitles.pending, BOOKING.eventTitles.confirmed),
     colorId: BOOKING.calendarColors.confirmed,
   })
 
-  // Create [BREAK] event
+  // Create break event
   const breakStart = sessionEnd
   const breakEnd = new Date(breakStart.getTime() + BOOKING.breakAfterSession * 60 * 1000)
   await createEvent({
-    title: '[BREAK]',
+    title: BOOKING.eventTitles.break,
     colorId: BOOKING.calendarColors.break,
     start: breakStart,
     end: breakEnd,

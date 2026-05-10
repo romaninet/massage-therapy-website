@@ -230,7 +230,23 @@ NEXTAUTH_URL=https://www.shelestwellness.ca
 
 ### Admin dashboard
 
-Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public site — she bookmarks it directly). Login uses Google OAuth restricted to her Gmail account. The dashboard shows pending and confirmed upcoming appointments, with Decline/Cancel controls, and a past bookings tab with date picker.
+Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public site — she bookmarks it directly). Login uses Google OAuth restricted to her Gmail account.
+
+**Tabs:**
+- **Upcoming** — pending requests (Accept/Decline) and confirmed bookings (Cancel). Single `listEventsInRange` call covering 60 days.
+- **Past** — confirmed bookings up to a chosen date (30-day window). Single `listEventsInRange` call.
+- **Availability** — monthly calendar view of open blocks. Features:
+  - Prev/Next month navigation (current month → current+12, no past months)
+  - Click any day to add an availability block directly from the dashboard (calls `POST /api/admin/availability`)
+  - Amber dot on days that have confirmed or pending bookings (conflict indicator)
+  - "Today" button to jump back to current month
+  - "↺ Refresh" button to force-fetch fresh calendar data
+  - In-session cache (React `useRef` Map) — revisiting a month is instant; cleared on page reload
+  - Availability tab prefetches current-month data on page load (always-mounted, hidden until active)
+
+**Event titles** are centralized in `BOOKING.eventTitles` in `config.ts` (`[PENDING]`, `[CONFIRMED]`, `[BREAK]`). The availability block title is `BOOKING.availabilityEventTitle` (`open`).
+
+**Performance:** All data is fetched live from Google Calendar — no server-side caching (`force-dynamic`). The `fields` projection on all Calendar API calls reduces payload by ~70%.
 
 `/admin` is excluded from `robots.txt` (`Disallow: /admin`) and is not in the sitemap.
 

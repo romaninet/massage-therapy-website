@@ -22,6 +22,7 @@ vi.mock('@/lib/config', () => ({
     return {
       showBookingsAdmin: mockShowBookingsAdmin,
       adminEmail: 'shelestwellness@gmail.com',
+      eventTitles: { pending: '[PENDING]', confirmed: '[CONFIRMED]', break: '[BREAK]' },
     }
   },
 }))

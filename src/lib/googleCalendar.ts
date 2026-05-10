@@ -19,6 +19,7 @@ export interface CreateEventParams {
 
 const TIMEZONE = 'America/Toronto'
 const SLOW_MS = 2000
+const EVENT_FIELDS = 'items(id,summary,start/dateTime,end/dateTime,colorId,description),nextPageToken'
 
 function gcalLog(fn: string, msg: string, extra?: Record<string, unknown>) {
   const parts = [`[gcal] ${fn}: ${msg}`]
@@ -123,6 +124,7 @@ export async function listEventsForDate(date: string): Promise<CalendarEvent[]> 
       timeZone: TIMEZONE,
       singleEvents: true,
       orderBy: 'startTime',
+      fields: EVENT_FIELDS,
     })
 
     const ms = elapsed(t0)
@@ -230,13 +232,14 @@ export async function deleteEvent(eventId: string): Promise<void> {
   }
 }
 
-export async function listEventsInRange(timeMin: Date, timeMax: Date): Promise<CalendarEvent[]> {
+export async function listEventsInRange(timeMin: Date, timeMax: Date, q?: string): Promise<CalendarEvent[]> {
   const { calendar, calendarId } = getCalendarClient()
   const t0 = Date.now()
 
   gcalLog('listEventsInRange', 'calling events.list', {
     timeMin: timeMin.toISOString(),
     timeMax: timeMax.toISOString(),
+    ...(q ? { q } : {}),
   })
 
   try {
@@ -254,6 +257,8 @@ export async function listEventsInRange(timeMin: Date, timeMax: Date): Promise<C
         singleEvents: true,
         orderBy: 'startTime',
         maxResults: 250,
+        fields: EVENT_FIELDS,
+        ...(q ? { q } : {}),
         pageToken,
       })
       allItems.push(...(response.data.items ?? []))

@@ -38,7 +38,11 @@ export function getAvailableSlots(
 
   const blockingEvents = events.filter((e) => {
     const t = e.title
-    return t.startsWith('[PENDING]') || t.startsWith('[CONFIRMED]') || t.startsWith('[BREAK]')
+    return (
+      t.startsWith(BOOKING.eventTitles.pending) ||
+      t.startsWith(BOOKING.eventTitles.confirmed) ||
+      t.startsWith(BOOKING.eventTitles.break)
+    )
   })
 
   const SLOT_MS = BOOKING.slotInterval * 60 * 1000
@@ -78,9 +82,9 @@ export function getAvailableSlots(
       const sessionEndWithBreak = sessionEnd + BREAK_MS
       const overlaps = blockingEvents.some((b) => {
         const bs = b.start.getTime()
-        if (b.title === '[BREAK]' && bs >= maxLastValidStartMs) return false
-        const isSession = b.title.startsWith('[PENDING]') || b.title.startsWith('[CONFIRMED]')
-        const be = b.title.startsWith('[PENDING]')
+        if (b.title === BOOKING.eventTitles.break && bs >= maxLastValidStartMs) return false
+        const isSession = b.title.startsWith(BOOKING.eventTitles.pending) || b.title.startsWith(BOOKING.eventTitles.confirmed)
+        const be = b.title.startsWith(BOOKING.eventTitles.pending)
           ? b.end.getTime() + BREAK_MS
           : b.end.getTime()
         // For session events use extended right boundary so our break is also accounted for

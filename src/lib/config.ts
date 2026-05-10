@@ -219,8 +219,14 @@ export const BOOKING = {
   availabilityEventTitle: 'open',
   adminEmail: 'shelestwellness@gmail.com',
   calendarColors: {
-    pending:   '5',   // Banana (yellow)
-    confirmed: '10',  // Basil (dark green)
-    break:     '3',   // Grape (purple)
+    pending:      '5',   // Banana (yellow)
+    confirmed:    '10',  // Basil (dark green)
+    break:        '3',   // Grape (purple)
+    availability: '2',   // Sage (green)
+  },
+  eventTitles: {
+    pending:   '[PENDING]',
+    confirmed: '[CONFIRMED]',
+    break:     '[BREAK]',
   },
 } as const;

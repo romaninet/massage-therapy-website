@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { listEventsInRange } from '@/lib/googleCalendar'
+import { BOOKING } from '@/lib/config'
 import { requireAdminRead } from '@/lib/adminGuard'
 
 export const dynamic = 'force-dynamic'
@@ -48,8 +49,8 @@ export async function GET(req: NextRequest) {
   const bookings: BookingSummary[] = []
 
   for (const event of events) {
-    const isPending = event.title.startsWith('[PENDING]')
-    const isConfirmed = event.title.startsWith('[CONFIRMED]')
+    const isPending = event.title.startsWith(BOOKING.eventTitles.pending)
+    const isConfirmed = event.title.startsWith(BOOKING.eventTitles.confirmed)
 
     if (view === 'future' && !isPending && !isConfirmed) continue
     if (view === 'past' && !isConfirmed) continue

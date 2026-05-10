@@ -66,20 +66,61 @@ function buildCalendarGrid(year: number, month: number, blocks: OpenBlock[]): Ca
 }
 
 
+interface MonthCache {
+  blocks: OpenBlock[]
+  bookedDates: string[]
+}
+
+interface AddBlockForm {
+  date: string
+  startTime: string
+  endTime: string
+}
+
+// 30-min increments, 07:00–21:00
+const TIME_OPTIONS = Array.from({ length: 29 }, (_, i) => {
+  const totalMinutes = 7 * 60 + i * 30
+  const h = String(Math.floor(totalMinutes / 60)).padStart(2, '0')
+  const m = totalMinutes % 60 === 0 ? '00' : '30'
+  return `${h}:${m}`
+})
+
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
+function formatBlockDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split('-')
+  return `${day} ${MONTH_NAMES[Number(month) - 1]}, ${year}`
+}
+
 function AvailabilityTab() {
   const MIN_MONTH = currentMonthKey()
   const MAX_MONTH = addMonths(MIN_MONTH, 12)
 
   const [activeMonth, setActiveMonth] = useState(MIN_MONTH)
   const [blocks, setBlocks] = useState<OpenBlock[]>([])
+  const [bookedDates, setBookedDates] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [lastFetched, setLastFetched] = useState<Date | null>(null)
-  const cacheRef = useRef<Map<string, OpenBlock[]>>(new Map())
+  const cacheRef = useRef<Map<string, MonthCache>>(new Map())
+
+  // click-to-add state
+  const [addForm, setAddForm] = useState<AddBlockForm | null>(null)
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+
+  // delete state
+  const [deleteConfirm, setDeleteConfirm] = useState<OpenBlock | null>(null)
+  const [deleting, setDeleting] = useState(false)
+
+  const applyCache = useCallback((cached: MonthCache) => {
+    setBlocks(cached.blocks)
+    setBookedDates(cached.bookedDates)
+  }, [])
 
   const fetchBlocks = useCallback(async (month: string, forceRefresh = false) => {
     if (!forceRefresh && cacheRef.current.has(month)) {
-      setBlocks(cacheRef.current.get(month)!)
+      applyCache(cacheRef.current.get(month)!)
       return
     }
     setLoading(true)
@@ -88,31 +129,102 @@ function AvailabilityTab() {
       const res = await fetch(`/api/admin/availability?month=${month}`)
       if (!res.ok) throw new Error(`Failed to load availability (${res.status})`)
       const data = await res.json()
-      const b = data.blocks ?? []
-      cacheRef.current.set(month, b)
-      setBlocks(b)
+      const entry: MonthCache = {
+        blocks: data.blocks ?? [],
+        bookedDates: data.bookedDates ?? [],
+      }
+      cacheRef.current.set(month, entry)
+      applyCache(entry)
       setLastFetched(new Date())
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [applyCache])
 
   useEffect(() => { fetchBlocks(activeMonth) }, [activeMonth, fetchBlocks])
+
+  const handleDayClick = (dateStr: string) => {
+    setAddForm({ date: dateStr, startTime: '09:00', endTime: '18:00' })
+    setSaveError(null)
+  }
+
+  const handleSaveBlock = async () => {
+    if (!addForm) return
+    const toMin = (t: string) => { const [h, m] = t.split(':').map(Number); return h * 60 + m }
+    if (toMin(addForm.endTime) - toMin(addForm.startTime) < 60) {
+      setSaveError('End time must be at least 1 hour after start time')
+      return
+    }
+    const newStart = toMin(addForm.startTime)
+    const newEnd   = toMin(addForm.endTime)
+    const overlaps = blocks.some(b =>
+      b.date === addForm.date &&
+      newStart < toMin(b.endTime) && toMin(b.startTime) < newEnd
+    )
+    if (overlaps) {
+      setSaveError('This time range overlaps with an existing availability block')
+      return
+    }
+    setSaving(true)
+    setSaveError(null)
+    try {
+      const res = await fetch('/api/admin/availability', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(addForm),
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error ?? `Error ${res.status}`)
+      }
+      setAddForm(null)
+      fetchBlocks(activeMonth, true)
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleDeleteBlock = async () => {
+    if (!deleteConfirm) return
+    setDeleting(true)
+    try {
+      const res = await fetch('/api/admin/availability', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: deleteConfirm.id }),
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error ?? `Error ${res.status}`)
+      }
+      setDeleteConfirm(null)
+      fetchBlocks(activeMonth, true)
+    } catch (e) {
+      // keep dialog open on error so user sees it
+      console.error('Delete failed:', e)
+    } finally {
+      setDeleting(false)
+    }
+  }
 
   const [year, mon] = activeMonth.split('-').map(Number)
   const grid = buildCalendarGrid(year, mon, blocks)
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Toronto' })
+  const bookedSet = new Set(bookedDates)
   const DOW_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
   const canGoPrev = activeMonth > MIN_MONTH
   const canGoNext = activeMonth < MAX_MONTH
+  const isCurrentMonth = activeMonth === MIN_MONTH
 
   return (
     <div>
       {/* Month navigation */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-6 flex-wrap">
         <button
           onClick={() => setActiveMonth(m => addMonths(m, -1))}
           disabled={!canGoPrev || loading}
@@ -130,6 +242,15 @@ function AvailabilityTab() {
         >
           Next →
         </button>
+        {!isCurrentMonth && (
+          <button
+            onClick={() => setActiveMonth(MIN_MONTH)}
+            disabled={loading}
+            className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            Today
+          </button>
+        )}
         <button
           onClick={() => fetchBlocks(activeMonth, true)}
           disabled={loading}
@@ -145,6 +266,101 @@ function AvailabilityTab() {
         )}
       </div>
 
+      {/* Add-block form */}
+      {addForm && (
+        <div className="mb-5 p-4 bg-[#F0F7F4] border border-[#52B788]/40 rounded-lg">
+          <p className="text-sm font-semibold text-[#2D6A4F] mb-3">
+            Add availability — {formatBlockDate(addForm.date)}
+          </p>
+          <div className="flex flex-wrap items-end gap-3">
+            <label className="flex flex-col gap-1 text-xs text-gray-600">
+              Start
+              <select
+                value={addForm.startTime}
+                onChange={e => setAddForm(f => f ? { ...f, startTime: e.target.value } : f)}
+                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+              >
+                {TIME_OPTIONS.map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </label>
+            <label className="flex flex-col gap-1 text-xs text-gray-600">
+              End
+              <select
+                value={addForm.endTime}
+                onChange={e => setAddForm(f => f ? { ...f, endTime: e.target.value } : f)}
+                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+              >
+                {TIME_OPTIONS.map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </label>
+            <button
+              onClick={handleSaveBlock}
+              disabled={saving}
+              className="bg-[#2D6A4F] hover:bg-[#245a42] disabled:opacity-50 text-white text-sm px-4 py-1.5 rounded transition-colors"
+            >
+              {saving ? 'Saving…' : 'Add block'}
+            </button>
+            <button
+              onClick={() => setAddForm(null)}
+              disabled={saving}
+              className="text-sm px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-100 transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+          {saveError && <p className="text-red-600 text-xs mt-2">{saveError}</p>}
+
+          {/* Existing blocks for this day */}
+          {blocks.filter(b => b.date === addForm.date).length > 0 && (
+            <div className="mt-4 pt-4 border-t border-[#52B788]/30">
+              <p className="text-xs font-semibold text-gray-500 mb-2">Existing blocks on this day</p>
+              <div className="flex flex-col gap-1">
+                {blocks.filter(b => b.date === addForm.date).map(b => (
+                  <div key={b.id} className="flex items-center justify-between px-3 py-1.5 bg-white border border-[#52B788]/30 rounded text-sm">
+                    <span className="text-[#2D6A4F] font-medium">{b.startTime} – {b.endTime}</span>
+                    <button
+                      onClick={() => setDeleteConfirm(b)}
+                      className="text-xs text-red-500 hover:text-red-700 transition-colors ml-4"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Delete confirmation dialog */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
+            <p className="text-sm font-semibold text-gray-800 mb-5">
+              Are you sure you want to delete {deleteConfirm.startTime} – {deleteConfirm.endTime} block?
+            </p>
+            <div className="flex gap-3 justify-end">
+              <button
+                data-testid="cancel-delete"
+                onClick={() => setDeleteConfirm(null)}
+                disabled={deleting}
+                className="text-sm px-4 py-1.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                data-testid="confirm-delete"
+                onClick={handleDeleteBlock}
+                disabled={deleting}
+                className="text-sm px-4 py-1.5 rounded bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white transition-colors"
+              >
+                {deleting ? 'Deleting…' : 'Yes, delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {loading && (
         <div className="flex flex-col items-center gap-3 py-12 text-[#2D6A4F]">
           <svg className="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -158,53 +374,70 @@ function AvailabilityTab() {
 
       {!loading && !error && (
         <>
-          {blocks.length === 0 ? (
-            <p className="text-sm text-gray-400">No open blocks this month</p>
-          ) : (
-            <>
-              <p className="text-xs text-gray-400 mb-4">{blocks.length} open block{blocks.length !== 1 ? 's' : ''} this month</p>
-              <div className="overflow-x-auto">
-                <div className="min-w-[560px]">
-                  <div className="grid grid-cols-7 gap-1 mb-1">
-                    {DOW_LABELS.map(d => (
-                      <div key={d} className="text-center text-xs font-semibold text-gray-500 py-1">{d}</div>
-                    ))}
-                  </div>
-                  {grid.map((week, wi) => (
-                    <div key={wi} className="grid grid-cols-7 gap-1 mb-1">
-                      {week.map((day, di) => {
-                        const isToday = day.dateStr === today
-                        const dayNum = day.dateStr ? Number(day.dateStr.slice(8)) : null
-                        return (
-                          <div
-                            key={di}
-                            className={`min-h-[64px] rounded p-1.5 text-xs ${
-                              !day.dateStr
-                                ? 'bg-transparent'
-                                : day.blocks.length > 0
-                                ? 'bg-[#F0F7F4] border border-[#52B788]/40'
-                                : 'bg-gray-50 border border-gray-100'
-                            } ${isToday ? 'ring-2 ring-[#2D6A4F]' : ''}`}
-                          >
-                            {dayNum !== null && (
-                              <span className={`block font-semibold mb-1 ${isToday ? 'text-[#2D6A4F]' : 'text-gray-600'}`}>
-                                {dayNum}
-                              </span>
-                            )}
-                            {day.blocks.map(b => (
-                              <div key={b.id} className="text-[10px] leading-tight text-[#2D6A4F] bg-[#52B788]/20 rounded px-1 py-0.5 mb-0.5">
-                                {b.startTime}–{b.endTime}
-                              </div>
-                            ))}
-                          </div>
-                        )
-                      })}
+          <div className="flex items-center gap-4 mb-4">
+            <p className="text-xs text-gray-400">
+              {blocks.length === 0
+                ? 'No open blocks this month'
+                : `${blocks.length} open block${blocks.length !== 1 ? 's' : ''} this month`}
+            </p>
+            {bookedDates.length > 0 && (
+              <span className="flex items-center gap-1 text-xs text-amber-600">
+                <span className="inline-block w-2 h-2 rounded-full bg-amber-400" />
+                {bookedDates.length} day{bookedDates.length !== 1 ? 's' : ''} with bookings
+              </span>
+            )}
+            <p className="text-xs text-gray-400 ml-auto">Click a day to add availability</p>
+          </div>
+
+          <div className="w-full">
+            <div className="grid grid-cols-7 gap-px mb-px">
+              {DOW_LABELS.map(d => (
+                <div key={d} className="text-center text-xs font-semibold text-gray-500 py-1">{d}</div>
+              ))}
+            </div>
+            {grid.map((week, wi) => (
+              <div key={wi} className="grid grid-cols-7 gap-px mb-px">
+                {week.map((day, di) => {
+                  const isToday = day.dateStr === today
+                  const isPast = !!day.dateStr && day.dateStr < today
+                  const hasBooking = day.dateStr ? bookedSet.has(day.dateStr) : false
+                  const dayNum = day.dateStr ? Number(day.dateStr.slice(8)) : null
+                  const clickable = !!day.dateStr && !isPast
+                  return (
+                    <div
+                      key={di}
+                      onClick={() => clickable && handleDayClick(day.dateStr!)}
+                      className={`min-h-[60px] rounded p-1 text-xs transition-colors ${
+                        !day.dateStr
+                          ? 'bg-transparent'
+                          : isPast
+                          ? 'bg-gray-50 border border-gray-100 opacity-40 cursor-default'
+                          : day.blocks.length > 0
+                          ? 'bg-[#F0F7F4] border border-[#52B788]/40 cursor-pointer hover:bg-[#dceee6]'
+                          : 'bg-gray-50 border border-gray-100 cursor-pointer hover:bg-[#F0F7F4]'
+                      } ${isToday ? 'ring-2 ring-[#2D6A4F]' : ''}`}
+                    >
+                      {dayNum !== null && (
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className={`font-semibold ${isToday ? 'text-[#2D6A4F]' : 'text-gray-600'}`}>
+                            {dayNum}
+                          </span>
+                          {hasBooking && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" title="Has bookings" />
+                          )}
+                        </div>
+                      )}
+                      {day.blocks.map(b => (
+                        <div key={b.id} className="text-[9px] leading-tight text-[#2D6A4F] bg-[#52B788]/20 rounded px-0.5 py-0.5 mb-0.5 truncate">
+                          {b.startTime}–{b.endTime}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  )
+                })}
               </div>
-            </>
-          )}
+            ))}
+          </div>
         </>
       )}
     </div>
@@ -462,10 +695,10 @@ export default function AdminDashboard({ email }: { email?: string }) {
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors ${
+            className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors rounded-t-md ${
               activeTab === key
-                ? 'border-[#2D6A4F] text-[#2D6A4F]'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-[#2D6A4F] text-white bg-[#2D6A4F]'
+                : 'border-transparent text-[#2D6A4F]/70 bg-[#2D6A4F]/[0.08] hover:bg-[#2D6A4F]/[0.15] hover:text-[#2D6A4F]'
             }`}
           >
             {label}
@@ -543,7 +776,10 @@ export default function AdminDashboard({ email }: { email?: string }) {
         </div>
       )}
 
-      {activeTab === 'availability' && <AvailabilityTab />}
+      {/* Always mounted so the fetch starts on page load — hidden until tab is active */}
+      <div className={activeTab === 'availability' ? '' : 'hidden'}>
+        <AvailabilityTab />
+      </div>
     </div>
   )
 }

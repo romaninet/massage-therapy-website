@@ -3,6 +3,7 @@ import { getEvent, deleteEvent, listEventsForDate } from '@/lib/googleCalendar'
 import { sendBookingCancellationEmail } from '@/lib/bookingEmails'
 import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
 import { requireAdminAccess } from '@/lib/adminGuard'
+import { BOOKING } from '@/lib/config'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'not_found' }, { status: 404 })
   }
 
-  if (!event.title.startsWith('[CONFIRMED]')) {
+  if (!event.title.startsWith(BOOKING.eventTitles.confirmed)) {
     return NextResponse.json({ error: 'not_confirmed' }, { status: 400 })
   }
 
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
   const dateStr = event.start.toISOString().slice(0, 10)
   const dayEvents = await listEventsForDate(dateStr)
   for (const e of dayEvents) {
-    if (e.title === '[BREAK]' && e.description) {
+    if (e.title === BOOKING.eventTitles.break && e.description) {
       try {
         const breakDetails = JSON.parse(e.description)
         if (breakDetails.linkedEventId === eventId) {
