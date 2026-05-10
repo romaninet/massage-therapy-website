@@ -29,10 +29,15 @@ vi.mock('@/lib/bookingTokens', () => ({
   verifyToken: vi.fn(),
 }))
 
+vi.mock('next-auth', () => ({
+  getServerSession: vi.fn(),
+}))
+
 import { GET } from './route'
 import { listEventsForDate, getEvent, updateEvent, createEvent } from '@/lib/googleCalendar'
 import { sendBookingConfirmationEmail } from '@/lib/bookingEmails'
 import { verifyToken } from '@/lib/bookingTokens'
+import { getServerSession } from 'next-auth'
 
 const EVENT_ID = 'event-abc-123'
 const SESSION_START = new Date('2099-06-01T10:00:00.000Z')
@@ -59,9 +64,10 @@ const pendingEvent = {
   description: pendingEventDescription,
 }
 
-function makeRequest(eventId: string, sig: string) {
+function makeRequest(eventId: string, sig: string, confirmed = false) {
+  const confirmed_ = confirmed ? '&confirmed=1' : ''
   return new Request(
-    `http://localhost/api/booking/confirm?eventId=${encodeURIComponent(eventId)}&sig=${encodeURIComponent(sig)}`,
+    `http://localhost/api/booking/confirm?eventId=${encodeURIComponent(eventId)}&sig=${encodeURIComponent(sig)}${confirmed_}`,
   )
 }
 
@@ -71,6 +77,7 @@ describe('GET /api/booking/confirm', () => {
     showBookingsService = true
     showBookingsAdmin = true
     vi.mocked(verifyToken).mockReturnValue(true)
+    vi.mocked(getServerSession).mockResolvedValue({ user: { email: 'admin@example.com' }, expires: '2099-01-01' })
     vi.mocked(getEvent).mockResolvedValue(pendingEvent)
     vi.mocked(listEventsForDate).mockResolvedValue([pendingEvent])
     vi.mocked(updateEvent).mockResolvedValue(undefined)
@@ -79,7 +86,7 @@ describe('GET /api/booking/confirm', () => {
   })
 
   it('1. Valid sig, no conflict → 200, event updated to CONFIRMED, break created, confirmation email sent', async () => {
-    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig', true))
     expect(res.status).toBe(200)
     expect(res.headers.get('content-type')).toContain('text/html')
 
@@ -113,6 +120,13 @@ describe('GET /api/booking/confirm', () => {
     expect(data.error).toBe('invalid_signature')
   })
 
+  it('2b. Not logged in → 302 redirect to sign-in', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(null)
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    expect(res.status).toBe(302)
+    expect(res.headers.get('location')).toContain('/api/auth/signin')
+  })
+
   it('3. eventId not found → 404', async () => {
     vi.mocked(getEvent).mockResolvedValue(null)
     const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
@@ -142,14 +156,14 @@ describe('GET /api/booking/confirm', () => {
     }
     vi.mocked(listEventsForDate).mockResolvedValue([pendingEvent, conflictEvent])
 
-    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig', true))
     expect(res.status).toBe(409)
     const data = JSON.parse(await res.text())
     expect(data.error).toBe('slot_conflict')
   })
 
   it('6. Break event created with correct duration (BOOKING.breakAfterSession = 30 min)', async () => {
-    await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    await GET(makeRequest(EVENT_ID, 'valid-sig', true))
 
     expect(createEvent).toHaveBeenCalledWith(
       expect.objectContaining({

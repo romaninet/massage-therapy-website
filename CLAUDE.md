@@ -38,6 +38,15 @@ Here are some details about Olha Shelest and her self-employment business:
  - if the currect change or few recent changes justify an update of *.md files like architecture or README, then update them
  - refer to `README.md` for more context information
 
+## SECURITY — Booking state changes
+
+ - ANY route that changes booking state (confirm, decline, cancel, create/delete availability) MUST require the shelestwellness@gmail.com Google session.
+ - This applies to BOTH admin dashboard routes (`/api/admin/*`) AND email-triggered routes (`/api/booking/confirm`, `/api/booking/decline`).
+ - Admin dashboard routes: use `requireAdminAccess(req)` (POST/DELETE) or `requireAdminRead()` (GET) from `src/lib/adminGuard.ts` — these check session + CSRF.
+ - Email-triggered GET routes: call `requireAdminSession()` from `src/lib/adminAuth.ts` and redirect to `/api/auth/signin?callbackUrl=<url>` (302) if not authorized. HMAC token alone is NOT sufficient.
+ - Public routes that do NOT require auth: `/api/booking/request` (client submits request) and `/api/booking/slots` (client views available slots).
+ - When adding any new route that reads or mutates calendar events or booking state, default to requiring admin session.
+
 ## UI, UX and Design guidelines
 
  - Should be high-end, fully responsive website

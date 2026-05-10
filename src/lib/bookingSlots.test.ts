@@ -191,24 +191,23 @@ describe('getAvailableSlots', () => {
     expect(slots[1]).toEqual(d('11:00'))
   })
 
-  // 5b. End-of-day [BREAK] does not block the last slot
-  it('does not block the last slot when [BREAK] starts at the last valid session start', () => {
-    // Window 10:00–13:00. [CONFIRMED] 11:00–12:00, [BREAK] 12:00–12:30.
-    // maxLastValidStart = 13:00 - 60min = 12:00.
-    // [BREAK] starts at 12:00 >= 12:00 → end-of-day → skip.
-    // 12:00: not blocked by CONFIRMED (12:00 < 12:00 false on left) nor by BREAK (skipped) → available.
-    // 10:00: rule (b) — break 11:00–11:30 would overlap CONFIRMED 11:00–12:00 → BLOCKED.
+  // 5b. [BREAK] at the last valid slot start still blocks that slot
+  it('blocks the last slot when [BREAK] starts exactly at that slot time', () => {
+    // Window 10:00–14:00. [CONFIRMED] 12:00–13:00, [BREAK] 13:00–13:30.
+    // maxLastValidStart = 14:00 - 60min = 13:00.
+    // [BREAK] starts at 13:00 — NOT exempt (> not >=) → blocks 13:00 slot.
+    // This is the real-world scenario: auto-break after confirmed booking must block the next slot.
     const events = [
-      makeEvent(AVAIL, d('10:00'), d('13:00')),
-      makeEvent('[CONFIRMED] Jane', d('11:00'), d('12:00')),
-      makeEvent('[BREAK]', d('12:00'), d('12:30')),
+      makeEvent(AVAIL, d('10:00'), d('14:00')),
+      makeEvent('[CONFIRMED] Jane', d('12:00'), d('13:00')),
+      makeEvent('[BREAK]', d('13:00'), d('13:30')),
     ]
     const slots = getAvailableSlots(events, 60, DATE)
     const times = slots.map((s) => s.toISOString())
-    expect(times).toContain(d('12:00').toISOString())     // last slot — end-of-day break skipped ✓
-    expect(times).not.toContain(d('11:00').toISOString()) // session overlaps CONFIRMED
-    expect(times).not.toContain(d('10:30').toISOString()) // session 10:30–11:30 overlaps CONFIRMED
-    expect(times).not.toContain(d('10:00').toISOString()) // break 11:00–11:30 overlaps CONFIRMED → blocked
+    expect(times).not.toContain(d('13:00').toISOString()) // break blocks last slot ✓
+    expect(times).not.toContain(d('11:00').toISOString()) // session 11:00–12:00, break 12:00–12:30 overlaps CONFIRMED
+    expect(times).not.toContain(d('11:30').toISOString()) // session 11:30–12:30 overlaps CONFIRMED
+    expect(times).not.toContain(d('12:00').toISOString()) // overlaps CONFIRMED
   })
 
   // 5c. Mid-day [BREAK] still blocks normally

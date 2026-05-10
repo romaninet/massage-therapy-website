@@ -82,7 +82,7 @@ export function getAvailableSlots(
       const sessionEndWithBreak = sessionEnd + BREAK_MS
       const overlaps = blockingEvents.some((b) => {
         const bs = b.start.getTime()
-        if (b.title === BOOKING.eventTitles.break && bs >= maxLastValidStartMs) return false
+        if (b.title === BOOKING.eventTitles.break && bs > maxLastValidStartMs) return false
         const isSession = b.title.startsWith(BOOKING.eventTitles.pending) || b.title.startsWith(BOOKING.eventTitles.confirmed)
         const be = b.title.startsWith(BOOKING.eventTitles.pending)
           ? b.end.getTime() + BREAK_MS

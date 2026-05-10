@@ -3,7 +3,8 @@ import { getEvent, deleteEvent } from '@/lib/googleCalendar'
 import { verifyToken } from '@/lib/bookingTokens'
 import { sendBookingDeclineEmail } from '@/lib/bookingEmails'
 import { parseEventDescription, bookingDetailsFromEvent } from '@/lib/bookingEventParser'
-import { htmlResponse, jsonResponse, confirmationPage, alreadyHandledPage, successPage } from '@/lib/routeHelpers'
+import { htmlResponse, jsonResponse, confirmationPage, successPage } from '@/lib/routeHelpers'
+import { requireAdminSession } from '@/lib/adminAuth'
 
 export async function GET(request: Request) {
   if (!BOOKING.showBookingsAdmin) {
@@ -24,15 +25,23 @@ export async function GET(request: Request) {
     return jsonResponse({ error: 'invalid_signature' }, 400)
   }
 
+  // Require admin session — redirect to login if not authenticated
+  const { authorized } = await requireAdminSession()
+  if (!authorized) {
+    const loginUrl = new URL('/api/auth/signin', request.url)
+    loginUrl.searchParams.set('callbackUrl', request.url)
+    return Response.redirect(loginUrl.toString(), 302)
+  }
+
   // Get event
   const event = await getEvent(eventId)
   if (!event) {
-    return htmlResponse(alreadyHandledPage())
+    return jsonResponse({ error: 'event_not_found' }, 404)
   }
 
   // Must be PENDING
   if (!event.title.startsWith('[PENDING]')) {
-    return htmlResponse(alreadyHandledPage())
+    return jsonResponse({ error: 'already_handled' }, 409)
   }
 
   let bookingData: Record<string, unknown>

@@ -27,10 +27,15 @@ vi.mock('@/lib/bookingTokens', () => ({
   verifyToken: vi.fn(),
 }))
 
+vi.mock('next-auth', () => ({
+  getServerSession: vi.fn(),
+}))
+
 import { GET } from './route'
 import { getEvent, deleteEvent } from '@/lib/googleCalendar'
 import { sendBookingDeclineEmail } from '@/lib/bookingEmails'
 import { verifyToken } from '@/lib/bookingTokens'
+import { getServerSession } from 'next-auth'
 
 const EVENT_ID = 'event-decline-456'
 const SESSION_START = new Date('2099-06-01T10:00:00.000Z')
@@ -51,9 +56,10 @@ const pendingEvent = {
   }),
 }
 
-function makeRequest(eventId: string, sig: string) {
+function makeRequest(eventId: string, sig: string, confirmed = false) {
+  const confirmed_ = confirmed ? '&confirmed=1' : ''
   return new Request(
-    `http://localhost/api/booking/decline?eventId=${encodeURIComponent(eventId)}&sig=${encodeURIComponent(sig)}`,
+    `http://localhost/api/booking/decline?eventId=${encodeURIComponent(eventId)}&sig=${encodeURIComponent(sig)}${confirmed_}`,
   )
 }
 
@@ -63,17 +69,25 @@ describe('GET /api/booking/decline', () => {
     showBookingsService = true
     showBookingsAdmin = true
     vi.mocked(verifyToken).mockReturnValue(true)
+    vi.mocked(getServerSession).mockResolvedValue({ user: { email: 'admin@example.com' }, expires: '2099-01-01' })
     vi.mocked(getEvent).mockResolvedValue(pendingEvent)
     vi.mocked(deleteEvent).mockResolvedValue(undefined)
     vi.mocked(sendBookingDeclineEmail).mockResolvedValue(undefined)
   })
 
   it('1. Valid sig → 200, event deleted, decline email sent', async () => {
-    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig', true))
     expect(res.status).toBe(200)
     expect(res.headers.get('content-type')).toContain('text/html')
     expect(deleteEvent).toHaveBeenCalledWith(EVENT_ID)
     expect(sendBookingDeclineEmail).toHaveBeenCalledOnce()
+  })
+
+  it('1b. Not logged in → 302 redirect to sign-in', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(null)
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    expect(res.status).toBe(302)
+    expect(res.headers.get('location')).toContain('/api/auth/signin')
   })
 
   it('2. Invalid sig → 400', async () => {
