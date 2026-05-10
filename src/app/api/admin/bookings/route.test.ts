@@ -184,7 +184,7 @@ describe('GET /api/admin/bookings', () => {
     vi.spyOn(bookingMod, 'BOOKING', 'get').mockReturnValue({
       ...BOOKING,
       showBookingsAdmin: false,
-    } as typeof BOOKING)
+    } as unknown as typeof BOOKING)
 
     const req = new NextRequest('http://localhost/api/admin/bookings?view=future')
     const res = await GET(req)

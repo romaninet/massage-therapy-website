@@ -229,4 +229,5 @@ export const BOOKING = {
     confirmed: '[CONFIRMED]',
     break:     '[BREAK]',
   },
+  upcomingPageSize: 20,  // show all if count ≤ this; otherwise show month selector
 } as const;

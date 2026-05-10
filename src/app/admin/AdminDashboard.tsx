@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { signOut } from 'next-auth/react'
+import { BOOKING } from '@/lib/config'
 
 // ── Availability tab types & helpers ──────────────────────────────────────────
 
@@ -683,11 +684,72 @@ function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: (
   )
 }
 
+// ── Helpers for upcoming month filter ─────────────────────────────────────────
+
+function monthsFromBookings(list: Booking[]): string[] {
+  return [...new Set(list.map(b => b.sessionStart.slice(0, 7)))].sort()
+}
+
+function defaultMonth(months: string[]): { year: number; month: number } {
+  const current = `${CURRENT_YEAR}-${String(CURRENT_MONTH).padStart(2, '0')}`
+  const pick = months.includes(current) ? current : (months[0] ?? current)
+  const [y, m] = pick.split('-').map(Number)
+  return { year: y, month: m }
+}
+
+// ── UpcomingList — renders the booking cards for one sub-tab ──────────────────
+
+interface UpcomingListProps {
+  list: Booking[]
+  filterYear?: number
+  filterMonth?: number
+  onAccept?: (id: string) => void
+  onDecline?: (id: string) => void
+  onCancel?: (id: string) => void
+  emptyMessage: string
+}
+
+function UpcomingList({ list, filterYear, filterMonth, onAccept, onDecline, onCancel, emptyMessage }: UpcomingListProps) {
+  const display = (filterYear !== undefined && filterMonth !== undefined)
+    ? list.filter(b => b.sessionStart.startsWith(`${filterYear}-${String(filterMonth).padStart(2, '0')}`))
+    : list
+
+  if (list.length === 0) {
+    return <p className="text-sm text-gray-400">{emptyMessage}</p>
+  }
+
+  return display.length === 0 ? (
+    <p className="text-sm text-gray-400">No bookings for this month</p>
+  ) : (
+    <div className="space-y-3">
+      {display.map(b => (
+        <BookingCard
+          key={b.eventId}
+          booking={b}
+          onAccept={onAccept}
+          onDecline={onDecline}
+          onCancel={onCancel}
+        />
+      ))}
+    </div>
+  )
+}
+
+// ── AdminDashboard ────────────────────────────────────────────────────────────
+
 export default function AdminDashboard({ email }: { email?: string }) {
-  const [activeTab, setActiveTab] = useState<'upcoming' | 'past' | 'availability'>('upcoming')
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<'pending' | 'confirmed' | 'past' | 'availability'>('pending')
+
+  // ── Upcoming (pending + confirmed) state ──
+  const [upcomingBookings, setUpcomingBookings] = useState<Booking[]>([])
+  const [upcomingLoading, setUpcomingLoading] = useState(true)
+  const [upcomingError, setUpcomingError] = useState<string | null>(null)
+  const [lastUpcomingFetched, setLastUpcomingFetched] = useState<Date | null>(null)
+
+  // ── Past state ──
+  const [pastBookings, setPastBookings] = useState<Booking[]>([])
+  const [pastLoading, setPastLoading] = useState(false)
+  const [pastError, setPastError] = useState<string | null>(null)
   const [pastYear, setPastYear] = useState(CURRENT_YEAR)
   const [pastMonthNum, setPastMonthNum] = useState(CURRENT_MONTH)
   const [detailsBooking, setDetailsBooking] = useState<Booking | null>(null)
@@ -696,80 +758,155 @@ export default function AdminDashboard({ email }: { email?: string }) {
 
   const pastMonthKey = `${pastYear}-${String(pastMonthNum).padStart(2, '0')}`
 
-  const fetchBookings = useCallback(async (view: 'future' | 'past', month?: string, forceRefresh = false) => {
-    const cacheKey = view === 'past' && month ? month : '__future__'
-
-    if (!forceRefresh && view === 'past' && pastCacheRef.current.has(cacheKey)) {
-      setBookings(pastCacheRef.current.get(cacheKey)!)
-      return
-    }
-
-    setLoading(true)
-    setError(null)
+  // ── Fetch upcoming ────────────────────────────────────────────────────────
+  const fetchUpcoming = useCallback(async () => {
+    setUpcomingLoading(true)
+    setUpcomingError(null)
     try {
-      const params = new URLSearchParams({ view })
-      if (month) params.set('month', month)
-      const res = await fetch(`/api/admin/bookings?${params}`, { cache: 'no-store' })
+      const res = await fetch('/api/admin/bookings?view=future', { cache: 'no-store' })
       if (!res.ok) throw new Error(`Failed to load bookings (${res.status})`)
       const data = await res.json()
-      const fetched: Booking[] = data.bookings ?? data
-      setBookings(fetched)
-      if (view === 'past' && month) {
-        pastCacheRef.current.set(cacheKey, fetched)
-        setLastPastFetched(new Date())
-      }
+      setUpcomingBookings(data.bookings ?? data)
+      setLastUpcomingFetched(new Date())
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Unknown error')
+      setUpcomingError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
-      setLoading(false)
+      setUpcomingLoading(false)
     }
   }, [])
 
-  useEffect(() => {
-    if (activeTab === 'upcoming') {
-      fetchBookings('future')
-    } else if (activeTab === 'past') {
-      fetchBookings('past', pastMonthKey)
+  // ── Fetch past ────────────────────────────────────────────────────────────
+  const fetchPast = useCallback(async (month: string, forceRefresh = false) => {
+    if (!forceRefresh && pastCacheRef.current.has(month)) {
+      setPastBookings(pastCacheRef.current.get(month)!)
+      return
     }
-  }, [activeTab, fetchBookings])
+    setPastLoading(true)
+    setPastError(null)
+    try {
+      const res = await fetch(`/api/admin/bookings?view=past&month=${month}`, { cache: 'no-store' })
+      if (!res.ok) throw new Error(`Failed to load bookings (${res.status})`)
+      const data = await res.json()
+      const fetched: Booking[] = data.bookings ?? data
+      setPastBookings(fetched)
+      pastCacheRef.current.set(month, fetched)
+      setLastPastFetched(new Date())
+    } catch (e) {
+      setPastError(e instanceof Error ? e.message : 'Unknown error')
+    } finally {
+      setPastLoading(false)
+    }
+  }, [])
 
-  const handleYearChange = (year: number) => {
-    const clampedMonth = year === CURRENT_YEAR ? Math.min(pastMonthNum, CURRENT_MONTH) : pastMonthNum
-    setPastYear(year)
-    setPastMonthNum(clampedMonth)
-    const key = `${year}-${String(clampedMonth).padStart(2, '0')}`
-    fetchBookings('past', key)
+  // ── Tab change effects ────────────────────────────────────────────────────
+  useEffect(() => {
+    if (activeTab === 'pending' || activeTab === 'confirmed') {
+      fetchUpcoming()
+    } else if (activeTab === 'past') {
+      fetchPast(pastMonthKey)
+    }
+  }, [activeTab, fetchUpcoming, fetchPast]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Derived lists ─────────────────────────────────────────────────────────
+  const pending   = upcomingBookings.filter(b => b.status === 'pending')
+  const confirmed = upcomingBookings.filter(b => b.status === 'confirmed')
+
+  const LIMIT = BOOKING.upcomingPageSize
+
+  // Pending month filter
+  const pendingNeedsFilter = pending.length > LIMIT
+  const pendingMonths = pendingNeedsFilter ? monthsFromBookings(pending) : []
+  const [pendingFilterYear, setPendingFilterYear] = useState(CURRENT_YEAR)
+  const [pendingFilterMonth, setPendingFilterMonth] = useState(CURRENT_MONTH)
+  useEffect(() => {
+    if (!pendingNeedsFilter) return
+    const d = defaultMonth(monthsFromBookings(pending))
+    setPendingFilterYear(d.year)
+    setPendingFilterMonth(d.month)
+  }, [upcomingBookings]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const pendingYears = [...new Set(pendingMonths.map(m => Number(m.slice(0, 4))))].sort()
+  const pendingAvailableMonths = pendingMonths
+    .filter(m => m.startsWith(`${pendingFilterYear}-`))
+    .map(m => Number(m.slice(5)))
+
+  const handlePendingYearChange = (y: number) => {
+    setPendingFilterYear(y)
+    const first = pendingMonths.find(m => m.startsWith(`${y}-`))
+    if (first) setPendingFilterMonth(Number(first.slice(5)))
   }
 
-  const handleMonthNumChange = (month: number) => {
-    setPastMonthNum(month)
-    const key = `${pastYear}-${String(month).padStart(2, '0')}`
-    fetchBookings('past', key)
+  // Confirmed month filter
+  const confirmedNeedsFilter = confirmed.length > LIMIT
+  const confirmedMonths = confirmedNeedsFilter ? monthsFromBookings(confirmed) : []
+  const [confirmedFilterYear, setConfirmedFilterYear] = useState(CURRENT_YEAR)
+  const [confirmedFilterMonth, setConfirmedFilterMonth] = useState(CURRENT_MONTH)
+  useEffect(() => {
+    if (!confirmedNeedsFilter) return
+    const d = defaultMonth(monthsFromBookings(confirmed))
+    setConfirmedFilterYear(d.year)
+    setConfirmedFilterMonth(d.month)
+  }, [upcomingBookings]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const confirmedYears = [...new Set(confirmedMonths.map(m => Number(m.slice(0, 4))))].sort()
+  const confirmedAvailableMonths = confirmedMonths
+    .filter(m => m.startsWith(`${confirmedFilterYear}-`))
+    .map(m => Number(m.slice(5)))
+
+  const handleConfirmedYearChange = (y: number) => {
+    setConfirmedFilterYear(y)
+    const first = confirmedMonths.find(m => m.startsWith(`${y}-`))
+    if (first) setConfirmedFilterMonth(Number(first.slice(5)))
   }
 
-  const removeBooking = (eventId: string) => {
-    setBookings(prev => prev.filter(b => b.eventId !== eventId))
-  }
-
+  // ── Handlers ──────────────────────────────────────────────────────────────
   const handleAccepted = (eventId: string) => {
-    setBookings(prev =>
+    setUpcomingBookings(prev =>
       prev.map(b => b.eventId === eventId ? { ...b, status: 'confirmed' as const } : b)
     )
   }
 
-  const pending = bookings.filter(b => b.status === 'pending')
-  const confirmed = bookings.filter(b => b.status === 'confirmed')
+  const removeUpcoming = (eventId: string) => {
+    setUpcomingBookings(prev => prev.filter(b => b.eventId !== eventId))
+  }
+
+  const handlePastYearChange = (year: number) => {
+    const clampedMonth = year === CURRENT_YEAR ? Math.min(pastMonthNum, CURRENT_MONTH) : pastMonthNum
+    setPastYear(year)
+    setPastMonthNum(clampedMonth)
+    fetchPast(`${year}-${String(clampedMonth).padStart(2, '0')}`)
+  }
+
+  const handlePastMonthChange = (month: number) => {
+    setPastMonthNum(month)
+    fetchPast(`${pastYear}-${String(month).padStart(2, '0')}`)
+  }
+
+  // ── Shared spinner ────────────────────────────────────────────────────────
+  const Spinner = () => (
+    <div className="flex flex-col items-center gap-3 py-12 text-[#2D6A4F]">
+      <svg className="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+      </svg>
+      <p className="text-sm text-gray-500">Loading bookings from calendar…</p>
+    </div>
+  )
+
+  // ── Tab label helpers ─────────────────────────────────────────────────────
+  const pendingCount   = upcomingLoading ? null : pending.length
+  const confirmedCount = upcomingLoading ? null : confirmed.length
 
   return (
     <div>
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-[#2D6A4F]">Booking Dashboard</h1>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-end gap-1">
           {email && <span className="text-sm text-gray-500">{email}</span>}
           <button
             onClick={() => signOut({ callbackUrl: '/' })}
-            className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+            className="text-sm px-3 py-1.5 rounded border border-[#2D6A4F] text-white bg-[#2D6A4F] hover:bg-[#245a42] hover:border-[#245a42] transition-colors"
           >
             Sign out
           </button>
@@ -777,9 +914,40 @@ export default function AdminDashboard({ email }: { email?: string }) {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6">
+      <div className="flex border-b border-gray-200 mb-6 gap-px flex-wrap">
+        <button
+          onClick={() => setActiveTab('pending')}
+          className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors rounded-t-md flex items-center gap-2 ${
+            activeTab === 'pending'
+              ? 'border-[#2D6A4F] text-white bg-[#2D6A4F]'
+              : 'border-transparent text-[#2D6A4F]/70 bg-[#2D6A4F]/[0.08] hover:bg-[#2D6A4F]/[0.15] hover:text-[#2D6A4F]'
+          }`}
+        >
+          Pending
+          {pendingCount !== null && pendingCount > 0 && (
+            <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${
+              activeTab === 'pending' ? 'bg-amber-400 text-amber-900' : 'bg-amber-400 text-amber-900'
+            }`}>
+              {pendingCount}
+            </span>
+          )}
+        </button>
+        <button
+          onClick={() => setActiveTab('confirmed')}
+          className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors rounded-t-md flex items-center gap-2 ${
+            activeTab === 'confirmed'
+              ? 'border-[#2D6A4F] text-white bg-[#2D6A4F]'
+              : 'border-transparent text-[#2D6A4F]/70 bg-[#2D6A4F]/[0.08] hover:bg-[#2D6A4F]/[0.15] hover:text-[#2D6A4F]'
+          }`}
+        >
+          Confirmed
+          {confirmedCount !== null && confirmedCount > 0 && (
+            <span className="text-xs font-bold px-1.5 py-0.5 rounded-full bg-green-200 text-green-800">
+              {confirmedCount}
+            </span>
+          )}
+        </button>
         {([
-          { key: 'upcoming', label: 'Upcoming' },
           { key: 'past', label: 'Past' },
           { key: 'availability', label: 'Availability' },
         ] as const).map(({ key, label }) => (
@@ -797,101 +965,163 @@ export default function AdminDashboard({ email }: { email?: string }) {
         ))}
       </div>
 
-      {/* Past month/year picker */}
-      {activeTab === 'past' && (
-        <div className="mb-5 flex items-center gap-2 flex-wrap">
-          <label className="text-sm text-gray-600 font-medium">Period:</label>
-          <select
-            value={pastMonthNum}
-            onChange={e => handleMonthNumChange(Number(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
-          >
-            {ALL_MONTHS.map((name, i) => {
-              const monthNum = i + 1
-              const isFuture = pastYear === CURRENT_YEAR && monthNum > CURRENT_MONTH
-              return (
-                <option key={monthNum} value={monthNum} disabled={isFuture}>
-                  {name}
-                </option>
-              )
-            })}
-          </select>
-          <select
-            value={pastYear}
-            onChange={e => handleYearChange(Number(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
-          >
-            {YEAR_OPTIONS.map(y => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
-          <button
-            onClick={() => fetchBookings('past', pastMonthKey, true)}
-            disabled={loading}
-            className="ml-2 px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            title="Fetch fresh data from calendar"
-          >
-            ↺ Refresh
-          </button>
-          {lastPastFetched && !loading && (
-            <span className="text-xs text-gray-400">
-              Updated {lastPastFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
-            </span>
+      {/* ── Pending tab ───────────────────────────────────────────────────── */}
+      {activeTab === 'pending' && (
+        <div>
+          <div className="flex items-center gap-3 mb-6 flex-wrap">
+            {pendingNeedsFilter && !upcomingLoading && (
+              <>
+                <label className="text-sm text-gray-600 font-medium">Month:</label>
+                <select
+                  value={pendingFilterMonth}
+                  onChange={e => setPendingFilterMonth(Number(e.target.value))}
+                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+                >
+                  {pendingAvailableMonths.map(mn => (
+                    <option key={mn} value={mn}>{ALL_MONTHS[mn - 1]}</option>
+                  ))}
+                </select>
+                <select
+                  value={pendingFilterYear}
+                  onChange={e => handlePendingYearChange(Number(e.target.value))}
+                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+                >
+                  {pendingYears.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+                <span className="text-xs text-gray-400">{pending.length} total</span>
+              </>
+            )}
+            <button
+              onClick={fetchUpcoming}
+              disabled={upcomingLoading}
+              className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              ↺ Refresh
+            </button>
+            {lastUpcomingFetched && !upcomingLoading && (
+              <span className="text-xs text-gray-400">
+                Updated {lastUpcomingFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            )}
+          </div>
+          {upcomingLoading ? <Spinner /> : upcomingError ? (
+            <p className="text-red-600 text-sm py-4">{upcomingError}</p>
+          ) : (
+            <UpcomingList
+              list={pending}
+              filterYear={pendingNeedsFilter ? pendingFilterYear : undefined}
+              filterMonth={pendingNeedsFilter ? pendingFilterMonth : undefined}
+              onAccept={handleAccepted}
+              onDecline={removeUpcoming}
+              emptyMessage="No pending requests"
+            />
           )}
         </div>
       )}
 
-      {loading && (
-        <div className="flex flex-col items-center gap-3 py-12 text-[#2D6A4F]">
-          <svg className="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-          </svg>
-          <p className="text-sm text-gray-500">Loading bookings from calendar…</p>
-        </div>
-      )}
-
-      {error && (
-        <p className="text-red-600 text-sm py-4">{error}</p>
-      )}
-
-      {!loading && !error && activeTab === 'upcoming' && (
-        <div className="space-y-8">
-          <section>
-            <h2 className="text-base font-semibold text-[#2D6A4F] mb-3">Pending Requests</h2>
-            {pending.length === 0 ? (
-              <p className="text-sm text-gray-400">No pending requests</p>
-            ) : (
-              <div className="space-y-3">
-                {pending.map(b => (
-                  <BookingCard key={b.eventId} booking={b} onAccept={handleAccepted} onDecline={removeBooking} />
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section>
-            <h2 className="text-base font-semibold text-[#2D6A4F] mb-3">Confirmed Bookings</h2>
-            {confirmed.length === 0 ? (
-              <p className="text-sm text-gray-400">No confirmed bookings</p>
-            ) : (
-              <div className="space-y-3">
-                {confirmed.map(b => (
-                  <BookingCard key={b.eventId} booking={b} onCancel={removeBooking} />
-                ))}
-              </div>
-            )}
-          </section>
-        </div>
-      )}
-
-      {!loading && !error && activeTab === 'past' && (
+      {/* ── Confirmed tab ─────────────────────────────────────────────────── */}
+      {activeTab === 'confirmed' && (
         <div>
-          {bookings.length === 0 ? (
+          <div className="flex items-center gap-3 mb-6 flex-wrap">
+            {confirmedNeedsFilter && !upcomingLoading && (
+              <>
+                <label className="text-sm text-gray-600 font-medium">Month:</label>
+                <select
+                  value={confirmedFilterMonth}
+                  onChange={e => setConfirmedFilterMonth(Number(e.target.value))}
+                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+                >
+                  {confirmedAvailableMonths.map(mn => (
+                    <option key={mn} value={mn}>{ALL_MONTHS[mn - 1]}</option>
+                  ))}
+                </select>
+                <select
+                  value={confirmedFilterYear}
+                  onChange={e => handleConfirmedYearChange(Number(e.target.value))}
+                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+                >
+                  {confirmedYears.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+                <span className="text-xs text-gray-400">{confirmed.length} total</span>
+              </>
+            )}
+            <button
+              onClick={fetchUpcoming}
+              disabled={upcomingLoading}
+              className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              ↺ Refresh
+            </button>
+            {lastUpcomingFetched && !upcomingLoading && (
+              <span className="text-xs text-gray-400">
+                Updated {lastUpcomingFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            )}
+          </div>
+          {upcomingLoading ? <Spinner /> : upcomingError ? (
+            <p className="text-red-600 text-sm py-4">{upcomingError}</p>
+          ) : (
+            <UpcomingList
+              list={confirmed}
+              filterYear={confirmedNeedsFilter ? confirmedFilterYear : undefined}
+              filterMonth={confirmedNeedsFilter ? confirmedFilterMonth : undefined}
+              onCancel={removeUpcoming}
+              emptyMessage="No confirmed bookings"
+            />
+          )}
+        </div>
+      )}
+
+      {/* ── Past tab ──────────────────────────────────────────────────────── */}
+      {activeTab === 'past' && (
+        <div>
+          <div className="mb-5 flex items-center gap-2 flex-wrap">
+            <label className="text-sm text-gray-600 font-medium">Period:</label>
+            <select
+              value={pastMonthNum}
+              onChange={e => handlePastMonthChange(Number(e.target.value))}
+              className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+            >
+              {ALL_MONTHS.map((name, i) => {
+                const monthNum = i + 1
+                const isFuture = pastYear === CURRENT_YEAR && monthNum > CURRENT_MONTH
+                return (
+                  <option key={monthNum} value={monthNum} disabled={isFuture}>
+                    {name}
+                  </option>
+                )
+              })}
+            </select>
+            <select
+              value={pastYear}
+              onChange={e => handlePastYearChange(Number(e.target.value))}
+              className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
+            >
+              {YEAR_OPTIONS.map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+            <button
+              onClick={() => fetchPast(pastMonthKey, true)}
+              disabled={pastLoading}
+              className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              ↺ Refresh
+            </button>
+            {lastPastFetched && !pastLoading && (
+              <span className="text-xs text-gray-400">
+                Updated {lastPastFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            )}
+          </div>
+
+          {pastLoading ? <Spinner /> : pastError ? (
+            <p className="text-red-600 text-sm py-4">{pastError}</p>
+          ) : pastBookings.length === 0 ? (
             <p className="text-sm text-gray-400">No bookings found for this month</p>
           ) : (
             <div className="space-y-2">
-              {bookings.map(b => (
+              {pastBookings.map(b => (
                 <div key={b.eventId} className="flex items-center justify-between gap-4 bg-[#F0F7F4] rounded-lg px-4 py-3 border-l-4 border-green-600">
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-[#2D6A4F] text-sm">{b.clientName}</p>
@@ -916,7 +1146,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
         <PastBookingDetails booking={detailsBooking} onClose={() => setDetailsBooking(null)} />
       )}
 
-      {/* Always mounted so the fetch starts on page load — hidden until tab is active */}
+      {/* Always mounted so the calendar fetch starts on page load — hidden until tab is active */}
       <div className={activeTab === 'availability' ? '' : 'hidden'}>
         <AvailabilityTab />
       </div>
