@@ -11,7 +11,11 @@ const handler = NextAuth({
   ],
   callbacks: {
     async signIn({ profile }) {
-      return profile?.email === BOOKING.adminEmail
+      if (profile?.email === BOOKING.adminEmail) return true
+      console.error(
+        `[ADMIN-ACCESS-DENIED] ${new Date().toISOString()} | email=${profile?.email ?? 'unknown'} | name=${profile?.name ?? 'unknown'} | sub=${profile?.sub ?? 'unknown'}`
+      )
+      return false
     },
     async session({ session }) {
       return session
