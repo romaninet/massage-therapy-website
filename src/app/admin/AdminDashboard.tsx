@@ -3,6 +3,56 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { signOut } from 'next-auth/react'
 import { BOOKING } from '@/lib/config'
+import { adminTranslations, type AdminLocale, type AdminTranslations } from '@/lib/adminI18n'
+
+// ── Locale-aware formatting helpers ───────────────────────────────────────────
+
+function toLocaleStr(locale: AdminLocale): string {
+  return locale === 'fr' ? 'fr-CA' : 'en-CA'
+}
+
+function monthLabel(key: string, locale: AdminLocale): string {
+  const [y, m] = key.split('-').map(Number)
+  return new Date(y, m - 1, 1).toLocaleString(toLocaleStr(locale), { month: 'long', year: 'numeric' })
+}
+
+function formatBlockDate(dateStr: string, locale: AdminLocale): string {
+  const [year, month, day] = dateStr.split('-').map(Number)
+  return new Date(year, month - 1, day).toLocaleDateString(toLocaleStr(locale), {
+    day: 'numeric', month: 'long', year: 'numeric',
+  })
+}
+
+function formatDateTime(iso: string, locale: AdminLocale): string {
+  return new Date(iso).toLocaleString(toLocaleStr(locale), {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+}
+
+function formatTime(iso: string, locale: AdminLocale): string {
+  return new Date(iso).toLocaleTimeString(toLocaleStr(locale), { hour: '2-digit', minute: '2-digit', hour12: false })
+}
+
+function getDOWLabels(locale: AdminLocale): string[] {
+  const monday = new Date(2024, 0, 1) // Known Monday
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(monday)
+    d.setDate(monday.getDate() + i)
+    return d.toLocaleDateString(toLocaleStr(locale), { weekday: 'short' })
+  })
+}
+
+function getMonthNames(locale: AdminLocale): string[] {
+  return Array.from({ length: 12 }, (_, i) =>
+    new Date(2024, i, 1).toLocaleDateString(toLocaleStr(locale), { month: 'long' })
+  )
+}
 
 // ── Availability tab types & helpers ──────────────────────────────────────────
 
@@ -27,11 +77,6 @@ function addMonths(key: string, n: number): string {
   const [y, m] = key.split('-').map(Number)
   const d = new Date(y, m - 1 + n, 1)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-}
-
-function monthLabel(key: string): string {
-  const [y, m] = key.split('-').map(Number)
-  return new Date(y, m - 1, 1).toLocaleString('en-CA', { month: 'long', year: 'numeric' })
 }
 
 function buildCalendarGrid(year: number, month: number, blocks: OpenBlock[]): CalendarDay[][] {
@@ -65,7 +110,6 @@ function buildCalendarGrid(year: number, month: number, blocks: OpenBlock[]): Ca
   return weeks
 }
 
-
 interface MonthCache {
   blocks: OpenBlock[]
   bookedDates: string[]
@@ -85,14 +129,7 @@ const TIME_OPTIONS = Array.from({ length: 29 }, (_, i) => {
   return `${h}:${m}`
 })
 
-const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December']
-
-function formatBlockDate(dateStr: string): string {
-  const [year, month, day] = dateStr.split('-')
-  return `${day} ${MONTH_NAMES[Number(month) - 1]}, ${year}`
-}
-
-function AvailabilityTab() {
+function AvailabilityTab({ locale, t }: { locale: AdminLocale; t: AdminTranslations }) {
   const MIN_MONTH = currentMonthKey()
   const MAX_MONTH = addMonths(MIN_MONTH, 12)
 
@@ -154,7 +191,7 @@ function AvailabilityTab() {
     if (!addForm) return
     const toMin = (t: string) => { const [h, m] = t.split(':').map(Number); return h * 60 + m }
     if (toMin(addForm.endTime) - toMin(addForm.startTime) < 60) {
-      setSaveError('End time must be at least 1 hour after start time')
+      setSaveError(t.availability.errMinDuration)
       return
     }
     const newStart = toMin(addForm.startTime)
@@ -164,7 +201,7 @@ function AvailabilityTab() {
       newStart < toMin(b.endTime) && toMin(b.startTime) < newEnd
     )
     if (overlaps) {
-      setSaveError('This time range overlaps with an existing availability block')
+      setSaveError(t.availability.errOverlap)
       return
     }
     setSaving(true)
@@ -215,7 +252,7 @@ function AvailabilityTab() {
   const grid = buildCalendarGrid(year, mon, blocks)
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Toronto' })
   const bookedSet = new Set(bookedDates)
-  const DOW_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  const DOW_LABELS = getDOWLabels(locale)
 
   const canGoPrev = activeMonth > MIN_MONTH
   const canGoNext = activeMonth < MAX_MONTH
@@ -230,17 +267,17 @@ function AvailabilityTab() {
           disabled={!canGoPrev || loading}
           className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
-          ← Prev
+          {t.nav.prev}
         </button>
         <span className="text-base font-semibold text-[#2D6A4F] min-w-[160px] text-center">
-          {monthLabel(activeMonth)}
+          {monthLabel(activeMonth, locale)}
         </span>
         <button
           onClick={() => setActiveMonth(m => addMonths(m, 1))}
           disabled={!canGoNext || loading}
           className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
-          Next →
+          {t.nav.next}
         </button>
         {!isCurrentMonth && (
           <button
@@ -248,20 +285,20 @@ function AvailabilityTab() {
             disabled={loading}
             className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
-            Today
+            {t.nav.today}
           </button>
         )}
         <button
           onClick={() => fetchBlocks(activeMonth, true)}
           disabled={loading}
           className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          title="Fetch fresh data from calendar"
+          title={t.availability.refreshTooltip}
         >
-          ↺ Refresh
+          {t.nav.refresh}
         </button>
         {lastFetched && !loading && (
           <span className="text-xs text-gray-400">
-            Updated {lastFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+            {t.updatedAt(lastFetched.toLocaleTimeString(toLocaleStr(locale), { hour: '2-digit', minute: '2-digit' }))}
           </span>
         )}
       </div>
@@ -270,11 +307,11 @@ function AvailabilityTab() {
       {addForm && (
         <div className="mb-5 p-4 bg-[#F0F7F4] border border-[#52B788]/40 rounded-lg">
           <p className="text-sm font-semibold text-[#2D6A4F] mb-3">
-            Add availability — {formatBlockDate(addForm.date)}
+            {t.availability.addTitle(formatBlockDate(addForm.date, locale))}
           </p>
           <div className="flex flex-wrap items-end gap-3">
             <label className="flex flex-col gap-1 text-xs text-gray-600">
-              Start
+              {t.availability.start}
               <select
                 value={addForm.startTime}
                 onChange={e => setAddForm(f => f ? { ...f, startTime: e.target.value } : f)}
@@ -284,7 +321,7 @@ function AvailabilityTab() {
               </select>
             </label>
             <label className="flex flex-col gap-1 text-xs text-gray-600">
-              End
+              {t.availability.end}
               <select
                 value={addForm.endTime}
                 onChange={e => setAddForm(f => f ? { ...f, endTime: e.target.value } : f)}
@@ -298,14 +335,14 @@ function AvailabilityTab() {
               disabled={saving}
               className="bg-[#2D6A4F] hover:bg-[#245a42] disabled:opacity-50 text-white text-sm px-4 py-1.5 rounded transition-colors"
             >
-              {saving ? 'Saving…' : 'Add block'}
+              {saving ? t.availability.saving : t.availability.addBlock}
             </button>
             <button
               onClick={() => setAddForm(null)}
               disabled={saving}
               className="text-sm px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-100 transition-colors"
             >
-              Cancel
+              {t.availability.cancel}
             </button>
           </div>
           {saveError && <p className="text-red-600 text-xs mt-2">{saveError}</p>}
@@ -313,7 +350,7 @@ function AvailabilityTab() {
           {/* Existing blocks for this day */}
           {blocks.filter(b => b.date === addForm.date).length > 0 && (
             <div className="mt-4 pt-4 border-t border-[#52B788]/30">
-              <p className="text-xs font-semibold text-gray-500 mb-2">Existing blocks on this day</p>
+              <p className="text-xs font-semibold text-gray-500 mb-2">{t.availability.existingBlocks}</p>
               <div className="flex flex-col gap-1">
                 {blocks.filter(b => b.date === addForm.date).map(b => (
                   <div key={b.id} className="flex items-center justify-between px-3 py-1.5 bg-white border border-[#52B788]/30 rounded text-sm">
@@ -322,7 +359,7 @@ function AvailabilityTab() {
                       onClick={() => setDeleteConfirm(b)}
                       className="text-xs text-red-500 hover:text-red-700 transition-colors ml-4"
                     >
-                      Delete
+                      {t.availability.delete}
                     </button>
                   </div>
                 ))}
@@ -337,7 +374,7 @@ function AvailabilityTab() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
             <p className="text-sm font-semibold text-gray-800 mb-5">
-              Are you sure you want to delete {deleteConfirm.startTime} – {deleteConfirm.endTime} block?
+              {t.deleteDialog.title(deleteConfirm.startTime, deleteConfirm.endTime)}
             </p>
             <div className="flex gap-3 justify-end">
               <button
@@ -346,7 +383,7 @@ function AvailabilityTab() {
                 disabled={deleting}
                 className="text-sm px-4 py-1.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-50 transition-colors"
               >
-                Cancel
+                {t.deleteDialog.cancel}
               </button>
               <button
                 data-testid="confirm-delete"
@@ -354,7 +391,7 @@ function AvailabilityTab() {
                 disabled={deleting}
                 className="text-sm px-4 py-1.5 rounded bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white transition-colors"
               >
-                {deleting ? 'Deleting…' : 'Yes, delete'}
+                {deleting ? t.deleteDialog.deleting : t.deleteDialog.confirm}
               </button>
             </div>
           </div>
@@ -367,7 +404,7 @@ function AvailabilityTab() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <p className="text-sm text-gray-500">Loading availability from calendar…</p>
+          <p className="text-sm text-gray-500">{t.loading.availability}</p>
         </div>
       )}
       {error && <p className="text-red-600 text-sm py-4">{error}</p>}
@@ -377,16 +414,16 @@ function AvailabilityTab() {
           <div className="flex items-center gap-4 mb-4">
             <p className="text-xs text-gray-400">
               {blocks.length === 0
-                ? 'No open blocks this month'
-                : `${blocks.length} open block${blocks.length !== 1 ? 's' : ''} this month`}
+                ? t.availability.noBlocks
+                : t.availability.blocksCount(blocks.length)}
             </p>
             {bookedDates.length > 0 && (
               <span className="flex items-center gap-1 text-xs text-amber-600">
                 <span className="inline-block w-2 h-2 rounded-full bg-amber-400" />
-                {bookedDates.length} day{bookedDates.length !== 1 ? 's' : ''} with bookings
+                {t.availability.bookedDays(bookedDates.length)}
               </span>
             )}
-            <p className="text-xs text-gray-400 ml-auto">Click a day to add availability</p>
+            <p className="text-xs text-gray-400 ml-auto">{t.availability.clickToAdd}</p>
           </div>
 
           <div className="w-full">
@@ -461,32 +498,17 @@ interface Booking {
   breakEnd: string
 }
 
-function formatDateTime(iso: string): string {
-  const d = new Date(iso)
-  return d.toLocaleString('en-CA', {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-}
-
-function formatTime(iso: string): string {
-  return new Date(iso).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit', hour12: false })
-}
-
 interface BookingCardProps {
   booking: Booking
+  locale: AdminLocale
+  t: AdminTranslations
   onAccept?: (eventId: string) => void
   onDecline?: (eventId: string) => void
   onCancel?: (eventId: string) => void
   readOnly?: boolean
 }
 
-function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: BookingCardProps) {
+function BookingCard({ booking, locale, t, onAccept, onDecline, onCancel, readOnly }: BookingCardProps) {
   const [pendingAction, setPendingAction] = useState<'accept' | 'decline' | 'cancel' | null>(null)
   const [loading, setLoading] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
@@ -511,9 +533,9 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
       } else {
         const data = await res.json().catch(() => ({}))
         if (data.error === 'slot_conflict') {
-          setActionError('This time slot is no longer available — another booking conflicts with this one. Please refresh and try again.')
+          setActionError(t.bookingCard.errConflict)
         } else {
-          setActionError('Something went wrong. Please refresh and try again.')
+          setActionError(t.bookingCard.errGeneral)
         }
       }
     } finally {
@@ -572,7 +594,7 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
             {booking.serviceName} · {booking.durationMinutes} min
           </p>
           <p className="text-sm text-gray-700">
-            {formatDateTime(booking.sessionStart)} – {formatTime(booking.sessionEnd)}
+            {formatDateTime(booking.sessionStart, locale)} – {formatTime(booking.sessionEnd, locale)}
           </p>
           {booking.clientNotes && (
             <p className="text-sm text-gray-500 mt-1 italic">"{booking.clientNotes}"</p>
@@ -588,14 +610,14 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                   disabled={loading}
                   className="bg-green-700 hover:bg-green-800 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded w-full"
                 >
-                  Accept
+                  {t.bookingCard.accept}
                 </button>
                 <button
                   onClick={() => setPendingAction('decline')}
                   disabled={loading}
                   className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded w-full"
                 >
-                  Decline
+                  {t.bookingCard.decline}
                 </button>
               </div>
             )}
@@ -606,7 +628,7 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                 disabled={loading}
                 className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded"
               >
-                Cancel Booking
+                {t.bookingCard.cancelBooking}
               </button>
             )}
 
@@ -614,9 +636,9 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
                 <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
                   <p className="text-sm font-semibold text-gray-800 mb-1">
-                    {pendingAction === 'accept' ? 'Accept booking?' :
-                     pendingAction === 'decline' ? 'Decline booking?' :
-                     'Cancel this booking?'}
+                    {pendingAction === 'accept' ? t.bookingCard.acceptTitle :
+                     pendingAction === 'decline' ? t.bookingCard.declineTitle :
+                     t.bookingCard.cancelTitle}
                   </p>
                   <p className="text-sm text-gray-500 mb-5">
                     {booking.clientName} — {booking.serviceName}
@@ -632,7 +654,7 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                       disabled={loading}
                       className="text-sm px-4 py-1.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-50 transition-colors"
                     >
-                      {pendingAction === 'cancel' ? 'Keep' : 'Cancel'}
+                      {pendingAction === 'cancel' ? t.bookingCard.keep : t.bookingCard.cancel}
                     </button>
                     <button
                       onClick={pendingAction === 'accept' ? handleAccept : pendingAction === 'decline' ? handleDecline : handleCancel}
@@ -645,8 +667,8 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                       }`}
                     >
                       {loading
-                        ? pendingAction === 'accept' ? 'Accepting…' : pendingAction === 'decline' ? 'Declining…' : 'Cancelling…'
-                        : pendingAction === 'accept' ? 'Yes, accept' : pendingAction === 'decline' ? 'Yes, decline' : 'Yes, cancel'}
+                        ? (pendingAction === 'accept' ? t.bookingCard.accepting : pendingAction === 'decline' ? t.bookingCard.declining : t.bookingCard.cancelling)
+                        : (pendingAction === 'accept' ? t.bookingCard.yesAccept : pendingAction === 'decline' ? t.bookingCard.yesDecline : t.bookingCard.yesCancel)}
                     </button>
                   </div>
                 </div>
@@ -664,52 +686,48 @@ const CURRENT_YEAR = NOW.getFullYear()
 const CURRENT_MONTH = NOW.getMonth() + 1 // 1-based
 
 const YEAR_OPTIONS = Array.from({ length: 8 }, (_, i) => CURRENT_YEAR - i)
-const ALL_MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-]
 
-function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: () => void }) {
+function PastBookingDetails({ booking, locale, t, onClose }: { booking: Booking; locale: AdminLocale; t: AdminTranslations; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-base font-semibold text-[#2D6A4F]">Booking Details</h3>
+          <h3 className="text-base font-semibold text-[#2D6A4F]">{t.details.title}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl leading-none">×</button>
         </div>
         <dl className="space-y-3 text-sm">
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Client</dt>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.client}</dt>
             <dd className="text-gray-800 font-medium mt-0.5">{booking.clientName}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Email</dt>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.email}</dt>
             <dd className="text-gray-700 mt-0.5">{booking.clientEmail}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Phone</dt>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.phone}</dt>
             <dd className="text-gray-700 mt-0.5">{booking.clientPhone}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Date & Time</dt>
-            <dd className="text-gray-700 mt-0.5">{formatDateTime(booking.sessionStart)} – {formatTime(booking.sessionEnd)}</dd>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.dateTime}</dt>
+            <dd className="text-gray-700 mt-0.5">{formatDateTime(booking.sessionStart, locale)} – {formatTime(booking.sessionEnd, locale)}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Service</dt>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.service}</dt>
             <dd className="text-gray-700 mt-0.5">{booking.serviceName}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Duration</dt>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.duration}</dt>
             <dd className="text-gray-700 mt-0.5">{booking.durationMinutes} min</dd>
           </div>
           {booking.clientNotes && (
             <div>
-              <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Notes</dt>
+              <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.notes}</dt>
               <dd className="text-gray-700 mt-0.5 italic">"{booking.clientNotes}"</dd>
             </div>
           )}
           <div>
-            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Status</dt>
+            <dt className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.details.status}</dt>
             <dd className="mt-0.5">
               <span className="inline-block px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800 font-medium capitalize">
                 {booking.status}
@@ -721,7 +739,7 @@ function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: (
           onClick={onClose}
           className="mt-6 w-full text-sm px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 transition-colors"
         >
-          Close
+          {t.details.close}
         </button>
       </div>
     </div>
@@ -731,6 +749,21 @@ function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: (
 // ── AdminDashboard ────────────────────────────────────────────────────────────
 
 export default function AdminDashboard({ email }: { email?: string }) {
+  const [locale, setLocale] = useState<AdminLocale>('fr')
+
+  useEffect(() => {
+    const stored = localStorage.getItem('adminLocale') as AdminLocale | null
+    if (stored === 'en' || stored === 'fr') setLocale(stored)
+  }, [])
+
+  const toggleLocale = () => {
+    const next: AdminLocale = locale === 'fr' ? 'en' : 'fr'
+    setLocale(next)
+    localStorage.setItem('adminLocale', next)
+  }
+
+  const t = adminTranslations[locale]
+
   const [activeTab, setActiveTab] = useState<'pending' | 'confirmed' | 'past' | 'availability'>('pending')
 
   // ── Upcoming (pending + confirmed) state ──
@@ -812,7 +845,6 @@ export default function AdminDashboard({ email }: { email?: string }) {
   const pendingTotalPages = Math.ceil(pending.length / PENDING_PAGE_SIZE)
   const pendingPageItems = pending.slice(pendingPage * PENDING_PAGE_SIZE, (pendingPage + 1) * PENDING_PAGE_SIZE)
 
-  // Reset to page 0 when bookings reload
   useEffect(() => { setPendingPage(0) }, [upcomingBookings])
 
   // Confirmed pagination
@@ -851,7 +883,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
       </svg>
-      <p className="text-sm text-gray-500">Loading bookings from calendar…</p>
+      <p className="text-sm text-gray-500">{t.loading.bookings}</p>
     </div>
   )
 
@@ -859,19 +891,29 @@ export default function AdminDashboard({ email }: { email?: string }) {
   const pendingCount   = upcomingLoading ? null : pending.length
   const confirmedCount = upcomingLoading ? null : confirmed.length
 
+  const ALL_MONTHS = getMonthNames(locale)
+
   return (
     <div>
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-[#2D6A4F]">Booking Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-[#2D6A4F]">{t.dashboard}</h1>
         <div className="flex flex-col items-end gap-1">
           {email && <span className="text-sm text-gray-500">{email}</span>}
-          <button
-            onClick={() => signOut({ callbackUrl: '/' })}
-            className="text-sm px-3 py-1.5 rounded border border-[#2D6A4F] text-white bg-[#2D6A4F] hover:bg-[#245a42] hover:border-[#245a42] transition-colors"
-          >
-            Sign out
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleLocale}
+              className="text-sm px-3 py-1.5 rounded border border-[#2D6A4F] text-[#2D6A4F] hover:bg-[#F0F7F4] transition-colors"
+            >
+              {t.switchLang}
+            </button>
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="text-sm px-3 py-1.5 rounded border border-[#2D6A4F] text-white bg-[#2D6A4F] hover:bg-[#245a42] hover:border-[#245a42] transition-colors"
+            >
+              {t.signOut}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -885,11 +927,9 @@ export default function AdminDashboard({ email }: { email?: string }) {
               : 'border-transparent text-[#2D6A4F]/70 bg-[#2D6A4F]/[0.08] hover:bg-[#2D6A4F]/[0.15] hover:text-[#2D6A4F]'
           }`}
         >
-          Pending
+          {t.tabs.pending}
           {pendingCount !== null && pendingCount > 0 && (
-            <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${
-              activeTab === 'pending' ? 'bg-amber-400 text-amber-900' : 'bg-amber-400 text-amber-900'
-            }`}>
+            <span className="text-xs font-bold px-1.5 py-0.5 rounded-full bg-amber-400 text-amber-900">
               {pendingCount}
             </span>
           )}
@@ -902,7 +942,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
               : 'border-transparent text-[#2D6A4F]/70 bg-[#2D6A4F]/[0.08] hover:bg-[#2D6A4F]/[0.15] hover:text-[#2D6A4F]'
           }`}
         >
-          Confirmed
+          {t.tabs.confirmed}
           {confirmedCount !== null && confirmedCount > 0 && (
             <span className="text-xs font-bold px-1.5 py-0.5 rounded-full bg-green-200 text-green-800">
               {confirmedCount}
@@ -910,8 +950,8 @@ export default function AdminDashboard({ email }: { email?: string }) {
           )}
         </button>
         {([
-          { key: 'past', label: 'Past' },
-          { key: 'availability', label: 'Availability' },
+          { key: 'past', label: t.tabs.past },
+          { key: 'availability', label: t.tabs.availability },
         ] as const).map(({ key, label }) => (
           <button
             key={key}
@@ -933,7 +973,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
           <div className="flex items-center gap-3 mb-6 flex-wrap">
             {!upcomingLoading && pending.length > 0 && (
               <span className="text-sm text-gray-500">
-                {pending.length} pending request{pending.length !== 1 ? 's' : ''} in the next {HORIZON_DAYS} days
+                {t.pending.count(pending.length, HORIZON_DAYS)}
               </span>
             )}
             <button
@@ -941,18 +981,18 @@ export default function AdminDashboard({ email }: { email?: string }) {
               disabled={upcomingLoading}
               className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
-              ↺ Refresh
+              {t.nav.refresh}
             </button>
             {lastUpcomingFetched && !upcomingLoading && (
               <span className="text-xs text-gray-400">
-                Updated {lastUpcomingFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+                {t.updatedAt(lastUpcomingFetched.toLocaleTimeString(toLocaleStr(locale), { hour: '2-digit', minute: '2-digit' }))}
               </span>
             )}
           </div>
           {upcomingLoading ? <Spinner /> : upcomingError ? (
             <p className="text-red-600 text-sm py-4">{upcomingError}</p>
           ) : pending.length === 0 ? (
-            <p className="text-sm text-gray-400">No pending requests</p>
+            <p className="text-sm text-gray-400">{t.pending.empty}</p>
           ) : (
             <>
               <div className="space-y-3 mb-4">
@@ -960,6 +1000,8 @@ export default function AdminDashboard({ email }: { email?: string }) {
                   <BookingCard
                     key={b.eventId}
                     booking={b}
+                    locale={locale}
+                    t={t}
                     onAccept={handleAccepted}
                     onDecline={removeUpcoming}
                   />
@@ -973,10 +1015,10 @@ export default function AdminDashboard({ email }: { email?: string }) {
                     disabled={pendingPage === 0}
                     className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
-                    ← Prev
+                    {t.nav.prev}
                   </button>
                   <span data-testid="pending-page-label" className="text-sm text-gray-500">
-                    Page {pendingPage + 1} of {pendingTotalPages}
+                    {t.pending.pageLabel(pendingPage + 1, pendingTotalPages)}
                   </span>
                   <button
                     data-testid="pending-next"
@@ -984,7 +1026,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
                     disabled={pendingPage >= pendingTotalPages - 1}
                     className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
-                    Next →
+                    {t.nav.next}
                   </button>
                 </div>
               )}
@@ -999,7 +1041,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
           <div className="flex items-center gap-3 mb-6 flex-wrap">
             {!upcomingLoading && confirmed.length > 0 && (
               <span className="text-sm text-gray-500">
-                {confirmed.length} confirmed booking{confirmed.length !== 1 ? 's' : ''} in the next {HORIZON_DAYS} days
+                {t.confirmed.count(confirmed.length, HORIZON_DAYS)}
               </span>
             )}
             <button
@@ -1007,18 +1049,18 @@ export default function AdminDashboard({ email }: { email?: string }) {
               disabled={upcomingLoading}
               className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
-              ↺ Refresh
+              {t.nav.refresh}
             </button>
             {lastUpcomingFetched && !upcomingLoading && (
               <span className="text-xs text-gray-400">
-                Updated {lastUpcomingFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+                {t.updatedAt(lastUpcomingFetched.toLocaleTimeString(toLocaleStr(locale), { hour: '2-digit', minute: '2-digit' }))}
               </span>
             )}
           </div>
           {upcomingLoading ? <Spinner /> : upcomingError ? (
             <p className="text-red-600 text-sm py-4">{upcomingError}</p>
           ) : confirmed.length === 0 ? (
-            <p className="text-sm text-gray-400">No confirmed bookings</p>
+            <p className="text-sm text-gray-400">{t.confirmed.empty}</p>
           ) : (
             <>
               <div className="space-y-3 mb-4">
@@ -1026,6 +1068,8 @@ export default function AdminDashboard({ email }: { email?: string }) {
                   <BookingCard
                     key={b.eventId}
                     booking={b}
+                    locale={locale}
+                    t={t}
                     onCancel={removeUpcoming}
                   />
                 ))}
@@ -1038,10 +1082,10 @@ export default function AdminDashboard({ email }: { email?: string }) {
                     disabled={confirmedPage === 0}
                     className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
-                    ← Prev
+                    {t.nav.prev}
                   </button>
                   <span data-testid="confirmed-page-label" className="text-sm text-gray-500">
-                    Page {confirmedPage + 1} of {confirmedTotalPages}
+                    {t.confirmed.pageLabel(confirmedPage + 1, confirmedTotalPages)}
                   </span>
                   <button
                     data-testid="confirmed-next"
@@ -1049,7 +1093,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
                     disabled={confirmedPage >= confirmedTotalPages - 1}
                     className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
-                    Next →
+                    {t.nav.next}
                   </button>
                 </div>
               )}
@@ -1062,7 +1106,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
       {activeTab === 'past' && (
         <div>
           <div className="mb-5 flex items-center gap-2 flex-wrap">
-            <label className="text-sm text-gray-600 font-medium">Period:</label>
+            <label className="text-sm text-gray-600 font-medium">{t.past.period}</label>
             <select
               value={pastMonthNum}
               onChange={e => handlePastMonthChange(Number(e.target.value))}
@@ -1092,11 +1136,11 @@ export default function AdminDashboard({ email }: { email?: string }) {
               disabled={pastLoading}
               className="ml-auto px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
-              ↺ Refresh
+              {t.nav.refresh}
             </button>
             {lastPastFetched && !pastLoading && (
               <span className="text-xs text-gray-400">
-                Updated {lastPastFetched.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+                {t.updatedAt(lastPastFetched.toLocaleTimeString(toLocaleStr(locale), { hour: '2-digit', minute: '2-digit' }))}
               </span>
             )}
           </div>
@@ -1104,7 +1148,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
           {pastLoading ? <Spinner /> : pastError ? (
             <p className="text-red-600 text-sm py-4">{pastError}</p>
           ) : pastBookings.length === 0 ? (
-            <p className="text-sm text-gray-400">No bookings found for this month</p>
+            <p className="text-sm text-gray-400">{t.past.empty}</p>
           ) : (
             <div className="space-y-2">
               {pastBookings.map(b => (
@@ -1112,14 +1156,14 @@ export default function AdminDashboard({ email }: { email?: string }) {
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-[#2D6A4F] text-sm">{b.clientName}</p>
                     <p className="text-xs text-gray-600 mt-0.5">
-                      {formatDateTime(b.sessionStart)} · {b.serviceName} · {b.durationMinutes} min
+                      {formatDateTime(b.sessionStart, locale)} · {b.serviceName} · {b.durationMinutes} min
                     </p>
                   </div>
                   <button
                     onClick={() => setDetailsBooking(b)}
                     className="flex-shrink-0 text-xs px-3 py-1.5 rounded border border-[#2D6A4F]/30 text-[#2D6A4F] hover:bg-[#2D6A4F] hover:text-white transition-colors font-medium"
                   >
-                    Details
+                    {t.past.details}
                   </button>
                 </div>
               ))}
@@ -1129,12 +1173,17 @@ export default function AdminDashboard({ email }: { email?: string }) {
       )}
 
       {detailsBooking && (
-        <PastBookingDetails booking={detailsBooking} onClose={() => setDetailsBooking(null)} />
+        <PastBookingDetails
+          booking={detailsBooking}
+          locale={locale}
+          t={t}
+          onClose={() => setDetailsBooking(null)}
+        />
       )}
 
       {/* Always mounted so the calendar fetch starts on page load — hidden until tab is active */}
       <div className={activeTab === 'availability' ? '' : 'hidden'}>
-        <AvailabilityTab />
+        <AvailabilityTab locale={locale} t={t} />
       </div>
     </div>
   )

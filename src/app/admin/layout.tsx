@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <html lang="en" className={dmSans.variable}>
+    <html lang="fr" className={dmSans.variable}>
       <body>{children}</body>
     </html>
   )
