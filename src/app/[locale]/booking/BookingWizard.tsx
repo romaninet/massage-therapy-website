@@ -7,6 +7,9 @@ import { SERVICES } from '@/lib/config';
 import { CheckCircle, ChevronLeft, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DatePickerInput } from '@/components/ui/DatePickerInput';
+import { FormField, TextareaField } from '@/components/FormField';
+import { TEXT_FILTERS, isValidPhone, validatePersonFields } from '@/lib/validation';
+import { formatPhone } from '@/lib/phone';
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -23,7 +26,10 @@ interface ContactDetails {
   email: string;
   phone: string;
   notes: string;
+  preferredLanguage: 'en' | 'fr';
 }
+
+type ContactErrors = Partial<Record<keyof ContactDetails, string>>;
 
 interface TimeSlot {
   time: string;   // HH:MM Toronto
@@ -33,16 +39,25 @@ interface TimeSlot {
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error' | 'slot_taken';
 
-// Format HH:MM to "2:00 PM" in America/Toronto
+// Format HH:MM to "14:00" (24-hour)
 function formatTime(hhmm: string): string {
   const [h, m] = hhmm.split(':').map(Number);
   const date = new Date(2000, 0, 1, h, m);
   return date.toLocaleTimeString('en-CA', {
-    hour: 'numeric',
+    hour: '2-digit',
     minute: '2-digit',
-    hour12: true,
+    hour12: false,
     timeZone: 'America/Toronto',
   });
+}
+
+// Format YYYY-MM-DD to "Tuesday, May 12, 2026"
+function formatDate(dateStr: string, loc: string): string {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString(
+    loc === 'fr' ? 'fr-CA' : 'en-CA',
+    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  );
 }
 
 // Add N days to today (YYYY-MM-DD)
@@ -87,6 +102,7 @@ function StepIndicator({ current }: StepIndicatorProps) {
 
 export default function BookingWizard({ locale }: { locale: string }) {
   const t = useTranslations('booking');
+  const cf = useTranslations('contact.form'); // shared field labels/placeholders
   const searchParams = useSearchParams();
 
   const preselectedService = searchParams.get('service') ?? '';
@@ -98,8 +114,11 @@ export default function BookingWizard({ locale }: { locale: string }) {
   const [expandedService, setExpandedService] = useState<string | null>(
     SERVICES.some((s) => s.key === preselectedService) ? preselectedService : null
   );
-  const [contact, setContact] = useState<ContactDetails>({ name: '', email: '', phone: '', notes: '' });
-  const [contactErrors, setContactErrors] = useState<Partial<Record<keyof ContactDetails, string>>>({});
+  const [contact, setContact] = useState<ContactDetails>({
+    name: '', email: '', phone: '', notes: '',
+    preferredLanguage: locale === 'fr' ? 'fr' : 'en',
+  });
+  const [contactErrors, setContactErrors] = useState<ContactErrors>({});
   const [honeypot, setHoneypot] = useState('');
   const [formStartedAt, setFormStartedAt] = useState<number | null>(null);
 
@@ -197,17 +216,52 @@ export default function BookingWizard({ locale }: { locale: string }) {
     setStep(4);
   }
 
-  // --- Step 4 handler ---
+  // --- Step 4 handlers ---
+  function handleContactChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    const fieldFilters: Record<string, (v: string) => string> = {
+      name: TEXT_FILTERS.name,
+      email: TEXT_FILTERS.email,
+      phone: TEXT_FILTERS.phone,
+    };
+    const filtered = fieldFilters[name]?.(value) ?? value;
+    setContact((p) => ({ ...p, [name]: filtered }));
+    if (contactErrors[name as keyof ContactDetails]) {
+      setContactErrors((p) => ({ ...p, [name]: undefined }));
+    }
+  }
+
+  function handleNotesChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setContact((p) => ({ ...p, notes: TEXT_FILTERS.message(e.target.value) }));
+  }
+
+  function handlePhoneBlur() {
+    const raw = contact.phone.trim();
+    if (!raw) return;
+    if (isValidPhone(raw)) {
+      setContact((p) => ({ ...p, phone: formatPhone(raw) }));
+      setContactErrors((p) => ({ ...p, phone: undefined }));
+    } else {
+      setContactErrors((p) => ({ ...p, phone: cf('validation.phoneInvalid') }));
+    }
+  }
+
   function validateContact(): boolean {
-    const errs: Partial<Record<keyof ContactDetails, string>> = {};
-    if (!contact.name.trim()) errs.name = 'required';
-    if (!contact.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'required';
-    if (!contact.phone.trim()) errs.phone = 'required';
+    const errs: ContactErrors = {
+      ...validatePersonFields(contact, {
+        nameRequired: cf('validation.nameRequired'),
+        nameInvalid: cf('validation.nameInvalid'),
+        emailRequired: cf('validation.emailRequired'),
+        emailInvalid: cf('validation.emailInvalid'),
+        phoneInvalid: cf('validation.phoneInvalid'),
+      }),
+    };
+    if (!contact.preferredLanguage) errs.preferredLanguage = t('validation.langRequired');
     setContactErrors(errs);
     return Object.keys(errs).length === 0;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!validateContact()) return;
     setSubmitState('submitting');
@@ -224,6 +278,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
           clientEmail: contact.email,
           clientPhone: contact.phone,
           clientNotes: contact.notes,
+          preferredLanguage: contact.preferredLanguage,
           _hp: honeypot,
           _t: formStartedAt,
         }),
@@ -402,7 +457,7 @@ export default function BookingWizard({ locale }: { locale: string }) {
               {t('step3Title')}
             </h2>
             <p className="text-center text-sm text-gray-500 mb-6">
-              {selection.date}
+              {selection.date ? formatDate(selection.date, locale) : ''}
             </p>
             {loadingSlots ? (
               <div className="flex justify-center py-12">
@@ -459,77 +514,71 @@ export default function BookingWizard({ locale }: { locale: string }) {
                 {service?.title[locale as 'en' | 'fr'] ?? ''} · {selection.duration} {t('min')}
               </div>
               <div className="text-gray-600">
-                {selection.date} at {selection.time ? formatTime(selection.time) : ''}
+                {selection.date ? formatDate(selection.date, locale) : ''}{selection.time ? ` · ${formatTime(selection.time)}` : ''}
               </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Honeypot — hidden from real users, bots fill it in */}
-              <div aria-hidden="true" style={{ display: 'none' }}>
-                <label htmlFor="website">Website</label>
-                <input
-                  id="website"
-                  name="website"
-                  type="text"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                  tabIndex={-1}
-                  autoComplete="off"
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                aria-hidden="true"
+                tabIndex={-1}
+                autoComplete="off"
+                style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+              />
+
+              <div className="grid sm:grid-cols-2 gap-5">
+                <FormField
+                  label={cf('name')} name="name" value={contact.name}
+                  onChange={handleContactChange} placeholder={cf('namePlaceholder')}
+                  autoComplete="name" maxLength={30}
+                  error={contactErrors.name} data-testid="input-name"
+                />
+                <FormField
+                  label={cf('email')} name="email" type="email" value={contact.email}
+                  onChange={handleContactChange} placeholder={cf('emailPlaceholder')}
+                  autoComplete="email" maxLength={60}
+                  error={contactErrors.email} data-testid="input-email"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-[#2D6A4F] mb-1">{t('name')}</label>
-                <input
-                  type="text"
-                  value={contact.name}
-                  onChange={(e) => setContact((p) => ({ ...p, name: e.target.value }))}
-                  className={`w-full rounded-lg border px-4 py-3 text-sm text-gray-800 outline-none transition-colors focus:ring-2 focus:ring-[#52B788]/30 focus:border-[#52B788] ${
-                    contactErrors.name ? 'border-red-400' : 'border-gray-300'
-                  }`}
-                  data-testid="input-name"
-                />
-                {contactErrors.name && <p className="text-xs text-red-500 mt-1">{t('name')} is required.</p>}
+              <FormField
+                label={cf('phone')} name="phone" type="tel" value={contact.phone}
+                onChange={handleContactChange} onBlur={handlePhoneBlur}
+                placeholder={cf('phonePlaceholder')} autoComplete="tel" maxLength={17}
+                error={contactErrors.phone} data-testid="input-phone"
+              />
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-forest/60 tracking-wider uppercase">
+                  {t('preferredLanguage')}
+                </label>
+                <select
+                  value={contact.preferredLanguage}
+                  onChange={(e) => {
+                    setContact((p) => ({ ...p, preferredLanguage: e.target.value as 'en' | 'fr' }));
+                    setContactErrors((p) => ({ ...p, preferredLanguage: undefined }));
+                  }}
+                  className={`w-full rounded-md border bg-white px-3 py-2.5 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition-colors ${contactErrors.preferredLanguage ? 'border-red-400' : 'border-forest/20'}`}
+                >
+                  <option value="en">{t('langEn')}</option>
+                  <option value="fr">{t('langFr')}</option>
+                </select>
+                {contactErrors.preferredLanguage && (
+                  <p className="text-red-500 text-xs">{contactErrors.preferredLanguage}</p>
+                )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-[#2D6A4F] mb-1">{t('email')}</label>
-                <input
-                  type="email"
-                  value={contact.email}
-                  onChange={(e) => setContact((p) => ({ ...p, email: e.target.value }))}
-                  className={`w-full rounded-lg border px-4 py-3 text-sm text-gray-800 outline-none transition-colors focus:ring-2 focus:ring-[#52B788]/30 focus:border-[#52B788] ${
-                    contactErrors.email ? 'border-red-400' : 'border-gray-300'
-                  }`}
-                  data-testid="input-email"
-                />
-                {contactErrors.email && <p className="text-xs text-red-500 mt-1">{t('email')} is required.</p>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-[#2D6A4F] mb-1">{t('phone')}</label>
-                <input
-                  type="tel"
-                  value={contact.phone}
-                  onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))}
-                  className={`w-full rounded-lg border px-4 py-3 text-sm text-gray-800 outline-none transition-colors focus:ring-2 focus:ring-[#52B788]/30 focus:border-[#52B788] ${
-                    contactErrors.phone ? 'border-red-400' : 'border-gray-300'
-                  }`}
-                  data-testid="input-phone"
-                />
-                {contactErrors.phone && <p className="text-xs text-red-500 mt-1">{t('phone')} is required.</p>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-[#2D6A4F] mb-1">{t('notes')}</label>
-                <textarea
-                  value={contact.notes}
-                  onChange={(e) => setContact((p) => ({ ...p, notes: e.target.value }))}
-                  rows={3}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-800 outline-none transition-colors focus:ring-2 focus:ring-[#52B788]/30 focus:border-[#52B788] resize-none"
-                  data-testid="input-notes"
-                />
-              </div>
+              <TextareaField
+                label={t('notes')} name="notes" value={contact.notes}
+                onChange={handleNotesChange} placeholder={cf('messagePlaceholder')}
+                rows={3} maxLength={300}
+                data-testid="input-notes"
+              />
 
               <Button
                 type="submit"

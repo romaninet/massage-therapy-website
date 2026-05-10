@@ -9,6 +9,7 @@ export interface BookingDetails {
   clientEmail: string
   clientPhone: string
   clientNotes?: string
+  preferredLanguage?: string
   serviceKey: string
   serviceName: string
   durationMinutes: number
@@ -52,7 +53,7 @@ function getResend(): Resend {
 
 export async function sendBookingRequestEmail(booking: BookingDetails, baseUrl?: string): Promise<void> {
   const {
-    clientName, clientEmail, clientPhone, clientNotes,
+    clientName, clientEmail, clientPhone, clientNotes, preferredLanguage,
     serviceName, durationMinutes,
     sessionStart, sessionEnd,
     breakStart, breakEnd,
@@ -115,6 +116,11 @@ export async function sendBookingRequestEmail(booking: BookingDetails, baseUrl?:
         <tr style="border-top: 1px solid #e8f3ed;">
           <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Notes</td>
           <td style="padding: 10px 0; color: #1a2e25; white-space: pre-wrap;">${clientNotes}</td>
+        </tr>` : ''}
+        ${preferredLanguage ? `
+        <tr style="border-top: 1px solid #e8f3ed;">
+          <td style="padding: 10px 0; color: #5a7a6a; font-weight: 600; vertical-align: top;">Preferred Language</td>
+          <td style="padding: 10px 0; color: #1a2e25;">${preferredLanguage === 'fr' ? 'French / Français' : 'English'}</td>
         </tr>` : ''}
       </table>
       <div style="margin-top: 24px; text-align: center;">

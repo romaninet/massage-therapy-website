@@ -421,17 +421,20 @@
     "step2Title": "Choose a Date",
     "step3Title": "Choose a Time",
     "step4Title": "Your Details",
-    "name": "Full Name",
-    "email": "Email",
-    "phone": "Phone",
     "notes": "Notes (optional)",
+    "preferredLanguage": "Preferred Communication Language",
+    "langEn": "English",
+    "langFr": "French",
     "submit": "Request Appointment",
     "successTitle": "Request Submitted!",
     "successMessage": "We'll confirm your appointment shortly.",
     "slotTaken": "This time slot was just taken. Please go back and choose another time.",
     "back": "Back",
     "next": "Next",
-    "min": "min"
+    "min": "min",
+    "validation": {
+      "langRequired": "Please select a preferred language"
+    }
   },
   "articles": {
     "index": {

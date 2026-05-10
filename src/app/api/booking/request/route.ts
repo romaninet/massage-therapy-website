@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 })
   }
 
-  const { date, service: serviceKey, duration, startTime, clientName, clientEmail, clientPhone, clientNotes, _hp, _t } = body as {
+  const { date, service: serviceKey, duration, startTime, clientName, clientEmail, clientPhone, clientNotes, preferredLanguage, _hp, _t } = body as {
     date?: string
     service?: string
     duration?: number
@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     clientEmail?: string
     clientPhone?: string
     clientNotes?: string
+    preferredLanguage?: string
     _hp?: string
     _t?: number
   }
@@ -131,6 +132,7 @@ export async function POST(request: Request) {
     clientEmail,
     clientPhone,
     ...(clientNotes ? { clientNotes } : {}),
+    ...(preferredLanguage ? { preferredLanguage } : {}),
   })
 
   const eventId = await createEvent({
@@ -150,6 +152,7 @@ export async function POST(request: Request) {
     clientEmail,
     clientPhone,
     clientNotes,
+    preferredLanguage,
     serviceKey,
     serviceName,
     durationMinutes,

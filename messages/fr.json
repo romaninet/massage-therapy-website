@@ -421,17 +421,20 @@
     "step2Title": "Choisir une date",
     "step3Title": "Choisir une heure",
     "step4Title": "Vos coordonnées",
-    "name": "Nom complet",
-    "email": "Courriel",
-    "phone": "Téléphone",
     "notes": "Notes (facultatif)",
+    "preferredLanguage": "Langue de communication préférée",
+    "langEn": "Anglais",
+    "langFr": "Français",
     "submit": "Demander un rendez-vous",
     "successTitle": "Demande envoyée !",
     "successMessage": "Nous confirmerons votre rendez-vous sous peu.",
     "slotTaken": "Ce créneau vient d'être pris. Veuillez revenir en arrière et choisir un autre horaire.",
     "back": "Retour",
     "next": "Suivant",
-    "min": "min"
+    "min": "min",
+    "validation": {
+      "langRequired": "Veuillez sélectionner une langue préférée"
+    }
   },
   "articles": {
     "index": {
