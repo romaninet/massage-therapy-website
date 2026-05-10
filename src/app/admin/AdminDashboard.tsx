@@ -486,8 +486,7 @@ interface BookingCardProps {
 }
 
 function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: BookingCardProps) {
-  const [confirming, setConfirming] = useState(false)
-  const [pendingAction, setPendingAction] = useState<'accept' | 'decline' | null>(null)
+  const [pendingAction, setPendingAction] = useState<'accept' | 'decline' | 'cancel' | null>(null)
   const [loading, setLoading] = useState(false)
 
   const borderClass =
@@ -538,11 +537,11 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
         body: JSON.stringify({ eventId: booking.eventId }),
       })
       if (res.ok) {
+        setPendingAction(null)
         onCancel?.(booking.eventId)
       }
     } finally {
       setLoading(false)
-      setConfirming(false)
     }
   }
 
@@ -584,11 +583,23 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
               </div>
             )}
 
+            {booking.status === 'confirmed' && (
+              <button
+                onClick={() => setPendingAction('cancel')}
+                disabled={loading}
+                className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded"
+              >
+                Cancel Booking
+              </button>
+            )}
+
             {pendingAction && (
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
                 <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
                   <p className="text-sm font-semibold text-gray-800 mb-1">
-                    {pendingAction === 'accept' ? 'Accept booking?' : 'Decline booking?'}
+                    {pendingAction === 'accept' ? 'Accept booking?' :
+                     pendingAction === 'decline' ? 'Decline booking?' :
+                     'Cancel this booking?'}
                   </p>
                   <p className="text-sm text-gray-500 mb-5">
                     {booking.clientName} — {booking.serviceName}
@@ -599,10 +610,10 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                       disabled={loading}
                       className="text-sm px-4 py-1.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-50 transition-colors"
                     >
-                      Cancel
+                      {pendingAction === 'cancel' ? 'Keep' : 'Cancel'}
                     </button>
                     <button
-                      onClick={pendingAction === 'accept' ? handleAccept : handleDecline}
+                      onClick={pendingAction === 'accept' ? handleAccept : pendingAction === 'decline' ? handleDecline : handleCancel}
                       disabled={loading}
                       data-testid={`confirm-${pendingAction}`}
                       className={`text-sm px-4 py-1.5 rounded disabled:opacity-50 text-white transition-colors ${
@@ -612,39 +623,10 @@ function BookingCard({ booking, onAccept, onDecline, onCancel, readOnly }: Booki
                       }`}
                     >
                       {loading
-                        ? pendingAction === 'accept' ? 'Accepting…' : 'Declining…'
-                        : pendingAction === 'accept' ? 'Yes, accept' : 'Yes, decline'}
+                        ? pendingAction === 'accept' ? 'Accepting…' : pendingAction === 'decline' ? 'Declining…' : 'Cancelling…'
+                        : pendingAction === 'accept' ? 'Yes, accept' : pendingAction === 'decline' ? 'Yes, decline' : 'Yes, cancel'}
                     </button>
                   </div>
-                </div>
-              </div>
-            )}
-            {booking.status === 'confirmed' && !confirming && (
-              <button
-                onClick={() => setConfirming(true)}
-                className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1.5 rounded"
-              >
-                Cancel Booking
-              </button>
-            )}
-            {booking.status === 'confirmed' && confirming && (
-              <div className="flex flex-col gap-2 items-end">
-                <p className="text-sm text-gray-700">Cancel this booking?</p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setConfirming(false)}
-                    className="text-sm px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-100"
-                  >
-                    Keep
-                  </button>
-                  <button
-                    onClick={handleCancel}
-                    disabled={loading}
-                    data-testid="confirm-cancel"
-                    className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm px-3 py-1.5 rounded"
-                  >
-                    {loading ? 'Cancelling…' : 'Yes, Cancel'}
-                  </button>
                 </div>
               </div>
             )}
@@ -720,57 +702,6 @@ function PastBookingDetails({ booking, onClose }: { booking: Booking; onClose: (
           Close
         </button>
       </div>
-    </div>
-  )
-}
-
-// ── Helpers for confirmed month filter ───────────────────────────────────────
-
-function monthsFromBookings(list: Booking[]): string[] {
-  return [...new Set(list.map(b => b.sessionStart.slice(0, 7)))].sort()
-}
-
-function defaultMonth(months: string[]): { year: number; month: number } {
-  const current = `${CURRENT_YEAR}-${String(CURRENT_MONTH).padStart(2, '0')}`
-  const pick = months.includes(current) ? current : (months[0] ?? current)
-  const [y, m] = pick.split('-').map(Number)
-  return { year: y, month: m }
-}
-
-// ── UpcomingList — renders the booking cards for one sub-tab ──────────────────
-
-interface UpcomingListProps {
-  list: Booking[]
-  filterYear?: number
-  filterMonth?: number
-  onAccept?: (id: string) => void
-  onDecline?: (id: string) => void
-  onCancel?: (id: string) => void
-  emptyMessage: string
-}
-
-function UpcomingList({ list, filterYear, filterMonth, onAccept, onDecline, onCancel, emptyMessage }: UpcomingListProps) {
-  const display = (filterYear !== undefined && filterMonth !== undefined)
-    ? list.filter(b => b.sessionStart.startsWith(`${filterYear}-${String(filterMonth).padStart(2, '0')}`))
-    : list
-
-  if (list.length === 0) {
-    return <p className="text-sm text-gray-400">{emptyMessage}</p>
-  }
-
-  return display.length === 0 ? (
-    <p className="text-sm text-gray-400">No bookings for this month</p>
-  ) : (
-    <div className="space-y-3">
-      {display.map(b => (
-        <BookingCard
-          key={b.eventId}
-          booking={b}
-          onAccept={onAccept}
-          onDecline={onDecline}
-          onCancel={onCancel}
-        />
-      ))}
     </div>
   )
 }
@@ -852,8 +783,9 @@ export default function AdminDashboard({ email }: { email?: string }) {
   const pending   = upcomingBookings.filter(b => b.status === 'pending' && new Date(b.sessionStart) > now)
   const confirmed = upcomingBookings.filter(b => b.status === 'confirmed')
 
-  // Pending pagination
+  // Pagination
   const PENDING_PAGE_SIZE = BOOKING.pendingPageSize
+  const HORIZON_DAYS = BOOKING.bookingHorizonDays
   const [pendingPage, setPendingPage] = useState(0)
   const pendingTotalPages = Math.ceil(pending.length / PENDING_PAGE_SIZE)
   const pendingPageItems = pending.slice(pendingPage * PENDING_PAGE_SIZE, (pendingPage + 1) * PENDING_PAGE_SIZE)
@@ -861,28 +793,11 @@ export default function AdminDashboard({ email }: { email?: string }) {
   // Reset to page 0 when bookings reload
   useEffect(() => { setPendingPage(0) }, [upcomingBookings])
 
-  // Confirmed month filter
-  const confirmedNeedsFilter = confirmed.length > BOOKING.pendingPageSize
-  const confirmedMonths = confirmedNeedsFilter ? monthsFromBookings(confirmed) : []
-  const [confirmedFilterYear, setConfirmedFilterYear] = useState(CURRENT_YEAR)
-  const [confirmedFilterMonth, setConfirmedFilterMonth] = useState(CURRENT_MONTH)
-  useEffect(() => {
-    if (!confirmedNeedsFilter) return
-    const d = defaultMonth(monthsFromBookings(confirmed))
-    setConfirmedFilterYear(d.year)
-    setConfirmedFilterMonth(d.month)
-  }, [upcomingBookings]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const confirmedYears = [...new Set(confirmedMonths.map(m => Number(m.slice(0, 4))))].sort()
-  const confirmedAvailableMonths = confirmedMonths
-    .filter(m => m.startsWith(`${confirmedFilterYear}-`))
-    .map(m => Number(m.slice(5)))
-
-  const handleConfirmedYearChange = (y: number) => {
-    setConfirmedFilterYear(y)
-    const first = confirmedMonths.find(m => m.startsWith(`${y}-`))
-    if (first) setConfirmedFilterMonth(Number(first.slice(5)))
-  }
+  // Confirmed pagination
+  const [confirmedPage, setConfirmedPage] = useState(0)
+  const confirmedTotalPages = Math.ceil(confirmed.length / PENDING_PAGE_SIZE)
+  const confirmedPageItems = confirmed.slice(confirmedPage * PENDING_PAGE_SIZE, (confirmedPage + 1) * PENDING_PAGE_SIZE)
+  useEffect(() => { setConfirmedPage(0) }, [upcomingBookings])
 
   // ── Handlers ──────────────────────────────────────────────────────────────
   const handleAccepted = (eventId: string) => {
@@ -996,7 +911,7 @@ export default function AdminDashboard({ email }: { email?: string }) {
           <div className="flex items-center gap-3 mb-6 flex-wrap">
             {!upcomingLoading && pending.length > 0 && (
               <span className="text-sm text-gray-500">
-                {pending.length} pending request{pending.length !== 1 ? 's' : ''}
+                {pending.length} pending request{pending.length !== 1 ? 's' : ''} in the next {HORIZON_DAYS} days
               </span>
             )}
             <button
@@ -1060,27 +975,10 @@ export default function AdminDashboard({ email }: { email?: string }) {
       {activeTab === 'confirmed' && (
         <div>
           <div className="flex items-center gap-3 mb-6 flex-wrap">
-            {confirmedNeedsFilter && !upcomingLoading && (
-              <>
-                <label className="text-sm text-gray-600 font-medium">Month:</label>
-                <select
-                  value={confirmedFilterMonth}
-                  onChange={e => setConfirmedFilterMonth(Number(e.target.value))}
-                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
-                >
-                  {confirmedAvailableMonths.map(mn => (
-                    <option key={mn} value={mn}>{ALL_MONTHS[mn - 1]}</option>
-                  ))}
-                </select>
-                <select
-                  value={confirmedFilterYear}
-                  onChange={e => handleConfirmedYearChange(Number(e.target.value))}
-                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788] cursor-pointer"
-                >
-                  {confirmedYears.map(y => <option key={y} value={y}>{y}</option>)}
-                </select>
-                <span className="text-xs text-gray-400">{confirmed.length} total</span>
-              </>
+            {!upcomingLoading && confirmed.length > 0 && (
+              <span className="text-sm text-gray-500">
+                {confirmed.length} confirmed booking{confirmed.length !== 1 ? 's' : ''} in the next {HORIZON_DAYS} days
+              </span>
             )}
             <button
               onClick={fetchUpcoming}
@@ -1097,14 +995,43 @@ export default function AdminDashboard({ email }: { email?: string }) {
           </div>
           {upcomingLoading ? <Spinner /> : upcomingError ? (
             <p className="text-red-600 text-sm py-4">{upcomingError}</p>
+          ) : confirmed.length === 0 ? (
+            <p className="text-sm text-gray-400">No confirmed bookings</p>
           ) : (
-            <UpcomingList
-              list={confirmed}
-              filterYear={confirmedNeedsFilter ? confirmedFilterYear : undefined}
-              filterMonth={confirmedNeedsFilter ? confirmedFilterMonth : undefined}
-              onCancel={removeUpcoming}
-              emptyMessage="No confirmed bookings"
-            />
+            <>
+              <div className="space-y-3 mb-4">
+                {confirmedPageItems.map(b => (
+                  <BookingCard
+                    key={b.eventId}
+                    booking={b}
+                    onCancel={removeUpcoming}
+                  />
+                ))}
+              </div>
+              {confirmedTotalPages > 1 && (
+                <div className="flex items-center gap-2 justify-center mt-2">
+                  <button
+                    data-testid="confirmed-prev"
+                    onClick={() => setConfirmedPage(p => p - 1)}
+                    disabled={confirmedPage === 0}
+                    className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  >
+                    ← Prev
+                  </button>
+                  <span data-testid="confirmed-page-label" className="text-sm text-gray-500">
+                    Page {confirmedPage + 1} of {confirmedTotalPages}
+                  </span>
+                  <button
+                    data-testid="confirmed-next"
+                    onClick={() => setConfirmedPage(p => p + 1)}
+                    disabled={confirmedPage >= confirmedTotalPages - 1}
+                    className="px-3 py-1.5 rounded text-sm font-medium bg-[#F0F7F4] text-[#2D6A4F] hover:bg-[#dceee6] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Next →
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}

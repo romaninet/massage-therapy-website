@@ -229,5 +229,6 @@ export const BOOKING = {
     confirmed: '[CONFIRMED]',
     break:     '[BREAK]',
   },
-  pendingPageSize: 3,  // number of pending bookings shown per page
+  pendingPageSize: 3,  // number of pending/confirmed bookings shown per page
+  bookingHorizonDays: 365, // how many days ahead bookings are fetched and displayed
 } as const;

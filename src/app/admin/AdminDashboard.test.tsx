@@ -183,6 +183,9 @@ describe('AdminDashboard', () => {
   })
 
   describe('Pending tab — pagination', () => {
+    // Page size is 3 (BOOKING.pendingPageSize in config.ts)
+    const PAGE_SIZE = 3
+
     function makeFuturePending(i: number) {
       const day = String(i).padStart(2, '0')
       return {
@@ -200,13 +203,13 @@ describe('AdminDashboard', () => {
     }
 
     it('shows all pending when count does not exceed page size', async () => {
-      const bookings = Array.from({ length: 5 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
 
       await waitFor(() => expect(screen.getByText('Client 1')).toBeInTheDocument())
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= PAGE_SIZE; i++) {
         expect(screen.getByText(`Client ${i}`)).toBeInTheDocument()
       }
       expect(screen.queryByTestId('pending-prev')).not.toBeInTheDocument()
@@ -214,7 +217,7 @@ describe('AdminDashboard', () => {
     })
 
     it('shows pagination controls when count exceeds page size', async () => {
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
@@ -226,29 +229,29 @@ describe('AdminDashboard', () => {
     })
 
     it('shows total pending count', async () => {
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
 
-      await waitFor(() => expect(screen.getByText('11 pending requests')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText(`${PAGE_SIZE + 1} pending requests in the next 365 days`)).toBeInTheDocument())
     })
 
-    it('first page shows only first 10 items', async () => {
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+    it('first page shows only first page of items', async () => {
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
 
       await waitFor(() => expect(screen.getByText('Client 1')).toBeInTheDocument())
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= PAGE_SIZE; i++) {
         expect(screen.getByText(`Client ${i}`)).toBeInTheDocument()
       }
-      expect(screen.queryByText('Client 11')).not.toBeInTheDocument()
+      expect(screen.queryByText(`Client ${PAGE_SIZE + 1}`)).not.toBeInTheDocument()
     })
 
     it('Prev is disabled on first page', async () => {
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
@@ -260,7 +263,7 @@ describe('AdminDashboard', () => {
 
     it('clicking Next shows second page', async () => {
       const user = userEvent.setup()
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
@@ -268,14 +271,14 @@ describe('AdminDashboard', () => {
       await waitFor(() => expect(screen.getByTestId('pending-next')).toBeInTheDocument())
       await user.click(screen.getByTestId('pending-next'))
 
-      await waitFor(() => expect(screen.getByText('Client 11')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText(`Client ${PAGE_SIZE + 1}`)).toBeInTheDocument())
       expect(screen.queryByText('Client 1')).not.toBeInTheDocument()
       expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 2 of 2')
     })
 
     it('Next is disabled on last page', async () => {
       const user = userEvent.setup()
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
@@ -290,7 +293,7 @@ describe('AdminDashboard', () => {
 
     it('clicking Prev goes back to first page', async () => {
       const user = userEvent.setup()
-      const bookings = Array.from({ length: 11 }, (_, i) => makeFuturePending(i + 1))
+      const bookings = Array.from({ length: PAGE_SIZE + 1 }, (_, i) => makeFuturePending(i + 1))
       global.fetch = makeUrlFetch(bookings)
 
       render(<AdminDashboard />)
@@ -303,7 +306,7 @@ describe('AdminDashboard', () => {
 
       await waitFor(() => expect(screen.getByTestId('pending-page-label')).toHaveTextContent('Page 1 of 2'))
       expect(screen.getByText('Client 1')).toBeInTheDocument()
-      expect(screen.queryByText('Client 11')).not.toBeInTheDocument()
+      expect(screen.queryByText(`Client ${PAGE_SIZE + 1}`)).not.toBeInTheDocument()
     })
 
     it('filters out pending bookings with sessionStart in the past', async () => {
@@ -332,7 +335,7 @@ describe('AdminDashboard', () => {
 
       render(<AdminDashboard />)
 
-      await waitFor(() => expect(screen.getByText('1 pending request')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText('1 pending request in the next 365 days')).toBeInTheDocument())
     })
   })
 
