@@ -653,6 +653,12 @@
       "ctaText": "Réservez votre séance",
       "ctaSubtext": "Vous ne savez pas quel type vous convient ? Mentionnez votre objectif lors de la réservation et Olha adaptera la séance à vos besoins.",
       "keywords": ["massage thérapeutique versus massage de relaxation", "types de massage Gatineau", "massage thérapeutique Gatineau", "massage de relaxation Gatineau", "quel massage choisir"],
+      "howToSteps": [
+        { "name": "Déterminez si vous avez une plainte spécifique", "text": "Posez-vous la question : y a-t-il une zone qui fait mal ou un problème précis à traiter ? Si oui, le massage thérapeutique est le meilleur choix. Si votre principal ressenti est un stress général ou une tension diffuse, le massage de relaxation est le bon point de départ." },
+        { "name": "Définissez votre objectif : traitement ou récupération", "text": "Le traitement d'une condition précise — tension musculaire, douleur posturale, blessure sportive — indique le massage thérapeutique. La récupération après une semaine difficile, un voyage éprouvant ou une surcharge émotionnelle indique le massage de relaxation." },
+        { "name": "Évaluez votre tolérance actuelle à la pression", "text": "Le massage thérapeutique implique une pression plus forte et peut être intense dans les zones de tension chronique. Si vous traversez une période physiquement ou émotionnellement exigeante, une séance de relaxation plus légère peut mieux vous convenir, même si votre objectif à long terme est un travail plus ciblé." },
+        { "name": "Communiquez votre objectif à la thérapeute à l'accueil", "text": "Partagez honnêtement vos objectifs au début de la séance. Une thérapeute qualifiée adaptera le travail — ou suggérera une approche combinée — en fonction de ce que vous décrivez. Vous n'avez pas à décider seul; la conversation d'accueil est le bon moment pour le déterminer ensemble." }
+      ],
       "sections": [
         {
           "heading": "Deux types, deux objectifs très différents",
@@ -720,6 +726,13 @@
       "ctaText": "Réservez une séance",
       "ctaSubtext": "Olha Shelest offre des massages thérapeutiques incluant des techniques de drainage lymphatique dans sa pratique à Gatineau. Chaque séance est adaptée à vos besoins spécifiques.",
       "keywords": ["drainage lymphatique Gatineau", "massage drainage lymphatique", "bienfaits drainage lymphatique", "massage doux Gatineau", "lymphœdème massage Gatineau"],
+      "howToSteps": [
+        { "name": "Confirmez que la séance convient à votre condition", "text": "Le drainage lymphatique est contre-indiqué en cas d'infection active, de fièvre, de caillots sanguins ou de certaines conditions cardiaques. Passez en revue les contre-indications avec votre thérapeute ou votre médecin avant de réserver, en particulier après une chirurgie récente ou en présence d'une condition médicale." },
+        { "name": "Arrivez hydraté et à l'aise", "text": "Buvez de l'eau avant votre séance pour soutenir la circulation lymphatique. Portez ou apportez des vêtements confortables. Aucune préparation spéciale n'est requise au-delà des attentes standard pour un rendez-vous de massage." },
+        { "name": "Détendez-vous pendant que la thérapeute ouvre les voies de drainage", "text": "La séance débute au niveau des ganglions lymphatiques — généralement la nuque et la clavicule — pour préparer les voies de drainage. Les mouvements sont extrêmement légers, rythmiques et lents. Il n'y a aucune douleur; de nombreux clients trouvent ce massage le plus profondément apaisant qu'ils aient jamais vécu." },
+        { "name": "Laissez les mouvements rythmiques doux stimuler la circulation lymphatique", "text": "La thérapeute travaille depuis les points de drainage vers la périphérie, en suivant le trajet anatomique de vos vaisseaux lymphatiques. Vous pouvez ressentir une légère chaleur ou un subtil sentiment de mouvement dans les tissus. La séance complète dure 60 à 90 minutes selon vos objectifs." },
+        { "name": "Buvez beaucoup d'eau après la séance", "text": "L'hydratation après la séance favorise la poursuite du drainage lymphatique. Certains clients ressentent une légère fatigue passagère pendant que l'organisme traite le changement dans la dynamique des fluides — cela passe en quelques heures et est suivi d'une sensation notable de légèreté et de réduction de l'œdème." }
+      ],
       "sections": [
         {
           "heading": "Qu'est-ce que le massage drainage lymphatique ?",
