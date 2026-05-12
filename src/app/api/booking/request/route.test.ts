@@ -7,6 +7,13 @@ vi.mock('@/lib/config', async () => {
   return {
     get BOOKING() { return { ...MOCK_BOOKING_BASE, showBookingsService } },
     SERVICES: MOCK_SERVICES,
+    RATE_LIMITING: {
+      ipLimitEnabled: false,
+      bookingRequestsPerIpPerHour: 5,
+      perEmailLimitEnabled: true,
+      maxPendingPerEmail: 3,
+      bypassEmails: ['roman.inet@gmail.com'],
+    },
   }
 })
 

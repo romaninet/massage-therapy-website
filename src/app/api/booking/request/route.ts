@@ -70,7 +70,7 @@ export async function POST(request: Request) {
 
   // IP rate limit: max N requests per hour (bypassed for whitelisted emails)
   if (!isBypassEmail) {
-    const { allowed, retryAfter } = await checkBookingRateLimit(ip)
+    const { allowed, retryAfter } = await checkBookingRateLimit(ip ?? 'unknown')
     if (!allowed) {
       return NextResponse.json(
         { error: 'rate_limit_exceeded' },
