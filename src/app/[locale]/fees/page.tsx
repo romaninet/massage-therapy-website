@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { SERVICES, BUSINESS } from '@/lib/config';
+import { SERVICES, BUSINESS, BOOKING } from '@/lib/config';
 import { formatPrice } from '@/lib/format';
 import { servicesJsonLd, breadcrumbJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
@@ -85,7 +85,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
                       {t('learnMore')} →
                     </Link>
                     <Link
-                      href={`/${locale}/contact?type=${service.key}`}
+                      href={BOOKING.showBookingsService ? `/${locale}/booking?service=${service.key}` : `/${locale}/contact?type=${service.key}`}
                       className="text-sage hover:text-forest text-xs tracking-wider uppercase font-medium transition-colors"
                     >
                       {t('bookSession')} →
@@ -164,7 +164,7 @@ export default async function FeesPage({ params }: { params: Promise<{ locale: s
             </h2>
             <p className="text-white/60 mb-8 relative z-10">{t('ctaText')}</p>
             <Link
-              href={`/${locale}/contact`}
+              href={BOOKING.showBookingsService ? `/${locale}/booking` : `/${locale}/contact`}
               className="btn-light gap-2 relative z-10"
             >
               {t('ctaButton')}

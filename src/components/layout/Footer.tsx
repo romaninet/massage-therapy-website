@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
+import { SignInLink } from '@/components/layout/SignInLink';
 import { BUSINESS, NAV_LINKS } from '@/lib/config';
 
 export default function Footer() {
@@ -133,12 +134,15 @@ export default function Footer() {
           <p>
             © {year} Olha Shelest · {t('rights')}
           </p>
-          <Link
-            href={`${prefix}/privacy-policy`}
-            className="hover:text-white/60 transition-colors underline underline-offset-4"
-          >
-            {t('privacy')}
-          </Link>
+          <div className="flex flex-col items-end gap-1">
+            <Link
+              href={`${prefix}/privacy-policy`}
+              className="hover:text-white/60 transition-colors underline underline-offset-4"
+            >
+              {t('privacy')}
+            </Link>
+            <SignInLink />
+          </div>
         </div>
       </div>
     </footer>

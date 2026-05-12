@@ -1,0 +1,116 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+let showBookingsService: boolean = true
+let showBookingsAdmin: boolean = true
+
+vi.mock('@/lib/config', async () => {
+  const { MOCK_BOOKING_BASE, MOCK_SERVICES } = await import('@/test/mockConfig')
+  return {
+    get BOOKING() { return { ...MOCK_BOOKING_BASE, showBookingsService, showBookingsAdmin } },
+    SERVICES: MOCK_SERVICES,
+  }
+})
+
+vi.mock('@/lib/googleCalendar', () => ({
+  getEvent: vi.fn(),
+  deleteEvent: vi.fn(),
+}))
+
+vi.mock('@/lib/bookingEmails', () => ({
+  sendBookingRequestEmail: vi.fn(),
+  sendBookingConfirmationEmail: vi.fn(),
+  sendBookingDeclineEmail: vi.fn(),
+}))
+
+vi.mock('@/lib/bookingTokens', () => ({
+  signToken: vi.fn((id: string) => `valid-sig-${id}`),
+  verifyToken: vi.fn(),
+}))
+
+vi.mock('next-auth', () => ({
+  getServerSession: vi.fn(),
+}))
+
+import { GET } from './route'
+import { getEvent, deleteEvent } from '@/lib/googleCalendar'
+import { sendBookingDeclineEmail } from '@/lib/bookingEmails'
+import { verifyToken } from '@/lib/bookingTokens'
+import { getServerSession } from 'next-auth'
+
+const EVENT_ID = 'event-decline-456'
+const SESSION_START = new Date('2099-06-01T10:00:00.000Z')
+const SESSION_END = new Date('2099-06-01T11:00:00.000Z')
+
+const pendingEvent = {
+  id: EVENT_ID,
+  title: '[PENDING] Therapeutic Massage 60min — Jane Doe',
+  start: SESSION_START,
+  end: SESSION_END,
+  description: JSON.stringify({
+    serviceKey: 'therapeutic',
+    serviceName: 'Therapeutic Massage',
+    durationMinutes: 60,
+    clientName: 'Jane Doe',
+    clientEmail: 'jane@example.com',
+    clientPhone: '613-555-0100',
+  }),
+}
+
+function makeRequest(eventId: string, sig: string, confirmed = false) {
+  const confirmed_ = confirmed ? '&confirmed=1' : ''
+  return new Request(
+    `http://localhost/api/booking/decline?eventId=${encodeURIComponent(eventId)}&sig=${encodeURIComponent(sig)}${confirmed_}`,
+  )
+}
+
+describe('GET /api/booking/decline', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    showBookingsService = true
+    showBookingsAdmin = true
+    vi.mocked(verifyToken).mockReturnValue(true)
+    vi.mocked(getServerSession).mockResolvedValue({ user: { email: 'admin@example.com' }, expires: '2099-01-01' })
+    vi.mocked(getEvent).mockResolvedValue(pendingEvent)
+    vi.mocked(deleteEvent).mockResolvedValue(undefined)
+    vi.mocked(sendBookingDeclineEmail).mockResolvedValue(undefined)
+  })
+
+  it('1. Valid sig → 200, event deleted, decline email sent', async () => {
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig', true))
+    expect(res.status).toBe(200)
+    expect(res.headers.get('content-type')).toContain('text/html')
+    expect(deleteEvent).toHaveBeenCalledWith(EVENT_ID)
+    expect(sendBookingDeclineEmail).toHaveBeenCalledOnce()
+  })
+
+  it('1b. Not logged in → 302 redirect to sign-in', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(null)
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    expect(res.status).toBe(302)
+    expect(res.headers.get('location')).toContain('/api/auth/signin')
+  })
+
+  it('2. Invalid sig → 400', async () => {
+    vi.mocked(verifyToken).mockReturnValue(false)
+    const res = await GET(makeRequest(EVENT_ID, 'bad-sig'))
+    expect(res.status).toBe(400)
+    const data = JSON.parse(await res.text())
+    expect(data.error).toBe('invalid_signature')
+  })
+
+  it('3. eventId not found → 404', async () => {
+    vi.mocked(getEvent).mockResolvedValue(null)
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    expect(res.status).toBe(404)
+    const data = JSON.parse(await res.text())
+    expect(data.error).toBe('event_not_found')
+  })
+
+  it('4. showBookingsAdmin === false → 503', async () => {
+    showBookingsAdmin = false
+    const res = await GET(makeRequest(EVENT_ID, 'valid-sig'))
+    expect(res.status).toBe(503)
+    const data = JSON.parse(await res.text())
+    expect(data.error).toBe('booking_disabled')
+  })
+})

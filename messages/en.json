@@ -157,6 +157,7 @@
         "nameInvalid": "Please enter a valid name (letters only)",
         "emailRequired": "Email address is required",
         "emailInvalid": "Please enter a valid email address",
+        "phoneRequired": "Phone number is required",
         "phoneInvalid": "Please enter a valid phone number",
         "messageRequired": "Message is required",
         "messageTooShort": "Message must be at least 10 characters"
@@ -415,6 +416,87 @@
       }
     }
   },
+  "booking": {
+    "title": "Book Your Appointment",
+    "step1Title": "Select Service & Duration",
+    "step2Title": "Choose a Date",
+    "step3Title": "Choose a Time",
+    "step4Title": "Your Details",
+    "notes": "Notes (optional)",
+    "preferredLanguage": "Preferred Communication Language",
+    "langEn": "English",
+    "langFr": "French",
+    "submit": "Request Appointment",
+    "successTitle": "Request Submitted!",
+    "successMessage": "We'll confirm your appointment shortly.",
+    "slotTaken": "This time slot was just taken. Please go back and choose another time.",
+    "back": "Back",
+    "next": "Next",
+    "min": "min",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "noSlotsInMonth": "No availability this month",
+    "bookCouplesViaContact": "Book via phone or contact form",
+    "phonePlaceholder": "e.g. (819) 555-0123",
+    "validation": {
+      "langRequired": "Please select a preferred language"
+    }
+  },
+  "bookingEmail": {
+    "shared": {
+      "labelPhone": "Phone",
+      "labelEmail": "Email",
+      "labelBooking": "Book a new appointment",
+      "signature": "— Olha Shelest",
+      "contactIntro": "You are also welcome to reach us directly:"
+    },
+    "confirmation": {
+      "subject": "Your appointment is confirmed — {date} at {time}",
+      "heading": "Your Appointment is Confirmed",
+      "greeting": "Hi {name}, your massage appointment has been confirmed. Here are the details:",
+      "labelService": "Service",
+      "labelDuration": "Duration",
+      "labelDate": "Date",
+      "labelStartTime": "Start Time",
+      "labelEndTime": "End Time",
+      "labelLocation": "Location",
+      "paymentTitle": "Payment",
+      "paymentText": "Payment is due at the time of your appointment. Accepted methods:",
+      "paymentCash": "Cash",
+      "paymentEtransfer": "Interac e-Transfer",
+      "cancellationLabel": "Cancellation Policy",
+      "cancellationText": "Please provide at least {hours} hours notice if you need to cancel or reschedule. To cancel, contact us at {phone} or {email}.",
+      "closing": "We look forward to seeing you!"
+    },
+    "decline": {
+      "subject": "Booking Request — Update",
+      "heading": "Booking Request Update",
+      "intro": "Thank you for your booking request for {date}. Unfortunately, that time slot is no longer available.",
+      "apology": "We apologize for any inconvenience. Please visit our booking page to select another available time:",
+      "closing": "We hope to find a time that works for you soon."
+    },
+    "cancellation": {
+      "subject": "Your appointment on {date} has been cancelled",
+      "heading": "Appointment Cancellation",
+      "intro": "Your massage appointment scheduled for {date} has been cancelled.",
+      "apology": "We apologize for the inconvenience. To rebook, please contact us:",
+      "closing": "We look forward to seeing you at a new time."
+    },
+    "reminder": {
+      "subject": "Reminder: Your appointment is tomorrow — {date} at {time}",
+      "heading": "Appointment Reminder",
+      "greeting": "Hi {name}, this is a friendly reminder that you have a massage appointment tomorrow.",
+      "labelService": "Service",
+      "labelDuration": "Duration",
+      "labelDate": "Date",
+      "labelStartTime": "Start Time",
+      "labelEndTime": "End Time",
+      "labelLocation": "Location",
+      "cancellationLabel": "Cancellation Policy",
+      "cancellationText": "Please provide at least {hours} hours notice if you need to cancel or reschedule. To cancel, contact us at {phone} or {email}.",
+      "closing": "We look forward to seeing you tomorrow!"
+    }
+  },
   "articles": {
     "index": {
       "preTitle": "Massage Therapy Resources",
@@ -571,6 +653,12 @@
       "ctaText": "Book Your Session",
       "ctaSubtext": "Not sure which type is right for you? Tell us your goal when booking and Olha will adapt the session to fit your needs.",
       "keywords": ["therapeutic massage vs relaxation massage", "types of massage Gatineau", "therapeutic massage Gatineau", "relaxation massage Gatineau", "which massage is right for me"],
+      "howToSteps": [
+        { "name": "Identify whether you have a specific complaint", "text": "Ask yourself: is there a specific area that hurts or a defined problem you need addressed? If yes, therapeutic massage is the better fit. If your main feeling is general stress or tension everywhere, relaxation massage is the right starting point." },
+        { "name": "Determine your goal: treatment or recovery", "text": "Treatment of a defined condition — muscle strain, postural pain, sports injury — points to therapeutic massage. Recovery from a hard week, travel fatigue, or emotional overload points to relaxation massage." },
+        { "name": "Assess your current pain tolerance", "text": "Therapeutic massage involves more pressure and may feel intense in areas of chronic tension. If you are going through a physically or emotionally taxing period, a lighter relaxation session may serve you better even if therapeutic work is your long-term goal." },
+        { "name": "Tell your therapist your goal at intake", "text": "Share your goals honestly at the start of the session. A skilled therapist will adapt the work — or suggest a combination approach — based on what you describe. You do not need to decide alone; the intake conversation is the right moment to figure it out together." }
+      ],
       "sections": [
         {
           "heading": "Two Types, Two Very Different Goals",
@@ -638,6 +726,13 @@
       "ctaText": "Book a Session",
       "ctaSubtext": "Olha Shelest offers therapeutic massage including lymphatic drainage techniques at her Gatineau practice. Every session is tailored to your specific needs.",
       "keywords": ["lymphatic drainage massage Gatineau", "drainage lymphatique Gatineau", "lymphatic massage benefits", "gentle massage therapy Gatineau", "lymphedema massage Gatineau"],
+      "howToSteps": [
+        { "name": "Confirm the session is appropriate for your condition", "text": "Lymphatic drainage is contraindicated during active infection, fever, blood clots, or certain cardiac conditions. Review contraindications with your therapist or physician before booking, especially if you have a recent surgery or a medical condition." },
+        { "name": "Arrive hydrated and comfortable", "text": "Drink water before your session to support lymphatic circulation. Wear or bring comfortable clothing. No special preparation is required beyond the standard expectations for a massage appointment." },
+        { "name": "Relax as the therapist opens drainage pathways", "text": "The session begins at the lymph node clusters — typically the neck and collarbone — to prepare the drainage pathways. Strokes are extremely light, rhythmic, and slow. There is no discomfort; many clients find this the most deeply calming massage they have experienced." },
+        { "name": "Allow the light rhythmic strokes to stimulate lymph flow", "text": "The therapist works from the drainage points outward, following the anatomical direction of your lymphatic vessels. You may feel gentle warmth or a subtle sense of movement in the tissues. The full session lasts 60–90 minutes depending on your goals." },
+        { "name": "Drink plenty of water after the session", "text": "Post-session hydration supports continued lymphatic clearance. Some clients feel briefly tired as the body processes the shift in fluid dynamics — this passes within a few hours and is followed by a noticeable sense of lightness and reduced swelling." }
+      ],
       "sections": [
         {
           "heading": "What Is Lymphatic Drainage Massage?",

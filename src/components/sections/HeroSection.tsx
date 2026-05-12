@@ -1,7 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SITE, BUSINESS } from '@/lib/config';
+import { SITE, BUSINESS, BOOKING } from '@/lib/config';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
 
 export default function HeroSection() {
@@ -59,7 +59,7 @@ export default function HeroSection() {
         <div className="text-center px-6 lg:px-12 pb-20 lg:pb-28">
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-8">
             <Link
-              href={`/${locale}/contact`}
+              href={BOOKING.showBookingsService ? `/${locale}/booking` : `/${locale}/contact`}
               className="btn-light px-6 lg:px-8"
             >
               {t('cta')}
