@@ -481,6 +481,20 @@
       "intro": "Votre rendez-vous de massage prévu pour le {date} a été annulé.",
       "apology": "Nous nous excusons pour l'inconvénient. Pour réserver à nouveau, veuillez nous contacter :",
       "closing": "Nous espérons vous voir à un nouveau moment."
+    },
+    "reminder": {
+      "subject": "Rappel : Votre rendez-vous est demain — {date} à {time}",
+      "heading": "Rappel de rendez-vous",
+      "greeting": "Bonjour {name}, ceci est un rappel amical que vous avez un rendez-vous de massage demain.",
+      "labelService": "Service",
+      "labelDuration": "Durée",
+      "labelDate": "Date",
+      "labelStartTime": "Heure de début",
+      "labelEndTime": "Heure de fin",
+      "labelLocation": "Lieu",
+      "cancellationLabel": "Politique d'annulation",
+      "cancellationText": "Veuillez nous aviser au moins {hours} heures à l'avance si vous devez annuler ou reporter. Pour annuler, contactez-nous au {phone} ou à {email}.",
+      "closing": "Nous avons hâte de vous voir demain !"
     }
   },
   "articles": {

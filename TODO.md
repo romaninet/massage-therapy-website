@@ -106,9 +106,52 @@ See full plan in `AEO_optimization_plan.md`.
 
 ---
 
-send email reminder of booking one day before
 
 
 
 
+
+Activating reminder emails in production — step by step
+Step 1 — Generate the secret
+Run this in your terminal (Git Bash, WSL, or PowerShell with OpenSSL installed):
+
+
+openssl rand -base64 32
+Copy the output. It will look like: k8Fz3mQ+...==
+
+PowerShell alternative if you don't have openssl:
+
+
+[Convert]::ToBase64String((1..32 | ForEach-Object { [byte](Get-Random -Max 256) }))
+Step 2 — Add it to Vercel
+Go to vercel.com → your project → Settings → Environment Variables
+Click Add New
+Fill in:
+Key: CRON_SECRET
+Value: the string you generated
+Environments: check Production only (Preview/Development don't need it)
+Click Save
+Step 3 — Deploy
+Push your current branch to main (or merge the PR). Vercel redeploys automatically.
+
+After the deploy completes, go to Settings → Cron Jobs in your Vercel dashboard — the job should appear there:
+
+
+GET /api/cron/reminder   0 14 * * *
+Step 4 — Test it manually from the dashboard
+In Settings → Cron Jobs, there's a Run button next to the job. Click it — Vercel will fire the request immediately (with the secret injected). Then check:
+
+Functions tab in Vercel → find the /api/cron/reminder invocation → view logs
+You should see the [cron/reminder] triggered log line, plus either sent: 0 (no confirmed bookings tomorrow) or actual emails sent
+Step 5 — Test locally (optional)
+Add CRON_SECRET=anything to your .env.local, start the dev server, then:
+
+
+curl -H "Authorization: Bearer anything" http://localhost:3000/api/cron/reminder
+Expected response when no bookings tomorrow:
+
+
+{ "date": "2026-05-13", "sent": 0, "errors": [] }
+One thing to note about "automatic injection"
+Vercel does not auto-generate the secret — you must provide it (step 1–2). What Vercel does automatically is inject it as Authorization: Bearer {CRON_SECRET} on every scheduled cron request to your route. That's why the route checks that header — it's how you know the request genuinely came from Vercel's scheduler and not someone who guessed the URL.
 

@@ -319,6 +319,72 @@ export async function sendBotAlertEmail(reason: 'honeypot' | 'timing', clientIp?
   if (error) throw new Error(`sendBotAlertEmail failed: ${JSON.stringify(error)}`)
 }
 
+// ── sendBookingReminderEmail (to client) ─────────────────────────────────────
+
+export async function sendBookingReminderEmail(booking: BookingDetails): Promise<void> {
+  const {
+    clientName, clientEmail, preferredLanguage,
+    serviceName, durationMinutes,
+    sessionStart, sessionEnd,
+  } = booking
+
+  const locale = langToLocale(preferredLanguage)
+  const t = getEmailMessages(preferredLanguage)
+  const r = t.reminder
+  const s = t.shared
+
+  const date = formatDate(sessionStart, locale)
+  const startTime = formatTime(sessionStart)
+  const endTime = formatTime(sessionEnd)
+  const fullAddress = `${BUSINESS.address}, ${BUSINESS.city}`
+
+  const subject = fill(r.subject, { date, time: startTime })
+
+  const html = `
+<!DOCTYPE html>
+<html lang="${preferredLanguage ?? 'en'}">
+<head><meta charset="UTF-8"><style>
+  body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+  td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
+  td:first-child { font-weight: bold; width: 40%; background: #f5f5f5; }
+  h2 { color: #2D6A4F; }
+  .notice { background: #f0f7f4; padding: 12px 16px; border-left: 4px solid #2D6A4F; margin: 16px 0; font-size: 14px; }
+</style></head>
+<body>
+  <h2>${r.heading}</h2>
+  <p>${fill(r.greeting, { name: clientName })}</p>
+  <table>
+    <tr><td>${r.labelService}</td><td>${serviceName}</td></tr>
+    <tr><td>${r.labelDuration}</td><td>${durationMinutes} min</td></tr>
+    <tr><td>${r.labelDate}</td><td>${date}</td></tr>
+    <tr><td>${r.labelStartTime}</td><td>${startTime}</td></tr>
+    <tr><td>${r.labelEndTime}</td><td>${endTime}</td></tr>
+    <tr><td>${r.labelLocation}</td><td>${fullAddress}</td></tr>
+  </table>
+  <div class="notice">
+    <strong>${r.cancellationLabel}:</strong> ${fill(r.cancellationText, {
+      hours: String(BOOKING.cancellationNoticeHours),
+      phone: BUSINESS.phone,
+      email: BUSINESS.email,
+    })}
+  </div>
+  <p>${r.closing}</p>
+  <p>${s.signature}<br>${BUSINESS.phone}<br><a href="mailto:${BUSINESS.email}">${BUSINESS.email}</a></p>
+</body>
+</html>`
+
+  const resend = getResend()
+  const { error } = await resend.emails.send({
+    from: FROM_ADDRESS,
+    to: clientEmail,
+    subject,
+    html,
+  })
+
+  if (error) throw new Error(`sendBookingReminderEmail failed: ${JSON.stringify(error)}`)
+}
+
 // ── sendBookingCancellationEmail (to client) ──────────────────────────────────
 
 export async function sendBookingCancellationEmail(booking: BookingDetails): Promise<void> {

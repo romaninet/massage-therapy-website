@@ -241,3 +241,11 @@ export const BOOKING = {
   pendingPageSize: 3,  // number of pending/confirmed bookings shown per page
   bookingHorizonDays: 365, // how many days ahead bookings are fetched and displayed
 } as const;
+
+// Appointment reminder emails — sent the day before each confirmed booking
+// checkTime is in America/Toronto. The vercel.json cron runs at 14:00 UTC
+// (= 10:00 AM EDT in summer; 9:00 AM EST in winter — still before first client).
+export const REMINDERS = {
+  enabled: true,
+  checkTime: '10:00', // America/Toronto reference — actual schedule is in vercel.json
+} as const;

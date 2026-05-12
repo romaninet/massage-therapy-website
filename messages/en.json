@@ -481,6 +481,20 @@
       "intro": "Your massage appointment scheduled for {date} has been cancelled.",
       "apology": "We apologize for the inconvenience. To rebook, please contact us:",
       "closing": "We look forward to seeing you at a new time."
+    },
+    "reminder": {
+      "subject": "Reminder: Your appointment is tomorrow — {date} at {time}",
+      "heading": "Appointment Reminder",
+      "greeting": "Hi {name}, this is a friendly reminder that you have a massage appointment tomorrow.",
+      "labelService": "Service",
+      "labelDuration": "Duration",
+      "labelDate": "Date",
+      "labelStartTime": "Start Time",
+      "labelEndTime": "End Time",
+      "labelLocation": "Location",
+      "cancellationLabel": "Cancellation Policy",
+      "cancellationText": "Please provide at least {hours} hours notice if you need to cancel or reschedule. To cancel, contact us at {phone} or {email}.",
+      "closing": "We look forward to seeing you tomorrow!"
     }
   },
   "articles": {
