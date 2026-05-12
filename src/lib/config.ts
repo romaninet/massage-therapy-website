@@ -209,3 +209,43 @@ export const BUSINESS = {
   ],
   geo: { latitude: 45.42998533558253, longitude: -75.72007407363735 },
 } as const;
+
+export const RATE_LIMITING = {
+  ipLimitEnabled: process.env.RATE_LIMITING_ENABLED !== 'false',
+  bookingRequestsPerIpPerHour: 5,
+  perEmailLimitEnabled: process.env.RATE_LIMITING_ENABLED !== 'false',
+  maxPendingPerEmail: 3,
+  bypassEmails: ['roman.inet@gmail.com'],
+} as const;
+
+export const BOOKING = {
+  showBookingsService: true,       // false = booking page disabled site-wide
+  couplesMassageBookingEnabled: false, // false = couples massage routes to contact form instead of booking
+  showBookingsAdmin: true,         // false = /admin route disabled
+  breakAfterSession: 30,           // minutes buffer between sessions
+  slotInterval: 30,                // minutes — granularity of bookable start times
+  cancellationNoticeHours: 12,     // minimum hours notice for client cancellation
+  availabilityEventTitle: 'open',
+  adminEmail: 'shelestwellness@gmail.com',
+  calendarColors: {
+    pending:      '5',   // Banana (yellow)
+    confirmed:    '10',  // Basil (dark green)
+    break:        '3',   // Grape (purple)
+    availability: '8',   // Graphite
+  },
+  eventTitles: {
+    pending:   '[PENDING]',
+    confirmed: '[CONFIRMED]',
+    break:     '[BREAK]',
+  },
+  pendingPageSize: 3,  // number of pending/confirmed bookings shown per page
+  bookingHorizonDays: 365, // how many days ahead bookings are fetched and displayed
+} as const;
+
+// Appointment reminder emails — sent the day before each confirmed booking
+// checkTime is in America/Toronto. The vercel.json cron runs at 14:00 UTC
+// (= 10:00 AM EDT in summer; 9:00 AM EST in winter — still before first client).
+export const REMINDERS = {
+  enabled: true,
+  checkTime: '10:00', // America/Toronto reference — actual schedule is in vercel.json
+} as const;

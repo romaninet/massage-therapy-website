@@ -17,11 +17,13 @@ interface FormFieldProps {
   autoComplete?: string;
   maxLength?: number;
   error?: string;
+  'data-testid'?: string;
 }
 
 export function FormField({
   label, name, value, onChange, onBlur, placeholder,
   type = 'text', autoComplete, maxLength, error,
+  'data-testid': dataTestId,
 }: FormFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -36,6 +38,7 @@ export function FormField({
         autoComplete={autoComplete}
         maxLength={maxLength}
         className={`${inputClass} ${error ? 'border-red-400' : ''}`}
+        data-testid={dataTestId}
       />
       {error && <p className="text-red-500 text-xs">{error}</p>}
     </div>

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd, type Locale } from '@/lib/jsonld';
 import { generatePageMetadata } from '@/lib/metadata';
 import { ARTICLES, SITE } from '@/lib/config';
@@ -64,6 +64,7 @@ export default async function ArticlePage({
   if (!article) notFound();
 
   const t = await getTranslations({ locale, namespace: 'articles' });
+  const messages = await getMessages({ locale })
 
   const sections = t.raw(`${slug}.sections`) as { heading: string; paragraphs: string[] }[];
   const faqItems = t.raw(`${slug}.faq`) as { question: string; answer: string }[];
@@ -71,12 +72,10 @@ export default async function ArticlePage({
   const excerpt = t(`${slug}.excerpt`);
   const articleUrl = `${SITE.url}/${locale}/articles/${slug}`;
 
-  const rawKeywords = t.raw(`${slug}.keywords`) as string[] | undefined;
-  const keywords = Array.isArray(rawKeywords) ? rawKeywords : undefined;
-
   type HowToStep = { name: string; text: string };
-  const rawHowToSteps = t.raw(`${slug}.howToSteps`) as HowToStep[] | undefined;
-  const howToSteps = Array.isArray(rawHowToSteps) ? rawHowToSteps : undefined;
+  const articleMsgs = (messages.articles as Record<string, Record<string, unknown>>)?.[slug]
+  const keywords = Array.isArray(articleMsgs?.keywords) ? articleMsgs.keywords as string[] : undefined
+  const howToSteps = Array.isArray(articleMsgs?.howToSteps) ? articleMsgs.howToSteps as HowToStep[] : undefined
 
   return (
     <>

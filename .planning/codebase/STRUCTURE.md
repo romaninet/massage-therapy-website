@@ -1,7 +1,7 @@
 ---
 title: Directory Structure
 focus: arch
-last_mapped: 2026-05-05
+last_mapped: 2026-05-07
 ---
 
 # Directory Structure
@@ -48,16 +48,33 @@ src/
 │   ├── manifest.ts             # /manifest.json (PWA)
 │   ├── globals.css             # Global styles, Tailwind, custom tokens
 │   ├── api/
-│   │   └── contact/
-│   │       └── route.ts        # Contact form POST handler
+│   │   ├── contact/route.ts        # Contact form POST handler
+│   │   ├── auth/[...nextauth]/route.ts  # NextAuth Google OAuth
+│   │   ├── booking/
+│   │   │   ├── slots/route.ts      # GET available time slots
+│   │   │   ├── request/route.ts    # POST new booking request
+│   │   │   ├── confirm/route.ts    # GET — Olha accepts (email link)
+│   │   │   └── decline/route.ts    # GET — Olha declines (email link)
+│   │   └── admin/
+│   │       ├── bookings/route.ts   # GET all bookings for dashboard
+│   │       ├── cancel/route.ts     # POST cancel confirmed booking
+│   │       └── decline/route.ts    # POST decline pending from dashboard
+│   ├── admin/
+│   │   ├── layout.tsx              # Auth protection — redirects if not Olha; owns <html>/<body>
+│   │   ├── page.tsx                # Admin dashboard (server component)
+│   │   ├── AdminDashboard.tsx      # Dashboard UI (client component)
+│   │   └── auth-error/page.tsx     # Access denied page
 │   └── [locale]/
-│       ├── layout.tsx          # Locale layout (fonts, GA, Header, Footer)
+│       ├── layout.tsx          # Locale layout (fonts, GA, Header, Footer, <html>/<body>)
 │       ├── page.tsx            # Home page
 │       ├── about/page.tsx
 │       ├── services/page.tsx
 │       ├── fees/page.tsx
 │       ├── contact/page.tsx
 │       ├── privacy-policy/page.tsx
+│       ├── booking/
+│       │   ├── page.tsx        # Booking page (server component, Suspense key)
+│       │   └── BookingWizard.tsx  # 4-step booking wizard (client component)
 │       ├── articles/
 │       │   ├── page.tsx        # Articles listing
 │       │   └── [slug]/page.tsx # Individual article
@@ -96,12 +113,28 @@ src/
 │   └── ServiceIcon.tsx          # SVG icon by service key
 │
 ├── lib/
-│   ├── config.ts               # Central business config (BUSINESS, SERVICES, etc.)
+│   ├── config.ts               # Central business config (BUSINESS, SERVICES, BOOKING, etc.)
 │   ├── jsonld.ts               # Schema.org JSON-LD builders
 │   ├── fonts.ts                # Google Fonts (Playfair Display, DM Sans)
 │   ├── validation.ts           # Form input validators
 │   ├── validation.test.ts      # Vitest tests (19 tests)
-│   └── emailTemplate.ts        # Resend HTML email template
+│   ├── emailTemplate.ts        # Resend HTML email template
+│   ├── googleCalendar.ts       # Google Calendar API client (service account)
+│   ├── bookingSlots.ts         # Slot availability algorithm
+│   ├── bookingSlots.test.ts    # Unit tests
+│   ├── bookingTokens.ts        # HMAC sign/verify for Accept/Decline links
+│   ├── bookingTokens.test.ts   # Unit tests
+│   ├── bookingEmails.ts        # All 4 booking email templates (Resend)
+│   ├── bookingEmails.test.ts   # Unit tests
+│   ├── bookingEventParser.ts   # parseEventDescription + bookingDetailsFromEvent
+│   ├── adminAuth.ts            # Session check helper for admin routes
+│   ├── adminGuard.ts           # requireAdminAccess — feature flag + CSRF + auth
+│   ├── csrfProtection.ts       # verifySameOrigin — Origin header check
+│   └── routeHelpers.ts         # htmlResponse, jsonResponse, getClientIp
+│
+├── test/                       # Shared test utilities (Vitest)
+│   ├── mockConfig.ts           # MOCK_BOOKING_BASE + MOCK_SERVICES for vi.mock(@/lib/config)
+│   └── fixtures.ts             # ADMIN_SESSION, MOCK_BOOKING_DESCRIPTION, session dates
 │
 ├── hooks/                      # Custom React hooks (client-side)
 └── i18n/

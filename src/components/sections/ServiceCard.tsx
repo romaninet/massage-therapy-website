@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BotanicalDivider } from '@/components/BotanicalDecor';
 import ServiceIcon from '@/components/ServiceIcon';
 import type { SERVICES } from '@/lib/config';
+import { BOOKING } from '@/lib/config';
 import type { Locale } from '@/lib/jsonld';
 import { formatPrice } from '@/lib/format';
 
@@ -62,7 +63,7 @@ export default function ServiceCard({ service, index, locale, lang, content, lab
               </div>
               <div className="flex flex-wrap gap-3 items-center ml-2">
                 <Link
-                  href={`/${locale}/contact?type=${service.key}`}
+                  href={BOOKING.showBookingsService ? `/${locale}/booking?service=${service.key}` : `/${locale}/contact?type=${service.key}`}
                   className="px-6 py-3 bg-forest text-white text-sm tracking-wider uppercase font-medium rounded transition-[background-color,box-shadow,transform] duration-200 hover:bg-forest/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/20"
                 >
                   {labels.bookSession}

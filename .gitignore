@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+#google calendar API prv key
+shelestwellness-google-calendar-prv-key.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

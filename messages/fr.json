@@ -157,6 +157,7 @@
         "nameInvalid": "Veuillez entrer un nom valide (lettres uniquement)",
         "emailRequired": "L'adresse courriel est requise",
         "emailInvalid": "Veuillez entrer une adresse courriel valide",
+        "phoneRequired": "Le numéro de téléphone est requis",
         "phoneInvalid": "Veuillez entrer un numéro de téléphone valide",
         "messageRequired": "Le message est requis",
         "messageTooShort": "Le message doit contenir au moins 10 caractères"
@@ -413,6 +414,87 @@
           }
         ]
       }
+    }
+  },
+  "booking": {
+    "title": "Réserver votre rendez-vous",
+    "step1Title": "Sélectionner le service et la durée",
+    "step2Title": "Choisir une date",
+    "step3Title": "Choisir une heure",
+    "step4Title": "Vos coordonnées",
+    "notes": "Notes (facultatif)",
+    "preferredLanguage": "Langue de communication préférée",
+    "langEn": "Anglais",
+    "langFr": "Français",
+    "submit": "Demander un rendez-vous",
+    "successTitle": "Demande envoyée !",
+    "successMessage": "Nous confirmerons votre rendez-vous sous peu.",
+    "slotTaken": "Ce créneau vient d'être pris. Veuillez revenir en arrière et choisir un autre horaire.",
+    "back": "Retour",
+    "next": "Suivant",
+    "min": "min",
+    "prevMonth": "Mois précédent",
+    "nextMonth": "Mois suivant",
+    "noSlotsInMonth": "Aucune disponibilité ce mois-ci",
+    "bookCouplesViaContact": "Réserver par téléphone ou formulaire",
+    "phonePlaceholder": "ex. (819) 555-0123",
+    "validation": {
+      "langRequired": "Veuillez sélectionner une langue préférée"
+    }
+  },
+  "bookingEmail": {
+    "shared": {
+      "labelPhone": "Téléphone",
+      "labelEmail": "Courriel",
+      "labelBooking": "Réserver un nouveau rendez-vous",
+      "signature": "— Olha Shelest",
+      "contactIntro": "Vous pouvez également nous rejoindre directement :"
+    },
+    "confirmation": {
+      "subject": "Votre rendez-vous est confirmé — {date} à {time}",
+      "heading": "Votre rendez-vous est confirmé",
+      "greeting": "Bonjour {name}, votre rendez-vous de massage a été confirmé. Voici les détails :",
+      "labelService": "Service",
+      "labelDuration": "Durée",
+      "labelDate": "Date",
+      "labelStartTime": "Heure de début",
+      "labelEndTime": "Heure de fin",
+      "labelLocation": "Lieu",
+      "paymentTitle": "Paiement",
+      "paymentText": "Le paiement est dû au moment de votre rendez-vous. Méthodes acceptées :",
+      "paymentCash": "Comptant",
+      "paymentEtransfer": "Virement Interac",
+      "cancellationLabel": "Politique d'annulation",
+      "cancellationText": "Veuillez nous aviser au moins {hours} heures à l'avance si vous devez annuler ou reporter. Pour annuler, contactez-nous au {phone} ou à {email}.",
+      "closing": "Nous avons hâte de vous voir !"
+    },
+    "decline": {
+      "subject": "Demande de réservation — Mise à jour",
+      "heading": "Mise à jour de votre demande de réservation",
+      "intro": "Merci pour votre demande de réservation pour le {date}. Malheureusement, ce créneau n'est plus disponible.",
+      "apology": "Nous nous excusons pour l'inconvénient. Veuillez visiter notre page de réservation pour choisir un autre créneau disponible :",
+      "closing": "Nous espérons trouver un moment qui vous convient."
+    },
+    "cancellation": {
+      "subject": "Votre rendez-vous du {date} a été annulé",
+      "heading": "Annulation de rendez-vous",
+      "intro": "Votre rendez-vous de massage prévu pour le {date} a été annulé.",
+      "apology": "Nous nous excusons pour l'inconvénient. Pour réserver à nouveau, veuillez nous contacter :",
+      "closing": "Nous espérons vous voir à un nouveau moment."
+    },
+    "reminder": {
+      "subject": "Rappel : Votre rendez-vous est demain — {date} à {time}",
+      "heading": "Rappel de rendez-vous",
+      "greeting": "Bonjour {name}, ceci est un rappel amical que vous avez un rendez-vous de massage demain.",
+      "labelService": "Service",
+      "labelDuration": "Durée",
+      "labelDate": "Date",
+      "labelStartTime": "Heure de début",
+      "labelEndTime": "Heure de fin",
+      "labelLocation": "Lieu",
+      "cancellationLabel": "Politique d'annulation",
+      "cancellationText": "Veuillez nous aviser au moins {hours} heures à l'avance si vous devez annuler ou reporter. Pour annuler, contactez-nous au {phone} ou à {email}.",
+      "closing": "Nous avons hâte de vous voir demain !"
     }
   },
   "articles": {

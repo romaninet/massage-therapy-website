@@ -3,19 +3,26 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
-import { NAV_LINKS } from '@/lib/config';
+import { NAV_LINKS, BOOKING } from '@/lib/config';
 
 export default function Header() {
   const t = useTranslations('nav');
   const tHeader = useTranslations('header');
   const locale = useLocale();
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const handleBookNow = useCallback(() => {
+    const prefix = `/${locale}`;
+    const target = BOOKING.showBookingsService ? `${prefix}/booking` : `${prefix}/contact`;
+    router.push(BOOKING.showBookingsService ? `${target}?t=${Date.now()}` : target);
+  }, [locale, router]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -112,12 +119,17 @@ export default function Header() {
           {/* Desktop right */}
           <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher dark />
-            <Link
-              href={`${prefix}/contact`}
-              className="px-5 py-2.5 border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded transition-colors hover:bg-white hover:text-forest"
+            <button
+              onClick={handleBookNow}
+              suppressHydrationWarning
+              className={`px-5 py-2.5 text-sm tracking-wider uppercase font-medium rounded transition-colors ${
+                BOOKING.showBookingsService
+                  ? 'bg-sage text-white hover:opacity-90'
+                  : 'border border-white/30 text-white hover:bg-white hover:text-forest'
+              }`}
             >
               {t('bookNow')}
-            </Link>
+            </button>
           </div>
 
           {/* Mobile controls — right column */}
@@ -153,12 +165,17 @@ export default function Header() {
               {t(key)}
             </Link>
           ))}
-          <Link
-            href={`${prefix}/contact`}
-            className="mt-4 py-3 text-center border border-white/30 text-white text-sm tracking-wider uppercase font-medium rounded hover:bg-white hover:text-forest transition-colors"
+          <button
+            onClick={handleBookNow}
+            suppressHydrationWarning
+            className={`mt-4 py-3 text-center text-sm tracking-wider uppercase font-medium rounded transition-colors ${
+              BOOKING.showBookingsService
+                ? 'bg-sage text-white hover:opacity-90'
+                : 'border border-white/30 text-white hover:bg-white hover:text-forest'
+            }`}
           >
             {t('bookNow')}
-          </Link>
+          </button>
         </nav>
       </div>
       </header>

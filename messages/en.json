@@ -157,6 +157,7 @@
         "nameInvalid": "Please enter a valid name (letters only)",
         "emailRequired": "Email address is required",
         "emailInvalid": "Please enter a valid email address",
+        "phoneRequired": "Phone number is required",
         "phoneInvalid": "Please enter a valid phone number",
         "messageRequired": "Message is required",
         "messageTooShort": "Message must be at least 10 characters"
@@ -413,6 +414,87 @@
           }
         ]
       }
+    }
+  },
+  "booking": {
+    "title": "Book Your Appointment",
+    "step1Title": "Select Service & Duration",
+    "step2Title": "Choose a Date",
+    "step3Title": "Choose a Time",
+    "step4Title": "Your Details",
+    "notes": "Notes (optional)",
+    "preferredLanguage": "Preferred Communication Language",
+    "langEn": "English",
+    "langFr": "French",
+    "submit": "Request Appointment",
+    "successTitle": "Request Submitted!",
+    "successMessage": "We'll confirm your appointment shortly.",
+    "slotTaken": "This time slot was just taken. Please go back and choose another time.",
+    "back": "Back",
+    "next": "Next",
+    "min": "min",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "noSlotsInMonth": "No availability this month",
+    "bookCouplesViaContact": "Book via phone or contact form",
+    "phonePlaceholder": "e.g. (819) 555-0123",
+    "validation": {
+      "langRequired": "Please select a preferred language"
+    }
+  },
+  "bookingEmail": {
+    "shared": {
+      "labelPhone": "Phone",
+      "labelEmail": "Email",
+      "labelBooking": "Book a new appointment",
+      "signature": "— Olha Shelest",
+      "contactIntro": "You are also welcome to reach us directly:"
+    },
+    "confirmation": {
+      "subject": "Your appointment is confirmed — {date} at {time}",
+      "heading": "Your Appointment is Confirmed",
+      "greeting": "Hi {name}, your massage appointment has been confirmed. Here are the details:",
+      "labelService": "Service",
+      "labelDuration": "Duration",
+      "labelDate": "Date",
+      "labelStartTime": "Start Time",
+      "labelEndTime": "End Time",
+      "labelLocation": "Location",
+      "paymentTitle": "Payment",
+      "paymentText": "Payment is due at the time of your appointment. Accepted methods:",
+      "paymentCash": "Cash",
+      "paymentEtransfer": "Interac e-Transfer",
+      "cancellationLabel": "Cancellation Policy",
+      "cancellationText": "Please provide at least {hours} hours notice if you need to cancel or reschedule. To cancel, contact us at {phone} or {email}.",
+      "closing": "We look forward to seeing you!"
+    },
+    "decline": {
+      "subject": "Booking Request — Update",
+      "heading": "Booking Request Update",
+      "intro": "Thank you for your booking request for {date}. Unfortunately, that time slot is no longer available.",
+      "apology": "We apologize for any inconvenience. Please visit our booking page to select another available time:",
+      "closing": "We hope to find a time that works for you soon."
+    },
+    "cancellation": {
+      "subject": "Your appointment on {date} has been cancelled",
+      "heading": "Appointment Cancellation",
+      "intro": "Your massage appointment scheduled for {date} has been cancelled.",
+      "apology": "We apologize for the inconvenience. To rebook, please contact us:",
+      "closing": "We look forward to seeing you at a new time."
+    },
+    "reminder": {
+      "subject": "Reminder: Your appointment is tomorrow — {date} at {time}",
+      "heading": "Appointment Reminder",
+      "greeting": "Hi {name}, this is a friendly reminder that you have a massage appointment tomorrow.",
+      "labelService": "Service",
+      "labelDuration": "Duration",
+      "labelDate": "Date",
+      "labelStartTime": "Start Time",
+      "labelEndTime": "End Time",
+      "labelLocation": "Location",
+      "cancellationLabel": "Cancellation Policy",
+      "cancellationText": "Please provide at least {hours} hours notice if you need to cancel or reschedule. To cancel, contact us at {phone} or {email}.",
+      "closing": "We look forward to seeing you tomorrow!"
     }
   },
   "articles": {

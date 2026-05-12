@@ -27,22 +27,25 @@ export function isValidPhone(raw: string): boolean {
   return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
 }
 
-interface ValidationMessages {
+export interface PersonFieldMessages {
   nameRequired: string;
   nameInvalid: string;
   emailRequired: string;
   emailInvalid: string;
+  phoneRequired?: string; // when provided, phone becomes mandatory
   phoneInvalid: string;
-  messageRequired: string;
-  messageTooShort: string;
 }
 
-export function validateForm(form: FormFields, msg: ValidationMessages): ValidationErrors {
-  const errs: ValidationErrors = {};
-  const name = form.name.trim();
-  const email = form.email.trim();
-  const phone = form.phone.trim();
-  const message = form.message.trim();
+export type PersonFieldErrors = Partial<Record<'name' | 'email' | 'phone', string>>;
+
+export function validatePersonFields(
+  fields: { name: string; email: string; phone: string },
+  msg: PersonFieldMessages
+): PersonFieldErrors {
+  const errs: PersonFieldErrors = {};
+  const name = fields.name.trim();
+  const email = fields.email.trim();
+  const phone = fields.phone.trim();
 
   if (!name) errs.name = msg.nameRequired;
   else if (name.length < 2 || !/[a-zA-ZÀ-ÿ]/.test(name)) errs.name = msg.nameInvalid;
@@ -50,7 +53,20 @@ export function validateForm(form: FormFields, msg: ValidationMessages): Validat
   if (!email) errs.email = msg.emailRequired;
   else if (!EMAIL_RE.test(email)) errs.email = msg.emailInvalid;
 
-  if (phone && !isValidPhone(phone)) errs.phone = msg.phoneInvalid;
+  if (msg.phoneRequired && !phone) errs.phone = msg.phoneRequired;
+  else if (phone && !isValidPhone(phone)) errs.phone = msg.phoneInvalid;
+
+  return errs;
+}
+
+interface ValidationMessages extends PersonFieldMessages {
+  messageRequired: string;
+  messageTooShort: string;
+}
+
+export function validateForm(form: FormFields, msg: ValidationMessages): ValidationErrors {
+  const errs: ValidationErrors = { ...validatePersonFields(form, msg) };
+  const message = form.message.trim();
 
   if (!message) errs.message = msg.messageRequired;
   else if (message.length < 10) errs.message = msg.messageTooShort;

@@ -5,12 +5,269 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 
 ---
 
-## Getting Started
+## Owner's Guide
+
+> This section is for Olha — the massage therapist and website owner. No technical knowledge required. Everything here describes how to use the website day-to-day.
+
+---
+
+## Admin — Managing Your Business
+
+### The Admin Dashboard
+
+The admin dashboard is your private management page. There is a link to it in the website footer. Bookmark it on your phone and computer for quick access.
+
+**Address:** `https://www.shelestwellness.ca/admin`
+
+**Signing in:** click **Sign in with Google** and use your `shelestwellness@gmail.com` account. You will stay signed in until you sign out or clear your browser.
+
+**Language:** the dashboard is available in both English and French. Use the language toggle button next to the logout button to switch.
+
+The dashboard has four tabs:
+
+**Pending tab**
+
+Shows all unconfirmed booking requests waiting for your response.
+
+- Each request shows: client name, email, phone, preferred language, service, duration, date, time, and any notes.
+- Two action buttons per request: **Accept** (green) and **Decline** (red). Both ask for confirmation before acting.
+- A badge on the tab shows the number of pending requests at a glance.
+
+![alt text](./readme-images/readme-pending-tab.png)
+
+**Confirmed tab**
+
+Shows upcoming confirmed appointments.
+
+- Same card layout as the Pending tab.
+- One action button per booking: **Cancel Booking** (red) — asks for confirmation before cancelling.
+- A badge shows the total number of confirmed upcoming bookings.
+
+![alt text](./readme-images/readme-confirmed-tab.png)
+
+**Past tab**
+
+Shows completed bookings. Use the month/year selectors to browse history.
+
+- Each entry shows: client name, date, time, service, and duration.
+- Click **Details** on any entry to open a read-only view of the full booking (client contact info, notes, etc.).
+
+![alt text](./readme-images/readme-past-tab.png)
+
+**Availability tab**
+
+A monthly calendar view for managing your open time slots.
+
+- Use **Previous / Next** arrows to navigate months (up to 12 months ahead, no past months).
+- Days with a small amber dot already have a confirmed or pending booking — useful for spotting conflicts.
+- Click **Today** to jump back to the current month.
+- Click the **Refresh** button to force the dashboard to reload fresh data from your calendar.
+- Click on any day to add an availability block for that day.
+
+![alt text](./readme-images/readme-availability-tab.png)
+
+---
+
+### Setting Your Availability
+
+You set your availability from the **Availability tab** in the Admin Dashboard — the website then shows those times to clients automatically.
+
+**To open a time slot for clients to book:**
+1. Go to `https://www.shelestwellness.ca/admin` and sign in.
+2. Click the **Availability** tab.
+3. Navigate to the month you want using the Previous / Next arrows.
+4. Click on any day to add an availability block for that day.
+5. Choose the start and end time, then save.
+
+The booking page on the website will show that time as available immediately.
+
+**Tips:**
+- You can add as many blocks as you like on a single day (e.g. morning and evening).
+- You can set availability weeks or months in advance.
+- Days with an amber dot already have a confirmed or pending booking — be mindful of those when adding new blocks.
+- The website shows availability up to 12 months ahead.
+
+![alt text](./readme-images/readme-availability-block-setup.png)
+
+**Alternative — via Google Calendar directly:**
+You can also create availability by adding an event named exactly `open` (lowercase) in **Graphite (gray)** color in Google Calendar. The website reads these the same way. This is useful if you are already in Google Calendar and want to add several blocks at once. To remove availability added this way, delete the `open` event from Google Calendar.
+
+![alt text](./readme-images/readme-google-calendar-view.png)
+---
+
+### When a Client Makes a Booking Request
+
+When a client submits a booking request through the website, here is what happens automatically:
+
+1. A **yellow event** (marked `[PENDING]`) appears on your Google Calendar for that date and time.
+2. You receive an **email** at `shelestwellness@gmail.com` with all the client's details: name, phone, email, service, duration, date, time, and any notes they left.
+3. The email contains two buttons: **Accept Booking** and **Decline Booking**.
+4. The client sees a success message on the website. They do not receive an email at this stage — they hear back only once you accept or decline.
+
+**Important:** the Accept and Decline buttons in your email expire after **7 days**. If you haven't acted on a request within 7 days, the buttons will stop working — use the **Pending** tab in the Admin Dashboard to accept or decline it instead.
+
+![alt text](./readme-images/readme-google-calendar-view-zoom.png)
+---
+
+### Accepting a Booking Request
+
+**Option A — via email (easiest):**
+1. Open the booking request email.
+2. Click **Accept Booking**.
+3. You may be asked to sign in with your Google account first (one-time, then it remembers you).
+4. A confirmation page appears — click the confirm button to finalize.
+
+![alt text](./readme-images/readme-booking-request-email.png)
+
+**Option B — via the Admin Dashboard:**
+1. Go to the **Pending** tab.
+2. Find the request and click **Accept**.
+
+![alt text](./readme-images/readme-pending-tab.png)
+
+**What happens automatically either way:**
+- The calendar event turns **green** (`[CONFIRMED]`).
+- A **purple** break block is added right after the session (buffer time between clients).
+- The client receives a **confirmation email** with full appointment details: date, time, location, payment info, and cancellation policy.
+
+![alt text](./readme-images/readme-google-calendar-view-zoom.png)
+---
+
+### Declining a Booking Request
+
+**Option A — via email:**
+1. Open the booking request email.
+2. Click **Decline Booking**.
+3. Sign in with your Google account if prompted.
+4. Confirm the decline.
+
+**Option B — via the Admin Dashboard:**
+1. Go to the **Pending** tab.
+2. Find the request and click **Decline**.
+
+**What happens automatically either way:**
+- The pending calendar event is deleted.
+- The client receives a polite email letting them know that time is no longer available and inviting them to rebook.
+
+---
+
+### Cancelling a Confirmed Booking
+
+1. Go to the Admin Dashboard → **Confirmed** tab.
+2. Find the booking and click **Cancel Booking**.
+
+**What happens automatically:**
+- The green confirmed event and the purple break block are both removed from your calendar.
+- The client receives a cancellation email with your phone number and email so they can rebook.
+
+![alt text](./readme-images/readme-confirmed-tab.png)
+---
+
+### Getting Reviews from Clients
+
+There is a short link you can share with clients after their appointment to leave a Google review:
+
+`https://www.shelestwellness.ca/reviews`
+
+This link goes directly to your Google Business Profile review form — clients do not need to search for you. Share it by text message, email, or print it on a card.
+
+---
+
+## Client Experience — What Clients See and Receive
+
+### How Clients Book
+
+Clients follow a step-by-step booking flow on the website:
+
+1. **Select a service and duration** — e.g. Therapeutic Massage, 60 min.
+2. **Choose a date** — only days with available slots are shown.
+3. **Choose a time** — available start times for that day are listed.
+4. **Enter their details** — name, phone, email, optional notes, and preferred language (English or French).
+5. **Submit** — they receive an acknowledgment email and wait for your confirmation.
+
+Once you accept, they receive a full confirmation email. If you decline, they receive a polite notice with a link to rebook.
+
+Step 1:
+![alt text](./readme-images/readme-booking-step1.png)
+Step 2:
+![alt text](./readme-images/readme-booking-step2.png)
+Step 3:
+![alt text](./readme-images/readme-booking-step3.png)
+Step 4:
+![alt text](./readme-images/readme-booking-step4.png)
+
+---
+
+### Emails Clients Receive
+
+All emails are sent automatically from `massage@shelestwellness.ca` in the client's preferred language (English or French).
+
+| When | What the client receives |
+|---|---|
+| After submitting a booking request | Nothing — they see a success message on the website and wait to hear from you |
+| After you accept | Confirmation — date, time, location, payment info, cancellation policy |
+| After you decline | Decline notice — invitation to rebook |
+| The day before their appointment | Reminder — date, time, location, cancellation policy |
+| After you cancel a confirmed appointment | Cancellation notice — your contact details for rebooking |
+
+---
+
+### Appointment Reminder Emails
+
+Every day at approximately **10:00 AM**, the website automatically checks for confirmed bookings scheduled for the **following day** and sends each client a reminder email.
+
+The reminder includes: appointment date and time, service and duration, location, and a note about the cancellation policy (at least 12 hours notice required).
+
+**You do not need to do anything** — this runs entirely on its own. If you ever need to turn reminders off temporarily, ask your developer.
+
+---
+
+### The Contact Form
+
+When someone fills out the contact form on the website, the message is sent to `shelestwellness@gmail.com`. The email includes the sender's name, phone number, email address, inquiry type, and message.
+
+You reply directly from Gmail — just hit reply. There is no separate inbox to check.
+
+**Spam protection:** the contact form has invisible spam filters built in. You should almost never receive automated spam submissions.
+
+---
+
+### Couples Massage Bookings
+
+Couples massage cannot be booked online (because it requires coordinating two therapists). When a visitor selects Couples Massage on the booking page, they are redirected to the contact form with the inquiry type pre-filled as "Couples Massage."
+
+You handle these bookings manually by phone or email after receiving the inquiry.
+
+![alt text](./readme-images/readme-booking-couples-step1.png)
+---
+
+### Languages — English and French
+
+The entire website is available in both English and French. Visitors switch languages using the toggle in the top-right corner of any page.
+
+When a client books, they choose their preferred language. All automated emails they receive (confirmation, reminder, cancellation) are sent in that language automatically.
+
+You do not need to manage translations or languages — it all happens automatically.
+
+---
+
+### Payments
+
+Payment is collected **at the time of the appointment**. The website reminds clients of this in their confirmation email. Accepted methods:
+
+- **Cash**
+- **Interac e-Transfer**
+
+The website does not process payments online.
+
+---
+
+## Getting Started (Developer)
 
 ```bash
 npm install
 npm run dev        # local dev server
-npm test           # run validation unit tests (Vitest)
+npm test           # run all unit and integration tests (Vitest — 158 tests)
 ANALYZE=true npm run build  # bundle analysis (opens HTML report in browser)
 ```
 
@@ -178,6 +435,127 @@ No third-party captcha service is used — no cost, no user friction, no additio
 
 ---
 
+## Booking System
+
+The booking system lets clients pick a service, duration, date, and time slot, then submit a request. Olha receives an email with Accept/Decline links to confirm or decline the appointment.
+
+### How it works
+
+1. **Availability** — Olha creates events titled `"open"` in her Google Calendar using the **Graphite (gray)** color. These blocks define when clients can book.
+2. **Slot generation** — the API reads those blocks and generates bookable start times (30-minute granularity, 30-minute buffer between sessions).
+3. **Booking request** — the client submits the form; a `[PENDING]` event (yellow) is created on the calendar and an email is sent to Olha with Accept/Decline links.
+4. **Accept** — Olha clicks Accept in email → re-checks for conflicts → event turns green (`[CONFIRMED]`) → purple `[BREAK]` event created → client receives confirmation email.
+5. **Decline** — Olha clicks Decline in email → pending event deleted → client notified. Olha can also decline pending requests from the `/admin` dashboard.
+6. **Cancel** — Olha cancels a confirmed booking from the `/admin` dashboard → confirmed event and break event deleted → client notified.
+7. **Reminder** — a Vercel Cron Job fires daily at ~10 AM ET, queries the calendar for confirmed appointments the next day, and sends each client a reminder email in their preferred language (EN/FR). Controlled by `REMINDERS.enabled` in `config.ts`.
+8. **Google Calendar is the source of truth** — no database; all state is stored as calendar event titles, colors, and JSON in event descriptions.
+
+### Calendar event color conventions
+
+| Color | Meaning | `BOOKING.calendarColors` value |
+|---|---|---|
+| Gray (Graphite) | Available for massage — Olha marks these blocks herself | *(no value — event title drives detection)* |
+| Yellow (Banana) | Pending booking request | `'5'` |
+| Green (Basil) | Confirmed appointment | `'10'` |
+| Purple (Grape) | Break / blocked time | `'3'` |
+
+### Environment variables
+
+Add these to `.env.local` (and to Vercel project settings for production):
+
+```
+# Google Calendar integration
+GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@project.iam.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+GOOGLE_CALENDAR_ID=your-calendar-id@gmail.com
+
+# Booking token signing (Accept/Decline links)
+BOOKING_TOKEN_SECRET=a-long-random-secret-string
+
+# NextAuth (admin dashboard authentication)
+GOOGLE_OAUTH_CLIENT_ID=your-oauth-client-id.apps.googleusercontent.com
+GOOGLE_OAUTH_CLIENT_SECRET=your-oauth-client-secret
+NEXTAUTH_SECRET=a-long-random-secret-string
+NEXTAUTH_URL=https://www.shelestwellness.ca
+
+# Appointment reminder cron job
+CRON_SECRET=a-long-random-secret-string
+```
+
+### Feature flags (`BOOKING` in `src/lib/config.ts`)
+
+| Flag | Default | Effect |
+|---|---|---|
+| `showBookingsService` | `true` | Enables the `/booking` page and wires all "Book Now" / "Book this session" CTAs to `/booking`. When `false`, CTAs fall back to `/contact`. `/booking` route also disappears from the sitemap. |
+| `couplesMassageBookingEnabled` | `false` | When `false`, the Couples Massage entry in the booking wizard (Step 1) shows a single "Book via phone or contact form" button linking to `/contact?type=couples` (pre-selects Couples Massage in the inquiry dropdown) instead of the normal duration/price buttons. The service card on the Services page is unaffected. Set to `true` to restore the standard booking flow once a second therapist is available. |
+| `showBookingsAdmin` | `true` | Enables the `/admin` dashboard route. |
+
+### Appointment reminders (`REMINDERS` in `src/lib/config.ts`)
+
+A Vercel Cron Job (`vercel.json`) calls `GET /api/cron/reminder` daily at `0 14 * * *` UTC (≈ 10:00 AM EDT / 9:00 AM EST). The route:
+
+1. Verifies the `Authorization: Bearer {CRON_SECRET}` header Vercel injects automatically.
+2. Checks `REMINDERS.enabled` — returns early if `false`.
+3. Computes tomorrow's date in the `America/Toronto` timezone.
+4. Fetches all `[CONFIRMED]` calendar events for that date.
+5. Sends each client a reminder email in their preferred language (EN/FR) with the appointment date, time, location, and cancellation policy.
+
+| Flag | Default | Effect |
+|---|---|---|
+| `enabled` | `true` | Master on/off switch. Set to `false` to disable reminder emails without touching the cron schedule. |
+| `checkTime` | `'10:00'` | Reference only — the actual schedule lives in `vercel.json`. Documents the intended local time in `America/Toronto`. |
+
+**Note:** The Vercel Hobby (free) plan supports one cron job per project. This reminder job uses that slot.
+
+### Admin dashboard
+
+Olha accesses the admin dashboard at `/admin` (linked in the site footer). Login uses Google OAuth restricted to her Gmail account.
+
+**Tabs:**
+- **Pending** — unconfirmed booking requests. Accept (`POST /api/admin/confirm`) and Decline (`POST /api/admin/decline`) actions with confirmation dialog. Badge shows count. Data fetched from `/api/admin/bookings?view=future`, filtered to `[PENDING]` events.
+- **Confirmed** — upcoming confirmed bookings. Cancel action (`POST /api/admin/cancel`) with confirmation dialog. Badge shows count. Same data source as Pending tab, filtered to `[CONFIRMED]` events.
+- **Past** — historical bookings with month/year selectors. Compact list with a Details modal (read-only). Fetched from `/api/admin/bookings?view=past&month={YYYY-MM}`. Per-month cache via `useRef` Map — revisiting a month is instant; cleared on page reload.
+- **Availability** — monthly calendar view of open blocks. Features:
+  - Prev/Next month navigation (current month → current+12, no past months)
+  - Click any day to add an availability block directly from the dashboard (calls `POST /api/admin/availability`); existing blocks shown with delete buttons
+  - Validates: minimum 60-min duration, no overlapping blocks
+  - Amber dot on days that have confirmed or pending bookings (conflict indicator)
+  - "Today" button to jump back to current month
+  - "↺ Refresh" button to force-fetch fresh calendar data
+  - In-session cache (React `useRef` Map) — revisiting a month is instant; cleared on page reload
+
+**Event titles** are centralized in `BOOKING.eventTitles` in `config.ts` (`[PENDING]`, `[CONFIRMED]`, `[BREAK]`). The availability block title is `BOOKING.availabilityEventTitle` (`open`).
+
+**Performance:** All data is fetched live from Google Calendar — no server-side caching (`force-dynamic`). The `fields` projection on all Calendar API calls reduces payload by ~70%.
+
+`/admin` is excluded from `robots.txt` (`Disallow: /admin`) and is not in the sitemap.
+
+### Booking security
+
+**Bot protection** (`/api/booking/request`) — three invisible defences, no captcha, no user friction:
+
+| Defence | How it works |
+|---|---|
+| Honeypot field | Hidden `<input name="website">` (`display:none`, `tabIndex={-1}`). Bots fill it; real users never see it. Non-empty → `400 bot_detected` + alert email to Olha. |
+| Timing check | Timestamp recorded when step 4 loads is sent with the request. Submissions < 4 s after the form appeared → `400 bot_detected` + alert email. |
+| Max pending per email | If the same email already has 3 `[PENDING]` events on the calendar, the request is rejected → `400 too_many_pending`. |
+
+**HMAC token expiry** — Accept/Decline links in Olha's emails expire after 7 days. The timestamp is embedded in the signed token so no database is needed to enforce this. After 7 days the link returns `400 invalid_signature`.
+
+**CSRF protection** — Admin POST routes (`/api/admin/cancel`, `/api/admin/decline`) check the `Origin` header. Requests from a different origin → `403 forbidden`. This prevents a malicious page from triggering admin actions if Olha is logged in and visits it. Absent `Origin` (curl, server-to-server) is allowed.
+
+**Alert emails** — When bot protection blocks a submission, Olha receives an alert email with the detected reason and IP address. No action is required unless alerts become frequent — in that case, implement rate limiting (see TODO.md).
+
+**Rate limiting** — `POST /api/booking/request` is limited to 5 requests per IP per hour (sliding window) using Upstash Redis + `@upstash/ratelimit`. The per-email pending cap (max 3 concurrent pending bookings) is also enforced. Both limits are bypassed for emails listed in `RATE_LIMITING.bypassEmails` (config.ts) and can be disabled via `RATE_LIMITING_ENABLED=false` in `.env.local` for local development. See the Vercel deployment section for required env vars.
+
+### Testing with a non-production calendar
+
+To avoid polluting Olha's real schedule during development, point `GOOGLE_CALENDAR_ID` at a dedicated test calendar in `.env.local` and in Vercel's **Preview** environment. Only the Vercel **Production** environment should use the real calendar ID.
+
+See **`bookings_plan.md` → Testing Environments** for the full step-by-step setup guide.
+
+---
+
 ## Images
 
 Images are stored in `public/images/`. Paths referenced via `SITE` constants in `config.ts` can be swapped site-wide by changing the value there. Service images are managed per-service in the `SERVICES` array in `config.ts` (`SERVICES[n].image.src`).
@@ -275,6 +653,7 @@ The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes 
 | `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type (Therapeutic, Deep Tissue, Relaxation, Lymphatic Drainage, Children's, Couples) — includes service-specific FAQ section |
 | `/fees` | Pricing table grouped by service, with links to the services page |
 | `/contact` | Contact info, map, contact form |
+| `/booking` | Online booking flow — service & duration selection, monthly calendar view (days with available slots highlighted), time slot picker, client details form (enabled when `BOOKING.showBookingsService === true`) |
 | `/privacy-policy` | Privacy policy (not in main nav) |
 | `/massage-hull` | Local landing page — Hull residents and Ottawa federal workers (Place du Portage) |
 | `/massage-ottawa` | Local landing page — Ottawa cross-river angle via Portage bridge |
@@ -296,8 +675,30 @@ All routes are available under `/en/` and `/fr/` prefixes.
 The site is deployed on **Vercel**. Pushing to `main` triggers an automatic deployment.
 
 Make sure the following environment variables are set in Vercel project settings:
+
+**Existing:**
 - `RESEND_API_KEY`
 - `NEXT_PUBLIC_GA_ID` — Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`). When set, the GA4 tracking script is injected into every page via `src/app/[locale]/layout.tsx`. Omit or leave blank to disable tracking (useful for local development).
+
+**Booking system (required when `BOOKING.showBookingsService === true`):**
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` — service account email from Google Cloud Console
+- `GOOGLE_PRIVATE_KEY` — full private key from service account JSON (include `\n` escaped)
+- `GOOGLE_CALENDAR_ID` — Olha's Google Calendar ID
+- `BOOKING_TOKEN_SECRET` — random 32+ char secret for signing Accept/Decline links (`openssl rand -base64 32`)
+- `GOOGLE_OAUTH_CLIENT_ID` — OAuth client ID for `/admin` Google sign-in
+- `GOOGLE_OAUTH_CLIENT_SECRET` — OAuth client secret
+- `NEXTAUTH_SECRET` — random 32+ char secret for NextAuth sessions (`openssl rand -base64 32`)
+- `NEXTAUTH_URL` — `https://www.shelestwellness.ca`
+
+**Rate limiting (required in production for IP abuse protection):**
+- `UPSTASH_REDIS_REST_URL` — REST URL from [Upstash console](https://console.upstash.com) (free tier)
+- `UPSTASH_REDIS_REST_TOKEN` — REST token from Upstash console
+- `RATE_LIMITING_ENABLED` — set to `false` in `.env.local` to disable all rate limits during local development (defaults to `true`)
+
+**Appointment reminders (cron job):**
+- `CRON_SECRET` — random secret used to authenticate the daily reminder cron job (`openssl rand -base64 32`). Vercel sets this automatically for cron job requests; set the same value in `.env.local` to test locally.
+
+See `bookings_plan.md` for full step-by-step Google Cloud setup instructions.
 
 
 ## Redirects
