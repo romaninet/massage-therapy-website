@@ -121,6 +121,7 @@ export default function Header() {
             <LanguageSwitcher dark />
             <button
               onClick={handleBookNow}
+              suppressHydrationWarning
               className={`px-5 py-2.5 text-sm tracking-wider uppercase font-medium rounded transition-colors ${
                 BOOKING.showBookingsService
                   ? 'bg-sage text-white hover:opacity-90'
@@ -166,6 +167,7 @@ export default function Header() {
           ))}
           <button
             onClick={handleBookNow}
+            suppressHydrationWarning
             className={`mt-4 py-3 text-center text-sm tracking-wider uppercase font-medium rounded transition-colors ${
               BOOKING.showBookingsService
                 ? 'bg-sage text-white hover:opacity-90'

@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { BotanicalCornerTL, BotanicalCornerBR } from '@/components/BotanicalDecor';
+import { BOOKING } from '@/lib/config';
 
 export default function CTASection() {
   const t = useTranslations('cta');
@@ -33,7 +34,7 @@ export default function CTASection() {
           {t('subtitle')}
         </p>
         <Link
-          href={`/${locale}/contact`}
+          href={BOOKING.showBookingsService ? `/${locale}/booking` : `/${locale}/contact`}
           className="btn-light gap-3 px-10"
         >
           {t('button')}
