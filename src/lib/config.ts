@@ -219,9 +219,9 @@ export const RATE_LIMITING = {
 } as const;
 
 export const BOOKING = {
-  showBookingsService: false,       // false = booking page disabled site-wide
+  showBookingsService: true,       // false = booking page disabled site-wide
   couplesMassageBookingEnabled: false, // false = couples massage routes to contact form instead of booking
-  showBookingsAdmin: false,         // false = /admin route disabled
+  showBookingsAdmin: true,         // false = /admin route disabled
   breakAfterSession: 30,           // minutes buffer between sessions
   slotInterval: 30,                // minutes — granularity of bookable start times
   cancellationNoticeHours: 12,     // minimum hours notice for client cancellation
