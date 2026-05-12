@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
-import { BOOKING, SERVICES } from '@/lib/config'
+import { BOOKING, RATE_LIMITING, SERVICES } from '@/lib/config'
 import { listEventsForDate, listEventsInRange, createEvent } from '@/lib/googleCalendar'
 import { getAvailableSlots } from '@/lib/bookingSlots'
 import { sendBookingRequestEmail, sendBotAlertEmail } from '@/lib/bookingEmails'
 import { getClientIp } from '@/lib/routeHelpers'
-
-const MAX_PENDING_PER_EMAIL = 3
+import { checkBookingRateLimit } from '@/lib/rateLimiter'
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -37,16 +36,16 @@ export async function POST(request: Request) {
     _t?: number
   }
 
+  const ip = getClientIp(request)
+
   // Bot protection: honeypot must be empty
   if (_hp) {
-    const ip = getClientIp(request)
     await sendBotAlertEmail('honeypot', ip).catch(() => {})
     return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }
 
   // Bot protection: form must have taken at least 4 seconds to fill
   if (!_t || Date.now() - _t < 4000) {
-    const ip = getClientIp(request)
     await sendBotAlertEmail('timing', ip).catch(() => {})
     return NextResponse.json({ error: 'bot_detected' }, { status: 400 })
   }
@@ -63,6 +62,21 @@ export async function POST(request: Request) {
 
   if (clientNotes && clientNotes.length > 500) {
     return NextResponse.json({ error: 'notes_too_long' }, { status: 400 })
+  }
+
+  const isBypassEmail = RATE_LIMITING.bypassEmails
+    .map((e) => e.toLowerCase())
+    .includes((clientEmail as string).toLowerCase())
+
+  // IP rate limit: max N requests per hour (bypassed for whitelisted emails)
+  if (!isBypassEmail) {
+    const { allowed, retryAfter } = await checkBookingRateLimit(ip)
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'rate_limit_exceeded' },
+        { status: 429, headers: retryAfter ? { 'Retry-After': String(retryAfter) } : {} }
+      )
+    }
   }
 
   // Validate service
@@ -84,7 +98,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'invalid_start_time' }, { status: 400 })
   }
 
-  // Check max pending bookings per email (prevents abuse without rate limiting)
+  // Per-email pending cap: prevents one person from spamming pending requests
   const now = new Date()
   const ninetyDaysOut = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000)
   const upcomingEvents = await listEventsInRange(now, ninetyDaysOut)
@@ -97,8 +111,8 @@ export async function POST(request: Request) {
       return false
     }
   }).length
-  if (pendingCount >= MAX_PENDING_PER_EMAIL) {
-    console.warn(`[booking/request] BLOCKED too_many_pending: ${clientEmail} has ${pendingCount} pending bookings (limit ${MAX_PENDING_PER_EMAIL})`)
+  if (!isBypassEmail && RATE_LIMITING.perEmailLimitEnabled && pendingCount >= RATE_LIMITING.maxPendingPerEmail) {
+    console.warn(`[booking/request] BLOCKED too_many_pending: ${clientEmail} has ${pendingCount} pending bookings (limit ${RATE_LIMITING.maxPendingPerEmail})`)
     return NextResponse.json({ error: 'too_many_pending' }, { status: 400 })
   }
 

@@ -210,6 +210,14 @@ export const BUSINESS = {
   geo: { latitude: 45.42998533558253, longitude: -75.72007407363735 },
 } as const;
 
+export const RATE_LIMITING = {
+  ipLimitEnabled: process.env.RATE_LIMITING_ENABLED !== 'false',
+  bookingRequestsPerIpPerHour: 5,
+  perEmailLimitEnabled: process.env.RATE_LIMITING_ENABLED !== 'false',
+  maxPendingPerEmail: 3,
+  bypassEmails: ['roman.inet@gmail.com'],
+} as const;
+
 export const BOOKING = {
   showBookingsService: true,       // false = booking page disabled site-wide
   couplesMassageBookingEnabled: false, // false = couples massage routes to contact form instead of booking

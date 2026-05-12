@@ -267,7 +267,7 @@ Olha accesses the admin dashboard at `/admin` (not linked anywhere on the public
 
 **Alert emails** — When bot protection blocks a submission, Olha receives an alert email with the detected reason and IP address. No action is required unless alerts become frequent — in that case, implement rate limiting (see TODO.md).
 
-**Rate limiting (not yet implemented)** — See `TODO.md → [HIGH PRIORITY] Booking: Rate Limiting` for the plan. Upstash Redis is the recommended approach.
+**Rate limiting** — `POST /api/booking/request` is limited to 5 requests per IP per hour (sliding window) using Upstash Redis + `@upstash/ratelimit`. The per-email pending cap (max 3 concurrent pending bookings) is also enforced. Both limits are bypassed for emails listed in `RATE_LIMITING.bypassEmails` (config.ts) and can be disabled via `RATE_LIMITING_ENABLED=false` in `.env.local` for local development. See the Vercel deployment section for required env vars.
 
 ### Testing with a non-production calendar
 
@@ -410,6 +410,11 @@ Make sure the following environment variables are set in Vercel project settings
 - `GOOGLE_OAUTH_CLIENT_SECRET` — OAuth client secret
 - `NEXTAUTH_SECRET` — random 32+ char secret for NextAuth sessions (`openssl rand -base64 32`)
 - `NEXTAUTH_URL` — `https://www.shelestwellness.ca`
+
+**Rate limiting (required in production for IP abuse protection):**
+- `UPSTASH_REDIS_REST_URL` — REST URL from [Upstash console](https://console.upstash.com) (free tier)
+- `UPSTASH_REDIS_REST_TOKEN` — REST token from Upstash console
+- `RATE_LIMITING_ENABLED` — set to `false` in `.env.local` to disable all rate limits during local development (defaults to `true`)
 
 See `bookings_plan.md` for full step-by-step Google Cloud setup instructions.
 

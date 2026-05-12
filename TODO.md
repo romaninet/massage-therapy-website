@@ -1,19 +1,10 @@
 # TODO
 
-## [HIGH PRIORITY] Booking: Rate Limiting (Priority 2)
+## [HIGH PRIORITY] Booking: Rate Limiting (Priority 2) ✅ Done
 
-Server-side rate limiting on public booking API endpoints to prevent abuse.
-See `bookings_plan.md → Security → Priority 2` for full implementation details.
+`POST /api/booking/request` now has IP-based rate limiting (max 5/hour, sliding window) via Upstash Redis + `@upstash/ratelimit`. The per-email pending cap (max 3) was also moved to `RATE_LIMITING` config. Both limits respect a `bypassEmails` whitelist and are disabled when `RATE_LIMITING_ENABLED=false`. Upstash Redis database created and env vars added to Vercel.
 
-Currently the booking form has honeypot + timing bot protection and a max-3-pending-per-email limit, but a determined bot sending many requests from different emails or IPs could still flood the calendar and exhaust the Resend free-tier email quota.
-
-**What to implement:**
-- Max 5 booking requests per IP per hour on `POST /api/booking/request`
-- Max 30 requests per minute per IP on `GET /api/booking/slots`
-
-**Recommended approach:** [Upstash Redis](https://upstash.com) free tier + `@upstash/ratelimit` package (~5 min setup, works on Vercel free tier). Alternatively, Next.js middleware with an in-memory Map (zero cost but resets on cold starts).
-
-**New env vars needed:** `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (if using Upstash).
+**Still to do (optional):** rate limiting on `GET /api/booking/slots` (lower priority — slots endpoint is read-only and doesn't trigger email/calendar writes).
 
 ---
 
@@ -36,18 +27,14 @@ Currently the booking form has honeypot + timing bot protection and a max-3-pend
 | ✅ 2 | `deep-tissue-massage-runners-athletes-gatineau` | 2026-04-30 |
 | ✅ 3 | `therapeutic-vs-relaxation-massage-gatineau` | 2026-05-10 |
 | ✅ 4 | `amq-receipts-massage-insurance-coverage-gatineau` | 2026-05-20 |
+| ✅ 5 | `lymphatic-drainage-massage-gatineau` | 2026-05-01 |
 
-**Hero images still needed** — drop these into `public/images/` before deploying:
-- `article-choose-therapist.jpg`
-- `article-deep-tissue-runners.jpg`
-- `article-therapeutic-vs-relaxation.jpg`
-- `article-amq-insurance.jpg`
+**Hero images** ✅ All present in `public/images/`.
 
 ### Articles still to write (cadence: 1 every 2 weeks)
 
 | # | FR title | EN title | Primary keywords |
 |---|----------|----------|-----------------|
-| 5 | Drainage lymphatique : à quoi s'attendre | Lymphatic drainage: what to expect | drainage lymphatique Gatineau |
 | 6 | Massage pour femmes enceintes à Gatineau | Prenatal massage in Gatineau | massage femme enceinte Gatineau |
 | 7 | Massage en profondeur : à qui s'adresse-t-il ? | Deep tissue massage: when it's right for you | deep tissue Gatineau |
 | 8 | Préparer sa première séance | Preparing for your first massage session | first massage what to expect |
@@ -119,25 +106,9 @@ See full plan in `AEO_optimization_plan.md`.
 
 ---
 
-## Near Future: Additional Directory Listings
+send email reminder of booking one day before
 
-The following directories are worth creating when time allows. Use the canonical NAP exactly:
-> Olha Shelest · 148 Rue Eddy, Unit 2, Gatineau, QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca
 
-| Platform | URL | Priority | Notes |
-|----------|-----|----------|-------|
-| Répertoire des ressources en santé et services sociaux | sante.gouv.qc.ca | Medium | Quebec government health directory — strong trust signal for QC market |
-| Medimap.ca | medimap.ca | Medium | Canadian healthcare directory used by patients to find practitioners |
-| Annuaire-Sante.ca | annuaire-sante.ca | Lower | Quebec health practitioner directory |
-
-After creating each, log it in [README.md](README.md) under "Backlinks & Directory Listings" with the date.
-
-# Improvements for bookings
-
-- couples massage bookings should probably have a message saying that it must be booked with contact form
-- when cancelling booking -suggest other days
-- change the booking flow (present days)
-- last screen on bookings, press on language -goes away
 
 
 
