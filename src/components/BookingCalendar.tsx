@@ -158,10 +158,10 @@ export function BookingCalendar({
                   className={`
                     h-9 w-full rounded-lg text-sm font-medium transition-colors
                     ${isPast
-                      ? 'text-gray-500 cursor-not-allowed'
+                      ? 'text-gray-300 cursor-not-allowed'
                       : hasSlots
                       ? 'bg-[#2D6A4F] text-white hover:bg-[#245c44] cursor-pointer'
-                      : 'text-gray-200 cursor-not-allowed'
+                      : 'text-gray-500 cursor-not-allowed'
                     }
                   `}
                 >

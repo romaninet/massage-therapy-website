@@ -9,6 +9,12 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 
 > This section is for Olha — the massage therapist and website owner. No technical knowledge required. Everything here describes how to use the website day-to-day.
 
+Link to Production:
+https://www.shelestwellness.ca
+
+Link to Develop:
+https://massage-therapy-website-git-develop-shelestwellness-site.vercel.app
+
 ---
 
 ## Admin — Managing Your Business
