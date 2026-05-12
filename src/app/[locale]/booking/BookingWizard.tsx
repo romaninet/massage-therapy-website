@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { SERVICES } from '@/lib/config';
+import Link from 'next/link';
+import { SERVICES, BOOKING } from '@/lib/config';
 import { CheckCircle, ChevronLeft, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookingCalendar } from '@/components/BookingCalendar';
@@ -381,19 +382,28 @@ export default function BookingWizard({ locale }: { locale: string }) {
                           {t('step1Title')} — {svc.title[locale as 'en' | 'fr'] ?? svc.title.en}
                         </p>
                         <div className="flex flex-wrap gap-2" data-testid={`duration-options-${svc.key}`}>
-                          {svc.tiers.map((tier) => {
-                            const mins = parseInt(String(tier.duration), 10);
-                            return (
-                              <button
-                                key={tier.duration}
-                                className="px-4 py-2 rounded-full border-2 border-[#2D6A4F] text-[#2D6A4F] text-sm font-medium hover:bg-[#2D6A4F] hover:text-white transition-colors"
-                                onClick={() => handleDurationSelect(svc.key, mins)}
-                                data-testid={`duration-btn-${svc.key}-${mins}`}
-                              >
-                                {mins} {t('min')} — {tier.price}$
-                              </button>
-                            );
-                          })}
+                          {svc.key === 'couples' && !BOOKING.couplesMassageBookingEnabled ? (
+                            <Link
+                              href={`/${locale}/contact?type=couples`}
+                              className="px-4 py-2 rounded-full border-2 border-[#2D6A4F] text-[#2D6A4F] text-sm font-medium hover:bg-[#2D6A4F] hover:text-white transition-colors"
+                            >
+                              {t('bookCouplesViaContact')}
+                            </Link>
+                          ) : (
+                            svc.tiers.map((tier) => {
+                              const mins = parseInt(String(tier.duration), 10);
+                              return (
+                                <button
+                                  key={tier.duration}
+                                  className="px-4 py-2 rounded-full border-2 border-[#2D6A4F] text-[#2D6A4F] text-sm font-medium hover:bg-[#2D6A4F] hover:text-white transition-colors"
+                                  onClick={() => handleDurationSelect(svc.key, mins)}
+                                  data-testid={`duration-btn-${svc.key}-${mins}`}
+                                >
+                                  {mins} {t('min')} — {tier.price}$
+                                </button>
+                              );
+                            })
+                          )}
                         </div>
                       </div>
                     )}

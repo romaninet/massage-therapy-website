@@ -436,6 +436,7 @@
     "prevMonth": "Mois précédent",
     "nextMonth": "Mois suivant",
     "noSlotsInMonth": "Aucune disponibilité ce mois-ci",
+    "bookCouplesViaContact": "Réserver par téléphone ou formulaire",
     "phonePlaceholder": "ex. (819) 555-0123",
     "validation": {
       "langRequired": "Veuillez sélectionner une langue préférée"

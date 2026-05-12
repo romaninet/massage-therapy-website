@@ -226,6 +226,7 @@ NEXTAUTH_URL=https://www.shelestwellness.ca
 | Flag | Default | Effect |
 |---|---|---|
 | `showBookingsService` | `true` | Enables the `/booking` page and wires all "Book Now" / "Book this session" CTAs to `/booking`. When `false`, CTAs fall back to `/contact`. `/booking` route also disappears from the sitemap. |
+| `couplesMassageBookingEnabled` | `false` | When `false`, the Couples Massage entry in the booking wizard (Step 1) shows a single "Book via phone or contact form" button linking to `/contact?type=couples` (pre-selects Couples Massage in the inquiry dropdown) instead of the normal duration/price buttons. The service card on the Services page is unaffected. Set to `true` to restore the standard booking flow once a second therapist is available. |
 | `showBookingsAdmin` | `true` | Enables the `/admin` dashboard route. |
 
 ### Admin dashboard

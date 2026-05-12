@@ -212,6 +212,7 @@ export const BUSINESS = {
 
 export const BOOKING = {
   showBookingsService: true,       // false = booking page disabled site-wide
+  couplesMassageBookingEnabled: false, // false = couples massage routes to contact form instead of booking
   showBookingsAdmin: true,         // false = /admin route disabled
   breakAfterSession: 30,           // minutes buffer between sessions
   slotInterval: 30,                // minutes — granularity of bookable start times
