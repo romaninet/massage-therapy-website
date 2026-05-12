@@ -21,6 +21,8 @@ The admin dashboard is your private management page. There is a link to it in th
 
 **Signing in:** click **Sign in with Google** and use your `shelestwellness@gmail.com` account. You will stay signed in until you sign out or clear your browser.
 
+**Language:** the dashboard is available in both English and French. Use the language toggle button next to the logout button to switch.
+
 The dashboard has four tabs:
 
 **Pending tab**
@@ -31,6 +33,8 @@ Shows all unconfirmed booking requests waiting for your response.
 - Two action buttons per request: **Accept** (green) and **Decline** (red). Both ask for confirmation before acting.
 - A badge on the tab shows the number of pending requests at a glance.
 
+![alt text](./readme-images/readme-pending-tab.png)
+
 **Confirmed tab**
 
 Shows upcoming confirmed appointments.
@@ -39,12 +43,16 @@ Shows upcoming confirmed appointments.
 - One action button per booking: **Cancel Booking** (red) — asks for confirmation before cancelling.
 - A badge shows the total number of confirmed upcoming bookings.
 
+![alt text](./readme-images/readme-confirmed-tab.png)
+
 **Past tab**
 
 Shows completed bookings. Use the month/year selectors to browse history.
 
 - Each entry shows: client name, date, time, service, and duration.
 - Click **Details** on any entry to open a read-only view of the full booking (client contact info, notes, etc.).
+
+![alt text](./readme-images/readme-past-tab.png)
 
 **Availability tab**
 
@@ -55,6 +63,8 @@ A monthly calendar view for managing your open time slots.
 - Click **Today** to jump back to the current month.
 - Click the **Refresh** button to force the dashboard to reload fresh data from your calendar.
 - Click on any day to add an availability block for that day.
+
+![alt text](./readme-images/readme-availability-tab.png)
 
 ---
 
@@ -77,9 +87,12 @@ The booking page on the website will show that time as available immediately.
 - Days with an amber dot already have a confirmed or pending booking — be mindful of those when adding new blocks.
 - The website shows availability up to 12 months ahead.
 
+![alt text](./readme-images/readme-availability-block-setup.png)
+
 **Alternative — via Google Calendar directly:**
 You can also create availability by adding an event named exactly `open` (lowercase) in **Graphite (gray)** color in Google Calendar. The website reads these the same way. This is useful if you are already in Google Calendar and want to add several blocks at once. To remove availability added this way, delete the `open` event from Google Calendar.
 
+![alt text](./readme-images/readme-google-calendar-view.png)
 ---
 
 ### When a Client Makes a Booking Request
@@ -89,10 +102,11 @@ When a client submits a booking request through the website, here is what happen
 1. A **yellow event** (marked `[PENDING]`) appears on your Google Calendar for that date and time.
 2. You receive an **email** at `shelestwellness@gmail.com` with all the client's details: name, phone, email, service, duration, date, time, and any notes they left.
 3. The email contains two buttons: **Accept Booking** and **Decline Booking**.
-4. The client receives a brief acknowledgment email letting them know their request was received and is pending confirmation.
+4. The client sees a success message on the website. They do not receive an email at this stage — they hear back only once you accept or decline.
 
 **Important:** the Accept and Decline buttons in your email expire after **7 days**. If you haven't acted on a request within 7 days, the buttons will stop working — use the **Pending** tab in the Admin Dashboard to accept or decline it instead.
 
+![alt text](./readme-images/readme-google-calendar-view-zoom.png)
 ---
 
 ### Accepting a Booking Request
@@ -103,15 +117,20 @@ When a client submits a booking request through the website, here is what happen
 3. You may be asked to sign in with your Google account first (one-time, then it remembers you).
 4. A confirmation page appears — click the confirm button to finalize.
 
+![alt text](./readme-images/readme-booking-request-email.png)
+
 **Option B — via the Admin Dashboard:**
 1. Go to the **Pending** tab.
 2. Find the request and click **Accept**.
+
+![alt text](./readme-images/readme-pending-tab.png)
 
 **What happens automatically either way:**
 - The calendar event turns **green** (`[CONFIRMED]`).
 - A **purple** break block is added right after the session (buffer time between clients).
 - The client receives a **confirmation email** with full appointment details: date, time, location, payment info, and cancellation policy.
 
+![alt text](./readme-images/readme-google-calendar-view-zoom.png)
 ---
 
 ### Declining a Booking Request
@@ -141,6 +160,7 @@ When a client submits a booking request through the website, here is what happen
 - The green confirmed event and the purple break block are both removed from your calendar.
 - The client receives a cancellation email with your phone number and email so they can rebook.
 
+![alt text](./readme-images/readme-confirmed-tab.png)
 ---
 
 ### Getting Reviews from Clients
@@ -167,6 +187,15 @@ Clients follow a step-by-step booking flow on the website:
 
 Once you accept, they receive a full confirmation email. If you decline, they receive a polite notice with a link to rebook.
 
+Step 1:
+![alt text](./readme-images/readme-booking-step1.png)
+Step 2:
+![alt text](./readme-images/readme-booking-step2.png)
+Step 3:
+![alt text](./readme-images/readme-booking-step3.png)
+Step 4:
+![alt text](./readme-images/readme-booking-step4.png)
+
 ---
 
 ### Emails Clients Receive
@@ -175,7 +204,7 @@ All emails are sent automatically from `massage@shelestwellness.ca` in the clien
 
 | When | What the client receives |
 |---|---|
-| After submitting a booking request | Acknowledgment — request received, pending your confirmation |
+| After submitting a booking request | Nothing — they see a success message on the website and wait to hear from you |
 | After you accept | Confirmation — date, time, location, payment info, cancellation policy |
 | After you decline | Decline notice — invitation to rebook |
 | The day before their appointment | Reminder — date, time, location, cancellation policy |
@@ -209,6 +238,7 @@ Couples massage cannot be booked online (because it requires coordinating two th
 
 You handle these bookings manually by phone or email after receiving the inquiry.
 
+![alt text](./readme-images/readme-booking-couples-step1.png)
 ---
 
 ### Languages — English and French
