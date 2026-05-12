@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { SERVICES } from '@/lib/config';
 import { CheckCircle, ChevronLeft, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { DatePickerInput } from '@/components/ui/DatePickerInput';
+import { BookingCalendar } from '@/components/BookingCalendar';
 import { FormField, TextareaField } from '@/components/FormField';
 import { TEXT_FILTERS, isValidPhone, validatePersonFields } from '@/lib/validation';
 import { formatPhone } from '@/lib/phone';
@@ -60,11 +60,16 @@ function formatDate(dateStr: string, loc: string): string {
   );
 }
 
-// Add N days to today (YYYY-MM-DD)
-function addDays(base: Date, days: number): string {
-  const d = new Date(base);
-  d.setDate(d.getDate() + days);
-  return d.toISOString().slice(0, 10);
+// Add N months to a YYYY-MM key
+function addMonths(monthKey: string, n: number): string {
+  const [y, m] = monthKey.split('-').map(Number);
+  const d = new Date(y, m - 1 + n, 1);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function currentMonthKey(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 }
 
 interface StepIndicatorProps {
@@ -122,7 +127,8 @@ export default function BookingWizard({ locale }: { locale: string }) {
   const [honeypot, setHoneypot] = useState('');
   const [formStartedAt, setFormStartedAt] = useState<number | null>(null);
 
-  // Step 2: available dates (set of YYYY-MM-DD strings)
+  // Step 2: calendar month and available dates
+  const [calendarMonth, setCalendarMonth] = useState<string>(currentMonthKey);
   const [availableDates, setAvailableDates] = useState<Set<string>>(new Set());
   const [loadingDates, setLoadingDates] = useState(false);
 
@@ -133,36 +139,22 @@ export default function BookingWizard({ locale }: { locale: string }) {
   // Step 4: submission
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
 
-  // Fetch available dates for next 30 days when entering step 2
+  // Fetch available dates for the displayed month (1 Google Calendar call via batch endpoint)
   const fetchAvailableDates = useCallback(async () => {
     if (!selection.serviceKey || !selection.duration) return;
     setLoadingDates(true);
     try {
-      const today = new Date();
-      const dates: string[] = [];
-      for (let i = 0; i < 30; i++) {
-        dates.push(addDays(today, i));
-      }
-      const results = await Promise.all(
-        dates.map((date) =>
-          fetch(
-            `/api/booking/slots?date=${date}&service=${selection.serviceKey}&duration=${selection.duration}`
-          ).then((r) => r.json() as Promise<{ slots?: TimeSlot[] }>)
-        )
+      const res = await fetch(
+        `/api/booking/available-dates?month=${calendarMonth}&service=${selection.serviceKey}&duration=${selection.duration}`
       );
-      const available = new Set<string>();
-      results.forEach((data, idx) => {
-        if (data.slots && data.slots.some((s) => s.available)) {
-          available.add(dates[idx]);
-        }
-      });
-      setAvailableDates(available);
+      const data: { availableDates?: string[] } = await res.json();
+      setAvailableDates(new Set(data.availableDates ?? []));
     } catch {
-      // silently ignore fetch errors — user can still pick any date
+      setAvailableDates(new Set());
     } finally {
       setLoadingDates(false);
     }
-  }, [selection.serviceKey, selection.duration]);
+  }, [calendarMonth, selection.serviceKey, selection.duration]);
 
   // Fetch time slots for selected date (step 3)
   const fetchTimeSlots = useCallback(async () => {
@@ -200,13 +192,15 @@ export default function BookingWizard({ locale }: { locale: string }) {
     setStep(2);
   }
 
-  // --- Step 2 handler ---
-  function handleDateChange(date: string) {
-    setSelection((prev) => ({ ...prev, date, time: undefined }));
+  // --- Step 2 handlers ---
+  function handleMonthChange(month: string) {
+    setCalendarMonth(month);
+    setAvailableDates(new Set());
   }
 
-  function handleDateConfirm() {
-    if (selection.date) setStep(3);
+  function handleDateSelect(date: string) {
+    setSelection((prev) => ({ ...prev, date, time: undefined }));
+    setStep(3);
   }
 
   // --- Step 3 handler ---
@@ -416,35 +410,19 @@ export default function BookingWizard({ locale }: { locale: string }) {
             <h2 className="font-heading text-xl font-semibold text-[#2D6A4F] mb-6 text-center">
               {t('step2Title')}
             </h2>
-            {loadingDates && (
-              <div className="flex justify-center mb-4">
-                <Loader2 className="w-6 h-6 text-[#52B788] animate-spin" />
-              </div>
-            )}
-            <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-              <DatePickerInput
-                value={selection.date ?? ''}
-                min={new Date().toISOString().slice(0, 10)}
-                max={addDays(new Date(), 90)}
-                className="w-full text-center text-lg text-[#2D6A4F] border-b-2 border-[#52B788] pb-2 outline-none bg-transparent cursor-pointer"
-                data-testid="date-picker"
-                onChange={handleDateChange}
-              />
-              {selection.date && (
-                <Button
-                  onClick={handleDateConfirm}
-                  className="mt-6 w-full bg-[#2D6A4F] hover:bg-[#245c44] text-white py-5 text-sm font-medium tracking-wider uppercase"
-                  data-testid="date-confirm"
-                >
-                  {t('next')}
-                </Button>
-              )}
-              {!loadingDates && availableDates.size > 0 && (
-                <p className="text-xs text-center text-[#52B788] mt-4">
-                  {availableDates.size} dates available in the next 30 days
-                </p>
-              )}
-            </div>
+            <BookingCalendar
+              month={calendarMonth}
+              availableDates={availableDates}
+              loading={loadingDates}
+              minMonth={currentMonthKey()}
+              maxMonth={addMonths(currentMonthKey(), 12)}
+              onMonthChange={handleMonthChange}
+              onDateSelect={handleDateSelect}
+              locale={locale}
+              prevMonthLabel={t('prevMonth')}
+              nextMonthLabel={t('nextMonth')}
+              noSlotsLabel={t('noSlotsInMonth')}
+            />
             <p className="text-xs text-center text-gray-400 mt-4">
               {service?.title[locale as 'en' | 'fr'] ?? ''} · {selection.duration} {t('min')}
             </p>

@@ -10,7 +10,7 @@ Built with **Next.js**, **Tailwind CSS**, **shadcn/ui**, **next-intl**, and **Re
 ```bash
 npm install
 npm run dev        # local dev server
-npm test           # run all unit and integration tests (Vitest — 111 tests)
+npm test           # run all unit and integration tests (Vitest — 158 tests)
 ANALYZE=true npm run build  # bundle analysis (opens HTML report in browser)
 ```
 
@@ -373,7 +373,7 @@ The `localBusinessJsonLd` function (`src/lib/jsonld.ts`) automatically includes 
 | `/services` | Dedicated services page — detailed description, benefits, and pricing entry point for each massage type (Therapeutic, Deep Tissue, Relaxation, Lymphatic Drainage, Children's, Couples) — includes service-specific FAQ section |
 | `/fees` | Pricing table grouped by service, with links to the services page |
 | `/contact` | Contact info, map, contact form |
-| `/booking` | Online booking flow — service & duration selection, date picker, time slot picker, client details form (enabled when `BOOKING.showBookingsService === true`) |
+| `/booking` | Online booking flow — service & duration selection, monthly calendar view (days with available slots highlighted), time slot picker, client details form (enabled when `BOOKING.showBookingsService === true`) |
 | `/privacy-policy` | Privacy policy (not in main nav) |
 | `/massage-hull` | Local landing page — Hull residents and Ottawa federal workers (Place du Portage) |
 | `/massage-ottawa` | Local landing page — Ottawa cross-river angle via Portage bridge |

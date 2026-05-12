@@ -433,6 +433,9 @@
     "back": "Back",
     "next": "Next",
     "min": "min",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "noSlotsInMonth": "No availability this month",
     "phonePlaceholder": "e.g. (819) 555-0123",
     "validation": {
       "langRequired": "Please select a preferred language"
