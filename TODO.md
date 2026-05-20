@@ -45,6 +45,20 @@
 
 ---
 
+## SEO — Additional Directory Listings
+
+Already done: GBP, Bing Places, Apple Business Connect, Yelp, Yellow Pages, RateMDs, Cylex, Setmore, AMQ. The following are still worth adding:
+
+- [ ] **Clinicin.ca** — Canadian health practitioners directory
+- [ ] **Wellness.com** — health/wellness directory
+- [ ] **NaturalHealthPractitioners.ca** — complementary health focused
+- [ ] **Chambre de commerce de Gatineau** — local business association (adds local authority)
+- [ ] **Canada411.ca** — basic Canadian business directory
+
+Keep NAP consistent everywhere: `Olha Shelest · 148 Rue Eddy, Unit 2, Gatineau, QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca`
+
+---
+
 ## GBP — Improve Q&A Section
 
 **Priority: High — GBP Q&A is indexed by Google and is an underused local ranking signal.**
