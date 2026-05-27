@@ -45,6 +45,19 @@
 
 ---
 
+## SEO — Dofollow Backlinks (High Priority)
+
+Most existing directories (Yelp, Yellow Pages, RateMDs, Cylex) are **nofollow** — they help with NAP consistency but don't pass link equity to Google. Dofollow links are harder to get but move rankings more.
+
+### Best sources for dofollow backlinks
+
+- [ ] **Chambre de commerce de Gatineau** — ccgatineau.ca — member directory links tend to be dofollow, carry local authority. Paid membership required.
+- [ ] **GoRendezvous** — gorendezvous.com — Quebec wellness booking platform, verify if dofollow
+- [ ] **Local media mention** — Le Droit, CBC Ottawa, local wellness blogs — a single mention with a link outweighs dozens of directory listings
+- [ ] **Cross-referral with local businesses** — yoga studio, physiotherapist, chiropractor in Gatineau linking to each other's sites
+
+---
+
 ## SEO — Additional Directory Listings
 
 Already done: GBP, Bing Places, Apple Business Connect, Yelp, Yellow Pages, RateMDs, Cylex, Setmore, AMQ. The following are still worth adding:
@@ -56,41 +69,6 @@ Already done: GBP, Bing Places, Apple Business Connect, Yelp, Yellow Pages, Rate
 - [ ] **Canada411.ca** — basic Canadian business directory
 
 Keep NAP consistent everywhere: `Olha Shelest · 148 Rue Eddy, Unit 2, Gatineau, QC J8X 2W8 · (819) 815-5603 · https://www.shelestwellness.ca`
-
----
-
-## GBP — Improve Q&A Section
-
-**Priority: High — GBP Q&A is indexed by Google and is an underused local ranking signal.**
-
-Pre-populate the public Q&A panel on Google Business Profile. You are allowed to ask AND answer your own questions (this is Google's recommended practice for businesses).
-
-### How to do it
-
-1. Open [Google Business Profile](https://business.google.com) and go to your listing
-2. Click **"Ask a question"** — ask the question from your account
-3. Then switch to the business owner view and **answer** it
-4. Repeat for all 10 questions below
-
-### Questions to add (ask and answer in both FR and EN)
-
-1. Quels services offrez-vous ? / What services do you offer?
-2. Quel est le tarif d'une séance ? / What's the rate for a session?
-3. Y a-t-il du stationnement à proximité ? / Is there parking nearby?
-4. Acceptez-vous les reçus pour assurances ? / Do you provide insurance receipts? *(yes — AMQ member #M-24-4471)*
-5. Parlez-vous français et anglais ? / Do you speak French and English?
-6. Faut-il prendre rendez-vous ? / Do I need to book in advance?
-7. Quel type de massage est recommandé pour une première visite ? / What massage is recommended for a first visit?
-8. Faites-vous des massages pour femmes enceintes ? / Do you offer prenatal massage?
-9. À quoi dois-je m'attendre lors de ma première séance ? / What should I expect during my first session?
-10. Acceptez-vous les paiements par Interac / carte / comptant ? / Do you accept Interac / card / cash?
-
-### Tips for maximum SEO value
-
-- Keep answers concise (under 200 characters each)
-- Include service keywords naturally: "massage thérapeutique", "drainage lymphatique", "Gatineau", etc.
-- Check the Q&A panel weekly — anyone can ask a question and you must respond promptly
-- Google indexes the full text of Q&A answers — treat them like mini-descriptions of your services
 
 ---
 
