@@ -46,7 +46,7 @@ There are two different things to rank:
 ### Already done (from `olha-shelest-seo-plan.md` and `README.md`)
 - Bilingual EN/FR website with hreflang, canonical URLs, and proper next-intl routing
 - Per-page metadata (title, description, OG, Twitter cards)
-- JSON-LD: HealthAndBeautyBusiness, Person, Service (ItemList), Offer, BreadcrumbList, AggregateRating with Reviews
+- JSON-LD: MedicalBusiness + LocalBusiness, Person, Service (ItemList), Offer, BreadcrumbList, AggregateRating with Reviews
 - Sitemap, robots.txt
 - Google Search Console verified, sitemap submitted, key pages requested for indexing
 - Google Business Profile **verified** with Place ID, linked in JSON-LD `sameAs`

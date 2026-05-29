@@ -9,7 +9,7 @@ vi.mock('next/navigation', () => ({
 }));
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import BookingWizard from './BookingWizard';
 
 // Compute a test date that is always in the future and in the current month
@@ -23,9 +23,12 @@ function computeTestDate() {
     d.setMonth(d.getMonth() + 1);
     d.setDate(5);
   }
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const dayNum = d.getDate();
   return {
-    str: d.toISOString().slice(0, 10),
-    day: d.getDate(),
+    str: `${year}-${month}-${String(dayNum).padStart(2, '0')}`,
+    day: dayNum,
   };
 }
 const { str: TEST_DATE_STR, day: TEST_DAY } = computeTestDate();
@@ -68,9 +71,6 @@ async function navigateToTestMonth() {
   if (testDate.getMonth() !== today.getMonth()) {
     const nextBtn = screen.getByLabelText('nextMonth');
     fireEvent.click(nextBtn);
-    await waitFor(() => {
-      // wait for the month label to update — day button will re-render
-    });
   }
 }
 
