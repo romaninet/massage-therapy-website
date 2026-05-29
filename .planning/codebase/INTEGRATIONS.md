@@ -51,7 +51,7 @@ last_mapped: 2026-05-05
 - **Purpose:** Rich search results and SEO
 - **Implementation:** `src/lib/jsonld.ts`
 - **Schemas used:**
-  - `HealthAndBeautyBusiness` — home & contact pages
+  - `MedicalBusiness` + `LocalBusiness` — home & contact pages
   - `Person` — about page
   - `ItemList` (services) — fees page
   - `Service` with `AggregateOffer` — services page (`servicesPageJsonLd`)

@@ -49,6 +49,7 @@ function amqCredential(locale: Locale) {
 function articleAuthorPerson(locale: Locale) {
   return {
     '@type': 'Person',
+    '@id': `${SITE.url}/#person`,
     name: BUSINESS.name,
     url: `${SITE.url}/${locale}/about`,
     sameAs: DIRECTORY_URLS,
@@ -57,7 +58,7 @@ function articleAuthorPerson(locale: Locale) {
 }
 
 const businessEntity = {
-  '@type': 'HealthAndBeautyBusiness',
+  '@type': ['MedicalBusiness', 'LocalBusiness'],
   '@id': SITE.url,
   name: BUSINESS.name,
   url: SITE.url,
@@ -168,7 +169,7 @@ export function personJsonLd(locale: Locale) {
          "Children's massage", 'Couples massage', 'Sports recovery', 'Stress management',
          'Holistic healing', 'Soft tissue therapy'],
     worksFor: {
-      '@type': 'HealthAndBeautyBusiness',
+      '@type': ['MedicalBusiness', 'LocalBusiness'],
       '@id': SITE.url,
       name: BUSINESS.name,
     },
@@ -199,7 +200,7 @@ export function servicesPageJsonLd(locale: Locale) {
           { '@type': 'City', name: 'Ottawa' },
         ],
         provider: {
-          '@type': 'HealthAndBeautyBusiness',
+          '@type': ['MedicalBusiness', 'LocalBusiness'],
           '@id': SITE.url,
           name: BUSINESS.name,
         },
@@ -239,7 +240,7 @@ export function articleJsonLd(article: {
     about: { '@type': 'MedicalTherapy', name: 'Massage Therapy' },
     author: articleAuthorPerson(article.locale),
     publisher: {
-      '@type': 'HealthAndBeautyBusiness',
+      '@type': ['MedicalBusiness', 'LocalBusiness'],
       '@id': SITE.url,
       name: BUSINESS.name,
       url: SITE.url,
@@ -332,7 +333,7 @@ export function servicesJsonLd(
         price: s.price.replace(/[^0-9]/g, ''),
         priceCurrency: 'CAD',
         seller: {
-          '@type': 'HealthAndBeautyBusiness',
+          '@type': ['MedicalBusiness', 'LocalBusiness'],
           name: BUSINESS.name,
         },
       },

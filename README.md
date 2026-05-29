@@ -369,13 +369,13 @@ The site is set up with:
 
 - **Per-page metadata** — title, description, Open Graph, Twitter card on every page
 - **JSON-LD structured data:**
-  - `HealthAndBeautyBusiness` (with `hasOfferCatalog`, `aggregateRating`, and `review[]` from client testimonials) — home & contact pages
+  - `MedicalBusiness` + `LocalBusiness` (with `hasOfferCatalog`, `aggregateRating`, and `review[]` from client testimonials) — home & contact pages
   - `Person` (with `hasCredential`, `knowsAbout`, `sameAs`) — About page
   - `ItemList` with `Service` schema (per-service with pricing and area served) — Services page
   - `ItemList` with `Offer` schema (per duration tier with pricing) — Fees page
   - `FAQPage` with 5 general Q&As — home page
   - `FAQPage` with 5 service-specific Q&As — Services page
-  - `FAQPage` with 3 area-specific Q&As + `HealthAndBeautyBusiness` + `BreadcrumbList` — each local area landing page
+  - `FAQPage` with 3 area-specific Q&As + `MedicalBusiness` + `LocalBusiness` + `BreadcrumbList` — each local area landing page
   - `BreadcrumbList` — About, Services, Fees, Contact, Privacy Policy pages
   - `Article` (E-E-A-T: `author.sameAs`, `author.hasCredential`, `publisher.logo`, `keywords`, `about: MedicalTherapy`, `speakable`) + `FAQPage` + `BreadcrumbList` — each article page
   - `HowTo` (step-by-step schema) — `how-to-choose-massage-therapist-gatineau` and `amq-receipts-massage-insurance-coverage-gatineau` articles
